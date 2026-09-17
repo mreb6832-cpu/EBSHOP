@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Owner Dashboard | E&B SHOP</title>
+  <title>E&B SHOP | Owner Dashboard</title>
 
   <style>
     * {
@@ -15,139 +16,264 @@
     }
 
     body {
-      background: #f5f7fb;
-      color: #222;
+      background: #080808;
+      color: white;
     }
 
-    .topbar {
-      background: #111827;
-      color: white;
-      padding: 18px 25px;
+    header {
+      background: #111;
+      border-bottom: 1px solid #d4af37;
+      padding: 18px 5%;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
     }
 
-    .topbar h1 {
-      font-size: 22px;
+    .logo {
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: bold;
     }
 
-    .owner {
-      font-size: 14px;
-      opacity: 0.9;
+    .logo span {
+      color: white;
     }
 
-    .container {
+    .back {
+      color: #111;
+      background: #d4af37;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      width: 92%;
       max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
+      margin: 35px auto;
     }
 
     .welcome {
       margin-bottom: 25px;
     }
 
-    .welcome h2 {
-      margin-bottom: 8px;
+    .welcome h1 {
+      color: #d4af37;
+      margin-bottom: 5px;
+    }
+
+    .welcome p {
+      color: #999;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 18px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
-    .card {
-      background: white;
-      border-radius: 14px;
+    .stat {
+      background: #111;
+      border: 1px solid #292929;
       padding: 22px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      border-radius: 12px;
     }
 
-    .card h3 {
-      font-size: 15px;
-      color: #666;
-      margin-bottom: 10px;
-    }
-
-    .number {
-      font-size: 30px;
-      font-weight: bold;
-      color: #111827;
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-    }
-
-    .action {
-      background: white;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    }
-
-    .action h3 {
+    .stat h3 {
+      color: #999;
+      font-size: 14px;
       margin-bottom: 8px;
     }
 
-    .action p {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 15px;
+    .stat strong {
+      color: #d4af37;
+      font-size: 30px;
     }
 
-    .btn {
-      display: inline-block;
-      border: none;
-      padding: 11px 16px;
-      border-radius: 8px;
-      background: #111827;
+    .panel {
+      background: #111;
+      border: 1px solid #292929;
+      padding: 25px;
+      border-radius: 14px;
+      margin-bottom: 25px;
+    }
+
+    .panel h2 {
+      color: #d4af37;
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      background: #080808;
       color: white;
-      text-decoration: none;
+      border: 1px solid #333;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #d4af37;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
       cursor: pointer;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
       font-weight: bold;
     }
 
-    .btn:hover {
-      opacity: 0.9;
+    .save {
+      background: #d4af37;
+      color: #080808;
     }
 
-    .danger {
-      background: #dc2626;
+    .clear {
+      background: #333;
+      color: white;
     }
 
-    .logout {
-      background: #ef4444;
-      margin-left: 10px;
+    .products-list {
+      display: grid;
+      gap: 12px;
     }
 
-    .hidden {
-      display: none;
+    .product {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 15px;
+      align-items: center;
+      background: #080808;
+      border: 1px solid #292929;
+      padding: 12px;
+      border-radius: 10px;
     }
 
-    #denied {
+    .product img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product h3 {
+      margin-bottom: 5px;
+    }
+
+    .product p {
+      color: #999;
+      font-size: 14px;
+      margin: 3px 0;
+    }
+
+    .price {
+      color: #d4af37 !important;
+      font-weight: bold;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .edit {
+      background: #d4af37;
+      color: #080808;
+    }
+
+    .delete {
+      background: #8d2020;
+      color: white;
+    }
+
+    .empty {
       text-align: center;
-      padding: 80px 20px;
+      color: #888;
+      padding: 30px;
     }
 
-    #denied h1 {
-      color: #dc2626;
-      margin-bottom: 15px;
+    .note {
+      color: #888;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 15px;
     }
 
-    #dashboard {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      .topbar {
+    @media (max-width: 750px) {
+      .header-inner {
         flex-direction: column;
-        gap: 10px;
-        text-align: center;
+        align-items: flex-start;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      .product {
+        grid-template-columns: 65px 1fr;
+      }
+
+      .product img {
+        width: 65px;
+        height: 65px;
+      }
+
+      .actions {
+        grid-column: 1 / -1;
       }
     }
   </style>
@@ -155,265 +281,698 @@
 
 <body>
 
-  <!-- ACCESS DENIED -->
-  <div id="denied">
-    <h1>🚫 Access Denied</h1>
-    <p>Only the E&B SHOP Owner can access this page.</p>
-  </div>
+<header>
+  <div class="header-inner">
 
-  <!-- OWNER DASHBOARD -->
-  <div id="dashboard">
-
-    <div class="topbar">
-      <div>
-        <h1>👑 E&B SHOP Owner Dashboard</h1>
-      </div>
-
-      <div class="owner">
-        Owner: mucyoemmy539@gmail.com
-        <button class="btn logout" onclick="logout()">Logout</button>
-      </div>
+    <div class="logo">
+      👑 E&B <span>SHOP OWNER</span>
     </div>
 
-    <div class="container">
+    <a href="index.html" class="back">
+      ← Back to Shop
+    </a>
 
-      <div class="welcome">
-        <h2>Welcome, Owner 👋</h2>
-        <p>Manage your E&B SHOP marketplace from here.</p>
-      </div>
+  </div>
+</header>
 
-      <!-- STATS -->
-      <div class="stats">
+<main>
 
-        <div class="card">
-          <h3>Products</h3>
-          <div class="number" id="productCount">0</div>
-        </div>
+  <div class="welcome">
+    <h1>Owner Dashboard</h1>
+    <p>Manage all products in E&B SHOP.</p>
+  </div>
 
-        <div class="card">
-          <h3>Registered Users</h3>
-          <div class="number" id="userCount">0</div>
-        </div>
+  <!-- STATS -->
 
-        <div class="card">
-          <h3>Cart Items</h3>
-          <div class="number" id="cartCount">0</div>
-        </div>
+  <div class="stats">
 
-        <div class="card">
-          <h3>Cart Value</h3>
-          <div class="number" id="cartValue">0 SEK</div>
-        </div>
+    <div class="stat">
+      <h3>Total Products</h3>
+      <strong id="totalProducts">0</strong>
+    </div>
 
-      </div>
+    <div class="stat">
+      <h3>Total Stock</h3>
+      <strong id="totalStock">0</strong>
+    </div>
 
-      <!-- ACTIONS -->
-      <div class="actions">
-
-        <div class="action">
-          <h3>📦 Products</h3>
-          <p>View and manage products in your marketplace.</p>
-          <a href="index.html#products" class="btn">View Products</a>
-        </div>
-
-        <div class="action">
-          <h3>🛍️ Seller Center</h3>
-          <p>Open the seller dashboard.</p>
-          <a href="seller-dashboard.html" class="btn">Seller Center</a>
-        </div>
-
-        <div class="action">
-          <h3>👤 Customers</h3>
-          <p>View registered customer accounts.</p>
-          <a href="register.html" class="btn">Register Page</a>
-        </div>
-
-        <div class="action">
-          <h3>🌐 Storefront</h3>
-          <p>Open your public E&B SHOP website.</p>
-          <a href="index.html" class="btn">Open Store</a>
-        </div>
-
-        <div class="action">
-          <h3>🧹 Store Data</h3>
-          <p>Clear locally stored products from this browser.</p>
-          <button class="btn danger" onclick="clearProducts()">
-            Clear Products
-          </button>
-        </div>
-
-      </div>
-
+    <div class="stat">
+      <h3>Currency</h3>
+      <strong>SEK</strong>
     </div>
 
   </div>
 
-  <script>
 
-    /* =========================
-       OWNER SETTINGS
-    ========================= */
+  <!-- ADD PRODUCT -->
 
-    const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
+  <section class="panel">
+
+    <h2 id="formTitle">➕ Add Product</h2>
+
+    <form id="productForm">
+
+      <input type="hidden" id="productId">
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>Product Name</label>
+
+          <input
+            type="text"
+            id="productName"
+            placeholder="Example: iPhone 16"
+            required
+          >
+
+        </div>
 
 
-    /* =========================
-       OWNER ACCESS CHECK
-    ========================= */
+        <div class="field">
 
-    function checkAdminAccess() {
+          <label>Price (SEK)</label>
 
-      const email =
-        localStorage.getItem("ebShopCustomerEmail");
+          <input
+            type="number"
+            id="productPrice"
+            min="0"
+            placeholder="4999"
+            required
+          >
 
-      if (
-        !email ||
-        email.trim().toLowerCase() !==
-        ADMIN_EMAIL.toLowerCase()
-      ) {
+        </div>
 
-        document.getElementById("denied").style.display = "block";
-        document.getElementById("dashboard").style.display = "none";
 
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1500);
+        <div class="field">
 
-        return false;
-      }
+          <label>Category</label>
 
-      document.getElementById("denied").style.display = "none";
-      document.getElementById("dashboard").style.display = "block";
+          <select id="productCategory" required>
 
-      return true;
+            <option value="">Select category</option>
+
+            <option value="Electronics">
+              Electronics
+            </option>
+
+            <option value="Fashion">
+              Fashion
+            </option>
+
+            <option value="Shoes">
+              Shoes
+            </option>
+
+            <option value="Home">
+              Home
+            </option>
+
+            <option value="Beauty">
+              Beauty
+            </option>
+
+            <option value="Gaming">
+              Gaming
+            </option>
+
+            <option value="Kids">
+              Kids
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>Stock</label>
+
+          <input
+            type="number"
+            id="productStock"
+            min="0"
+            placeholder="10"
+            required
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>Product Image URL</label>
+
+          <input
+            type="url"
+            id="productImage"
+            placeholder="https://example.com/image.jpg"
+            required
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>Description</label>
+
+          <textarea
+            id="productDescription"
+            placeholder="Describe your product..."
+            required
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="buttons">
+
+        <button
+          type="submit"
+          class="save"
+          id="saveButton"
+        >
+          💾 Add Product
+        </button>
+
+        <button
+          type="button"
+          class="clear"
+          onclick="clearForm()"
+        >
+          Clear
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+
+  <section class="panel">
+
+    <h2>📦 Products</h2>
+
+    <div
+      id="productsList"
+      class="products-list"
+    ></div>
+
+    <p class="note">
+      Products added here are saved in this browser using
+      localStorage. We will add a real online database later.
+    </p>
+
+  </section>
+
+</main>
+
+
+<script>
+
+  const STORAGE_KEY = "ebShopProducts";
+
+
+  /*
+    Existing E&B SHOP products.
+    They are created automatically the first time
+    the Owner Dashboard is opened.
+  */
+
+  const defaultProducts = [
+
+    {
+      id: "p1",
+      name: "Smartphone",
+      price: 4999,
+      category: "Electronics",
+      stock: 10,
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800",
+      description: "Modern smartphone for everyday use."
+    },
+
+    {
+      id: "p2",
+      name: "Sport Shoes",
+      price: 999,
+      category: "Shoes",
+      stock: 15,
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+      description: "Comfortable sport shoes for everyday activities."
+    },
+
+    {
+      id: "p3",
+      name: "Wireless Headphones",
+      price: 699,
+      category: "Electronics",
+      stock: 20,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+      description: "Wireless headphones with clear sound."
+    },
+
+    {
+      id: "p4",
+      name: "Smart Watch",
+      price: 899,
+      category: "Electronics",
+      stock: 12,
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+      description: "Smart watch for everyday activities."
+    },
+
+    {
+      id: "p5",
+      name: "Fashion Bag",
+      price: 1299,
+      category: "Fashion",
+      stock: 8,
+      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800",
+      description: "Modern fashion bag."
+    },
+
+    {
+      id: "p6",
+      name: "Home Air Fryer",
+      price: 1299,
+      category: "Home",
+      stock: 7,
+      image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=800",
+      description: "Easy-to-use air fryer for your kitchen."
+    },
+
+    {
+      id: "p7",
+      name: "Gaming Controller",
+      price: 599,
+      category: "Gaming",
+      stock: 14,
+      image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=800",
+      description: "Gaming controller for console gaming."
+    },
+
+    {
+      id: "p8",
+      name: "Beauty Products",
+      price: 399,
+      category: "Beauty",
+      stock: 25,
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800",
+      description: "Beauty products for everyday care."
     }
 
-
-    /* =========================
-       LOAD DASHBOARD
-    ========================= */
-
-    function loadDashboard() {
-
-      if (!checkAdminAccess()) {
-        return;
-      }
-
-      /* PRODUCTS */
-
-      let products = [];
-
-      try {
-        products =
-          JSON.parse(
-            localStorage.getItem("ebShopProducts")
-          ) || [];
-      } catch (error) {
-        products = [];
-      }
-
-      document.getElementById("productCount").textContent =
-        products.length;
+  ];
 
 
-      /* USERS */
+  function getProducts() {
 
-      let users = [];
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
 
-      try {
-        users =
-          JSON.parse(
-            localStorage.getItem("ebShopUsers")
-          ) || [];
-      } catch (error) {
-        users = [];
-      }
+    if (!saved) {
 
-      document.getElementById("userCount").textContent =
-        users.length;
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(defaultProducts)
+      );
 
+      return [...defaultProducts];
 
-      /* CART */
+    }
 
-      let cart = [];
+    try {
 
-      try {
-        cart =
-          JSON.parse(
-            localStorage.getItem("ebShopCart")
-          ) || [];
-      } catch (error) {
-        cart = [];
-      }
+      return JSON.parse(saved);
 
-      document.getElementById("cartCount").textContent =
-        cart.reduce(
-          (total, item) =>
-            total + Number(item.quantity || 1),
-          0
-        );
+    } catch (error) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(defaultProducts)
+      );
+
+      return [...defaultProducts];
+
+    }
+
+  }
 
 
-      /* CART VALUE */
+  function saveProducts(products) {
 
-      const totalValue = cart.reduce(
-        (total, item) =>
-          total +
-          Number(item.price || 0) *
-          Number(item.quantity || 1),
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(products)
+    );
+
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function renderProducts() {
+
+    const products =
+      getProducts();
+
+    const list =
+      document.getElementById("productsList");
+
+
+    document.getElementById(
+      "totalProducts"
+    ).textContent = products.length;
+
+
+    const stock =
+      products.reduce(
+        (sum, product) =>
+          sum + Number(product.stock || 0),
         0
       );
 
-      document.getElementById("cartValue").textContent =
-        totalValue.toFixed(2) + " SEK";
+
+    document.getElementById(
+      "totalStock"
+    ).textContent = stock;
+
+
+    if (!products.length) {
+
+      list.innerHTML =
+        '<div class="empty">No products yet.</div>';
+
+      return;
+
     }
 
 
-    /* =========================
-       LOGOUT
-    ========================= */
+    list.innerHTML =
+      products.map(product => `
 
-    function logout() {
+        <div class="product">
 
-      localStorage.removeItem("ebShopCustomerEmail");
-      localStorage.removeItem("ebShopCustomerName");
-      localStorage.removeItem("ebShopCustomerPhone");
-      localStorage.removeItem("ebShopLoggedIn");
+          <img
+            src="${escapeHtml(product.image)}"
+            alt="${escapeHtml(product.name)}"
+          >
 
-      window.location.href = "index.html";
-    }
+          <div>
+
+            <h3>
+              ${escapeHtml(product.name)}
+            </h3>
+
+            <p class="price">
+              ${Number(product.price).toLocaleString()} SEK
+            </p>
+
+            <p>
+              Category:
+              ${escapeHtml(product.category)}
+            </p>
+
+            <p>
+              Stock:
+              ${Number(product.stock)}
+            </p>
+
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="edit"
+              onclick="editProduct('${product.id}')"
+            >
+              ✏️ Edit
+            </button>
+
+            <button
+              class="delete"
+              onclick="deleteProduct('${product.id}')"
+            >
+              🗑️ Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      `).join("");
+
+  }
 
 
-    /* =========================
-       CLEAR PRODUCTS
-    ========================= */
+  document
+    .getElementById("productForm")
+    .addEventListener(
+      "submit",
+      function(event) {
 
-    function clearProducts() {
+        event.preventDefault();
 
-      const confirmed =
-        confirm(
-          "Are you sure you want to remove all locally stored products?"
+
+        const products =
+          getProducts();
+
+
+        const id =
+          document.getElementById(
+            "productId"
+          ).value;
+
+
+        const newProduct = {
+
+          id:
+            id || "p" + Date.now(),
+
+          name:
+            document.getElementById(
+              "productName"
+            ).value.trim(),
+
+          price:
+            Number(
+              document.getElementById(
+                "productPrice"
+              ).value
+            ),
+
+          category:
+            document.getElementById(
+              "productCategory"
+            ).value,
+
+          stock:
+            Number(
+              document.getElementById(
+                "productStock"
+              ).value
+            ),
+
+          image:
+            document.getElementById(
+              "productImage"
+            ).value.trim(),
+
+          description:
+            document.getElementById(
+              "productDescription"
+            ).value.trim()
+
+        };
+
+
+        if (id) {
+
+          const index =
+            products.findIndex(
+              product => product.id === id
+            );
+
+          if (index !== -1) {
+            products[index] = newProduct;
+          }
+
+        } else {
+
+          products.push(newProduct);
+
+        }
+
+
+        saveProducts(products);
+
+        clearForm();
+
+        renderProducts();
+
+
+        alert(
+          id
+            ? "Product updated successfully!"
+            : "Product added successfully!"
         );
 
-      if (!confirmed) {
-        return;
       }
-
-      localStorage.removeItem("ebShopProducts");
-
-      alert("Products cleared.");
-
-      loadDashboard();
-    }
+    );
 
 
-    /* =========================
-       START
-    ========================= */
+  function editProduct(id) {
 
-    loadDashboard();
+    const products =
+      getProducts();
 
-  </script>
+    const product =
+      products.find(
+        item => item.id === id
+      );
+
+    if (!product) return;
+
+
+    document.getElementById(
+      "productId"
+    ).value = product.id;
+
+
+    document.getElementById(
+      "productName"
+    ).value = product.name;
+
+
+    document.getElementById(
+      "productPrice"
+    ).value = product.price;
+
+
+    document.getElementById(
+      "productCategory"
+    ).value = product.category;
+
+
+    document.getElementById(
+      "productStock"
+    ).value = product.stock;
+
+
+    document.getElementById(
+      "productImage"
+    ).value = product.image;
+
+
+    document.getElementById(
+      "productDescription"
+    ).value = product.description;
+
+
+    document.getElementById(
+      "formTitle"
+    ).textContent = "✏️ Edit Product";
+
+
+    document.getElementById(
+      "saveButton"
+    ).textContent = "💾 Update Product";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  function deleteProduct(id) {
+
+    const products =
+      getProducts();
+
+    const product =
+      products.find(
+        item => item.id === id
+      );
+
+    if (!product) return;
+
+
+    const confirmed =
+      confirm(
+        "Delete " +
+        product.name +
+        "?"
+      );
+
+
+    if (!confirmed) return;
+
+
+    const updated =
+      products.filter(
+        item => item.id !== id
+      );
+
+
+    saveProducts(updated);
+
+    renderProducts();
+
+  }
+
+
+  function clearForm() {
+
+    document
+      .getElementById("productForm")
+      .reset();
+
+
+    document.getElementById(
+      "productId"
+    ).value = "";
+
+
+    document.getElementById(
+      "formTitle"
+    ).textContent = "➕ Add Product";
+
+
+    document.getElementById(
+      "saveButton"
+    ).textContent = "💾 Add Product";
+
+  }
+
+
+  renderProducts();
+
+</script>
 
 </body>
 </html>
+```
