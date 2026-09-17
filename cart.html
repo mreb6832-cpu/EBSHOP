@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Cart | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080808;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: #050505;
+      border-bottom: 1px solid #292929;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    .account-btn {
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      padding: 9px 14px;
+      border-radius: 8px;
+    }
+
+    main {
+      width: 90%;
+      max-width: 1150px;
+      margin: 50px auto 80px;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .page-title small {
+      color: #d4af37;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .page-title h1 {
+      font-size: 43px;
+      margin: 12px 0;
+    }
+
+    .page-title p {
+      color: #999;
+    }
+
+    .gold {
+      color: #d4af37;
+    }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 15px;
+    }
+
+    .cart-item {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .item-name {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .item-price {
+      color: #d4af37;
+      margin-top: 7px;
+      font-size: 15px;
+    }
+
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .quantity button {
+      width: 36px;
+      height: 34px;
+      background: #1b1b1b;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .quantity button:hover {
+      color: #d4af37;
+    }
+
+    .quantity span {
+      min-width: 38px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .remove-btn {
+      border: 1px solid #7d3333;
+      background: transparent;
+      color: #ff7777;
+      padding: 9px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background: #321414;
+    }
+
+    .item-total {
+      text-align: right;
+      color: #d4af37;
+      font-size: 19px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .summary {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 25px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .summary h2 {
+      margin-bottom: 22px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 15px 0;
+      color: #aaa;
+    }
+
+    .summary-row strong {
+      color: #fff;
+    }
+
+    .summary-total {
+      border-top: 1px solid #333;
+      padding-top: 18px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .summary-total span:last-child {
+      color: #d4af37;
+    }
+
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      background: #d4af37;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .checkout-btn:hover {
+      background: #f0cc55;
+    }
+
+    .continue-btn {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #d4af37;
+      font-size: 14px;
+    }
+
+    .empty-cart {
+      display: none;
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .empty-cart .icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .empty-cart h2 {
+      margin-bottom: 10px;
+    }
+
+    .empty-cart p {
+      color: #999;
+    }
+
+    .shop-btn {
+      display: inline-block;
+      margin-top: 22px;
+      background: #d4af37;
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #050505;
+      border-top: 1px solid #222;
+      padding: 30px;
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        position: static;
+      }
+    }
+
+    @media (max-width: 550px) {
+      main {
+        width: 94%;
+        margin-top: 30px;
+      }
+
+      .page-title h1 {
+        font-size: 34px;
+      }
+
+      .cart-item {
+        grid-template-columns: 1fr;
+      }
+
+      .item-total {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+
+    <a href="index.html" class="logo">
+      🛒 <span>E&B</span> SHOP
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="account.html" class="account-btn">My Account</a>
+    </nav>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main>
+
+    <section class="page-title">
+
+      <small>🇸🇪 E&B SHOP • SWEDEN</small>
+
+      <h1>
+        Your <span class="gold">Shopping Cart</span>
+      </h1>
+
+      <p>
+        Review your products before checkout.
+      </p>
+
+    </section>
+
+
+    <!-- EMPTY CART -->
+    <section class="empty-cart" id="emptyCart">
+
+      <div class="icon">🛒</div>
+
+      <h2>Your cart is empty</h2>
+
+      <p>
+        You have not added any products yet.
+      </p>
+
+      <a href="products.html" class="shop-btn">
+        Browse Products
+      </a>
+
+    </section>
+
+
+    <!-- CART -->
+    <section class="cart-layout" id="cartLayout">
+
+      <div class="cart-items" id="cartItems"></div>
+
+
+      <!-- SUMMARY -->
+      <aside class="summary">
+
+        <h2>
+          Order <span class="gold">Summary</span>
+        </h2>
+
+        <div class="summary-row">
+          <span>Items</span>
+          <strong id="summaryItems">0</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <strong id="subtotal">0 SEK</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Delivery</span>
+          <strong>Calculated later</strong>
+        </div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="total">0 SEK</span>
+        </div>
+
+        <button
+          class="checkout-btn"
+          onclick="goToCheckout()"
+        >
+          Proceed to Checkout
+        </button>
+
+        <a href="products.html" class="continue-btn">
+          ← Continue Shopping
+        </a>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
+    <br>
+    Everything You Need in One Shop.
+  </footer>
+
+
+  <script>
+
+    /*
+      E&B SHOP CART
+      --------------
+      Cart data is stored in localStorage.
+
+      Later we can connect this to the
+      real database and checkout system.
+    */
+
+
+    function getCart() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem("ebShopCart")
+        ) || [];
+
+      } catch (error) {
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveCart(cart) {
+
+      localStorage.setItem(
+        "ebShopCart",
+        JSON.stringify(cart)
+      );
+
+    }
+
+
+    function formatPrice(price) {
+
+      return Number(price).toLocaleString("sv-SE") + " SEK";
+
+    }
+
+
+    function renderCart() {
+
+      const cart = getCart();
+
+      const cartItems =
+        document.getElementById("cartItems");
+
+      const emptyCart =
+        document.getElementById("emptyCart");
+
+      const cartLayout =
+        document.getElementById("cartLayout");
+
+
+      cartItems.innerHTML = "";
+
+
+      if (cart.length === 0) {
+
+        emptyCart.style.display = "block";
+        cartLayout.style.display = "none";
+
+        return;
+
+      }
+
+
+      emptyCart.style.display = "none";
+      cartLayout.style.display = "grid";
+
+
+      let totalItems = 0;
+      let totalPrice = 0;
+
+
+      cart.forEach((item, index) => {
+
+        const quantity =
+          Number(item.quantity || 1);
+
+        const price =
+          Number(item.price || 0);
+
+        const itemTotal =
+          price * quantity;
+
+
+        totalItems += quantity;
+        totalPrice += itemTotal;
+
+
+        const article =
+          document.createElement("article");
+
+        article.className = "cart-item";
+
+
+        article.innerHTML = `
+
+          <div>
+
+            <div class="item-name">
+              ${escapeHtml(item.name)}
+            </div>
+
+            <div class="item-price">
+              ${formatPrice(price)} each
+            </div>
+
+            <div class="item-controls">
+
+              <div class="quantity">
+
+                <button
+                  onclick="changeQuantity(${index}, -1)"
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+
+                <span>
+                  ${quantity}
+                </span>
+
+                <button
+                  onclick="changeQuantity(${index}, 1)"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+
+              </div>
+
+              <button
+                class="remove-btn"
+                onclick="removeItem(${index})"
+              >
+                Remove
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="item-total">
+            ${formatPrice(itemTotal)}
+          </div>
+
+        `;
+
+
+        cartItems.appendChild(article);
+
+      });
+
+
+      document.getElementById(
+        "summaryItems"
+      ).textContent = totalItems;
+
+
+      document.getElementById(
+        "subtotal"
+      ).textContent = formatPrice(totalPrice);
+
+
+      document.getElementById(
+        "total"
+      ).textContent = formatPrice(totalPrice);
+
+    }
+
+
+    function changeQuantity(index, amount) {
+
+      const cart = getCart();
+
+      if (!cart[index]) return;
+
+
+      cart[index].quantity =
+        Number(cart[index].quantity || 1) + amount;
+
+
+      if (cart[index].quantity <= 0) {
+
+        cart.splice(index, 1);
+
+      }
+
+
+      saveCart(cart);
+
+      renderCart();
+
+    }
+
+
+    function removeItem(index) {
+
+      const cart = getCart();
+
+      if (!cart[index]) return;
+
+
+      cart.splice(index, 1);
+
+      saveCart(cart);
+
+      renderCart();
+
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    function goToCheckout() {
+
+      const cart = getCart();
+
+      if (cart.length === 0) {
+
+        alert("Your cart is empty.");
+
+        return;
+
+      }
+
+
+      /*
+        Checkout will be built in the next step.
+      */
+
+      window.location.href = "checkout.html";
+
+    }
+
+
+    renderCart();
+
+  </script>
+
+</body>
+</html>
