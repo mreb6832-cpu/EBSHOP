@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Payment Successful | EBSHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+    }
+
+    .success-box {
+      width: 90%;
+      max-width: 550px;
+      background: white;
+      padding: 45px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .message {
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .status {
+      background: #f3f4f6;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      color: #374151;
+    }
+
+    .status strong {
+      color: #16a34a;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .button {
+      display: block;
+      padding: 15px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .home {
+      background: #111827;
+      color: white;
+    }
+
+    .home:hover {
+      background: #1f2937;
+    }
+
+    .orders {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .orders:hover {
+      background: #d1d5db;
+    }
+
+    .brand {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="success-box">
+
+    <div class="icon">
+      ✓
+    </div>
+
+    <h1>Payment Successful!</h1>
+
+    <p class="message">
+      Thank you for your purchase from EBSHOP.
+      Your payment has been completed successfully.
+    </p>
+
+    <div class="status">
+      Payment status:
+      <strong>Successful</strong>
+    </div>
+
+    <div class="buttons">
+
+      <a
+        href="index.html"
+        class="button home"
+      >
+        Continue Shopping
+      </a>
+
+      <a
+        href="account.html"
+        class="button orders"
+      >
+        Go to My Account
+      </a>
+
+    </div>
+
+    <div class="brand">
+      🛒 EBSHOP
+    </div>
+
+  </div>
+
+</body>
+</html>
