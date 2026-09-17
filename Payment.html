@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Payment | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #050505;
+      color: #f5f5f5;
+      min-height: 100vh;
+    }
+
+    header {
+      border-bottom: 1px solid #252525;
+      padding: 20px 4%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      color: #d9af2f;
+      font-size: 30px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    nav a:hover {
+      color: #d9af2f;
+    }
+
+    .container {
+      width: min(1200px, 92%);
+      margin: 50px auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .hero h1 {
+      color: #d9af2f;
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      color: #d9af2f;
+      margin-bottom: 22px;
+      font-size: 25px;
+    }
+
+    .notice {
+      background: #191500;
+      border: 1px solid #6b5611;
+      color: #f1d66c;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ddd;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      background: #080808;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 9px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #d9af2f;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .readonly {
+      color: #aaa;
+    }
+
+    .payment-options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .payment-option {
+      border: 1px solid #333;
+      background: #080808;
+      padding: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .payment-option:hover {
+      border-color: #d9af2f;
+    }
+
+    .payment-option input {
+      width: auto;
+    }
+
+    .payment-option strong {
+      color: #fff;
+    }
+
+    .payment-option small {
+      display: block;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #292929;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-weight: 700;
+    }
+
+    .item-info {
+      color: #999;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .item-price {
+      color: #d9af2f;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #292929;
+      color: #ccc;
+    }
+
+    .summary-row.total {
+      border-bottom: none;
+      font-size: 24px;
+      font-weight: 800;
+      color: #d9af2f;
+      padding-top: 22px;
+    }
+
+    .free {
+      color: #d9af2f;
+      font-weight: 700;
+    }
+
+    .place-order {
+      width: 100%;
+      border: none;
+      background: #d9af2f;
+      color: #050505;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .place-order:hover {
+      background: #f0c63b;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 15px;
+      color: #d9af2f;
+      text-decoration: none;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px 10px;
+      color: #aaa;
+    }
+
+    .error {
+      color: #ff7070;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @media (max-width: 850px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        gap: 15px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        width: 94%;
+        margin: 30px auto;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">E&B SHOP</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="account.html">My Account</a>
+    <a href="orders.html">Orders</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <div class="hero">
+    <h1>Payment</h1>
+    <p>Complete your order with E&B SHOP 🇸🇪</p>
+  </div>
+
+  <div id="emptyMessage" class="card empty" style="display:none;">
+    <h2>Your cart is empty.</h2>
+    <p>Add products before placing an order.</p>
+    <a href="products.html" class="back">← Continue Shopping</a>
+  </div>
+
+  <form id="paymentForm">
+
+    <div class="layout">
+
+      <section>
+
+        <div class="card">
+          <h2>Customer Information</h2>
+
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input
+              type="text"
+              id="fullName"
+              placeholder="Enter your full name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="Enter your phone number"
+              required
+            >
+          </div>
+        </div>
+
+
+        <div class="card">
+          <h2>Delivery Address</h2>
+
+          <div class="form-group">
+            <label for="street">Street Address *</label>
+            <input
+              type="text"
+              id="street"
+              placeholder="Street and house number"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input
+              type="text"
+              id="city"
+              placeholder="City"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="postcode">Postcode *</label>
+            <input
+              type="text"
+              id="postcode"
+              placeholder="Postcode"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input
+              type="text"
+              id="country"
+              value="Sweden"
+              readonly
+              class="readonly"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Order Notes</label>
+            <textarea
+              id="notes"
+              placeholder="Optional notes about your order"
+            ></textarea>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <h2>Payment Method</h2>
+
+          <div class="notice">
+            <strong>Payment is not connected yet.</strong><br>
+            You can select a payment method for testing.
+            Real Card, Swish and Invoice payments will be connected later.
+          </div>
+
+          <div class="payment-options">
+
+            <label class="payment-option">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Card"
+              >
+
+              <div>
+                <strong>💳 Card</strong>
+                <small>Credit or debit card</small>
+              </div>
+            </label>
+
+
+            <label class="payment-option">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Swish"
+              >
+
+              <div>
+                <strong>📱 Swish</strong>
+                <small>Swish payment</small>
+              </div>
+            </label>
+
+
+            <label class="payment-option">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Invoice"
+              >
+
+              <div>
+                <strong>🧾 Invoice</strong>
+                <small>Pay by invoice</small>
+              </div>
+            </label>
+
+          </div>
+
+          <div id="paymentError" class="error">
+            Please select a payment method.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <aside>
+
+        <div class="card">
+
+          <h2>Order Summary</h2>
+
+          <div id="items"></div>
+
+          <div class="summary-row">
+            <span>Items</span>
+            <strong id="itemCount">0</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong id="subtotal">0 SEK</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Delivery</span>
+            <strong class="free">FREE</strong>
+          </div>
+
+          <div class="summary-row total">
+            <span>Total</span>
+            <span id="total">0 SEK</span>
+          </div>
+
+          <button type="submit" class="place-order">
+            Place Order
+          </button>
+
+          <a href="cart.html" class="back">
+            ← Back to Cart
+          </a>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </form>
+
+</main>
+
+
+<script>
+
+  const cartKey = "ebShopCart";
+  const productsKey = "ebShopProducts";
+
+  let cart = JSON.parse(localStorage.getItem(cartKey) || "[]");
+  const products = JSON.parse(localStorage.getItem(productsKey) || "[]");
+
+  const form = document.getElementById("paymentForm");
+  const emptyMessage = document.getElementById("emptyMessage");
+
+  const itemsBox = document.getElementById("items");
+  const itemCountBox = document.getElementById("itemCount");
+  const subtotalBox = document.getElementById("subtotal");
+  const totalBox = document.getElementById("total");
+
+  const fullName = document.getElementById("fullName");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+
+  const savedName = localStorage.getItem("ebShopCustomerName");
+  const savedEmail = localStorage.getItem("ebShopCustomerEmail");
+  const savedPhone = localStorage.getItem("ebShopCustomerPhone");
+
+  if (savedName) {
+    fullName.value = savedName;
+  }
+
+  if (savedEmail) {
+    email.value = savedEmail;
+  }
+
+  if (savedPhone) {
+    phone.value = savedPhone;
+  }
+
+
+  function getProduct(id) {
+    return products.find(product => String(product.id) === String(id));
+  }
+
+
+  function renderOrder() {
+
+    if (!cart.length) {
+
+      form.style.display = "none";
+      emptyMessage.style.display = "block";
+
+      return;
+    }
+
+    let subtotal = 0;
+    let itemCount = 0;
+
+    itemsBox.innerHTML = "";
+
+    cart.forEach(item => {
+
+      const product = getProduct(item.id);
+
+      const name = product?.name || item.name || "Product";
+      const price = Number(product?.price ?? item.price ?? 0);
+      const quantity = Number(item.quantity || 1);
+
+      const itemTotal = price * quantity;
+
+      subtotal += itemTotal;
+      itemCount += quantity;
+
+      const div = document.createElement("div");
+
+      div.className = "item";
+
+      div.innerHTML = `
+        <div>
+          <div class="item-name">${escapeHtml(name)}</div>
+          <div class="item-info">
+            ${quantity} × ${price.toFixed(2)} SEK
+          </div>
+        </div>
+
+        <div class="item-price">
+          ${itemTotal.toFixed(2)} SEK
+        </div>
+      `;
+
+      itemsBox.appendChild(div);
+
+    });
+
+
+    itemCountBox.textContent = itemCount;
+
+    subtotalBox.textContent =
+      subtotal.toFixed(2) + " SEK";
+
+    totalBox.textContent =
+      subtotal.toFixed(2) + " SEK";
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    if (!cart.length) {
+
+      alert("Your cart is empty.");
+
+      window.location.href = "products.html";
+
+      return;
+    }
+
+
+    const selectedPayment =
+      document.querySelector(
+        'input[name="paymentMethod"]:checked'
+      );
+
+    const paymentError =
+      document.getElementById("paymentError");
+
+
+    if (!selectedPayment) {
+
+      paymentError.style.display = "block";
+
+      return;
+    }
+
+    paymentError.style.display = "none";
+
+
+    const subtotal = cart.reduce((sum, item) => {
+
+      const product = getProduct(item.id);
+
+      const price =
+        Number(product?.price ?? item.price ?? 0);
+
+      const quantity =
+        Number(item.quantity || 1);
+
+      return sum + price * quantity;
+
+    }, 0);
+
+
+    const orderNumber =
+      "EB-" +
+      Date.now().toString().slice(-8);
+
+
+    const orderItems = cart.map(item => {
+
+      const product = getProduct(item.id);
+
+      return {
+        id: item.id,
+        name: product?.name || item.name || "Product",
+        price: Number(product?.price ?? item.price ?? 0),
+        quantity: Number(item.quantity || 1)
+      };
+
+    });
+
+
+    const order = {
+
+      orderNumber: orderNumber,
+
+      customer: {
+        fullName: fullName.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim()
+      },
+
+      delivery: {
+        street:
+          document.getElementById("street").value.trim(),
+
+        city:
+          document.getElementById("city").value.trim(),
+
+        postcode:
+          document.getElementById("postcode").value.trim(),
+
+        country: "Sweden"
+      },
+
+      notes:
+        document.getElementById("notes").value.trim(),
+
+      items: orderItems,
+
+      subtotal: subtotal,
+
+      deliveryFee: 0,
+
+      total: subtotal,
+
+      paymentMethod:
+        selectedPayment.value,
+
+      paymentStatus:
+        "Payment Pending",
+
+      orderStatus:
+        "Order Received",
+
+      createdAt:
+        new Date().toISOString()
+    };
+
+
+    localStorage.setItem(
+      "ebShopLastOrder",
+      JSON.stringify(order)
+    );
+
+
+    localStorage.setItem(
+      "ebShopCustomerName",
+      fullName.value.trim()
+    );
+
+    localStorage.setItem(
+      "ebShopCustomerEmail",
+      email.value.trim()
+    );
+
+    localStorage.setItem(
+      "ebShopCustomerPhone",
+      phone.value.trim()
+    );
+
+    localStorage.setItem(
+      "ebShopLoggedIn",
+      "true"
+    );
+
+
+    localStorage.removeItem(cartKey);
+
+
+    window.location.href = "orders.html";
+
+  });
+
+
+  renderOrder();
+
+</script>
+
+</body>
+</html>
