@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Account | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .gold {
+      color: #d4af37;
+    }
+
+    /* HEADER */
+    header {
+      background: #050505;
+      border-bottom: 1px solid #2a2a2a;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #d4af37;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    nav a {
+      color: #ddd;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    .shop-btn {
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      padding: 10px 16px;
+      border-radius: 8px;
+    }
+
+    .shop-btn:hover {
+      background: #d4af37;
+      color: #000;
+    }
+
+    /* MAIN */
+    main {
+      width: 90%;
+      max-width: 1150px;
+      margin: 50px auto;
+    }
+
+    .welcome {
+      margin-bottom: 35px;
+    }
+
+    .welcome small {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .welcome h1 {
+      margin-top: 10px;
+      font-size: 42px;
+    }
+
+    .welcome p {
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    /* ACCOUNT GRID */
+    .account-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 25px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 25px;
+      height: fit-content;
+    }
+
+    .profile {
+      text-align: center;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #292929;
+    }
+
+    .avatar {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: #d4af37;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .profile h3 {
+      margin-top: 15px;
+    }
+
+    .profile p {
+      color: #999;
+      font-size: 13px;
+      margin-top: 5px;
+      word-break: break-word;
+    }
+
+    .side-links {
+      margin-top: 20px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .side-links a,
+    .logout {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      color: #ddd;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .side-links a:hover {
+      background: #1d1d1d;
+      color: #d4af37;
+    }
+
+    .logout {
+      color: #ff7777;
+    }
+
+    .logout:hover {
+      background: #251414;
+    }
+
+    /* CONTENT */
+    .content {
+      display: grid;
+      gap: 20px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    .card h2 {
+      font-size: 21px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 span {
+      color: #d4af37;
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      background: #181818;
+      border: 1px solid #292929;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .stat-icon {
+      font-size: 25px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 27px;
+      margin-top: 12px;
+      color: #d4af37;
+    }
+
+    .stat p {
+      color: #999;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    /* PROFILE INFO */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .info-box {
+      background: #181818;
+      border: 1px solid #292929;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .info-box label {
+      display: block;
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .info-box p {
+      color: white;
+      word-break: break-word;
+    }
+
+    /* ORDERS */
+    .empty-orders {
+      text-align: center;
+      padding: 35px 15px;
+      color: #999;
+    }
+
+    .empty-orders .icon {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .empty-orders h3 {
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    .browse-btn {
+      display: inline-block;
+      margin-top: 18px;
+      background: #d4af37;
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .browse-btn:hover {
+      background: #f0cc55;
+    }
+
+    /* SECURITY */
+    .security {
+      color: #aaa;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 70px;
+      background: #050505;
+      border-top: 1px solid #222;
+      padding: 30px 6%;
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    /* MOBILE */
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .account-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 13px;
+      }
+
+      main {
+        width: 94%;
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+
+    <a href="index.html" class="logo">
+      🛒 <span>E&B</span> SHOP
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#products">Products</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html" class="shop-btn">🛍 Shop Now</a>
+    </nav>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main>
+
+    <section class="welcome">
+      <small>🇸🇪 E&B SHOP • SWEDEN</small>
+
+      <h1>
+        Welcome, <span class="gold" id="welcomeName">Customer</span> 👋
+      </h1>
+
+      <p>
+        Manage your E&B SHOP account, orders and personal information.
+      </p>
+    </section>
+
+
+    <div class="account-grid">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="profile">
+
+          <div class="avatar" id="avatar">
+            E
+          </div>
+
+          <h3 id="profileName">
+            Customer
+          </h3>
+
+          <p id="profileEmail">
+            customer@example.com
+          </p>
+
+        </div>
+
+
+        <div class="side-links">
+
+          <a href="#overview">
+            🏠 Account Overview
+          </a>
+
+          <a href="#profile">
+            👤 My Information
+          </a>
+
+          <a href="#orders">
+            📦 My Orders
+          </a>
+
+          <a href="index.html#products">
+            🛍 Continue Shopping
+          </a>
+
+          <button class="logout" id="logoutBtn">
+            🚪 Logout
+          </button>
+
+        </div>
+
+      </aside>
+
+
+      <!-- CONTENT -->
+      <section class="content">
+
+        <!-- OVERVIEW -->
+        <div class="card" id="overview">
+
+          <h2>
+            Account <span>Overview</span>
+          </h2>
+
+          <div class="stats">
+
+            <div class="stat">
+              <div class="stat-icon">📦</div>
+              <strong>0</strong>
+              <p>Total Orders</p>
+            </div>
+
+            <div class="stat">
+              <div class="stat-icon">🛒</div>
+              <strong>0</strong>
+              <p>Cart Items</p>
+            </div>
+
+            <div class="stat">
+              <div class="stat-icon">🇸🇪</div>
+              <strong>SEK</strong>
+              <p>Shopping Currency</p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PERSONAL INFORMATION -->
+        <div class="card" id="profile">
+
+          <h2>
+            My <span>Information</span>
+          </h2>
+
+          <div class="info-grid">
+
+            <div class="info-box">
+              <label>FULL NAME</label>
+              <p id="infoName">Customer</p>
+            </div>
+
+            <div class="info-box">
+              <label>EMAIL ADDRESS</label>
+              <p id="infoEmail">customer@example.com</p>
+            </div>
+
+            <div class="info-box">
+              <label>PHONE NUMBER</label>
+              <p id="infoPhone">Not added yet</p>
+            </div>
+
+            <div class="info-box">
+              <label>COUNTRY</label>
+              <p>🇸🇪 Sweden</p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ORDERS -->
+        <div class="card" id="orders">
+
+          <h2>
+            My <span>Orders</span>
+          </h2>
+
+          <div class="empty-orders">
+
+            <div class="icon">📦</div>
+
+            <h3>No orders yet</h3>
+
+            <p>
+              Your orders will appear here after you make a purchase.
+            </p>
+
+            <a href="index.html#products" class="browse-btn">
+              Browse Products
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- SECURITY -->
+        <div class="card">
+
+          <h2>
+            Account <span>Security</span>
+          </h2>
+
+          <p class="security">
+            Your account information is currently stored locally for this
+            demo version of E&B SHOP. Real authentication, password recovery,
+            database storage and secure customer accounts will be connected
+            in a later step.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
+    <br>
+    Everything You Need in One Shop.
+  </footer>
+
+
+  <script>
+
+    /*
+      E&B SHOP ACCOUNT
+      ----------------
+      This version uses localStorage because
+      real database authentication has not been
+      connected yet.
+    */
+
+    const name =
+      localStorage.getItem("ebShopCustomerName") || "Customer";
+
+    const email =
+      localStorage.getItem("ebShopCustomerEmail") ||
+      "customer@example.com";
+
+    const phone =
+      localStorage.getItem("ebShopCustomerPhone") ||
+      "Not added yet";
+
+
+    // Display customer information
+    document.getElementById("welcomeName").textContent = name;
+    document.getElementById("profileName").textContent = name;
+    document.getElementById("profileEmail").textContent = email;
+
+    document.getElementById("infoName").textContent = name;
+    document.getElementById("infoEmail").textContent = email;
+    document.getElementById("infoPhone").textContent = phone;
+
+
+    // Create avatar letter
+    const firstLetter =
+      name.trim().charAt(0).toUpperCase() || "E";
+
+    document.getElementById("avatar").textContent = firstLetter;
+
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+
+      localStorage.removeItem("ebShopLoggedIn");
+
+      window.location.href = "login.html";
+
+    });
+
+  </script>
+
+</body>
+</html>
