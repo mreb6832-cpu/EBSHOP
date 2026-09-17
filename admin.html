@@ -1,147 +1,154 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>E&B SHOP | Owner Dashboard</title>
+  <title>Admin Dashboard | E&B SHOP</title>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     body {
-      background: #080808;
-      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #090909;
+      color: #fff;
+      min-height: 100vh;
     }
 
     header {
       background: #111;
-      border-bottom: 1px solid #d4af37;
-      padding: 18px 5%;
+      border-bottom: 1px solid #2b2b2b;
     }
 
-    .header-inner {
+    .navbar {
       max-width: 1200px;
       margin: auto;
+      padding: 18px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
     }
 
     .logo {
-      color: #d4af37;
+      color: #fff;
+      text-decoration: none;
       font-size: 24px;
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .logo span {
-      color: white;
+      color: #d4af37;
     }
 
-    .back {
-      color: #111;
+    .back-btn {
+      text-decoration: none;
+      color: #000;
       background: #d4af37;
       padding: 10px 16px;
       border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
     }
 
-    main {
-      width: 92%;
+    .back-btn:hover {
+      background: #f0cf55;
+    }
+
+    .container {
       max-width: 1200px;
-      margin: 35px auto;
+      margin: auto;
+      padding: 35px 20px 70px;
     }
 
-    .welcome {
+    .title {
       margin-bottom: 25px;
     }
 
-    .welcome h1 {
-      color: #d4af37;
-      margin-bottom: 5px;
+    .title h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
     }
 
-    .welcome p {
+    .title p {
       color: #999;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 18px;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .stat {
-      background: #111;
+      background: #121212;
       border: 1px solid #292929;
-      padding: 22px;
       border-radius: 12px;
-    }
-
-    .stat h3 {
-      color: #999;
-      font-size: 14px;
-      margin-bottom: 8px;
+      padding: 22px;
     }
 
     .stat strong {
+      display: block;
       color: #d4af37;
-      font-size: 30px;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: #999;
     }
 
     .panel {
-      background: #111;
+      background: #121212;
       border: 1px solid #292929;
-      padding: 25px;
       border-radius: 14px;
-      margin-bottom: 25px;
+      padding: 25px;
+      margin-bottom: 30px;
     }
 
     .panel h2 {
-      color: #d4af37;
       margin-bottom: 20px;
+      font-size: 22px;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      gap: 18px;
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 7px;
     }
 
-    .full {
+    .field.full {
       grid-column: 1 / -1;
     }
 
     label {
-      color: #ccc;
+      color: #ddd;
       font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      padding: 13px;
-      background: #080808;
-      color: white;
+      padding: 13px 14px;
       border: 1px solid #333;
       border-radius: 8px;
+      background: #191919;
+      color: #fff;
       outline: none;
+      font-size: 14px;
     }
 
     input:focus,
@@ -151,104 +158,234 @@
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 120px;
       resize: vertical;
     }
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
+    /*
+      IMAGE UPLOAD
+    */
+
+    .upload-box {
+      border: 2px dashed #444;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      background: #171717;
+      transition: .2s;
     }
 
-    button {
-      cursor: pointer;
-      border: none;
+    .upload-box:hover {
+      border-color: #d4af37;
+    }
+
+    .upload-icon {
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    .upload-text {
+      color: #bbb;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .file-label {
+      display: inline-block;
+      background: #d4af37;
+      color: #000;
       padding: 12px 18px;
       border-radius: 8px;
-      font-weight: bold;
+      cursor: pointer;
+      font-weight: 800;
     }
 
-    .save {
-      background: #d4af37;
-      color: #080808;
+    .file-label:hover {
+      background: #f0cf55;
     }
 
-    .clear {
-      background: #333;
-      color: white;
+    #productImage {
+      display: none;
     }
 
-    .products-list {
-      display: grid;
-      gap: 12px;
+    .image-preview {
+      margin-top: 20px;
+      display: none;
     }
 
-    .product {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 15px;
-      align-items: center;
-      background: #080808;
-      border: 1px solid #292929;
-      padding: 12px;
-      border-radius: 10px;
-    }
-
-    .product img {
-      width: 80px;
-      height: 80px;
+    .image-preview img {
+      width: 220px;
+      height: 220px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 12px;
+      border: 1px solid #444;
+      display: block;
+      margin: 0 auto 12px;
     }
 
-    .product h3 {
-      margin-bottom: 5px;
+    .remove-image {
+      border: none;
+      background: #2b2b2b;
+      color: #fff;
+      padding: 9px 14px;
+      border-radius: 7px;
+      cursor: pointer;
     }
 
-    .product p {
-      color: #999;
-      font-size: 14px;
-      margin: 3px 0;
-    }
-
-    .price {
-      color: #d4af37 !important;
-      font-weight: bold;
+    .remove-image:hover {
+      background: #444;
     }
 
     .actions {
       display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .save-btn,
+    .cancel-btn {
+      border: none;
+      padding: 13px 20px;
+      border-radius: 8px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .save-btn {
+      background: #d4af37;
+      color: #000;
+    }
+
+    .save-btn:hover {
+      background: #f0cf55;
+    }
+
+    .cancel-btn {
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    .cancel-btn:hover {
+      background: #3a3a3a;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      font-weight: 700;
+    }
+
+    .products-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .product-card {
+      background: #171717;
+      border: 1px solid #2b2b2b;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .product-card-image {
+      width: 100%;
+      height: 220px;
+      background: #202020;
+      object-fit: cover;
+      display: block;
+    }
+
+    .no-image {
+      width: 100%;
+      height: 220px;
+      background: #202020;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+      color: #666;
+    }
+
+    .product-content {
+      padding: 17px;
+    }
+
+    .product-content h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .category {
+      color: #d4af37;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .stock {
+      color: #999;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .product-actions {
+      display: flex;
       gap: 8px;
     }
 
-    .edit {
-      background: #d4af37;
-      color: #080808;
+    .edit-btn,
+    .delete-btn {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 700;
     }
 
-    .delete {
-      background: #8d2020;
-      color: white;
+    .edit-btn {
+      background: #d4af37;
+      color: #000;
+    }
+
+    .delete-btn {
+      background: #292929;
+      color: #fff;
+    }
+
+    .delete-btn:hover {
+      background: #3b3b3b;
     }
 
     .empty {
+      color: #888;
       text-align: center;
-      color: #888;
-      padding: 30px;
+      padding: 40px;
+      border: 1px dashed #333;
+      border-radius: 10px;
     }
 
-    .note {
-      color: #888;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-top: 15px;
+    @media (max-width: 900px) {
+      .products-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    @media (max-width: 750px) {
-      .header-inner {
+    @media (max-width: 650px) {
+      .navbar {
         flex-direction: column;
-        align-items: flex-start;
       }
 
       .stats {
@@ -259,21 +396,16 @@
         grid-template-columns: 1fr;
       }
 
-      .full {
+      .field.full {
         grid-column: auto;
       }
 
-      .product {
-        grid-template-columns: 65px 1fr;
+      .products-list {
+        grid-template-columns: 1fr;
       }
 
-      .product img {
-        width: 65px;
-        height: 65px;
-      }
-
-      .actions {
-        grid-column: 1 / -1;
+      .title h1 {
+        font-size: 28px;
       }
     }
   </style>
@@ -282,68 +414,65 @@
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="navbar">
 
-    <div class="logo">
-      👑 E&B <span>SHOP OWNER</span>
-    </div>
+    <a href="index.html" class="logo">
+      🛒 <span>E&B</span> SHOP
+    </a>
 
-    <a href="index.html" class="back">
+    <a href="index.html" class="back-btn">
       ← Back to Shop
     </a>
 
   </div>
 </header>
 
-<main>
 
-  <div class="welcome">
+<main class="container">
+
+  <div class="title">
     <h1>Owner Dashboard</h1>
-    <p>Manage all products in E&B SHOP.</p>
+    <p>Add and manage products for E&B SHOP.</p>
   </div>
 
-  <!-- STATS -->
 
-  <div class="stats">
+  <section class="stats">
 
     <div class="stat">
-      <h3>Total Products</h3>
       <strong id="totalProducts">0</strong>
+      <span>Total Products</span>
     </div>
 
     <div class="stat">
-      <h3>Total Stock</h3>
       <strong id="totalStock">0</strong>
+      <span>Total Stock</span>
     </div>
 
-    <div class="stat">
-      <h3>Currency</h3>
-      <strong>SEK</strong>
-    </div>
-
-  </div>
+  </section>
 
 
-  <!-- ADD PRODUCT -->
+  <!-- ADD / EDIT PRODUCT -->
 
   <section class="panel">
 
-    <h2 id="formTitle">➕ Add Product</h2>
+    <h2 id="formTitle">
+      Add New Product
+    </h2>
 
     <form id="productForm">
-
-      <input type="hidden" id="productId">
 
       <div class="form-grid">
 
         <div class="field">
 
-          <label>Product Name</label>
+          <label for="productName">
+            Product Name *
+          </label>
 
           <input
-            type="text"
             id="productName"
-            placeholder="Example: iPhone 16"
+            type="text"
+            placeholder="Example: iPhone 15"
             required
           >
 
@@ -352,13 +481,16 @@
 
         <div class="field">
 
-          <label>Price (SEK)</label>
+          <label for="productPrice">
+            Price (SEK) *
+          </label>
 
           <input
-            type="number"
             id="productPrice"
+            type="number"
             min="0"
-            placeholder="4999"
+            step="0.01"
+            placeholder="999"
             required
           >
 
@@ -367,11 +499,18 @@
 
         <div class="field">
 
-          <label>Category</label>
+          <label for="productCategory">
+            Category *
+          </label>
 
-          <select id="productCategory" required>
+          <select
+            id="productCategory"
+            required
+          >
 
-            <option value="">Select category</option>
+            <option value="">
+              Select Category
+            </option>
 
             <option value="Electronics">
               Electronics
@@ -412,12 +551,15 @@
 
         <div class="field">
 
-          <label>Stock</label>
+          <label for="productStock">
+            Stock *
+          </label>
 
           <input
-            type="number"
             id="productStock"
+            type="number"
             min="0"
+            step="1"
             placeholder="10"
             required
           >
@@ -425,27 +567,74 @@
         </div>
 
 
+        <!-- REQUIRED PRODUCT PICTURE -->
+
         <div class="field full">
 
-          <label>Product Image URL</label>
+          <label>
+            Product Picture *
+          </label>
 
-          <input
-            type="url"
-            id="productImage"
-            placeholder="https://example.com/image.jpg"
-            required
-          >
+          <div class="upload-box">
+
+            <div class="upload-icon">
+              🖼️
+            </div>
+
+            <div class="upload-text">
+              Add a clear picture of the product.<br>
+              Customers will see this picture before buying.
+            </div>
+
+            <label
+              for="productImage"
+              class="file-label"
+            >
+              📷 Choose Product Picture
+            </label>
+
+            <input
+              id="productImage"
+              type="file"
+              accept="image/*"
+            >
+
+
+            <div
+              id="imagePreview"
+              class="image-preview"
+            >
+
+              <img
+                id="previewImage"
+                src=""
+                alt="Product preview"
+              >
+
+              <button
+                type="button"
+                class="remove-image"
+                id="removeImage"
+              >
+                Remove Picture
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
 
         <div class="field full">
 
-          <label>Description</label>
+          <label for="productDescription">
+            Product Description *
+          </label>
 
           <textarea
             id="productDescription"
-            placeholder="Describe your product..."
+            placeholder="Describe the product..."
             required
           ></textarea>
 
@@ -454,25 +643,31 @@
       </div>
 
 
-      <div class="buttons">
+      <div class="actions">
 
         <button
           type="submit"
-          class="save"
-          id="saveButton"
+          class="save-btn"
         >
-          💾 Add Product
+          💾 Save Product
         </button>
 
         <button
           type="button"
-          class="clear"
-          onclick="clearForm()"
+          class="cancel-btn"
+          id="cancelEdit"
+          style="display:none;"
         >
-          Clear
+          Cancel Edit
         </button>
 
       </div>
+
+
+      <div
+        id="message"
+        class="message"
+      ></div>
 
     </form>
 
@@ -483,17 +678,14 @@
 
   <section class="panel">
 
-    <h2>📦 Products</h2>
+    <h2>
+      Your Products
+    </h2>
 
     <div
       id="productsList"
       class="products-list"
     ></div>
-
-    <p class="note">
-      Products added here are saved in this browser using
-      localStorage. We will add a real online database later.
-    </p>
 
   </section>
 
@@ -502,135 +694,159 @@
 
 <script>
 
-  const STORAGE_KEY = "ebShopProducts";
+  const STORAGE_KEY =
+    "ebShopProducts";
+
+
+  const productForm =
+    document.getElementById(
+      "productForm"
+    );
+
+
+  const productName =
+    document.getElementById(
+      "productName"
+    );
+
+
+  const productPrice =
+    document.getElementById(
+      "productPrice"
+    );
+
+
+  const productCategory =
+    document.getElementById(
+      "productCategory"
+    );
+
+
+  const productStock =
+    document.getElementById(
+      "productStock"
+    );
+
+
+  const productImage =
+    document.getElementById(
+      "productImage"
+    );
+
+
+  const productDescription =
+    document.getElementById(
+      "productDescription"
+    );
+
+
+  const imagePreview =
+    document.getElementById(
+      "imagePreview"
+    );
+
+
+  const previewImage =
+    document.getElementById(
+      "previewImage"
+    );
+
+
+  const removeImage =
+    document.getElementById(
+      "removeImage"
+    );
+
+
+  const productsList =
+    document.getElementById(
+      "productsList"
+    );
+
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+  const formTitle =
+    document.getElementById(
+      "formTitle"
+    );
+
+
+  const cancelEdit =
+    document.getElementById(
+      "cancelEdit"
+    );
+
+
+  const totalProducts =
+    document.getElementById(
+      "totalProducts"
+    );
+
+
+  const totalStock =
+    document.getElementById(
+      "totalStock"
+    );
+
+
+  let products = [];
+
+  let editingId = null;
+
+  let currentImageData = "";
 
 
   /*
-    Existing E&B SHOP products.
-    They are created automatically the first time
-    the Owner Dashboard is opened.
-  */
+   * LOAD PRODUCTS
+   */
 
-  const defaultProducts = [
-
-    {
-      id: "p1",
-      name: "Smartphone",
-      price: 4999,
-      category: "Electronics",
-      stock: 10,
-      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800",
-      description: "Modern smartphone for everyday use."
-    },
-
-    {
-      id: "p2",
-      name: "Sport Shoes",
-      price: 999,
-      category: "Shoes",
-      stock: 15,
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
-      description: "Comfortable sport shoes for everyday activities."
-    },
-
-    {
-      id: "p3",
-      name: "Wireless Headphones",
-      price: 699,
-      category: "Electronics",
-      stock: 20,
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
-      description: "Wireless headphones with clear sound."
-    },
-
-    {
-      id: "p4",
-      name: "Smart Watch",
-      price: 899,
-      category: "Electronics",
-      stock: 12,
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
-      description: "Smart watch for everyday activities."
-    },
-
-    {
-      id: "p5",
-      name: "Fashion Bag",
-      price: 1299,
-      category: "Fashion",
-      stock: 8,
-      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800",
-      description: "Modern fashion bag."
-    },
-
-    {
-      id: "p6",
-      name: "Home Air Fryer",
-      price: 1299,
-      category: "Home",
-      stock: 7,
-      image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=800",
-      description: "Easy-to-use air fryer for your kitchen."
-    },
-
-    {
-      id: "p7",
-      name: "Gaming Controller",
-      price: 599,
-      category: "Gaming",
-      stock: 14,
-      image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=800",
-      description: "Gaming controller for console gaming."
-    },
-
-    {
-      id: "p8",
-      name: "Beauty Products",
-      price: 399,
-      category: "Beauty",
-      stock: 25,
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800",
-      description: "Beauty products for everyday care."
-    }
-
-  ];
-
-
-  function getProducts() {
+  function loadProducts() {
 
     const saved =
-      localStorage.getItem(STORAGE_KEY);
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
 
     if (!saved) {
 
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(defaultProducts)
-      );
+      products = [];
 
-      return [...defaultProducts];
+      return;
 
     }
 
+
     try {
 
-      return JSON.parse(saved);
+      const parsed =
+        JSON.parse(saved);
 
-    } catch (error) {
 
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(defaultProducts)
-      );
+      products =
+        Array.isArray(parsed)
+          ? parsed
+          : [];
 
-      return [...defaultProducts];
+    } catch {
+
+      products = [];
 
     }
 
   }
 
 
-  function saveProducts(products) {
+  /*
+   * SAVE PRODUCTS
+   */
+
+  function saveProducts() {
 
     localStorage.setItem(
       STORAGE_KEY,
@@ -640,334 +856,704 @@
   }
 
 
-  function escapeHtml(value) {
+  /*
+   * IMAGE UPLOAD
+   */
 
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+  productImage.addEventListener(
+    "change",
+    function () {
 
-  }
+      const file =
+        this.files[0];
 
+
+      if (!file) {
+        return;
+      }
+
+
+      if (!file.type.startsWith("image/")) {
+
+        alert(
+          "Please choose an image file."
+        );
+
+        this.value = "";
+
+        return;
+      }
+
+
+      /*
+       * Limit large images.
+       */
+
+      if (file.size > 5 * 1024 * 1024) {
+
+        alert(
+          "Please choose an image smaller than 5 MB."
+        );
+
+        this.value = "";
+
+        return;
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function (event) {
+
+          currentImageData =
+            event.target.result;
+
+
+          previewImage.src =
+            currentImageData;
+
+
+          imagePreview.style.display =
+            "block";
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+
+  /*
+   * REMOVE IMAGE
+   */
+
+  removeImage.addEventListener(
+    "click",
+    function () {
+
+      currentImageData = "";
+
+      productImage.value = "";
+
+      previewImage.src = "";
+
+      imagePreview.style.display =
+        "none";
+
+    }
+  );
+
+
+  /*
+   * ADD / EDIT PRODUCT
+   */
+
+  productForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const name =
+        productName.value.trim();
+
+
+      const price =
+        Number(productPrice.value);
+
+
+      const category =
+        productCategory.value;
+
+
+      const stock =
+        Number(productStock.value);
+
+
+      const description =
+        productDescription.value.trim();
+
+
+      /*
+       * PRODUCT PICTURE IS REQUIRED
+       */
+
+      if (!currentImageData) {
+
+        alert(
+          "Please add a picture of the product before saving."
+        );
+
+        return;
+
+      }
+
+
+      if (!name) {
+
+        alert(
+          "Please enter the product name."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        Number.isNaN(price) ||
+        price < 0
+      ) {
+
+        alert(
+          "Please enter a valid price."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        Number.isNaN(stock) ||
+        stock < 0
+      ) {
+
+        alert(
+          "Please enter valid stock."
+        );
+
+        return;
+
+      }
+
+
+      if (!description) {
+
+        alert(
+          "Please enter a product description."
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * EDIT EXISTING PRODUCT
+       */
+
+      if (editingId !== null) {
+
+        const index =
+          products.findIndex(
+            product =>
+              String(product.id) ===
+              String(editingId)
+          );
+
+
+        if (index !== -1) {
+
+          products[index] = {
+
+            ...products[index],
+
+            name: name,
+
+            price: price,
+
+            category: category,
+
+            stock: stock,
+
+            image: currentImageData,
+
+            description: description
+
+          };
+
+        }
+
+
+        showMessage(
+          "Product updated successfully."
+        );
+
+      }
+
+      /*
+       * ADD NEW PRODUCT
+       */
+
+      else {
+
+        const newProduct = {
+
+          id:
+            Date.now().toString(),
+
+          name: name,
+
+          price: price,
+
+          category: category,
+
+          stock: stock,
+
+          image: currentImageData,
+
+          description: description
+
+        };
+
+
+        products.unshift(
+          newProduct
+        );
+
+
+        showMessage(
+          "Product added successfully."
+        );
+
+      }
+
+
+      saveProducts();
+
+      resetForm();
+
+      renderProducts();
+
+    }
+  );
+
+
+  /*
+   * RENDER PRODUCTS
+   */
 
   function renderProducts() {
 
-    const products =
-      getProducts();
-
-    const list =
-      document.getElementById("productsList");
+    totalProducts.textContent =
+      products.length;
 
 
-    document.getElementById(
-      "totalProducts"
-    ).textContent = products.length;
-
-
-    const stock =
+    const stockTotal =
       products.reduce(
-        (sum, product) =>
-          sum + Number(product.stock || 0),
+        (total, product) =>
+          total +
+          (Number(product.stock) || 0),
         0
       );
 
 
-    document.getElementById(
-      "totalStock"
-    ).textContent = stock;
+    totalStock.textContent =
+      stockTotal;
 
 
-    if (!products.length) {
+    if (products.length === 0) {
 
-      list.innerHTML =
-        '<div class="empty">No products yet.</div>';
+      productsList.innerHTML = `
+
+        <div class="empty"
+             style="grid-column:1/-1;">
+
+          No products yet.
+          Add your first product above.
+
+        </div>
+
+      `;
 
       return;
 
     }
 
 
-    list.innerHTML =
-      products.map(product => `
+    productsList.innerHTML =
+      products.map(
+        product => {
 
-        <div class="product">
+          const image =
+            product.image
 
-          <img
-            src="${escapeHtml(product.image)}"
-            alt="${escapeHtml(product.name)}"
-          >
+              ? `
 
-          <div>
+                <img
+                  class="product-card-image"
+                  src="${escapeHtml(product.image)}"
+                  alt="${escapeHtml(product.name)}"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
 
-            <h3>
-              ${escapeHtml(product.name)}
-            </h3>
+                <div
+                  class="no-image"
+                  style="display:none;"
+                >
+                  🛍️
+                </div>
 
-            <p class="price">
-              ${Number(product.price).toLocaleString()} SEK
-            </p>
+              `
 
-            <p>
-              Category:
-              ${escapeHtml(product.category)}
-            </p>
+              : `
 
-            <p>
-              Stock:
-              ${Number(product.stock)}
-            </p>
+                <div class="no-image">
+                  🛍️
+                </div>
 
-          </div>
-
-          <div class="actions">
-
-            <button
-              class="edit"
-              onclick="editProduct('${product.id}')"
-            >
-              ✏️ Edit
-            </button>
-
-            <button
-              class="delete"
-              onclick="deleteProduct('${product.id}')"
-            >
-              🗑️ Delete
-            </button>
-
-          </div>
-
-        </div>
-
-      `).join("");
-
-  }
+              `;
 
 
-  document
-    .getElementById("productForm")
-    .addEventListener(
-      "submit",
-      function(event) {
+          return `
 
-        event.preventDefault();
+            <div class="product-card">
+
+              ${image}
 
 
-        const products =
-          getProducts();
+              <div class="product-content">
+
+                <div class="category">
+                  ${escapeHtml(
+                    product.category || "Other"
+                  )}
+                </div>
 
 
-        const id =
-          document.getElementById(
-            "productId"
-          ).value;
+                <h3>
+                  ${escapeHtml(
+                    product.name
+                  )}
+                </h3>
 
 
-        const newProduct = {
-
-          id:
-            id || "p" + Date.now(),
-
-          name:
-            document.getElementById(
-              "productName"
-            ).value.trim(),
-
-          price:
-            Number(
-              document.getElementById(
-                "productPrice"
-              ).value
-            ),
-
-          category:
-            document.getElementById(
-              "productCategory"
-            ).value,
-
-          stock:
-            Number(
-              document.getElementById(
-                "productStock"
-              ).value
-            ),
-
-          image:
-            document.getElementById(
-              "productImage"
-            ).value.trim(),
-
-          description:
-            document.getElementById(
-              "productDescription"
-            ).value.trim()
-
-        };
+                <div class="product-price">
+                  ${formatPrice(
+                    product.price
+                  )}
+                </div>
 
 
-        if (id) {
+                <div class="stock">
+                  Stock:
+                  ${Number(product.stock) || 0}
+                </div>
 
-          const index =
-            products.findIndex(
-              product => product.id === id
-            );
 
-          if (index !== -1) {
-            products[index] = newProduct;
-          }
+                <div class="product-actions">
 
-        } else {
+                  <button
+                    class="edit-btn"
+                    onclick="editProduct('${escapeJs(product.id)}')"
+                  >
+                    ✏️ Edit
+                  </button>
 
-          products.push(newProduct);
+
+                  <button
+                    class="delete-btn"
+                    onclick="deleteProduct('${escapeJs(product.id)}')"
+                  >
+                    🗑️ Delete
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          `;
 
         }
+      ).join("");
+
+  }
 
 
-        saveProducts(products);
+  /*
+   * EDIT PRODUCT
+   */
 
-        clearForm();
+  window.editProduct =
+    function (id) {
 
-        renderProducts();
-
-
-        alert(
-          id
-            ? "Product updated successfully!"
-            : "Product added successfully!"
+      const product =
+        products.find(
+          item =>
+            String(item.id) ===
+            String(id)
         );
 
+
+      if (!product) {
+        return;
       }
+
+
+      editingId =
+        product.id;
+
+
+      productName.value =
+        product.name || "";
+
+
+      productPrice.value =
+        product.price || "";
+
+
+      productCategory.value =
+        product.category || "";
+
+
+      productStock.value =
+        product.stock || 0;
+
+
+      productDescription.value =
+        product.description || "";
+
+
+      currentImageData =
+        product.image || "";
+
+
+      if (currentImageData) {
+
+        previewImage.src =
+          currentImageData;
+
+        imagePreview.style.display =
+          "block";
+
+      } else {
+
+        imagePreview.style.display =
+          "none";
+
+      }
+
+
+      formTitle.textContent =
+        "Edit Product";
+
+
+      cancelEdit.style.display =
+        "inline-block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    };
+
+
+  /*
+   * DELETE PRODUCT
+   */
+
+  window.deleteProduct =
+    function (id) {
+
+      const product =
+        products.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+
+      if (!product) {
+        return;
+      }
+
+
+      const confirmed =
+        confirm(
+          `Delete "${product.name}"?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      products =
+        products.filter(
+          item =>
+            String(item.id) !==
+            String(id)
+        );
+
+
+      saveProducts();
+
+      renderProducts();
+
+
+      showMessage(
+        "Product deleted successfully."
+      );
+
+    };
+
+
+  /*
+   * CANCEL EDIT
+   */
+
+  cancelEdit.addEventListener(
+    "click",
+    function () {
+
+      resetForm();
+
+    }
+  );
+
+
+  /*
+   * RESET FORM
+   */
+
+  function resetForm() {
+
+    productForm.reset();
+
+    editingId = null;
+
+    currentImageData = "";
+
+    previewImage.src = "";
+
+    imagePreview.style.display =
+      "none";
+
+    formTitle.textContent =
+      "Add New Product";
+
+    cancelEdit.style.display =
+      "none";
+
+  }
+
+
+  /*
+   * MESSAGE
+   */
+
+  function showMessage(text) {
+
+    message.textContent =
+      text;
+
+    message.style.display =
+      "block";
+
+    message.style.background =
+      "#1c351c";
+
+    message.style.color =
+      "#a9e5a9";
+
+
+    setTimeout(
+      function () {
+
+        message.style.display =
+          "none";
+
+      },
+      3000
     );
 
-
-  function editProduct(id) {
-
-    const products =
-      getProducts();
-
-    const product =
-      products.find(
-        item => item.id === id
-      );
-
-    if (!product) return;
+  }
 
 
-    document.getElementById(
-      "productId"
-    ).value = product.id;
+  /*
+   * PRICE FORMAT
+   */
 
+  function formatPrice(price) {
 
-    document.getElementById(
-      "productName"
-    ).value = product.name;
-
-
-    document.getElementById(
-      "productPrice"
-    ).value = product.price;
-
-
-    document.getElementById(
-      "productCategory"
-    ).value = product.category;
-
-
-    document.getElementById(
-      "productStock"
-    ).value = product.stock;
-
-
-    document.getElementById(
-      "productImage"
-    ).value = product.image;
-
-
-    document.getElementById(
-      "productDescription"
-    ).value = product.description;
-
-
-    document.getElementById(
-      "formTitle"
-    ).textContent = "✏️ Edit Product";
-
-
-    document.getElementById(
-      "saveButton"
-    ).textContent = "💾 Update Product";
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    return (
+      Number(price || 0)
+        .toLocaleString(
+          "sv-SE",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )
+      + " SEK"
+    );
 
   }
 
 
-  function deleteProduct(id) {
+  /*
+   * HTML SECURITY
+   */
 
-    const products =
-      getProducts();
+  function escapeHtml(value) {
 
-    const product =
-      products.find(
-        item => item.id === id
+    return String(value ?? "")
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
       );
-
-    if (!product) return;
-
-
-    const confirmed =
-      confirm(
-        "Delete " +
-        product.name +
-        "?"
-      );
-
-
-    if (!confirmed) return;
-
-
-    const updated =
-      products.filter(
-        item => item.id !== id
-      );
-
-
-    saveProducts(updated);
-
-    renderProducts();
 
   }
 
 
-  function clearForm() {
+  function escapeJs(value) {
 
-    document
-      .getElementById("productForm")
-      .reset();
-
-
-    document.getElementById(
-      "productId"
-    ).value = "";
-
-
-    document.getElementById(
-      "formTitle"
-    ).textContent = "➕ Add Product";
-
-
-    document.getElementById(
-      "saveButton"
-    ).textContent = "💾 Add Product";
+    return String(value ?? "")
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+      .replace(
+        /'/g,
+        "\\'"
+      );
 
   }
 
+
+  /*
+   * START
+   */
+
+  loadProducts();
 
   renderProducts();
 
@@ -975,4 +1561,3 @@
 
 </body>
 </html>
-```
