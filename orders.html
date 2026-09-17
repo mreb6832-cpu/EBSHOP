@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Orders | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111;
+      border-bottom: 1px solid #c9a227;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    main {
+      width: 92%;
+      max-width: 1100px;
+      margin: 50px auto;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .page-title h1 {
+      color: #d4af37;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #aaa;
+    }
+
+    .empty {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .empty h2 {
+      margin-bottom: 12px;
+    }
+
+    .empty p {
+      color: #999;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #d4af37;
+      color: #000;
+      padding: 13px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .order-card {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+
+    .order-header {
+      padding: 20px;
+      border-bottom: 1px solid #292929;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .order-number {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .status {
+      color: #d4af37;
+      border: 1px solid #d4af37;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .order-body {
+      padding: 20px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-weight: bold;
+    }
+
+    .item-info {
+      color: #999;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .item-price {
+      color: #d4af37;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .total span:last-child {
+      color: #d4af37;
+    }
+
+    .delivery {
+      margin-top: 20px;
+      padding: 18px;
+      background: #0b0b0b;
+      border-radius: 10px;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
+    .delivery strong {
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .page-title h1 {
+        font-size: 30px;
+      }
+
+      .item {
+        flex-direction: column;
+      }
+
+      .item-price {
+        white-space: normal;
+      }
+
+      header {
+        justify-content: center;
+      }
+
+      nav {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🛒 E&B SHOP</div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="account.html">My Account</a>
+    <a href="orders.html">My Orders</a>
+  </nav>
+</header>
+
+<main>
+
+  <div class="page-title">
+    <h1>My Orders</h1>
+    <p>View your orders from E&B SHOP 🇸🇪</p>
+  </div>
+
+  <div id="ordersContainer"></div>
+
+</main>
+
+<footer>
+  © 2026 E&B SHOP — Sweden 🇸🇪
+</footer>
+
+<script>
+
+  const container = document.getElementById("ordersContainer");
+
+  function formatPrice(price) {
+    return Number(price).toLocaleString("sv-SE") + " SEK";
+  }
+
+  function formatDate(date) {
+    return new Date(date).toLocaleString("sv-SE", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
+
+  function calculateTotal(items) {
+    return items.reduce((total, item) => {
+      return total + (Number(item.price) * Number(item.quantity));
+    }, 0);
+  }
+
+  function showEmpty() {
+    container.innerHTML = `
+      <div class="empty">
+        <h2>No orders yet</h2>
+        <p>You haven't placed an order yet.</p>
+        <a class="btn" href="products.html">Start Shopping</a>
+      </div>
+    `;
+  }
+
+  function showOrder(order) {
+
+    if (!order || !order.items || order.items.length === 0) {
+      showEmpty();
+      return;
+    }
+
+    const total = calculateTotal(order.items);
+
+    let itemsHTML = "";
+
+    order.items.forEach(item => {
+
+      const itemTotal =
+        Number(item.price) * Number(item.quantity);
+
+      itemsHTML += `
+        <div class="item">
+
+          <div>
+            <div class="item-name">
+              ${item.name}
+            </div>
+
+            <div class="item-info">
+              ${item.quantity} × ${formatPrice(item.price)}
+            </div>
+          </div>
+
+          <div class="item-price">
+            ${formatPrice(itemTotal)}
+          </div>
+
+        </div>
+      `;
+    });
+
+    container.innerHTML = `
+
+      <div class="order-card">
+
+        <div class="order-header">
+
+          <div>
+            <div class="order-number">
+              Order #${order.orderNumber}
+            </div>
+
+            <div style="color:#888; margin-top:6px;">
+              ${formatDate(order.createdAt)}
+            </div>
+          </div>
+
+          <div class="status">
+            Order Received
+          </div>
+
+        </div>
+
+        <div class="order-body">
+
+          ${itemsHTML}
+
+          <div class="total">
+            <span>Total</span>
+            <span>${formatPrice(total)}</span>
+          </div>
+
+          <div class="delivery">
+
+            <strong>Delivery Information</strong><br>
+
+            ${order.customerName}<br>
+            ${order.address}<br>
+            ${order.postcode} ${order.city}<br>
+            Sweden 🇸🇪<br>
+            Phone: ${order.phone || "Not provided"}<br>
+            Email: ${order.email}
+
+          </div>
+
+          <div style="
+            margin-top:18px;
+            color:#888;
+            font-size:13px;
+          ">
+            Payment will be connected later.
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+  // Get the latest order saved during checkout
+  const savedOrder =
+    localStorage.getItem("ebShopLastOrder");
+
+  if (savedOrder) {
+
+    try {
+
+      const order = JSON.parse(savedOrder);
+
+      showOrder(order);
+
+    } catch (error) {
+
+      console.error("Could not read order:", error);
+
+      showEmpty();
+    }
+
+  } else {
+
+    showEmpty();
+
+  }
+
+</script>
+
+</body>
+</html>
