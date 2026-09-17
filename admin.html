@@ -1,1093 +1,419 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Admin Dashboard | E&B SHOP</title><meta
-name="description"
-content="E&B SHOP Owner Dashboard"
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-«»
+  <title>Owner Dashboard | E&B SHOP</title>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      background: #080808;
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    header {
-      background: #111;
-      border-bottom: 1px solid #292929;
-      padding: 16px 5%;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      background: #f5f7fb;
+      color: #222;
     }
 
     .topbar {
-      max-width: 1400px;
-      margin: auto;
+      background: #111827;
+      color: white;
+      padding: 18px 25px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      align-items: center;
     }
 
-    .logo {
-      color: #d4af37;
-      font-size: 23px;
-      font-weight: 800;
+    .topbar h1 {
+      font-size: 22px;
     }
 
-    .logo span {
-      color: white;
+    .owner {
+      font-size: 14px;
+      opacity: 0.9;
     }
 
-    .top-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .top-btn {
-      border: 1px solid #333;
-      background: #181818;
-      color: white;
-      padding: 9px 13px;
-      border-radius: 7px;
-      cursor: pointer;
-    }
-
-    .top-btn:hover {
-      border-color: #d4af37;
-      color: #d4af37;
-    }
-
-    .logout-btn {
-      background: #d4af37;
-      color: #080808;
-      border: none;
-      font-weight: bold;
-    }
-
-    .page {
-      max-width: 1400px;
-      margin: auto;
-      padding: 35px 5%;
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
     }
 
     .welcome {
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
-    .welcome small {
-      color: #d4af37;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-
-    .welcome h1 {
-      font-size: clamp(30px, 5vw, 50px);
-      margin: 8px 0;
-    }
-
-    .welcome p {
-      color: #888;
-    }
-
-    .owner-email {
-      color: #d4af37;
-      font-weight: bold;
+    .welcome h2 {
+      margin-bottom: 8px;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 18px;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
     }
 
-    .stat-card {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 14px;
-      padding: 23px;
-    }
-
-    .stat-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    .stat-card h3 {
-      color: #888;
-      font-size: 14px;
-      font-weight: normal;
-      margin-bottom: 7px;
-    }
-
-    .stat-value {
-      color: #d4af37;
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .panel {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      padding: 20px;
-      border-bottom: 1px solid #292929;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .panel-header h2 {
-      color: #d4af37;
-      font-size: 20px;
-    }
-
-    .panel-header button {
-      background: transparent;
-      color: #aaa;
-      border: 1px solid #333;
-      padding: 7px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .panel-header button:hover {
-      color: white;
-      border-color: #d4af37;
-    }
-
-    .panel-body {
-      padding: 20px;
-    }
-
-    .product-list,
-    .user-list,
-    .order-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .item {
-      background: #181818;
-      border: 1px solid #292929;
-      border-radius: 9px;
-      padding: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .item-left {
-      min-width: 0;
-    }
-
-    .item-title {
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-
-    .item-meta {
-      color: #888;
-      font-size: 13px;
-      word-break: break-word;
-    }
-
-    .item-price {
-      color: #d4af37;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .empty {
-      color: #777;
-      text-align: center;
-      padding: 25px 10px;
-    }
-
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .quick-action {
-      display: block;
-      background: #181818;
-      border: 1px solid #292929;
-      border-radius: 10px;
-      padding: 18px;
-      color: white;
-      transition: 0.2s;
-    }
-
-    .quick-action:hover {
-      border-color: #d4af37;
-      transform: translateY(-2px);
-    }
-
-    .quick-action strong {
-      display: block;
-      color: #d4af37;
-      margin-bottom: 5px;
-    }
-
-    .quick-action span {
-      color: #888;
-      font-size: 13px;
-    }
-
-    .danger-zone {
-      margin-top: 22px;
-      background: #111;
-      border: 1px solid #492929;
+    .card {
+      background: white;
       border-radius: 14px;
       padding: 22px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
     }
 
-    .danger-zone h2 {
-      color: #ff7676;
+    .card h3 {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .number {
+      font-size: 30px;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .action {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .action h3 {
       margin-bottom: 8px;
     }
 
-    .danger-zone p {
-      color: #888;
+    .action p {
+      color: #666;
+      font-size: 14px;
       margin-bottom: 15px;
     }
 
-    .danger-btn {
-      background: #7a2222;
-      color: white;
+    .btn {
+      display: inline-block;
       border: none;
-      padding: 10px 14px;
-      border-radius: 7px;
+      padding: 11px 16px;
+      border-radius: 8px;
+      background: #111827;
+      color: white;
+      text-decoration: none;
       cursor: pointer;
       font-weight: bold;
     }
 
-    .danger-btn:hover {
-      background: #a52b2b;
+    .btn:hover {
+      opacity: 0.9;
     }
 
-    footer {
-      border-top: 1px solid #292929;
-      margin-top: 50px;
-      padding: 25px;
+    .danger {
+      background: #dc2626;
+    }
+
+    .logout {
+      background: #ef4444;
+      margin-left: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #denied {
       text-align: center;
-      color: #777;
+      padding: 80px 20px;
     }
 
-    footer strong {
-      color: #d4af37;
+    #denied h1 {
+      color: #dc2626;
+      margin-bottom: 15px;
     }
 
-    @media (max-width: 1000px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
+    #dashboard {
+      display: none;
     }
 
     @media (max-width: 600px) {
       .topbar {
         flex-direction: column;
-        align-items: stretch;
-      }
-
-      .top-actions {
-        justify-content: center;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .quick-actions {
-        grid-template-columns: 1fr;
-      }
-
-      .item {
-        align-items: flex-start;
+        gap: 10px;
+        text-align: center;
       }
     }
-  </style></head><body><header>
-  <div class="topbar"><a href="index.html" class="logo">
-  🛒 E&B <span>SHOP</span>
-</a>
+  </style>
+</head>
 
-<div class="top-actions">
+<body>
 
-  <a href="index.html" class="top-btn">
-    🏠 Home
-  </a>
-
-  <a href="products.html" class="top-btn">
-    📦 Products
-  </a>
-
-  <button class="top-btn logout-btn" onclick="logout()">
-    Logout
-  </button>
-
-</div>
-
-  </div>
-</header><main class="page">  <section class="welcome"><small>OWNER CONTROL CENTER</small>
-
-<h1>
-  👑 Admin Dashboard
-</h1>
-
-<p>
-  Welcome, Owner.
-  <span class="owner-email">
-    mucyoemmy539@gmail.com
-  </span>
-</p>
-
-  </section>  <!-- STATISTICS -->  <section class="stats"><div class="stat-card">
-
-  <div class="stat-icon">📦</div>
-
-  <h3>Total Products</h3>
-
-  <div
-    class="stat-value"
-    id="totalProducts"
-  >
-    0
+  <!-- ACCESS DENIED -->
+  <div id="denied">
+    <h1>🚫 Access Denied</h1>
+    <p>Only the E&B SHOP Owner can access this page.</p>
   </div>
 
-</div>
-
-
-<div class="stat-card">
-
-  <div class="stat-icon">👥</div>
-
-  <h3>Registered Users</h3>
-
-  <div
-    class="stat-value"
-    id="totalUsers"
-  >
-    0
-  </div>
-
-</div>
-
-
-<div class="stat-card">
-
-  <div class="stat-icon">🛒</div>
-
-  <h3>Cart Items</h3>
-
-  <div
-    class="stat-value"
-    id="totalCartItems"
-  >
-    0
-  </div>
-
-</div>
-
-
-<div class="stat-card">
-
-  <div class="stat-icon">💰</div>
-
-  <h3>Cart Value</h3>
-
-  <div
-    class="stat-value"
-    id="cartValue"
-  >
-    0 SEK
-  </div>
-
-</div>
-
-  </section>  <section class="dashboard-grid"><!-- PRODUCTS -->
-
-<div class="panel">
-
-  <div class="panel-header">
-
-    <h2>📦 Products</h2>
-
-    <button onclick="loadDashboard()">
-      Refresh
-    </button>
-
-  </div>
-
-  <div class="panel-body">
-
-    <div
-      class="product-list"
-      id="productList"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- USERS -->
-
-<div class="panel">
-
-  <div class="panel-header">
-
-    <h2>👥 Users</h2>
-
-    <button onclick="loadDashboard()">
-      Refresh
-    </button>
-
-  </div>
-
-  <div class="panel-body">
-
-    <div
-      class="user-list"
-      id="userList"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- ORDERS / CART -->
-
-<div class="panel">
-
-  <div class="panel-header">
-
-    <h2>🛒 Current Cart</h2>
-
-    <button onclick="loadDashboard()">
-      Refresh
-    </button>
-
-  </div>
-
-  <div class="panel-body">
-
-    <div
-      class="order-list"
-      id="orderList"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- QUICK ACTIONS -->
-
-<div class="panel">
-
-  <div class="panel-header">
-
-    <h2>⚡ Quick Actions</h2>
-
-  </div>
-
-  <div class="panel-body">
-
-    <div class="quick-actions">
-
-      <a
-        href="products.html"
-        class="quick-action"
-      >
-        <strong>📦 Products</strong>
-        <span>View your shop products.</span>
-      </a>
-
-
-      <a
-        href="seller-dashboard.html"
-        class="quick-action"
-      >
-        <strong>🏪 Seller Center</strong>
-        <span>Open the seller dashboard.</span>
-      </a>
-
-
-      <a
-        href="register.html"
-        class="quick-action"
-      >
-        <strong>👤 Register</strong>
-        <span>Open customer registration.</span>
-      </a>
-
-
-      <a
-        href="index.html"
-        class="quick-action"
-      >
-        <strong>🏠 Storefront</strong>
-        <span>Return to the main shop.</span>
-      </a>
+  <!-- OWNER DASHBOARD -->
+  <div id="dashboard">
+
+    <div class="topbar">
+      <div>
+        <h1>👑 E&B SHOP Owner Dashboard</h1>
+      </div>
+
+      <div class="owner">
+        Owner: mucyoemmy539@gmail.com
+        <button class="btn logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="welcome">
+        <h2>Welcome, Owner 👋</h2>
+        <p>Manage your E&B SHOP marketplace from here.</p>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats">
+
+        <div class="card">
+          <h3>Products</h3>
+          <div class="number" id="productCount">0</div>
+        </div>
+
+        <div class="card">
+          <h3>Registered Users</h3>
+          <div class="number" id="userCount">0</div>
+        </div>
+
+        <div class="card">
+          <h3>Cart Items</h3>
+          <div class="number" id="cartCount">0</div>
+        </div>
+
+        <div class="card">
+          <h3>Cart Value</h3>
+          <div class="number" id="cartValue">0 SEK</div>
+        </div>
+
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions">
+
+        <div class="action">
+          <h3>📦 Products</h3>
+          <p>View and manage products in your marketplace.</p>
+          <a href="index.html#products" class="btn">View Products</a>
+        </div>
+
+        <div class="action">
+          <h3>🛍️ Seller Center</h3>
+          <p>Open the seller dashboard.</p>
+          <a href="seller-dashboard.html" class="btn">Seller Center</a>
+        </div>
+
+        <div class="action">
+          <h3>👤 Customers</h3>
+          <p>View registered customer accounts.</p>
+          <a href="register.html" class="btn">Register Page</a>
+        </div>
+
+        <div class="action">
+          <h3>🌐 Storefront</h3>
+          <p>Open your public E&B SHOP website.</p>
+          <a href="index.html" class="btn">Open Store</a>
+        </div>
+
+        <div class="action">
+          <h3>🧹 Store Data</h3>
+          <p>Clear locally stored products from this browser.</p>
+          <button class="btn danger" onclick="clearProducts()">
+            Clear Products
+          </button>
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
+  <script>
 
-  </section>  <!-- DANGER ZONE -->  <section class="danger-zone"><h2>⚠️ Owner Tools</h2>
+    /* =========================
+       OWNER SETTINGS
+    ========================= */
 
-<p>
-  This action clears the locally stored E&B SHOP
-  product database on this browser.
-</p>
-
-<button
-  class="danger-btn"
-  onclick="clearProducts()"
->
-  Clear Local Products
-</button>
-
-  </section></main><footer>© 2026 <strong>E&B SHOP</strong> — Owner Dashboard
-
-</footer><script>
-
-  /* =========================================
-     OWNER SECURITY
-  ========================================= */
-
-  const ADMIN_EMAIL =
-    "mucyoemmy539@gmail.com";
+    const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
 
 
-  function checkAdminAccess() {
+    /* =========================
+       OWNER ACCESS CHECK
+    ========================= */
 
-    const email =
-      localStorage.getItem(
-        "ebShopCustomerEmail"
-      );
+    function checkAdminAccess() {
 
+      const email =
+        localStorage.getItem("ebShopCustomerEmail");
 
-    if (
-      !email ||
-      email.trim().toLowerCase() !==
-      ADMIN_EMAIL.toLowerCase()
-    ) {
+      if (
+        !email ||
+        email.trim().toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+      ) {
 
-      alert(
-        "Access denied. Owner only."
-      );
+        document.getElementById("denied").style.display = "block";
+        document.getElementById("dashboard").style.display = "none";
 
-      window.location.href =
-        "index.html";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
 
-      return false;
-    }
-
-
-    return true;
-  }
-
-
-  /* =========================================
-     PRODUCTS
-  ========================================= */
-
-  const PRODUCT_STORAGE_KEY =
-    "ebShopProducts";
-
-
-  function getProducts() {
-
-    try {
-
-      const saved =
-        localStorage.getItem(
-          PRODUCT_STORAGE_KEY
-        );
-
-      if (!saved) {
-        return [];
+        return false;
       }
 
-      const products =
-        JSON.parse(saved);
+      document.getElementById("denied").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
 
-      return Array.isArray(products)
-        ? products
-        : [];
-
-    } catch (error) {
-
-      return [];
-
+      return true;
     }
 
-  }
 
+    /* =========================
+       LOAD DASHBOARD
+    ========================= */
 
-  /* =========================================
-     USERS
-  ========================================= */
+    function loadDashboard() {
 
-  function getUsers() {
+      if (!checkAdminAccess()) {
+        return;
+      }
 
-    const possibleKeys = [
-      "ebShopUsers",
-      "users",
-      "registeredUsers"
-    ];
+      /* PRODUCTS */
 
-
-    for (
-      const key of possibleKeys
-    ) {
+      let products = [];
 
       try {
-
-        const saved =
-          localStorage.getItem(key);
-
-        if (!saved) continue;
-
-        const data =
-          JSON.parse(saved);
-
-        if (Array.isArray(data)) {
-          return data;
-        }
-
+        products =
+          JSON.parse(
+            localStorage.getItem("ebShopProducts")
+          ) || [];
       } catch (error) {
-        continue;
+        products = [];
       }
 
-    }
+      document.getElementById("productCount").textContent =
+        products.length;
 
 
-    return [];
+      /* USERS */
 
-  }
+      let users = [];
 
+      try {
+        users =
+          JSON.parse(
+            localStorage.getItem("ebShopUsers")
+          ) || [];
+      } catch (error) {
+        users = [];
+      }
 
-  /* =========================================
-     CART
-  ========================================= */
-
-  function getCart() {
-
-    try {
-
-      return JSON.parse(
-        localStorage.getItem(
-          "ebShopCart"
-        )
-      ) || [];
-
-    } catch (error) {
-
-      return [];
-
-    }
-
-  }
+      document.getElementById("userCount").textContent =
+        users.length;
 
 
-  /* =========================================
-     DASHBOARD
-  ========================================= */
+      /* CART */
 
-  function loadDashboard() {
+      let cart = [];
 
-    const products =
-      getProducts();
+      try {
+        cart =
+          JSON.parse(
+            localStorage.getItem("ebShopCart")
+          ) || [];
+      } catch (error) {
+        cart = [];
+      }
 
-    const users =
-      getUsers();
-
-    const cart =
-      getCart();
-
-
-    /* PRODUCTS COUNT */
-
-    document.getElementById(
-      "totalProducts"
-    ).textContent =
-      products.length;
+      document.getElementById("cartCount").textContent =
+        cart.reduce(
+          (total, item) =>
+            total + Number(item.quantity || 1),
+          0
+        );
 
 
-    /* USERS COUNT */
+      /* CART VALUE */
 
-    document.getElementById(
-      "totalUsers"
-    ).textContent =
-      users.length;
-
-
-    /* CART COUNT */
-
-    const cartItems =
-      cart.reduce(
+      const totalValue = cart.reduce(
         (total, item) =>
           total +
-          Number(
-            item.quantity || 0
-          ),
+          Number(item.price || 0) *
+          Number(item.quantity || 1),
         0
       );
 
-
-    document.getElementById(
-      "totalCartItems"
-    ).textContent =
-      cartItems;
-
-
-    /* CART VALUE */
-
-    const cartValue =
-      cart.reduce(
-        (total, item) =>
-          total +
-          (
-            Number(item.price || 0) *
-            Number(item.quantity || 0)
-          ),
-        0
-      );
-
-
-    document.getElementById(
-      "cartValue"
-    ).textContent =
-      cartValue.toLocaleString() +
-      " SEK";
-
-
-    renderProducts(products);
-
-    renderUsers(users);
-
-    renderCart(cart);
-
-  }
-
-
-  /* =========================================
-     RENDER PRODUCTS
-  ========================================= */
-
-  function renderProducts(products) {
-
-    const container =
-      document.getElementById(
-        "productList"
-      );
-
-
-    if (!products.length) {
-
-      container.innerHTML =
-        '<div class="empty">No products found.</div>';
-
-      return;
+      document.getElementById("cartValue").textContent =
+        totalValue.toFixed(2) + " SEK";
     }
 
 
-    container.innerHTML =
-      products
-        .slice(0, 20)
-        .map(product => `
+    /* =========================
+       LOGOUT
+    ========================= */
 
-          <div class="item">
+    function logout() {
 
-            <div class="item-left">
+      localStorage.removeItem("ebShopCustomerEmail");
+      localStorage.removeItem("ebShopCustomerName");
+      localStorage.removeItem("ebShopCustomerPhone");
+      localStorage.removeItem("ebShopLoggedIn");
 
-              <div class="item-title">
-                ${escapeHtml(
-                  product.name ||
-                  "Unnamed product"
-                )}
-              </div>
-
-              <div class="item-meta">
-                ${escapeHtml(
-                  product.category ||
-                  "Other"
-                )}
-                • Stock:
-                ${Number(
-                  product.stock || 0
-                )}
-              </div>
-
-            </div>
-
-            <div class="item-price">
-              ${Number(
-                product.price || 0
-              ).toLocaleString()}
-              SEK
-            </div>
-
-          </div>
-
-        `)
-        .join("");
-
-  }
-
-
-  /* =========================================
-     RENDER USERS
-  ========================================= */
-
-  function renderUsers(users) {
-
-    const container =
-      document.getElementById(
-        "userList"
-      );
-
-
-    if (!users.length) {
-
-      container.innerHTML =
-        '<div class="empty">No locally stored users found.</div>';
-
-      return;
+      window.location.href = "index.html";
     }
 
 
-    container.innerHTML =
-      users
-        .slice(0, 20)
-        .map(user => {
+    /* =========================
+       CLEAR PRODUCTS
+    ========================= */
 
-          const email =
-            user.email ||
-            user.userEmail ||
-            "Unknown email";
+    function clearProducts() {
 
+      const confirmed =
+        confirm(
+          "Are you sure you want to remove all locally stored products?"
+        );
 
-          const name =
-            user.name ||
-            user.fullName ||
-            user.username ||
-            "Customer";
+      if (!confirmed) {
+        return;
+      }
 
+      localStorage.removeItem("ebShopProducts");
 
-          return `
+      alert("Products cleared.");
 
-            <div class="item">
-
-              <div class="item-left">
-
-                <div class="item-title">
-                  ${escapeHtml(name)}
-                </div>
-
-                <div class="item-meta">
-                  ${escapeHtml(email)}
-                </div>
-
-              </div>
-
-            </div>
-
-          `;
-
-        })
-        .join("");
-
-  }
-
-
-  /* =========================================
-     RENDER CART
-  ========================================= */
-
-  function renderCart(cart) {
-
-    const container =
-      document.getElementById(
-        "orderList"
-      );
-
-
-    if (!cart.length) {
-
-      container.innerHTML =
-        '<div class="empty">Cart is empty.</div>';
-
-      return;
+      loadDashboard();
     }
 
 
-    container.innerHTML =
-      cart
-        .map(item => `
-
-          <div class="item">
-
-            <div class="item-left">
-
-              <div class="item-title">
-                ${escapeHtml(
-                  item.name ||
-                  "Product"
-                )}
-              </div>
-
-              <div class="item-meta">
-                Quantity:
-                ${Number(
-                  item.quantity || 0
-                )}
-              </div>
-
-            </div>
-
-            <div class="item-price">
-              ${(
-                Number(item.price || 0) *
-                Number(item.quantity || 0)
-              ).toLocaleString()}
-              SEK
-            </div>
-
-          </div>
-
-        `)
-        .join("");
-
-  }
-
-
-  /* =========================================
-     SECURITY ESCAPE
-  ========================================= */
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  /* =========================================
-     CLEAR PRODUCTS
-  ========================================= */
-
-  function clearProducts() {
-
-    const confirmed =
-      confirm(
-        "Are you sure you want to clear the locally stored products?"
-      );
-
-
-    if (!confirmed) {
-      return;
-    }
-
-
-    localStorage.removeItem(
-      PRODUCT_STORAGE_KEY
-    );
-
-
-    alert(
-      "Local products have been cleared."
-    );
-
+    /* =========================
+       START
+    ========================= */
 
     loadDashboard();
 
-  }
+  </script>
 
-
-  /* =========================================
-     LOGOUT
-  ========================================= */
-
-  function logout() {
-
-    localStorage.removeItem(
-      "ebShopCustomerEmail"
-    );
-
-    localStorage.removeItem(
-      "ebShopCustomerName"
-    );
-
-    localStorage.removeItem(
-      "ebShopCustomerPhone"
-    );
-
-    localStorage.removeItem(
-      "ebShopLoggedIn"
-    );
-
-
-    window.location.href =
-      "index.html";
-
-  }
-
-
-  /* =========================================
-     START
-  ========================================= */
-
-  if (checkAdminAccess()) {
-
-    loadDashboard();
-
-  }
-
-</script></body>
+</body>
 </html>
