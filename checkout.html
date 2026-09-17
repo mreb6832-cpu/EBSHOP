@@ -14,10 +14,9 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #080808;
-      color: #fff;
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #090909;
+      color: white;
     }
 
     a {
@@ -25,14 +24,15 @@
       color: inherit;
     }
 
-    .gold {
-      color: #d4af37;
+    header {
+      background: #111;
+      border-bottom: 1px solid #292929;
     }
 
-    header {
-      background: #050505;
-      border-bottom: 1px solid #292929;
-      padding: 18px 6%;
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -40,19 +40,19 @@
     }
 
     .logo {
-      color: #d4af37;
-      font-size: 25px;
-      font-weight: 800;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     .logo span {
-      color: #fff;
+      color: #d4af37;
     }
 
     nav {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     nav a {
@@ -64,230 +64,339 @@
       color: #d4af37;
     }
 
-    main {
-      width: 90%;
-      max-width: 1150px;
-      margin: 50px auto 80px;
+    .cart-link {
+      background: #d4af37;
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: bold;
     }
 
-    .title {
-      text-align: center;
-      margin-bottom: 35px;
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 45px 20px 80px;
     }
 
-    .title small {
+    .heading {
+      margin-bottom: 30px;
+    }
+
+    .heading h1 {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .heading h1 span {
       color: #d4af37;
-      letter-spacing: 2px;
     }
 
-    .title h1 {
-      font-size: 42px;
-      margin: 12px 0;
-    }
-
-    .title p {
-      color: #999;
+    .heading p {
+      color: #888;
     }
 
     .checkout-layout {
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1fr 380px;
       gap: 25px;
       align-items: start;
     }
 
-    .card {
-      background: #111;
+    .box,
+    .summary {
+      background: #121212;
       border: 1px solid #292929;
       border-radius: 14px;
       padding: 25px;
     }
 
-    .card h2 {
+    .box {
+      margin-bottom: 20px;
+    }
+
+    .box h2,
+    .summary h2 {
       margin-bottom: 22px;
     }
 
-    .field {
-      margin-bottom: 17px;
-    }
-
-    .field label {
-      display: block;
-      color: #ccc;
-      font-size: 13px;
-      margin-bottom: 7px;
-    }
-
-    .field input,
-    .field textarea,
-    .field select {
-      width: 100%;
-      background: #181818;
-      border: 1px solid #333;
-      border-radius: 8px;
-      color: #fff;
-      padding: 13px;
-      outline: none;
-      font-size: 14px;
-    }
-
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      border-color: #d4af37;
-    }
-
-    .field textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .two-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .summary-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 13px 0;
-      border-bottom: 1px solid #292929;
-      color: #ccc;
-    }
-
-    .summary-item strong {
-      color: #fff;
-    }
-
-    .summary-total {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      font-size: 21px;
-      font-weight: bold;
-    }
-
-    .summary-total span:last-child {
+    .box h2 span,
+    .summary h2 span {
       color: #d4af37;
     }
 
-    .delivery-note {
-      margin-top: 20px;
-      padding: 15px;
-      border: 1px solid #3b3218;
-      background: #17140b;
-      border-radius: 9px;
-      color: #aaa;
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #ccc;
       font-size: 13px;
-      line-height: 1.6;
+      font-weight: bold;
+    }
+
+    .required {
+      color: #d4af37;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #0d0d0d;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 13px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #d4af37;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .summary {
+      position: sticky;
+      top: 20px;
+    }
+
+    .summary-items {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .summary-item {
+      display: grid;
+      grid-template-columns: 55px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border-bottom: 1px solid #252525;
+      padding-bottom: 13px;
+    }
+
+    .summary-image {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 7px;
+      background: #222;
+    }
+
+    .summary-name {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .summary-quantity {
+      color: #888;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .summary-price {
+      color: #d4af37;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #252525;
+      color: #aaa;
+    }
+
+    .summary-row strong {
+      color: white;
+    }
+
+    .free {
+      color: #7fd17f !important;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .total-row strong {
+      color: #d4af37;
     }
 
     .place-order {
       width: 100%;
-      margin-top: 22px;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
+      padding: 15px;
       background: #d4af37;
       color: #000;
+      border: none;
+      border-radius: 9px;
       font-weight: bold;
-      cursor: pointer;
       font-size: 15px;
+      cursor: pointer;
     }
 
     .place-order:hover {
-      background: #f0cc55;
+      background: #f0cf55;
     }
 
-    .back-cart {
-      display: block;
-      text-align: center;
-      color: #d4af37;
+    .payment-note {
       margin-top: 15px;
-      font-size: 14px;
+      padding: 13px;
+      background: #0d0d0d;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #888;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .empty {
+      background: #121212;
+      border: 1px dashed #444;
+      border-radius: 14px;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .empty-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    .empty p {
+      color: #888;
+      margin: 10px 0 25px;
+    }
+
+    .shop-btn {
+      display: inline-block;
+      background: #d4af37;
+      color: #000;
+      padding: 13px 20px;
+      border-radius: 8px;
+      font-weight: bold;
     }
 
     .success {
       display: none;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 45px 25px;
       text-align: center;
-      background: #111;
-      border: 1px solid #292929;
+      background: #121212;
+      border: 1px solid #d4af37;
       border-radius: 14px;
-      padding: 55px 25px;
     }
 
-    .success .icon {
-      font-size: 50px;
+    .success-icon {
+      font-size: 60px;
       margin-bottom: 15px;
     }
 
     .success h2 {
-      margin-bottom: 10px;
+      color: #d4af37;
+      font-size: 30px;
+      margin-bottom: 12px;
     }
 
     .success p {
-      color: #999;
-      line-height: 1.6;
+      color: #aaa;
+      margin-bottom: 10px;
     }
 
     .order-number {
-      color: #d4af37;
+      margin: 20px 0;
+      font-size: 19px;
       font-weight: bold;
-      margin: 18px 0;
     }
 
-    .success-btn {
-      display: inline-block;
-      margin-top: 15px;
-      background: #d4af37;
-      color: #000;
-      padding: 12px 20px;
+    .success-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .success-buttons a {
+      padding: 12px 18px;
       border-radius: 8px;
       font-weight: bold;
     }
 
+    .primary-btn {
+      background: #d4af37;
+      color: #000;
+    }
+
+    .secondary-btn {
+      border: 1px solid #444;
+    }
+
     footer {
-      background: #050505;
-      border-top: 1px solid #222;
-      padding: 30px;
+      background: #101010;
+      border-top: 1px solid #292929;
       text-align: center;
       color: #777;
+      padding: 30px;
       font-size: 13px;
     }
 
-    footer strong {
-      color: #d4af37;
-    }
-
-    @media (max-width: 800px) {
-      header {
+    @media (max-width: 850px) {
+      .navbar {
         flex-direction: column;
-      }
-
-      nav {
-        flex-wrap: wrap;
-        justify-content: center;
       }
 
       .checkout-layout {
         grid-template-columns: 1fr;
       }
+
+      .summary {
+        position: static;
+      }
     }
 
-    @media (max-width: 550px) {
-      main {
-        width: 94%;
-        margin-top: 30px;
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 15px 60px;
       }
 
-      .title h1 {
-        font-size: 34px;
+      .heading h1 {
+        font-size: 30px;
       }
 
-      .two-fields {
+      .form-grid {
         grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
       }
     }
   </style>
@@ -295,144 +404,559 @@
 
 <body>
 
-  <header>
+<header>
+
+  <div class="navbar">
 
     <a href="index.html" class="logo">
       🛒 <span>E&B</span> SHOP
     </a>
 
     <nav>
+      <a href="index.html">Home</a>
       <a href="products.html">Products</a>
-      <a href="cart.html">🛒 Cart</a>
       <a href="account.html">My Account</a>
+      <a href="orders.html">Orders</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+
+      <a href="cart.html" class="cart-link">
+        🛒 Cart (<span id="cartCount">0</span>)
+      </a>
     </nav>
 
-  </header>
+  </div>
+
+</header>
 
 
-  <main>
+<main class="container">
 
-    <section class="title">
-      <small>🇸🇪 E&B SHOP • SWEDEN</small>
+  <div class="heading">
 
-      <h1>
-        <span class="gold">Checkout</span>
-      </h1>
+    <h1>
+      Secure <span>Checkout</span>
+    </h1>
 
-      <p>
-        Enter your delivery information to complete your order.
-      </p>
-    </section>
+    <p>
+      Enter your delivery information to place your order.
+    </p>
+
+  </div>
 
 
-    <!-- CHECKOUT -->
-    <section id="checkoutArea" class="checkout-layout">
+  <div id="checkoutArea"></div>
 
-      <!-- CUSTOMER INFORMATION -->
-      <div class="card">
 
-        <h2>
-          Delivery <span class="gold">Information</span>
-        </h2>
+  <div id="successBox" class="success">
 
-        <form id="checkoutForm">
+    <div class="success-icon">
+      ✅
+    </div>
 
-          <div class="field">
-            <label for="fullName">Full Name *</label>
+    <h2>
+      Order Received!
+    </h2>
 
-            <input
-              type="text"
-              id="fullName"
-              required
-              placeholder="Enter your full name"
-            >
+    <p>
+      Thank you for shopping with E&B SHOP.
+    </p>
+
+    <p>
+      Your order has been created successfully.
+    </p>
+
+    <div class="order-number">
+      Order Number:
+      <span id="orderNumber"></span>
+    </div>
+
+    <p>
+      Payment will be connected later.
+    </p>
+
+    <div class="success-buttons">
+
+      <a href="orders.html" class="primary-btn">
+        View Order
+      </a>
+
+      <a href="products.html" class="secondary-btn">
+        Continue Shopping
+      </a>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer>
+  © 2026 E&B SHOP — Sweden 🇸🇪
+</footer>
+
+
+<script>
+
+const CART_KEY = "ebShopCart";
+const PRODUCTS_KEY = "ebShopProducts";
+
+let cart = [];
+let products = [];
+
+
+function loadData() {
+
+  try {
+    cart = JSON.parse(
+      localStorage.getItem(CART_KEY) || "[]"
+    );
+
+    if (!Array.isArray(cart)) {
+      cart = [];
+    }
+
+  } catch {
+    cart = [];
+  }
+
+
+  try {
+    products = JSON.parse(
+      localStorage.getItem(PRODUCTS_KEY) || "[]"
+    );
+
+    if (!Array.isArray(products)) {
+      products = [];
+    }
+
+  } catch {
+    products = [];
+  }
+
+}
+
+
+function getProduct(id) {
+
+  return products.find(
+    product =>
+      String(product.id) === String(id)
+  );
+
+}
+
+
+function formatPrice(price) {
+
+  return Number(price || 0)
+    .toLocaleString("sv-SE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) + " SEK";
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function updateCartCount() {
+
+  const count = cart.reduce(
+    (total, item) =>
+      total + (Number(item.quantity) || 0),
+    0
+  );
+
+  document.getElementById("cartCount")
+    .textContent = count;
+
+}
+
+
+function getSubtotal() {
+
+  return cart.reduce(
+    (total, item) =>
+      total +
+      (Number(item.price) || 0) *
+      (Number(item.quantity) || 0),
+    0
+  );
+
+}
+
+
+function createSummaryItem(item) {
+
+  const product = getProduct(item.id);
+
+  const name = escapeHtml(
+    item.name ||
+    (product && product.name) ||
+    "Product"
+  );
+
+  const quantity =
+    Number(item.quantity) || 1;
+
+  const price =
+    Number(item.price) || 0;
+
+  const total =
+    price * quantity;
+
+
+  let imageHTML = "";
+
+
+  if (product && product.image) {
+
+    imageHTML = `
+      <img
+        class="summary-image"
+        src="${escapeHtml(product.image)}"
+        alt="${name}"
+      >
+    `;
+
+  } else {
+
+    imageHTML = `
+      <div class="summary-image"></div>
+    `;
+
+  }
+
+
+  return `
+
+    <div class="summary-item">
+
+      ${imageHTML}
+
+      <div>
+
+        <div class="summary-name">
+          ${name}
+        </div>
+
+        <div class="summary-quantity">
+          Quantity: ${quantity}
+        </div>
+
+      </div>
+
+      <div class="summary-price">
+        ${formatPrice(total)}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderCheckout() {
+
+  updateCartCount();
+
+
+  if (cart.length === 0) {
+
+    document.getElementById("checkoutArea")
+      .innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            🛒
           </div>
 
+          <h2>
+            Your Cart Is Empty
+          </h2>
 
-          <div class="two-fields">
+          <p>
+            Add products to your cart before checkout.
+          </p>
 
-            <div class="field">
-              <label for="email">Email *</label>
+          <a
+            href="products.html"
+            class="shop-btn"
+          >
+            Start Shopping
+          </a>
 
-              <input
-                type="email"
-                id="email"
-                required
-                placeholder="your@email.com"
-              >
+        </div>
+
+      `;
+
+    return;
+  }
+
+
+  const subtotal = getSubtotal();
+
+  const delivery = 0;
+
+  const total = subtotal + delivery;
+
+
+  const customerName =
+    localStorage.getItem(
+      "ebShopCustomerName"
+    ) || "";
+
+
+  const customerEmail =
+    localStorage.getItem(
+      "ebShopCustomerEmail"
+    ) || "";
+
+
+  const customerPhone =
+    localStorage.getItem(
+      "ebShopCustomerPhone"
+    ) || "";
+
+
+  document.getElementById("checkoutArea")
+    .innerHTML = `
+
+      <form
+        id="checkoutForm"
+        class="checkout-layout"
+      >
+
+        <section>
+
+          <div class="box">
+
+            <h2>
+              👤 Customer <span>Information</span>
+            </h2>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label>
+                  Full Name
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="fullName"
+                  type="text"
+                  placeholder="Your full name"
+                  value="${escapeHtml(customerName)}"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Email
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  value="${escapeHtml(customerEmail)}"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Phone Number
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="+46 70 000 00 00"
+                  value="${escapeHtml(customerPhone)}"
+                  required
+                >
+
+              </div>
+
             </div>
 
-            <div class="field">
-              <label for="phone">Phone Number *</label>
+          </div>
 
-              <input
-                type="tel"
-                id="phone"
-                required
-                placeholder="+46..."
-              >
+
+          <div class="box">
+
+            <h2>
+              📍 Delivery <span>Address</span>
+            </h2>
+
+            <div class="form-grid">
+
+              <div class="form-group full">
+
+                <label>
+                  Street Address
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="street"
+                  type="text"
+                  placeholder="Street and house number"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  City
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="city"
+                  type="text"
+                  placeholder="Stockholm"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>
+                  Postcode
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="postcode"
+                  type="text"
+                  placeholder="123 45"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label>
+                  Country
+                </label>
+
+                <select disabled>
+
+                  <option selected>
+                    Sweden 🇸🇪
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label>
+                  Order Notes
+                </label>
+
+                <textarea
+                  id="notes"
+                  placeholder="Optional notes about your order..."
+                ></textarea>
+
+              </div>
+
             </div>
 
           </div>
 
-
-          <div class="field">
-            <label for="address">Street Address *</label>
-
-            <input
-              type="text"
-              id="address"
-              required
-              placeholder="Street and house number"
-            >
-          </div>
+        </section>
 
 
-          <div class="two-fields">
+        <aside class="summary">
 
-            <div class="field">
-              <label for="city">City *</label>
+          <h2>
+            Your <span>Order</span>
+          </h2>
 
-              <input
-                type="text"
-                id="city"
-                required
-                placeholder="City"
-              >
-            </div>
 
-            <div class="field">
-              <label for="postcode">Postcode *</label>
+          <div class="summary-items">
 
-              <input
-                type="text"
-                id="postcode"
-                required
-                placeholder="Postcode"
-              >
-            </div>
+            ${cart.map(
+              item => createSummaryItem(item)
+            ).join("")}
 
           </div>
 
 
-          <div class="field">
-            <label for="country">Country</label>
+          <div class="summary-row">
 
-            <select id="country">
-              <option value="Sweden">
-                🇸🇪 Sweden
-              </option>
-            </select>
+            <span>
+              Subtotal
+            </span>
+
+            <strong>
+              ${formatPrice(subtotal)}
+            </strong>
+
           </div>
 
 
-          <div class="field">
-            <label for="notes">Order Notes (optional)</label>
+          <div class="summary-row">
 
-            <textarea
-              id="notes"
-              placeholder="Any additional information..."
-            ></textarea>
+            <span>
+              Delivery
+            </span>
+
+            <strong class="free">
+              FREE
+            </strong>
+
+          </div>
+
+
+          <div class="total-row">
+
+            <span>
+              Total
+            </span>
+
+            <strong>
+              ${formatPrice(total)}
+            </strong>
+
           </div>
 
 
@@ -440,323 +964,185 @@
             type="submit"
             class="place-order"
           >
-            Place Order
+            ✅ Place Order
           </button>
 
-        </form>
 
-      </div>
+          <div class="payment-note">
+            💳 Payment will be connected later.
+            No real payment is processed yet.
+          </div>
 
+        </aside>
 
-      <!-- ORDER SUMMARY -->
-      <aside class="card">
+      </form>
 
-        <h2>
-          Order <span class="gold">Summary</span>
-        </h2>
+    `;
 
-        <div id="summaryItems"></div>
 
-        <div class="summary-total">
+  document.getElementById("checkoutForm")
+    .addEventListener(
+      "submit",
+      placeOrder
+    );
 
-          <span>Total</span>
+}
 
-          <span id="total">
-            0 SEK
-          </span>
 
-        </div>
+function placeOrder(event) {
 
-        <div class="delivery-note">
-          🚚 Delivery information will be confirmed
-          after the order is submitted.
-          <br><br>
-          💳 Payment will be connected in a later step.
-        </div>
+  event.preventDefault();
 
-        <a href="cart.html" class="back-cart">
-          ← Back to Cart
-        </a>
 
-      </aside>
+  const fullName =
+    document.getElementById("fullName")
+      .value.trim();
 
-    </section>
 
+  const email =
+    document.getElementById("email")
+      .value.trim();
 
-    <!-- SUCCESS -->
-    <section class="success" id="success">
 
-      <div class="icon">✅</div>
+  const phone =
+    document.getElementById("phone")
+      .value.trim();
 
-      <h2>
-        Order Received!
-      </h2>
 
-      <p>
-        Thank you for shopping with E&B SHOP.
-        Your order information has been saved
-        for this demo version.
-      </p>
+  const street =
+    document.getElementById("street")
+      .value.trim();
 
-      <div class="order-number" id="orderNumber">
-        Order #EB000000
-      </div>
 
-      <p>
-        Payment is not connected yet.
-        We will add the secure payment system
-        in a later step.
-      </p>
+  const city =
+    document.getElementById("city")
+      .value.trim();
 
-      <a href="products.html" class="success-btn">
-        Continue Shopping
-      </a>
 
-    </section>
+  const postcode =
+    document.getElementById("postcode")
+      .value.trim();
 
-  </main>
 
+  const notes =
+    document.getElementById("notes")
+      .value.trim();
 
-  <footer>
-    © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
-    <br>
-    Everything You Need in One Shop.
-  </footer>
 
+  const subtotal = getSubtotal();
 
-  <script>
 
-    function getCart() {
+  const orderNumber =
+    "EB-" +
+    Date.now()
+      .toString()
+      .slice(-8);
 
-      try {
-        return JSON.parse(
-          localStorage.getItem("ebShopCart")
-        ) || [];
-      } catch {
-        return [];
-      }
 
-    }
+  const order = {
 
+    orderNumber: orderNumber,
 
-    function formatPrice(price) {
+    customer: {
+      fullName: fullName,
+      email: email,
+      phone: phone
+    },
 
-      return Number(price).toLocaleString("sv-SE") + " SEK";
+    delivery: {
+      street: street,
+      city: city,
+      postcode: postcode,
+      country: "Sweden"
+    },
 
-    }
+    notes: notes,
 
+    items: cart.map(item => ({
 
-    function escapeHtml(value) {
+      id: item.id,
 
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      name: item.name,
 
-    }
+      price: Number(item.price) || 0,
 
+      quantity:
+        Number(item.quantity) || 1
 
-    function loadCustomerInfo() {
+    })),
 
-      const name =
-        localStorage.getItem("ebShopCustomerName") || "";
+    subtotal: subtotal,
 
-      const email =
-        localStorage.getItem("ebShopCustomerEmail") || "";
+    deliveryFee: 0,
 
-      const phone =
-        localStorage.getItem("ebShopCustomerPhone") || "";
+    total: subtotal,
 
-      document.getElementById("fullName").value = name;
-      document.getElementById("email").value = email;
-      document.getElementById("phone").value = phone;
+    paymentStatus:
+      "Not connected yet",
 
-    }
+    orderStatus:
+      "Order Received",
 
+    createdAt:
+      new Date().toISOString()
 
-    function renderSummary() {
+  };
 
-      const cart = getCart();
 
-      const summary =
-        document.getElementById("summaryItems");
+  localStorage.setItem(
+    "ebShopLastOrder",
+    JSON.stringify(order)
+  );
 
-      const checkoutArea =
-        document.getElementById("checkoutArea");
 
+  localStorage.setItem(
+    "ebShopCustomerName",
+    fullName
+  );
 
-      summary.innerHTML = "";
 
-      let total = 0;
+  localStorage.setItem(
+    "ebShopCustomerEmail",
+    email
+  );
 
 
-      if (cart.length === 0) {
+  localStorage.setItem(
+    "ebShopCustomerPhone",
+    phone
+  );
 
-        checkoutArea.style.display = "none";
 
-        summary.innerHTML = `
-          <p style="color:#999;">
-            Your cart is empty.
-          </p>
-        `;
+  localStorage.removeItem(
+    CART_KEY
+  );
 
-        return;
 
-      }
+  document.getElementById("orderNumber")
+    .textContent = orderNumber;
 
 
-      cart.forEach(item => {
+  document.getElementById("checkoutArea")
+    .style.display = "none";
 
-        const quantity =
-          Number(item.quantity || 1);
 
-        const price =
-          Number(item.price || 0);
+  document.getElementById("successBox")
+    .style.display = "block";
 
-        const itemTotal =
-          price * quantity;
 
-        total += itemTotal;
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
+}
 
-        const row =
-          document.createElement("div");
 
-        row.className = "summary-item";
+loadData();
 
-        row.innerHTML = `
-          <span>
-            ${escapeHtml(item.name)}
-            × ${quantity}
-          </span>
+renderCheckout();
 
-          <strong>
-            ${formatPrice(itemTotal)}
-          </strong>
-        `;
-
-        summary.appendChild(row);
-
-      });
-
-
-      document.getElementById("total")
-        .textContent = formatPrice(total);
-
-    }
-
-
-    document
-      .getElementById("checkoutForm")
-      .addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-
-        const cart = getCart();
-
-        if (cart.length === 0) {
-
-          alert("Your cart is empty.");
-
-          return;
-
-        }
-
-
-        // Save customer phone for the account page
-        localStorage.setItem(
-          "ebShopCustomerPhone",
-          document.getElementById("phone").value.trim()
-        );
-
-
-        // Create demo order number
-        const randomNumber =
-          Math.floor(100000 + Math.random() * 900000);
-
-        const orderNumber =
-          "EB" + randomNumber;
-
-
-        // Save demo order
-        const order = {
-
-          orderNumber: orderNumber,
-
-          customerName:
-            document.getElementById("fullName").value.trim(),
-
-          email:
-            document.getElementById("email").value.trim(),
-
-          phone:
-            document.getElementById("phone").value.trim(),
-
-          address:
-            document.getElementById("address").value.trim(),
-
-          city:
-            document.getElementById("city").value.trim(),
-
-          postcode:
-            document.getElementById("postcode").value.trim(),
-
-          country: "Sweden",
-
-          notes:
-            document.getElementById("notes").value.trim(),
-
-          items: cart,
-
-          createdAt:
-            new Date().toISOString()
-
-        };
-
-
-        localStorage.setItem(
-          "ebShopLastOrder",
-          JSON.stringify(order)
-        );
-
-
-        document.getElementById(
-          "orderNumber"
-        ).textContent =
-          "Order #" + orderNumber;
-
-
-        document.getElementById(
-          "checkoutArea"
-        ).style.display = "none";
-
-
-        document.getElementById(
-          "success"
-        ).style.display = "block";
-
-
-        /*
-          Clear cart after order.
-        */
-        localStorage.removeItem("ebShopCart");
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-
-      });
-
-
-    loadCustomerInfo();
-
-    renderSummary();
-
-  </script>
+</script>
 
 </body>
 </html>
