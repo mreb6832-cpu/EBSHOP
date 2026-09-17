@@ -1,34 +1,22 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>E&B SHOP — Your One-Stop Online Shop</title>
+  <title>E&B SHOP | Online Shop in Sweden</title>
 
   <meta
     name="description"
-    content="E&B SHOP — Shop electronics, fashion, shoes, home products and more."
+    content="E&B SHOP is a modern online shop in Sweden offering electronics, fashion, shoes, home products, beauty, gaming, kids products and more."
   >
 
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --gold: #f5b82e;
-      --gold-light: #ffd76a;
-      --black: #070707;
-      --dark: #111111;
-      --dark-2: #181818;
-      --white: #ffffff;
-      --gray: #a8a8a8;
-      --light: #f6f6f6;
-      --border: #292929;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     html {
@@ -36,693 +24,490 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--light);
-      color: #111;
+      background: #080808;
+      color: #fff;
+      line-height: 1.6;
     }
 
     a {
       text-decoration: none;
-      color: inherit;
     }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    .container {
-      width: min(1180px, 92%);
-      margin: auto;
-    }
-
-    /* ================= HEADER ================= */
 
     header {
-      background: #050505;
-      color: white;
       position: sticky;
       top: 0;
       z-index: 1000;
-      border-bottom: 1px solid #222;
+      background: rgba(8, 8, 8, 0.97);
+      border-bottom: 1px solid #292929;
+      padding: 15px 5%;
     }
 
     .nav {
-      min-height: 76px;
+      max-width: 1300px;
+      margin: auto;
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 18px;
     }
 
     .logo {
-      font-size: 27px;
+      color: #d4af37;
+      font-size: 24px;
       font-weight: 800;
       white-space: nowrap;
-      letter-spacing: -1px;
-    }
-
-    .logo-icon {
-      color: var(--gold);
-      font-size: 30px;
     }
 
     .logo span {
-      color: var(--gold);
+      color: white;
     }
 
-    .search {
+    .search-box {
       flex: 1;
-      max-width: 470px;
-      margin-left: auto;
-      position: relative;
+      max-width: 360px;
     }
 
-    .search input {
+    .search-box input {
       width: 100%;
-      height: 44px;
-      border: 1px solid #444;
-      border-radius: 25px;
-      background: #202020;
+      padding: 11px 15px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #111;
       color: white;
       outline: none;
-      padding: 0 48px 0 20px;
     }
 
-    .search input::placeholder {
-      color: #aaa;
-    }
-
-    .search button {
-      position: absolute;
-      right: 7px;
-      top: 5px;
-      width: 34px;
-      height: 34px;
-      border: none;
-      border-radius: 50%;
-      background: var(--gold);
-      cursor: pointer;
+    .search-box input:focus {
+      border-color: #d4af37;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      transition: .2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-
-    .country {
-      white-space: nowrap;
-      color: #ddd;
-    }
-
-    .register {
-      border: 1px solid var(--gold);
-      padding: 10px 17px;
-      border-radius: 22px;
-      color: var(--gold);
-      font-weight: 700;
-    }
-
-    .register:hover {
-      background: var(--gold);
-      color: #000 !important;
-    }
-
-    .cart {
-      position: relative;
-      font-size: 21px;
-    }
-
-    .cart-count {
-      position: absolute;
-      top: -10px;
-      right: -12px;
-      background: var(--gold);
-      color: black;
-      font-size: 11px;
-      font-weight: bold;
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-    }
-
-    /* ================= HERO ================= */
-
-    .hero {
-      min-height: 455px;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.85) 48%, rgba(0,0,0,.45)),
-        url("https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1800&q=85")
-        center/cover;
-      color: white;
-      display: flex;
-      align-items: center;
-    }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .eyebrow {
-      color: var(--gold);
-      font-weight: 700;
-      margin-bottom: 18px;
-      letter-spacing: .5px;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 5vw, 70px);
-      line-height: 1.02;
-      max-width: 650px;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 span {
-      color: var(--gold);
-    }
-
-    .hero p {
-      color: #ddd;
-      max-width: 520px;
-      line-height: 1.7;
-      font-size: 17px;
-    }
-
-    .hero-buttons {
-      margin-top: 28px;
-      display: flex;
-      gap: 15px;
+      gap: 13px;
+      margin-left: auto;
       flex-wrap: wrap;
     }
 
-    .btn-primary,
-    .btn-secondary {
-      display: inline-block;
-      padding: 14px 25px;
-      border-radius: 28px;
-      font-weight: 700;
-      transition: .25s;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: #000;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      border: 1px solid var(--gold);
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      background: var(--gold);
-      color: #000;
-    }
-
-    .hero-card {
-      justify-self: end;
-      width: 330px;
-      padding: 35px;
-      text-align: center;
-      background: rgba(15,15,15,.7);
-      border: 1px solid rgba(245,184,46,.5);
-      border-radius: 25px;
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-card-icon {
-      font-size: 75px;
-      margin-bottom: 15px;
-    }
-
-    .hero-card h2 {
-      font-size: 29px;
-      color: var(--gold);
-    }
-
-    .hero-card p {
-      margin: 12px auto 20px;
+    .nav-links a {
+      color: #ddd;
       font-size: 14px;
     }
 
-    .sweden {
-      color: white;
-      font-weight: 700;
+    .nav-links a:hover {
+      color: #d4af37;
     }
 
-    /* ================= SECTION ================= */
+    .login-btn {
+      border: 1px solid #d4af37;
+      padding: 8px 12px;
+      border-radius: 7px;
+    }
+
+    .register-btn {
+      background: #d4af37;
+      color: #080808 !important;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .admin-btn {
+      display: none;
+      background: #d4af37;
+      color: #080808 !important;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .cart-btn {
+      background: #171717;
+      border: 1px solid #333;
+      padding: 8px 12px;
+      border-radius: 7px;
+      color: white !important;
+    }
+
+    .cart-count {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .user-area {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-name {
+      color: #d4af37;
+      font-size: 13px;
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .logout-btn {
+      background: transparent;
+      color: #aaa;
+      border: 1px solid #333;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      color: white;
+      border-color: #d4af37;
+    }
+
+    .hero {
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+      max-width: 1300px;
+      margin: auto;
+      padding: 70px 5%;
+    }
+
+    .hero-text small {
+      color: #d4af37;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.05;
+      margin: 18px 0;
+    }
+
+    .hero-text h1 span {
+      color: #d4af37;
+    }
+
+    .hero-text p {
+      color: #aaa;
+      max-width: 600px;
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background: #d4af37;
+      color: #080808;
+    }
+
+    .secondary-btn {
+      border: 1px solid #555;
+      color: white;
+    }
+
+    .secondary-btn:hover {
+      border-color: #d4af37;
+      color: #d4af37;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid #333;
+    }
 
     section {
-      padding: 65px 0;
+      max-width: 1300px;
+      margin: auto;
+      padding: 60px 5%;
     }
 
     .section-title {
-      margin-bottom: 30px;
-    }
-
-    .section-title small {
-      color: #bd8610;
-      font-weight: 800;
-      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 35px;
     }
 
     .section-title h2 {
-      font-size: 32px;
-      margin-top: 8px;
+      color: #d4af37;
+      font-size: 34px;
+      margin-bottom: 8px;
     }
 
-    /* ================= CATEGORIES ================= */
+    .section-title p {
+      color: #888;
+    }
 
     .categories {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
-      gap: 14px;
+      gap: 12px;
     }
 
     .category {
-      border: 1px solid #e2e2e2;
-      background: white;
-      border-radius: 13px;
-      padding: 15px 8px;
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 10px;
+      padding: 18px 8px;
       text-align: center;
+      color: #ddd;
       cursor: pointer;
-      transition: .25s;
+      transition: 0.2s;
     }
 
     .category:hover {
-      border-color: var(--gold);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,.08);
+      border-color: #d4af37;
+      transform: translateY(-3px);
     }
 
-    .category-img {
-      width: 100%;
-      height: 75px;
-      object-fit: cover;
-      border-radius: 9px;
-      margin-bottom: 10px;
+    .category-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 6px;
     }
 
-    .category h3 {
-      font-size: 13px;
-    }
-
-    /* ================= PRODUCTS ================= */
-
-    .products-section {
-      background: #fff;
-    }
-
-    .products-top {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .view-all {
-      color: #8b6207;
-      font-weight: 700;
-    }
-
-    .product-grid {
+    .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
 
-    .product {
-      background: white;
-      border: 1px solid #e4e4e4;
-      border-radius: 14px;
+    .product-card {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 13px;
       overflow: hidden;
-      transition: .25s;
+      transition: 0.2s;
     }
 
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.1);
-      border-color: #ddd;
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: #d4af37;
     }
 
-    .product-img {
+    .product-image {
       width: 100%;
-      height: 230px;
+      height: 210px;
       object-fit: cover;
       display: block;
     }
 
-    .product-info {
-      padding: 16px;
+    .product-content {
+      padding: 17px;
     }
 
     .product-category {
       color: #888;
       font-size: 12px;
-      margin-bottom: 7px;
+      text-transform: uppercase;
     }
 
-    .product h3 {
-      font-size: 16px;
-      margin-bottom: 9px;
-    }
-
-    .price {
+    .product-content h3 {
+      margin: 5px 0;
       font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 12px;
     }
 
-    .stars {
-      color: #e6a817;
-      font-size: 13px;
-      margin-bottom: 13px;
+    .product-price {
+      color: #d4af37;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 8px 0 14px;
     }
 
-    .add-cart {
-      width: 100%;
-      border: none;
-      background: var(--gold);
-      color: #000;
-      padding: 11px;
-      border-radius: 8px;
+    .product-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .view-btn,
+    .add-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 7px;
+      text-align: center;
+      font-weight: bold;
       cursor: pointer;
-      font-weight: 800;
-      transition: .2s;
+      border: none;
     }
 
-    .add-cart:hover {
-      background: #e3a91e;
-    }
-
-    /* ================= WHY SHOP ================= */
-
-    .why {
-      background: #080808;
+    .view-btn {
+      background: #292929;
       color: white;
     }
 
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
+    .add-btn {
+      background: #d4af37;
+      color: #080808;
     }
 
-    .why-item {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-      padding: 15px;
-      border-right: 1px solid #292929;
+    .empty-products {
+      text-align: center;
+      color: #888;
+      padding: 40px;
+      grid-column: 1 / -1;
     }
 
-    .why-icon {
-      font-size: 34px;
-      color: var(--gold);
+    .about-box {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 35px;
+      text-align: center;
     }
 
-    .why-item h3 {
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
-
-    .why-item p {
+    .about-box p {
       color: #aaa;
-      font-size: 12px;
-      line-height: 1.5;
+      max-width: 800px;
+      margin: auto;
     }
 
-    /* ================= ABOUT ================= */
-
-    .about {
-      background: #f7f7f7;
+    .sweden {
+      color: #d4af37;
+      font-weight: bold;
     }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .about-image {
-      width: 100%;
-      height: 360px;
-      object-fit: cover;
-      border-radius: 20px;
-    }
-
-    .about-text h2 {
-      font-size: 36px;
-      margin-bottom: 18px;
-    }
-
-    .about-text h2 span {
-      color: #c18b14;
-    }
-
-    .about-text p {
-      color: #666;
-      line-height: 1.8;
-      margin-bottom: 15px;
-    }
-
-    /* ================= NEWSLETTER ================= */
 
     .newsletter {
       background: #111;
-      color: white;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 35px;
       text-align: center;
     }
 
     .newsletter h2 {
-      font-size: 31px;
-      margin-bottom: 10px;
+      color: #d4af37;
+      margin-bottom: 8px;
     }
 
     .newsletter p {
-      color: #aaa;
-      margin-bottom: 25px;
+      color: #888;
+      margin-bottom: 20px;
     }
 
     .newsletter-form {
-      display: flex;
-      max-width: 520px;
+      max-width: 500px;
       margin: auto;
+      display: flex;
       gap: 10px;
     }
 
     .newsletter-form input {
       flex: 1;
-      height: 48px;
-      border-radius: 25px;
-      border: 1px solid #444;
-      padding: 0 20px;
-      outline: none;
+      padding: 12px;
+      border-radius: 7px;
+      border: 1px solid #333;
+      background: #080808;
+      color: white;
     }
 
     .newsletter-form button {
+      padding: 12px 18px;
       border: none;
-      border-radius: 25px;
-      padding: 0 24px;
-      background: var(--gold);
-      font-weight: 800;
+      border-radius: 7px;
+      background: #d4af37;
+      color: #080808;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    /* ================= FOOTER ================= */
-
     footer {
-      background: #050505;
-      color: white;
-      padding-top: 55px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      padding-bottom: 45px;
-    }
-
-    .footer-logo {
-      font-size: 29px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .footer-logo span {
-      color: var(--gold);
-    }
-
-    .footer-about {
-      color: #999;
-      line-height: 1.7;
-      max-width: 320px;
-    }
-
-    footer h3 {
-      margin-bottom: 18px;
-      font-size: 15px;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      color: #999;
-      font-size: 14px;
-    }
-
-    .footer-links a:hover {
-      color: var(--gold);
-    }
-
-    .socials {
-      display: flex;
-      gap: 9px;
-    }
-
-    .social {
-      width: 35px;
-      height: 35px;
-      border: 1px solid #444;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      transition: .2s;
-    }
-
-    .social:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    .copyright {
-      border-top: 1px solid #222;
-      padding: 20px 0;
-      color: #777;
-      font-size: 12px;
+      border-top: 1px solid #292929;
       text-align: center;
+      padding: 30px 15px;
+      color: #777;
     }
 
-    /* ================= RESPONSIVE ================= */
+    footer strong {
+      color: #d4af37;
+    }
 
-    @media (max-width: 1050px) {
-      .nav-links {
-        gap: 11px;
-      }
-
+    @media (max-width: 1100px) {
       .categories {
         grid-template-columns: repeat(4, 1fr);
       }
 
-      .product-grid {
+      .products-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        order: 3;
+        max-width: none;
+        width: 100%;
+        flex-basis: 100%;
       }
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 700px) {
+      header {
+        position: relative;
+      }
+
       .nav {
-        flex-wrap: wrap;
-        padding: 15px 0;
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .search {
-        order: 3;
-        width: 100%;
-        max-width: none;
+      .logo {
+        text-align: center;
       }
 
-      .nav-links a:not(.register) {
-        display: none;
+      .nav-links {
+        justify-content: center;
+        margin-left: 0;
       }
 
       .hero {
-        min-height: auto;
-        padding: 70px 0;
-      }
-
-      .hero-content {
         grid-template-columns: 1fr;
+        padding-top: 45px;
       }
 
-      .hero-card {
-        justify-self: start;
+      .hero-image {
+        order: -1;
       }
 
-      .why-grid {
-        grid-template-columns: 1fr 1fr;
+      .hero-text {
+        text-align: center;
       }
 
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .logo {
-        font-size: 23px;
-      }
-
-      .country {
-        display: none;
-      }
-
-      .hero h1 {
-        font-size: 42px;
+      .hero-buttons {
+        justify-content: center;
       }
 
       .categories {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .product-grid {
+      .products-grid {
         grid-template-columns: 1fr;
-      }
-
-      .why-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .why-item {
-        border-right: none;
-        border-bottom: 1px solid #292929;
       }
 
       .newsletter-form {
         flex-direction: column;
       }
 
-      .newsletter-form button {
-        height: 48px;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr;
+      .user-area {
+        justify-content: center;
       }
     }
   </style>
@@ -730,871 +515,717 @@
 
 <body>
 
-  <!-- ================= HEADER ================= -->
+<header>
+  <nav class="nav">
 
-  <header>
-    <div class="container nav">
+    <a href="index.html" class="logo">
+      🛒 E&B <span>SHOP</span>
+    </a>
 
-      <a href="index.html" class="logo">
-        <span class="logo-icon">🛒</span>
-        <span>E&B</span> SHOP
+    <div class="search-box">
+      <input
+        type="search"
+        id="mainSearch"
+        placeholder="Search products..."
+      >
+    </div>
+
+    <div class="nav-links">
+
+      <a href="index.html">Home</a>
+
+      <a href="products.html">Products</a>
+
+      <a href="about.html">About</a>
+
+      <a href="contact.html">Contact</a>
+
+      <a href="login.html" class="login-btn" id="loginLink">
+        Login
       </a>
 
-      <div class="search">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search for products..."
-        >
-        <button onclick="searchProducts()">⌕</button>
-      </div>
+      <a href="register.html" class="register-btn" id="registerLink">
+        Register
+      </a>
 
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="#categories">Categories</a>
-        <a href="#products">Products</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+      <!-- ADMIN BUTTON -->
+      <a href="admin.html" class="admin-btn" id="adminButton">
+        👑 Admin
+      </a>
 
-        <span class="country">🇸🇪 Sweden</span>
-
-        <a href="login.html">Login</a>
-
-        <a href="register.html" class="register">
-          Register
-        </a>
-
-        <a href="#cart" class="cart">
-          🛒
-          <span class="cart-count" id="cartCount">0</span>
-        </a>
-      </nav>
-
-    </div>
-  </header>
-
-
-  <!-- ================= HERO ================= -->
-
-  <section class="hero">
-
-    <div class="container hero-content">
-
-      <div>
-        <div class="eyebrow">
-          WELCOME TO E&B SHOP 🇸🇪
-        </div>
-
-        <h1>
-          Everything You Need
-          <span>in One Shop</span>
-        </h1>
-
-        <p>
-          Quality products, great prices and simple shopping.
-          Discover electronics, fashion, shoes, home products
-          and more at E&B SHOP.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#products" class="btn-primary">
-            Shop Now →
-          </a>
-
-          <a href="#categories" class="btn-secondary">
-            Explore Categories
-          </a>
-        </div>
-      </div>
-
-
-      <div class="hero-card">
-
-        <div class="hero-card-icon">
-          🛍️
-        </div>
-
-        <h2>E&B SHOP</h2>
-
-        <p>
-          Your one-stop online shop.
-          Quality products and easy shopping.
-        </p>
-
-        <div class="sweden">
-          🇸🇪 Serving customers in Sweden
-        </div>
-
-      </div>
+      <a href="cart.html" class="cart-btn">
+        🛒 Cart
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
 
     </div>
 
-  </section>
+    <div class="user-area" id="userArea">
 
+      <span class="user-name" id="userName"></span>
 
-  <!-- ================= CATEGORIES ================= -->
-
-  <section id="categories">
-
-    <div class="container">
-
-      <div class="section-title">
-        <small>SHOP BY CATEGORY</small>
-        <h2>What are you looking for?</h2>
-      </div>
-
-      <div class="categories">
-
-        <div class="category" onclick="filterCategory('Electronics')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?auto=format&fit=crop&w=500&q=80"
-            alt="Electronics"
-          >
-          <h3>Electronics</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Fashion')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=500&q=80"
-            alt="Fashion"
-          >
-          <h3>Fashion</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Shoes')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80"
-            alt="Shoes"
-          >
-          <h3>Shoes</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Home')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=500&q=80"
-            alt="Home"
-          >
-          <h3>Home</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Beauty')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=500&q=80"
-            alt="Beauty"
-          >
-          <h3>Beauty</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Gaming')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1592840496694-26c035b52b7b?auto=format&fit=crop&w=500&q=80"
-            alt="Gaming"
-          >
-          <h3>Gaming</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Kids')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=500&q=80"
-            alt="Kids"
-          >
-          <h3>Kids</h3>
-        </div>
-
-        <div class="category" onclick="filterCategory('Other')">
-          <img
-            class="category-img"
-            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=500&q=80"
-            alt="Other"
-          >
-          <h3>Other</h3>
-        </div>
-
-      </div>
+      <button class="logout-btn" onclick="logout()">
+        Logout
+      </button>
 
     </div>
 
-  </section>
+  </nav>
+</header>
 
 
-  <!-- ================= PRODUCTS ================= -->
+<!-- HERO -->
 
-  <section id="products" class="products-section">
+<section class="hero">
 
-    <div class="container">
+  <div class="hero-text">
 
-      <div class="products-top">
+    <small>🇸🇪 SWEDEN • BUY • SHOP • ENJOY</small>
 
-        <div class="section-title">
-          <small>E&B SHOP</small>
-          <h2>Featured Products</h2>
-        </div>
+    <h1>
+      Everything You Need
+      <span>In One Shop.</span>
+    </h1>
 
-        <a href="#products" class="view-all">
-          View All Products →
-        </a>
+    <p>
+      Welcome to E&B SHOP — a modern online shop in Sweden
+      where you can discover electronics, fashion, shoes,
+      home products, beauty, gaming, kids products and more.
+    </p>
 
-      </div>
+    <div class="hero-buttons">
 
+      <a href="products.html" class="primary-btn">
+        🛍️ Shop Now
+      </a>
 
-      <div class="product-grid" id="productGrid">
-
-        <!-- PRODUCT 1 -->
-
-        <article
-          class="product"
-          data-name="Smartphone"
-          data-category="Electronics"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=85"
-            alt="Smartphone"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Electronics
-            </div>
-
-            <h3>Smartphone</h3>
-
-            <div class="price">
-              4,999 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Smartphone')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 2 -->
-
-        <article
-          class="product"
-          data-name="Sport Shoes"
-          data-category="Shoes"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=85"
-            alt="Sport Shoes"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Shoes
-            </div>
-
-            <h3>Sport Shoes</h3>
-
-            <div class="price">
-              999 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Sport Shoes')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 3 -->
-
-        <article
-          class="product"
-          data-name="Wireless Headphones"
-          data-category="Electronics"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=85"
-            alt="Wireless Headphones"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Electronics
-            </div>
-
-            <h3>Wireless Headphones</h3>
-
-            <div class="price">
-              699 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Wireless Headphones')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 4 -->
-
-        <article
-          class="product"
-          data-name="Smart Watch"
-          data-category="Electronics"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=85"
-            alt="Smart Watch"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Electronics
-            </div>
-
-            <h3>Smart Watch</h3>
-
-            <div class="price">
-              899 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Smart Watch')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 5 -->
-
-        <article
-          class="product"
-          data-name="Fashion Bag"
-          data-category="Fashion"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=85"
-            alt="Fashion Bag"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Fashion
-            </div>
-
-            <h3>Fashion Bag</h3>
-
-            <div class="price">
-              1,299 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Fashion Bag')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 6 -->
-
-        <article
-          class="product"
-          data-name="Home Air Fryer"
-          data-category="Home"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=700&q=85"
-            alt="Air Fryer"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Home
-            </div>
-
-            <h3>Home Air Fryer</h3>
-
-            <div class="price">
-              1,299 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Home Air Fryer')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 7 -->
-
-        <article
-          class="product"
-          data-name="Gaming Controller"
-          data-category="Gaming"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=700&q=85"
-            alt="Gaming Controller"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Gaming
-            </div>
-
-            <h3>Gaming Controller</h3>
-
-            <div class="price">
-              599 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Gaming Controller')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- PRODUCT 8 -->
-
-        <article
-          class="product"
-          data-name="Beauty Products"
-          data-category="Beauty"
-        >
-
-          <img
-            class="product-img"
-            src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=85"
-            alt="Beauty Products"
-          >
-
-          <div class="product-info">
-
-            <div class="product-category">
-              Beauty
-            </div>
-
-            <h3>Beauty Products</h3>
-
-            <div class="price">
-              399 SEK
-            </div>
-
-            <div class="stars">
-              ★★★★★
-            </div>
-
-            <button
-              class="add-cart"
-              onclick="addToCart('Beauty Products')"
-            >
-              🛒 Add to Cart
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
+      <a href="register.html" class="secondary-btn">
+        Create Account
+      </a>
 
     </div>
 
-  </section>
+  </div>
+
+  <div class="hero-image">
+
+    <img
+      src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200"
+      alt="E&B SHOP online marketplace"
+    >
+
+  </div>
+
+</section>
 
 
-  <!-- ================= WHY E&B ================= -->
+<!-- CATEGORIES -->
 
-  <section class="why">
+<section id="categories">
 
-    <div class="container why-grid">
+  <div class="section-title">
 
-      <div class="why-item">
-        <div class="why-icon">🚚</div>
-        <div>
-          <h3>Fast Delivery</h3>
-          <p>Convenient delivery for customers in Sweden.</p>
-        </div>
-      </div>
+    <h2>Shop by Category</h2>
 
-      <div class="why-item">
-        <div class="why-icon">🛡️</div>
-        <div>
-          <h3>Secure Shopping</h3>
-          <p>Your account and shopping experience matter.</p>
-        </div>
-      </div>
+    <p>Find what you need quickly.</p>
 
-      <div class="why-item">
-        <div class="why-icon">🎧</div>
-        <div>
-          <h3>Customer Support</h3>
-          <p>Get help when you need it.</p>
-        </div>
-      </div>
+  </div>
 
-      <div class="why-item">
-        <div class="why-icon">⭐</div>
-        <div>
-          <h3>Quality Products</h3>
-          <p>Discover products selected for E&B SHOP.</p>
-        </div>
-      </div>
+  <div class="categories">
 
+    <div class="category" onclick="filterCategory('Electronics')">
+      <span class="category-icon">📱</span>
+      Electronics
     </div>
 
-  </section>
+    <div class="category" onclick="filterCategory('Fashion')">
+      <span class="category-icon">👕</span>
+      Fashion
+    </div>
+
+    <div class="category" onclick="filterCategory('Shoes')">
+      <span class="category-icon">👟</span>
+      Shoes
+    </div>
+
+    <div class="category" onclick="filterCategory('Home')">
+      <span class="category-icon">🏠</span>
+      Home
+    </div>
+
+    <div class="category" onclick="filterCategory('Beauty')">
+      <span class="category-icon">💄</span>
+      Beauty
+    </div>
+
+    <div class="category" onclick="filterCategory('Gaming')">
+      <span class="category-icon">🎮</span>
+      Gaming
+    </div>
+
+    <div class="category" onclick="filterCategory('Kids')">
+      <span class="category-icon">🧸</span>
+      Kids
+    </div>
+
+    <div class="category" onclick="filterCategory('Other')">
+      <span class="category-icon">📦</span>
+      Other
+    </div>
+
+  </div>
+
+</section>
 
 
-  <!-- ================= ABOUT ================= -->
+<!-- PRODUCTS -->
 
-  <section id="about" class="about">
+<section id="products">
 
-    <div class="container about-grid">
+  <div class="section-title">
 
-      <img
-        class="about-image"
-        src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=85"
-        alt="E&B SHOP"
+    <h2>Featured Products</h2>
+
+    <p>Discover products available at E&B SHOP.</p>
+
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section>
+
+  <div class="section-title">
+    <h2>About E&B SHOP</h2>
+  </div>
+
+  <div class="about-box">
+
+    <p>
+      E&B SHOP is a modern online shopping platform created
+      for customers in <span class="sweden">Sweden 🇸🇪</span>.
+      Our goal is to make shopping simple by bringing many
+      product categories together in one place.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- NEWSLETTER -->
+
+<section>
+
+  <div class="newsletter">
+
+    <h2>Stay Updated</h2>
+
+    <p>
+      Subscribe to receive updates about new products.
+    </p>
+
+    <form class="newsletter-form" id="newsletterForm">
+
+      <input
+        type="email"
+        id="newsletterEmail"
+        placeholder="Your email address"
+        required
       >
 
-      <div class="about-text">
+      <button type="submit">
+        Subscribe
+      </button>
 
-        <h2>
-          Welcome to <span>E&B SHOP</span>
-        </h2>
+    </form>
 
-        <p>
-          E&B SHOP is an online shopping platform designed
-          to make it easy for customers to discover and buy
-          different products in one place.
-        </p>
+  </div>
 
-        <p>
-          From electronics and fashion to home products,
-          shoes, beauty and more, E&B SHOP brings a wide
-          selection together for convenient shopping.
-        </p>
-
-        <a href="register.html" class="btn-primary">
-          Create Your Account →
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- ================= NEWSLETTER ================= -->
+<footer>
 
-  <section class="newsletter">
+  © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
 
-    <div class="container">
-
-      <h2>Stay Updated</h2>
-
-      <p>
-        Get updates about new products and special offers.
-      </p>
-
-      <form
-        class="newsletter-form"
-        onsubmit="subscribe(event)"
-      >
-
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email address"
-          required
-        >
-
-        <button type="submit">
-          Subscribe
-        </button>
-
-      </form>
-
-    </div>
-
-  </section>
+</footer>
 
 
-  <!-- ================= FOOTER ================= -->
+<script>
 
-  <footer id="contact">
+  const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
 
-    <div class="container footer-grid">
+  const PRODUCT_STORAGE_KEY = "ebShopProducts";
 
-      <div>
+  const defaultProducts = [
+    {
+      id: "p1",
+      name: "Smartphone",
+      price: 4999,
+      category: "Electronics",
+      stock: 10,
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
+    },
 
-        <div class="footer-logo">
-          🛒 <span>E&B</span> SHOP
-        </div>
+    {
+      id: "p2",
+      name: "Sport Shoes",
+      price: 999,
+      category: "Shoes",
+      stock: 15,
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800"
+    },
 
-        <p class="footer-about">
-          Your one-stop online shop for electronics,
-          fashion, home products and more.
-        </p>
+    {
+      id: "p3",
+      name: "Wireless Headphones",
+      price: 699,
+      category: "Electronics",
+      stock: 20,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"
+    },
 
-        <br>
+    {
+      id: "p4",
+      name: "Smart Watch",
+      price: 899,
+      category: "Electronics",
+      stock: 12,
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
+    },
 
-        <p>🇸🇪 Sweden</p>
+    {
+      id: "p5",
+      name: "Fashion Bag",
+      price: 1299,
+      category: "Fashion",
+      stock: 8,
+      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800"
+    },
 
-      </div>
+    {
+      id: "p6",
+      name: "Home Air Fryer",
+      price: 1299,
+      category: "Home",
+      stock: 7,
+      image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=800"
+    },
 
+    {
+      id: "p7",
+      name: "Gaming Controller",
+      price: 599,
+      category: "Gaming",
+      stock: 14,
+      image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=800"
+    },
 
-      <div>
-
-        <h3>Quick Links</h3>
-
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="#categories">Categories</a>
-          <a href="#products">Products</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </div>
-
-      </div>
-
-
-      <div>
-
-        <h3>Account</h3>
-
-        <div class="footer-links">
-          <a href="login.html">Login</a>
-          <a href="register.html">Register</a>
-          <a href="account.html">My Account</a>
-          <a href="#cart">My Cart</a>
-        </div>
-
-      </div>
-
-
-      <div>
-
-        <h3>Follow E&B SHOP</h3>
-
-        <div class="socials">
-
-          <a href="#" class="social">f</a>
-          <a href="#" class="social">◎</a>
-          <a href="#" class="social">▶</a>
-          <a href="#" class="social">♪</a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="copyright">
-      © 2026 E&B SHOP. All rights reserved.
-    </div>
-
-  </footer>
+    {
+      id: "p8",
+      name: "Beauty Products",
+      price: 399,
+      category: "Beauty",
+      stock: 25,
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800"
+    }
+  ];
 
 
-  <!-- ================= JAVASCRIPT ================= -->
+  function getProducts() {
 
-  <script>
+    const saved =
+      localStorage.getItem(PRODUCT_STORAGE_KEY);
 
-    let cartCount = 0;
+    if (!saved) {
 
-    function addToCart(productName) {
+      localStorage.setItem(
+        PRODUCT_STORAGE_KEY,
+        JSON.stringify(defaultProducts)
+      );
 
-      cartCount++;
+      return defaultProducts;
+    }
 
-      document.getElementById("cartCount").textContent = cartCount;
+    try {
 
-      alert(productName + " added to your cart!");
+      return JSON.parse(saved);
 
+    } catch (error) {
+
+      localStorage.setItem(
+        PRODUCT_STORAGE_KEY,
+        JSON.stringify(defaultProducts)
+      );
+
+      return defaultProducts;
+    }
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function renderProducts(products = getProducts()) {
+
+    const grid =
+      document.getElementById("productsGrid");
+
+    if (!products.length) {
+
+      grid.innerHTML =
+        '<div class="empty-products">No products found.</div>';
+
+      return;
     }
 
 
-    function searchProducts() {
+    grid.innerHTML = products.map(product => `
 
-      const search =
-        document
-          .getElementById("searchInput")
-          .value
-          .toLowerCase()
-          .trim();
+      <article class="product-card">
 
-      const products =
-        document.querySelectorAll(".product");
+        <img
+          class="product-image"
+          src="${escapeHtml(product.image)}"
+          alt="${escapeHtml(product.name)}"
+        >
 
-      products.forEach(product => {
+        <div class="product-content">
 
-        const name =
-          product.dataset.name.toLowerCase();
+          <div class="product-category">
+            ${escapeHtml(product.category)}
+          </div>
 
-        const category =
-          product.dataset.category.toLowerCase();
+          <h3>
+            ${escapeHtml(product.name)}
+          </h3>
 
-        if (
-          name.includes(search) ||
-          category.includes(search)
-        ) {
+          <div class="product-price">
+            ${Number(product.price).toLocaleString()} SEK
+          </div>
 
-          product.style.display = "";
+          <div class="product-actions">
 
-        } else {
+            <a
+              class="view-btn"
+              href="product-details.html?product=${encodeURIComponent(product.id)}"
+            >
+              View
+            </a>
 
-          product.style.display = "none";
+            <button
+              class="add-btn"
+              onclick="addToCart('${product.id}')"
+              ${Number(product.stock) <= 0 ? "disabled" : ""}
+            >
+              ${Number(product.stock) <= 0 ? "Out of stock" : "Add"}
+            </button>
 
-        }
+          </div>
+
+        </div>
+
+      </article>
+
+    `).join("");
+  }
+
+
+  function addToCart(productId) {
+
+    const products = getProducts();
+
+    const product =
+      products.find(p => p.id === productId);
+
+    if (!product) return;
+
+    if (Number(product.stock) <= 0) {
+
+      alert("This product is out of stock.");
+
+      return;
+    }
+
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem("ebShopCart")
+        ) || [];
+
+    } catch (error) {
+
+      cart = [];
+    }
+
+
+    const existing =
+      cart.find(item => item.id === product.id);
+
+
+    if (existing) {
+
+      existing.quantity =
+        Number(existing.quantity || 0) + 1;
+
+    } else {
+
+      cart.push({
+
+        id: product.id,
+
+        name: product.name,
+
+        price: Number(product.price),
+
+        quantity: 1
 
       });
 
     }
 
+
+    localStorage.setItem(
+      "ebShopCart",
+      JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(
+      product.name + " added to cart!"
+    );
+
+  }
+
+
+  function updateCartCount() {
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem("ebShopCart")
+        ) || [];
+
+    } catch (error) {
+
+      cart = [];
+    }
+
+
+    const count =
+      cart.reduce(
+        (total, item) =>
+          total + Number(item.quantity || 0),
+        0
+      );
+
+
+    document.getElementById("cartCount").textContent =
+      count;
+
+  }
+
+
+  function filterCategory(category) {
+
+    const products = getProducts();
+
+    const filtered =
+      products.filter(
+        product =>
+          String(product.category).toLowerCase() ===
+          category.toLowerCase()
+      );
+
+    renderProducts(filtered);
 
     document
-      .getElementById("searchInput")
-      .addEventListener("input", searchProducts);
-
-
-    function filterCategory(category) {
-
-      const products =
-        document.querySelectorAll(".product");
-
-      products.forEach(product => {
-
-        if (
-          category === "Other" ||
-          product.dataset.category === category
-        ) {
-
-          product.style.display = "";
-
-        } else {
-
-          product.style.display = "none";
-
-        }
-
+      .getElementById("products")
+      .scrollIntoView({
+        behavior: "smooth"
       });
 
-      document
-        .getElementById("products")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
+  }
 
+
+  document
+    .getElementById("mainSearch")
+    .addEventListener("input", function() {
+
+      const search =
+        this.value.trim().toLowerCase();
+
+      const products =
+        getProducts();
+
+      const filtered =
+        products.filter(product =>
+
+          String(product.name)
+            .toLowerCase()
+            .includes(search)
+
+          ||
+
+          String(product.category)
+            .toLowerCase()
+            .includes(search)
+
+        );
+
+      renderProducts(filtered);
+
+    });
+
+
+  function updateUserArea() {
+
+    const email =
+      localStorage.getItem("ebShopCustomerEmail");
+
+    const name =
+      localStorage.getItem("ebShopCustomerName");
+
+
+    const loginLink =
+      document.getElementById("loginLink");
+
+    const registerLink =
+      document.getElementById("registerLink");
+
+    const adminButton =
+      document.getElementById("adminButton");
+
+    const userArea =
+      document.getElementById("userArea");
+
+    const userName =
+      document.getElementById("userName");
+
+
+    // DEFAULT STATE
+
+    loginLink.style.display = "inline-block";
+
+    registerLink.style.display = "inline-block";
+
+    adminButton.style.display = "none";
+
+    userArea.style.display = "none";
+
+
+    if (!email) {
+      return;
     }
 
 
-    function subscribe(event) {
+    // LOGGED-IN CUSTOMER
+
+    loginLink.style.display = "none";
+
+    registerLink.style.display = "none";
+
+    userArea.style.display = "flex";
+
+    userName.textContent =
+      name || email;
+
+
+    // OWNER / ADMIN
+
+    if (
+      email.trim().toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ) {
+
+      adminButton.style.display =
+        "inline-block";
+
+    }
+
+  }
+
+
+  function logout() {
+
+    localStorage.removeItem(
+      "ebShopCustomerEmail"
+    );
+
+    localStorage.removeItem(
+      "ebShopCustomerName"
+    );
+
+    localStorage.removeItem(
+      "ebShopCustomerPhone"
+    );
+
+    localStorage.removeItem(
+      "ebShopLoggedIn"
+    );
+
+    window.location.href =
+      "index.html";
+
+  }
+
+
+  document
+    .getElementById("newsletterForm")
+    .addEventListener("submit", function(event) {
 
       event.preventDefault();
 
       const email =
-        document.getElementById("email").value;
+        document.getElementById(
+          "newsletterEmail"
+        ).value.trim();
 
-      alert(
-        "Thank you! " +
-        email +
-        " has been added to the E&B SHOP newsletter."
+      localStorage.setItem(
+        "ebShopNewsletterEmail",
+        email
       );
 
-      document.getElementById("email").value = "";
+      alert(
+        "Thank you for subscribing!"
+      );
 
-    }
+      this.reset();
 
-  </script>
+    });
+
+
+  // START WEBSITE
+
+  renderProducts();
+
+  updateCartCount();
+
+  updateUserArea();
+
+</script>
 
 </body>
 </html>
-```
