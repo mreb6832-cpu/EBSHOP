@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Products | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080808;
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: #050505;
+      border-bottom: 1px solid #292929;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 25px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    .cart-btn {
+      background: #d4af37;
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 20px 35px;
+    }
+
+    .hero small {
+      color: #d4af37;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: 45px;
+      margin: 12px 0;
+    }
+
+    .hero p {
+      color: #999;
+    }
+
+    .gold {
+      color: #d4af37;
+    }
+
+    .controls {
+      width: 90%;
+      max-width: 1200px;
+      margin: 10px auto 35px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 230px;
+      background: #151515;
+      border: 1px solid #303030;
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #fff;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .search-box:focus {
+      border-color: #d4af37;
+    }
+
+    .category-select {
+      background: #151515;
+      color: #fff;
+      border: 1px solid #303030;
+      border-radius: 10px;
+      padding: 14px;
+      min-width: 180px;
+      outline: none;
+    }
+
+    .products {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .product {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      border-color: #d4af37;
+    }
+
+    .product img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .category {
+      color: #d4af37;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .product h3 {
+      margin: 8px 0;
+      font-size: 18px;
+    }
+
+    .description {
+      color: #999;
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 40px;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .price {
+      color: #d4af37;
+      font-size: 19px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .add-btn {
+      border: none;
+      background: #d4af37;
+      color: #000;
+      padding: 10px 13px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .add-btn:hover {
+      background: #f0cc55;
+    }
+
+    .empty {
+      width: 90%;
+      max-width: 1200px;
+      margin: 50px auto;
+      text-align: center;
+      color: #999;
+      display: none;
+    }
+
+    footer {
+      margin-top: 70px;
+      padding: 35px;
+      text-align: center;
+      background: #050505;
+      border-top: 1px solid #222;
+      color: #777;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    @media (max-width: 1000px) {
+      .products {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .product img {
+        height: 240px;
+      }
+
+      .controls {
+        width: 94%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+
+    <a href="index.html" class="logo">
+      🛒 <span>E&B</span> SHOP
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="account.html">My Account</a>
+      <a href="index.html#about">About</a>
+
+      <a href="cart.html" class="cart-btn">
+        🛒 Cart (<span id="cartCount">0</span>)
+      </a>
+    </nav>
+
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <small>🇸🇪 E&B SHOP • SWEDEN</small>
+
+    <h1>
+      Our <span class="gold">Products</span>
+    </h1>
+
+    <p>
+      Discover products available from E&B SHOP.
+    </p>
+
+  </section>
+
+
+  <!-- SEARCH + CATEGORY -->
+  <div class="controls">
+
+    <input
+      type="text"
+      id="searchInput"
+      class="search-box"
+      placeholder="🔎 Search products..."
+    >
+
+    <select id="categorySelect" class="category-select">
+
+      <option value="all">
+        All Categories
+      </option>
+
+      <option value="Electronics">
+        Electronics
+      </option>
+
+      <option value="Fashion">
+        Fashion
+      </option>
+
+      <option value="Shoes">
+        Shoes
+      </option>
+
+      <option value="Home">
+        Home
+      </option>
+
+      <option value="Beauty">
+        Beauty
+      </option>
+
+      <option value="Gaming">
+        Gaming
+      </option>
+
+      <option value="Kids">
+        Kids
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <!-- PRODUCTS -->
+  <section class="products" id="productsGrid">
+
+    <article
+      class="product"
+      data-name="Smartphone"
+      data-category="Electronics"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+        alt="Smartphone"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Electronics</span>
+
+        <h3>Smartphone</h3>
+
+        <p class="description">
+          Modern smartphone for everyday use.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            4,999 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Smartphone', 4999)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Sport Shoes"
+      data-category="Shoes"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+        alt="Sport Shoes"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Shoes</span>
+
+        <h3>Sport Shoes</h3>
+
+        <p class="description">
+          Comfortable shoes for everyday activities.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            999 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Sport Shoes', 999)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Wireless Headphones"
+      data-category="Electronics"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+        alt="Wireless Headphones"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Electronics</span>
+
+        <h3>Wireless Headphones</h3>
+
+        <p class="description">
+          Enjoy music with comfortable wireless headphones.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            699 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Wireless Headphones', 699)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Smart Watch"
+      data-category="Electronics"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+        alt="Smart Watch"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Electronics</span>
+
+        <h3>Smart Watch</h3>
+
+        <p class="description">
+          Smart watch for daily activities and notifications.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            899 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Smart Watch', 899)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Fashion Bag"
+      data-category="Fashion"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
+        alt="Fashion Bag"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Fashion</span>
+
+        <h3>Fashion Bag</h3>
+
+        <p class="description">
+          Stylish everyday bag.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            1,299 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Fashion Bag', 1299)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Air Fryer"
+      data-category="Home"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=800&q=80"
+        alt="Air Fryer"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Home</span>
+
+        <h3>Home Air Fryer</h3>
+
+        <p class="description">
+          Convenient kitchen appliance for everyday cooking.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            1,299 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Home Air Fryer', 1299)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Gaming Controller"
+      data-category="Gaming"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1600080972464-8e5b4f0a7c8c?auto=format&fit=crop&w=800&q=80"
+        alt="Gaming Controller"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Gaming</span>
+
+        <h3>Gaming Controller</h3>
+
+        <p class="description">
+          Controller for compatible gaming systems.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            599 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Gaming Controller', 599)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article
+      class="product"
+      data-name="Beauty Products"
+      data-category="Beauty"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80"
+        alt="Beauty Products"
+      >
+
+      <div class="product-info">
+
+        <span class="category">Beauty</span>
+
+        <h3>Beauty Products</h3>
+
+        <p class="description">
+          Everyday beauty and personal care products.
+        </p>
+
+        <div class="bottom">
+
+          <span class="price">
+            399 SEK
+          </span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Beauty Products', 399)"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+  <div class="empty" id="emptyMessage">
+    <h2>No products found.</h2>
+    <p>Try another search or category.</p>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
+    <br>
+    Everything You Need in One Shop.
+  </footer>
+
+
+  <script>
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const categorySelect =
+      document.getElementById("categorySelect");
+
+    const products =
+      document.querySelectorAll(".product");
+
+    const emptyMessage =
+      document.getElementById("emptyMessage");
+
+
+    function filterProducts() {
+
+      const search =
+        searchInput.value.toLowerCase().trim();
+
+      const category =
+        categorySelect.value;
+
+      let visible = 0;
+
+      products.forEach(product => {
+
+        const name =
+          product.dataset.name.toLowerCase();
+
+        const productCategory =
+          product.dataset.category;
+
+        const matchesSearch =
+          name.includes(search);
+
+        const matchesCategory =
+          category === "all" ||
+          productCategory === category;
+
+        if (matchesSearch && matchesCategory) {
+
+          product.style.display = "block";
+          visible++;
+
+        } else {
+
+          product.style.display = "none";
+
+        }
+
+      });
+
+      emptyMessage.style.display =
+        visible === 0 ? "block" : "none";
+    }
+
+
+    searchInput.addEventListener(
+      "input",
+      filterProducts
+    );
+
+    categorySelect.addEventListener(
+      "change",
+      filterProducts
+    );
+
+
+    function getCart() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem("ebShopCart")
+        ) || [];
+
+      } catch {
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveCart(cart) {
+
+      localStorage.setItem(
+        "ebShopCart",
+        JSON.stringify(cart)
+      );
+
+    }
+
+
+    function updateCartCount() {
+
+      const cart = getCart();
+
+      const count =
+        cart.reduce(
+          (total, item) =>
+            total + Number(item.quantity || 1),
+          0
+        );
+
+      document.getElementById(
+        "cartCount"
+      ).textContent = count;
+
+    }
+
+
+    function addToCart(name, price) {
+
+      const cart = getCart();
+
+      const existing =
+        cart.find(item => item.name === name);
+
+      if (existing) {
+
+        existing.quantity =
+          Number(existing.quantity || 1) + 1;
+
+      } else {
+
+        cart.push({
+          name: name,
+          price: price,
+          quantity: 1
+        });
+
+      }
+
+      saveCart(cart);
+
+      updateCartCount();
+
+      alert(
+        name + " has been added to your cart."
+      );
+
+    }
+
+
+    updateCartCount();
+
+  </script>
+
+</body>
+</html>
