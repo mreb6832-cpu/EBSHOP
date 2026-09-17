@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Manage Products | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header h1 {
+      font-size: 22px;
+    }
+
+    .back {
+      color: white;
+      text-decoration: none;
+      background: #374151;
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .box h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #111827;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .cancel {
+      background: #6b7280;
+      display: none;
+      margin-left: 8px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .product-content {
+      padding: 16px;
+    }
+
+    .product h3 {
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .stock {
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .edit {
+      background: #2563eb;
+    }
+
+    .delete {
+      background: #dc2626;
+    }
+
+    .empty {
+      text-align: center;
+      color: #666;
+      padding: 30px;
+    }
+
+    #accessDenied {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    #page {
+      display: none;
+    }
+
+    @media (max-width: 650px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ACCESS DENIED -->
+  <div id="accessDenied">
+    <h1>🚫 Access Denied</h1>
+    <p>Only the E&B SHOP Owner can access this page.</p>
+  </div>
+
+
+  <!-- MAIN PAGE -->
+  <div id="page">
+
+    <header>
+      <h1>📦 Manage Products</h1>
+
+      <a href="admin.html" class="back">
+        ← Owner Dashboard
+      </a>
+    </header>
+
+
+    <main class="container">
+
+      <!-- ADD / EDIT PRODUCT -->
+      <section class="box">
+
+        <h2 id="formTitle">➕ Add New Product</h2>
+
+        <form id="productForm">
+
+          <div class="form-grid">
+
+            <input
+              type="text"
+              id="productName"
+              placeholder="Product name"
+              required
+            >
+
+            <input
+              type="number"
+              id="productPrice"
+              placeholder="Price in SEK"
+              min="0"
+              step="0.01"
+              required
+            >
+
+            <input
+              type="number"
+              id="productStock"
+              placeholder="Stock quantity"
+              min="0"
+              required
+            >
+
+            <select id="productCategory" required>
+              <option value="">Select category</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Shoes">Shoes</option>
+              <option value="Home">Home</option>
+              <option value="Beauty">Beauty</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Kids">Kids</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <input
+              type="url"
+              id="productImage"
+              class="full"
+              placeholder="Product image URL"
+            >
+
+            <textarea
+              id="productDescription"
+              class="full"
+              placeholder="Product description"
+            ></textarea>
+
+            <div class="full">
+
+              <button
+                type="submit"
+                class="btn"
+                id="saveButton"
+              >
+                Add Product
+              </button>
+
+              <button
+                type="button"
+                class="btn cancel"
+                id="cancelButton"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- PRODUCT LIST -->
+      <section class="box">
+
+        <h2>🛍️ Your Products</h2>
+
+        <div id="productList" class="products"></div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       OWNER ACCESS
+    ========================= */
+
+    const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
+
+    const currentEmail =
+      localStorage.getItem("ebShopCustomerEmail");
+
+    if (
+      !currentEmail ||
+      currentEmail.trim().toLowerCase() !==
+      ADMIN_EMAIL.toLowerCase()
+    ) {
+
+      document.getElementById("accessDenied").style.display =
+        "block";
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1500);
+
+    } else {
+
+      document.getElementById("page").style.display =
+        "block";
+
+    }
+
+
+    /* =========================
+       PRODUCTS
+    ========================= */
+
+    let products = [];
+
+    try {
+
+      products =
+        JSON.parse(
+          localStorage.getItem("ebShopProducts")
+        ) || [];
+
+    } catch (error) {
+
+      products = [];
+
+    }
+
+
+    let editingId = null;
+
+
+    /* =========================
+       SAVE PRODUCTS
+    ========================= */
+
+    function saveProducts() {
+
+      localStorage.setItem(
+        "ebShopProducts",
+        JSON.stringify(products)
+      );
+
+    }
+
+
+    /* =========================
+       RENDER PRODUCTS
+    ========================= */
+
+    function renderProducts() {
+
+      const list =
+        document.getElementById("productList");
+
+      if (products.length === 0) {
+
+        list.innerHTML = `
+          <div class="empty">
+            No products yet. Add your first product above.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      list.innerHTML = products.map(product => {
+
+        const image =
+          product.image ||
+          "https://via.placeholder.com/500x350?text=E%26B+SHOP";
+
+        return `
+
+          <div class="product">
+
+            <img
+              src="${escapeHtml(image)}"
+              alt="${escapeHtml(product.name)}"
+            >
+
+            <div class="product-content">
+
+              <h3>
+                ${escapeHtml(product.name)}
+              </h3>
+
+              <div class="price">
+                ${Number(product.price).toFixed(2)} SEK
+              </div>
+
+              <div>
+                Category:
+                ${escapeHtml(product.category)}
+              </div>
+
+              <div class="stock">
+                Stock:
+                ${Number(product.stock)}
+              </div>
+
+              <p>
+                ${escapeHtml(product.description || "")}
+              </p>
+
+              <br>
+
+              <div class="actions">
+
+                <button
+                  class="btn edit"
+                  onclick="editProduct('${product.id}')"
+                >
+                  ✏️ Edit
+                </button>
+
+                <button
+                  class="btn delete"
+                  onclick="deleteProduct('${product.id}')"
+                >
+                  🗑️ Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================
+       ADD / UPDATE
+    ========================= */
+
+    document
+      .getElementById("productForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+          document.getElementById("productName").value.trim();
+
+        const price =
+          Number(
+            document.getElementById("productPrice").value
+          );
+
+        const stock =
+          Number(
+            document.getElementById("productStock").value
+          );
+
+        const category =
+          document.getElementById("productCategory").value;
+
+        const image =
+          document.getElementById("productImage").value.trim();
+
+        const description =
+          document.getElementById("productDescription").value.trim();
+
+
+        if (!name) {
+          alert("Please enter a product name.");
+          return;
+        }
+
+        if (price < 0 || Number.isNaN(price)) {
+          alert("Please enter a valid price.");
+          return;
+        }
+
+        if (stock < 0 || Number.isNaN(stock)) {
+          alert("Please enter a valid stock quantity.");
+          return;
+        }
+
+
+        if (editingId) {
+
+          const product =
+            products.find(
+              item => String(item.id) === String(editingId)
+            );
+
+          if (product) {
+
+            product.name = name;
+            product.price = price;
+            product.stock = stock;
+            product.category = category;
+            product.image = image;
+            product.description = description;
+
+          }
+
+          alert("Product updated successfully.");
+
+        } else {
+
+          const newProduct = {
+
+            id:
+              Date.now().toString(),
+
+            name,
+            price,
+            stock,
+            category,
+            image,
+            description,
+
+            createdAt:
+              new Date().toISOString()
+
+          };
+
+          products.unshift(newProduct);
+
+          alert("Product added successfully.");
+
+        }
+
+
+        saveProducts();
+
+        resetForm();
+
+        renderProducts();
+
+      });
+
+
+    /* =========================
+       EDIT PRODUCT
+    ========================= */
+
+    function editProduct(id) {
+
+      const product =
+        products.find(
+          item => String(item.id) === String(id)
+        );
+
+      if (!product) {
+        return;
+      }
+
+
+      editingId = id;
+
+
+      document.getElementById("productName").value =
+        product.name || "";
+
+      document.getElementById("productPrice").value =
+        product.price || 0;
+
+      document.getElementById("productStock").value =
+        product.stock || 0;
+
+      document.getElementById("productCategory").value =
+        product.category || "";
+
+      document.getElementById("productImage").value =
+        product.image || "";
+
+      document.getElementById("productDescription").value =
+        product.description || "";
+
+
+      document.getElementById("formTitle").textContent =
+        "✏️ Edit Product";
+
+      document.getElementById("saveButton").textContent =
+        "Update Product";
+
+      document.getElementById("cancelButton").style.display =
+        "inline-block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    /* =========================
+       DELETE PRODUCT
+    ========================= */
+
+    function deleteProduct(id) {
+
+      const product =
+        products.find(
+          item => String(item.id) === String(id)
+        );
+
+      if (!product) {
+        return;
+      }
+
+
+      const confirmed =
+        confirm(
+          `Delete "${product.name}"?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      products =
+        products.filter(
+          item => String(item.id) !== String(id)
+        );
+
+
+      saveProducts();
+
+      renderProducts();
+
+    }
+
+
+    /* =========================
+       RESET FORM
+    ========================= */
+
+    function resetForm() {
+
+      editingId = null;
+
+      document.getElementById("productForm").reset();
+
+      document.getElementById("formTitle").textContent =
+        "➕ Add New Product";
+
+      document.getElementById("saveButton").textContent =
+        "Add Product";
+
+      document.getElementById("cancelButton").style.display =
+        "none";
+
+    }
+
+
+    /* =========================
+       CANCEL EDIT
+    ========================= */
+
+    document
+      .getElementById("cancelButton")
+      .addEventListener("click", resetForm);
+
+
+    /* =========================
+       START
+    ========================= */
+
+    renderProducts();
+
+  </script>
+
+</body>
+</html>
