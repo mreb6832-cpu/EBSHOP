@@ -3,13 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Shopping Cart | E&B SHOP</title>
-
-  <meta
-    name="description"
-    content="Review your shopping cart at E&B SHOP."
-  >
+  <title>Cart | E&B SHOP</title>
 
   <style>
     * {
@@ -19,56 +13,37 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #090909;
-      color: #fff;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
       min-height: 100vh;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
     header {
-      background: #111;
+      background: #000;
       border-bottom: 1px solid #292929;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .navbar {
-      max-width: 1200px;
-      margin: auto;
-      min-height: 75px;
-      padding: 15px 20px;
+      padding: 18px 6%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .logo span {
       color: #d4af37;
+      font-size: 25px;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     nav {
       display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 18px;
       flex-wrap: wrap;
     }
 
     nav a {
       color: #ddd;
+      text-decoration: none;
       font-size: 14px;
     }
 
@@ -76,196 +51,137 @@
       color: #d4af37;
     }
 
-    .cart-link {
-      background: #d4af37;
-      color: #000;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: 800;
+    .page {
+      width: 92%;
+      max-width: 1100px;
+      margin: 45px auto;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 45px 20px 80px;
+    .title {
+      text-align: center;
+      margin-bottom: 35px;
     }
 
-    .page-heading {
-      margin-bottom: 30px;
-    }
-
-    .page-heading h1 {
-      font-size: 38px;
-      margin-bottom: 8px;
-    }
-
-    .page-heading h1 span {
+    .title h1 {
       color: #d4af37;
+      font-size: 38px;
+      margin-bottom: 10px;
     }
 
-    .page-heading p {
-      color: #888;
+    .title p {
+      color: #999;
     }
 
     .cart-layout {
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1.4fr .8fr;
       gap: 25px;
-      align-items: start;
     }
 
-    .cart-items {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+    .card {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .card h2 {
+      color: #d4af37;
+      margin-bottom: 20px;
     }
 
     .cart-item {
-      background: #121212;
-      border: 1px solid #292929;
-      border-radius: 13px;
-      padding: 15px;
       display: grid;
-      grid-template-columns: 110px 1fr auto;
+      grid-template-columns: 90px 1fr auto;
       gap: 18px;
       align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #292929;
     }
 
-    .item-image {
-      width: 110px;
-      height: 110px;
+    .product-image {
+      width: 90px;
+      height: 90px;
       border-radius: 10px;
       object-fit: cover;
-      background: #202020;
-      display: block;
+      background: #1b1b1b;
+      border: 1px solid #333;
     }
 
-    .no-image {
-      width: 110px;
-      height: 110px;
-      border-radius: 10px;
-      background: #202020;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      color: #666;
-    }
-
-    .item-info h2 {
-      font-size: 18px;
+    .item-name {
+      font-size: 17px;
+      font-weight: bold;
       margin-bottom: 7px;
     }
 
-    .item-category {
-      color: #d4af37;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
     .item-price {
-      color: #aaa;
-      font-size: 14px;
+      color: #d4af37;
+      font-weight: bold;
     }
 
-    .quantity-control {
+    .item-controls {
       display: flex;
       align-items: center;
+      gap: 8px;
       margin-top: 12px;
+      flex-wrap: wrap;
     }
 
-    .quantity-control button {
-      width: 35px;
-      height: 35px;
-      background: #222;
-      color: #fff;
-      border: 1px solid #333;
+    .quantity-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #444;
+      background: #191919;
+      color: white;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 18px;
     }
 
-    .quantity-control button:hover {
-      color: #d4af37;
+    .quantity-btn:hover {
       border-color: #d4af37;
+      color: #d4af37;
     }
 
     .quantity {
-      width: 48px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #181818;
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
-      font-weight: 700;
-    }
-
-    .item-right {
-      text-align: right;
-    }
-
-    .item-total {
-      color: #d4af37;
-      font-size: 19px;
-      font-weight: 800;
-      margin-bottom: 15px;
+      min-width: 28px;
+      text-align: center;
     }
 
     .remove-btn {
+      margin-left: 8px;
       border: none;
       background: transparent;
-      color: #888;
+      color: #999;
       cursor: pointer;
-      font-weight: 700;
     }
 
     .remove-btn:hover {
-      color: #ff7777;
+      color: white;
     }
 
-    .summary {
-      background: #121212;
-      border: 1px solid #292929;
-      border-radius: 14px;
-      padding: 23px;
-      position: sticky;
-      top: 100px;
-    }
-
-    .summary h2 {
-      font-size: 22px;
-      margin-bottom: 20px;
+    .item-total {
+      font-weight: bold;
+      white-space: nowrap;
     }
 
     .summary-row {
       display: flex;
       justify-content: space-between;
-      gap: 15px;
-      padding: 12px 0;
-      border-bottom: 1px solid #252525;
-      color: #aaa;
+      padding: 14px 0;
+      border-bottom: 1px solid #292929;
+      color: #bbb;
     }
 
-    .summary-row strong {
-      color: #fff;
+    .summary-row.total {
+      border-bottom: none;
+      color: white;
+      font-size: 21px;
+      font-weight: bold;
+      padding-top: 20px;
     }
 
-    .delivery {
-      color: #8dcc8d !important;
-    }
-
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 0;
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .total-row strong {
+    .gold {
       color: #d4af37;
     }
 
@@ -275,130 +191,89 @@
       text-align: center;
       background: #d4af37;
       color: #000;
+      text-decoration: none;
       padding: 15px;
-      border-radius: 9px;
-      font-weight: 800;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 22px;
     }
 
     .checkout-btn:hover {
-      background: #f0cf55;
+      background: #f0cf58;
     }
 
     .continue-btn {
       display: block;
-      width: 100%;
       text-align: center;
-      border: 1px solid #444;
-      padding: 13px;
-      border-radius: 9px;
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .continue-btn:hover {
-      border-color: #d4af37;
       color: #d4af37;
+      text-decoration: none;
+      margin-top: 18px;
     }
 
-    .empty-cart {
+    .empty {
       text-align: center;
-      background: #121212;
-      border: 1px dashed #333;
-      border-radius: 14px;
-      padding: 80px 20px;
+      padding: 70px 20px;
     }
 
-    .empty-cart-icon {
-      font-size: 65px;
-      margin-bottom: 18px;
+    .empty-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
     }
 
-    .empty-cart h2 {
+    .empty h2 {
+      color: #d4af37;
       margin-bottom: 10px;
     }
 
-    .empty-cart p {
-      color: #888;
-      margin-bottom: 25px;
+    .empty p {
+      color: #999;
     }
 
-    .shop-btn {
+    .empty a {
       display: inline-block;
+      margin-top: 22px;
+      padding: 12px 20px;
       background: #d4af37;
       color: #000;
-      padding: 13px 20px;
+      text-decoration: none;
       border-radius: 8px;
-      font-weight: 800;
-    }
-
-    .toast {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background: #d4af37;
-      color: #000;
-      padding: 14px 18px;
-      border-radius: 9px;
-      font-weight: 800;
-      display: none;
-      z-index: 9999;
+      font-weight: bold;
     }
 
     footer {
-      border-top: 1px solid #292929;
-      background: #101010;
-      padding: 30px 20px;
       text-align: center;
       color: #777;
-      font-size: 13px;
+      border-top: 1px solid #222;
+      margin-top: 45px;
+      padding: 30px;
     }
 
-    @media (max-width: 850px) {
-      .navbar {
+    @media (max-width: 800px) {
+      header {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
       }
 
       .cart-layout {
         grid-template-columns: 1fr;
       }
 
-      .summary {
-        position: static;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 30px 15px 60px;
-      }
-
-      .page-heading h1 {
-        font-size: 30px;
-      }
-
       .cart-item {
-        grid-template-columns: 80px 1fr;
-        gap: 12px;
+        grid-template-columns: 70px 1fr;
       }
 
-      .item-image,
-      .no-image {
-        width: 80px;
-        height: 80px;
-      }
-
-      .item-right {
-        grid-column: 1 / -1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left;
-        padding-top: 5px;
+      .product-image {
+        width: 70px;
+        height: 70px;
       }
 
       .item-total {
-        margin-bottom: 0;
+        grid-column: 2;
+      }
+
+      .title h1 {
+        font-size: 30px;
       }
     }
   </style>
@@ -407,45 +282,94 @@
 <body>
 
 <header>
-  <div class="navbar">
 
-    <a href="index.html" class="logo">
-      🛒 <span>E&B</span> SHOP
-    </a>
+  <a href="index.html" class="logo">
+    E&B SHOP
+  </a>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="account.html">My Account</a>
-      <a href="orders.html">Orders</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="account.html">My Account</a>
+    <a href="orders.html">Orders</a>
+  </nav>
 
-      <a href="cart.html" class="cart-link">
-        🛒 Cart (<span id="cartCount">0</span>)
-      </a>
-    </nav>
-
-  </div>
 </header>
 
 
-<main class="container">
+<main class="page">
 
-  <div class="page-heading">
+  <div class="title">
+    <h1>Your Cart</h1>
+    <p>Review your products before continuing.</p>
+  </div>
 
-    <h1>
-      Shopping <span>Cart</span>
-    </h1>
 
-    <p>
-      Review your products before checkout.
-    </p>
+  <div id="emptyCart" class="card empty" style="display:none;">
+
+    <div class="empty-icon">🛒</div>
+
+    <h2>Your Cart Is Empty</h2>
+
+    <p>You have not added any products yet.</p>
+
+    <a href="products.html">
+      Start Shopping
+    </a>
 
   </div>
 
 
-  <div id="cartContent"></div>
+  <div id="cartContent" class="cart-layout">
+
+    <section class="card">
+
+      <h2>Shopping Cart</h2>
+
+      <div id="cartItems"></div>
+
+    </section>
+
+
+    <aside class="card">
+
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Items</span>
+        <strong id="itemCount">0</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="subtotal">0 SEK</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery</span>
+        <strong class="gold">FREE</strong>
+      </div>
+
+      <div class="summary-row total">
+        <span>Total</span>
+        <span class="gold" id="total">0 SEK</span>
+      </div>
+
+
+      <!-- CHECKOUT GOES DIRECTLY TO PAYMENT -->
+
+      <a href="payment.html" class="checkout-btn">
+        Proceed to Checkout
+      </a>
+
+      <a href="products.html" class="continue-btn">
+        ← Continue Shopping
+      </a>
+
+    </aside>
+
+  </div>
 
 </main>
 
@@ -455,691 +379,208 @@
 </footer>
 
 
-<div id="toast" class="toast"></div>
-
-
 <script>
 
-  const CART_KEY = "ebShopCart";
-  const PRODUCTS_KEY = "ebShopProducts";
+  const products = JSON.parse(
+    localStorage.getItem("ebShopProducts") || "[]"
+  );
 
-  const cartContent =
-    document.getElementById("cartContent");
-
-  const cartCount =
-    document.getElementById("cartCount");
-
-  const toast =
-    document.getElementById("toast");
+  let cart = JSON.parse(
+    localStorage.getItem("ebShopCart") || "[]"
+  );
 
 
-  let cart = [];
-  let products = [];
+  const cartItems = document.getElementById("cartItems");
+  const cartContent = document.getElementById("cartContent");
+  const emptyCart = document.getElementById("emptyCart");
+  const itemCount = document.getElementById("itemCount");
+  const subtotalElement = document.getElementById("subtotal");
+  const totalElement = document.getElementById("total");
 
 
-  function loadData() {
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-    try {
 
-      cart =
-        JSON.parse(
-          localStorage.getItem(CART_KEY) || "[]"
-        );
+  function renderCart() {
 
-      if (!Array.isArray(cart)) {
-        cart = [];
-      }
+    cartItems.innerHTML = "";
 
-    } catch {
+    if (!cart.length) {
 
-      cart = [];
+      cartContent.style.display = "none";
+      emptyCart.style.display = "block";
 
+      return;
+    }
+
+    cartContent.style.display = "grid";
+    emptyCart.style.display = "none";
+
+
+    let subtotal = 0;
+    let totalQuantity = 0;
+
+
+    cart.forEach((item, index) => {
+
+      const product = products.find(
+        p => String(p.id) === String(item.id)
+      );
+
+      const price = Number(item.price || 0);
+      const quantity = Number(item.quantity || 1);
+
+      const itemTotal = price * quantity;
+
+      subtotal += itemTotal;
+      totalQuantity += quantity;
+
+
+      const image =
+        product && product.image
+          ? product.image
+          : "";
+
+
+      const itemElement =
+        document.createElement("div");
+
+      itemElement.className = "cart-item";
+
+
+      itemElement.innerHTML = `
+
+        <img
+          class="product-image"
+          src="${escapeHtml(image)}"
+          alt="${escapeHtml(item.name || "Product")}"
+          onerror="this.style.visibility='hidden'"
+        >
+
+        <div>
+
+          <div class="item-name">
+            ${escapeHtml(item.name || "Product")}
+          </div>
+
+          <div class="item-price">
+            ${price.toLocaleString("sv-SE")} SEK
+          </div>
+
+          <div class="item-controls">
+
+            <button
+              class="quantity-btn"
+              onclick="changeQuantity(${index}, -1)"
+            >
+              −
+            </button>
+
+            <span class="quantity">
+              ${quantity}
+            </span>
+
+            <button
+              class="quantity-btn"
+              onclick="changeQuantity(${index}, 1)"
+            >
+              +
+            </button>
+
+            <button
+              class="remove-btn"
+              onclick="removeItem(${index})"
+            >
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="item-total">
+          ${itemTotal.toLocaleString("sv-SE")} SEK
+        </div>
+
+      `;
+
+
+      cartItems.appendChild(itemElement);
+
+    });
+
+
+    itemCount.textContent = totalQuantity;
+
+    subtotalElement.textContent =
+      subtotal.toLocaleString("sv-SE") + " SEK";
+
+    totalElement.textContent =
+      subtotal.toLocaleString("sv-SE") + " SEK";
+  }
+
+
+  function changeQuantity(index, change) {
+
+    if (!cart[index]) return;
+
+
+    let newQuantity =
+      Number(cart[index].quantity || 1) + change;
+
+
+    if (newQuantity < 1) {
+      newQuantity = 1;
     }
 
 
-    try {
+    const product = products.find(
+      p => String(p.id) === String(cart[index].id)
+    );
 
-      products =
-        JSON.parse(
-          localStorage.getItem(PRODUCTS_KEY) || "[]"
-        );
 
-      if (!Array.isArray(products)) {
-        products = [];
-      }
-
-    } catch {
-
-      products = [];
-
+    if (
+      product &&
+      Number(product.stock) > 0 &&
+      newQuantity > Number(product.stock)
+    ) {
+      newQuantity = Number(product.stock);
     }
 
+
+    cart[index].quantity = newQuantity;
+
+    saveCart();
+  }
+
+
+  function removeItem(index) {
+
+    if (!cart[index]) return;
+
+    cart.splice(index, 1);
+
+    saveCart();
   }
 
 
   function saveCart() {
 
     localStorage.setItem(
-      CART_KEY,
+      "ebShopCart",
       JSON.stringify(cart)
     );
 
-  }
-
-
-  function getProduct(productId) {
-
-    return products.find(
-      product =>
-        String(product.id) ===
-        String(productId)
-    );
-
-  }
-
-
-  function updateCartCount() {
-
-    const count =
-      cart.reduce(
-        (total, item) =>
-          total +
-          (Number(item.quantity) || 0),
-        0
-      );
-
-    cartCount.textContent = count;
-
-  }
-
-
-  function formatPrice(price) {
-
-    return (
-      Number(price || 0)
-        .toLocaleString(
-          "sv-SE",
-          {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          }
-        )
-      + " SEK"
-    );
-
-  }
-
-
-  function calculateSubtotal() {
-
-    return cart.reduce(
-      (total, item) => {
-
-        return (
-          total +
-          (
-            Number(item.price) || 0
-          ) *
-          (
-            Number(item.quantity) || 0
-          )
-        );
-
-      },
-      0
-    );
-
-  }
-
-
-  function renderCart() {
-
-    updateCartCount();
-
-
-    if (cart.length === 0) {
-
-      cartContent.innerHTML = `
-
-        <div class="empty-cart">
-
-          <div class="empty-cart-icon">
-            🛒
-          </div>
-
-          <h2>
-            Your Cart Is Empty
-          </h2>
-
-          <p>
-            You haven't added any products yet.
-          </p>
-
-          <a
-            href="products.html"
-            class="shop-btn"
-          >
-            Start Shopping
-          </a>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const subtotal =
-      calculateSubtotal();
-
-
-    /*
-     * Delivery is currently free.
-     * Payment will be connected later.
-     */
-
-    const delivery = 0;
-
-    const total =
-      subtotal + delivery;
-
-
-    cartContent.innerHTML = `
-
-      <div class="cart-layout">
-
-        <section class="cart-items">
-
-          ${cart.map(
-            item =>
-              createCartItem(item)
-          ).join("")}
-
-        </section>
-
-
-        <aside class="summary">
-
-          <h2>
-            Order Summary
-          </h2>
-
-
-          <div class="summary-row">
-
-            <span>
-              Subtotal
-            </span>
-
-            <strong>
-              ${formatPrice(subtotal)}
-            </strong>
-
-          </div>
-
-
-          <div class="summary-row">
-
-            <span>
-              Delivery
-            </span>
-
-            <strong class="delivery">
-              FREE
-            </strong>
-
-          </div>
-
-
-          <div class="total-row">
-
-            <span>
-              Total
-            </span>
-
-            <strong>
-              ${formatPrice(total)}
-            </strong>
-
-          </div>
-
-
-          <a
-            href="checkout.html"
-            class="checkout-btn"
-          >
-            Proceed to Checkout
-          </a>
-
-
-          <a
-            href="products.html"
-            class="continue-btn"
-          >
-            Continue Shopping
-          </a>
-
-        </aside>
-
-      </div>
-
-    `;
-
-
-    addImageErrorHandlers();
-
-  }
-
-
-  function createCartItem(item) {
-
-    const product =
-      getProduct(item.id);
-
-
-    const name =
-      escapeHtml(
-        item.name ||
-        (product && product.name) ||
-        "Product"
-      );
-
-
-    const category =
-      escapeHtml(
-        (product && product.category) ||
-        "Product"
-      );
-
-
-    const quantity =
-      Number(item.quantity) || 1;
-
-
-    const price =
-      Number(item.price) || 0;
-
-
-    const itemTotal =
-      price * quantity;
-
-
-    let imageHTML;
-
-
-    if (product && product.image) {
-
-      imageHTML = `
-
-        <img
-          class="item-image"
-          src="${escapeHtml(product.image)}"
-          alt="${name}"
-        >
-
-        <div
-          class="no-image"
-          style="display:none;"
-        >
-          🛍️
-        </div>
-
-      `;
-
-    } else {
-
-      imageHTML = `
-
-        <div class="no-image">
-          🛍️
-        </div>
-
-      `;
-
-    }
-
-
-    return `
-
-      <article class="cart-item">
-
-        <div>
-          ${imageHTML}
-        </div>
-
-
-        <div class="item-info">
-
-          <div class="item-category">
-            ${category}
-          </div>
-
-
-          <h2>
-            ${name}
-          </h2>
-
-
-          <div class="item-price">
-            ${formatPrice(price)}
-            each
-          </div>
-
-
-          <div class="quantity-control">
-
-            <button
-              type="button"
-              data-action="decrease"
-              data-id="${escapeHtml(item.id)}"
-            >
-              −
-            </button>
-
-
-            <div class="quantity">
-              ${quantity}
-            </div>
-
-
-            <button
-              type="button"
-              data-action="increase"
-              data-id="${escapeHtml(item.id)}"
-            >
-              +
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="item-right">
-
-          <div class="item-total">
-            ${formatPrice(itemTotal)}
-          </div>
-
-
-          <button
-            type="button"
-            class="remove-btn"
-            data-action="remove"
-            data-id="${escapeHtml(item.id)}"
-          >
-            🗑️ Remove
-          </button>
-
-        </div>
-
-      </article>
-
-    `;
-
-  }
-
-
-  function addImageErrorHandlers() {
-
-    document
-      .querySelectorAll(".item-image")
-      .forEach(
-        image => {
-
-          image.addEventListener(
-            "error",
-            function () {
-
-              this.style.display =
-                "none";
-
-
-              const fallback =
-                this.nextElementSibling;
-
-
-              if (fallback) {
-
-                fallback.style.display =
-                  "flex";
-
-              }
-
-            }
-          );
-
-        }
-      );
-
-  }
-
-
-  /*
-   * CART BUTTONS
-   */
-
-  cartContent.addEventListener(
-    "click",
-    function (event) {
-
-      const button =
-        event.target.closest(
-          "button[data-action]"
-        );
-
-
-      if (!button) {
-        return;
-      }
-
-
-      const action =
-        button.dataset.action;
-
-
-      const id =
-        button.dataset.id;
-
-
-      if (action === "increase") {
-
-        changeQuantity(
-          id,
-          1
-        );
-
-      }
-
-
-      if (action === "decrease") {
-
-        changeQuantity(
-          id,
-          -1
-        );
-
-      }
-
-
-      if (action === "remove") {
-
-        removeItem(id);
-
-      }
-
-    }
-  );
-
-
-  function changeQuantity(
-    productId,
-    amount
-  ) {
-
-    const item =
-      cart.find(
-        cartItem =>
-          String(cartItem.id) ===
-          String(productId)
-      );
-
-
-    if (!item) {
-      return;
-    }
-
-
-    const product =
-      getProduct(productId);
-
-
-    const stock =
-      product
-        ? Number(product.stock) || 0
-        : 999999;
-
-
-    const current =
-      Number(item.quantity) || 1;
-
-
-    const newQuantity =
-      current + amount;
-
-
-    if (newQuantity <= 0) {
-
-      removeItem(productId);
-
-      return;
-
-    }
-
-
-    if (
-      product &&
-      newQuantity > stock
-    ) {
-
-      showToast(
-        "You reached the available stock."
-      );
-
-      return;
-
-    }
-
-
-    item.quantity =
-      newQuantity;
-
-
-    saveCart();
-
     renderCart();
-
   }
 
-
-  function removeItem(productId) {
-
-    const item =
-      cart.find(
-        cartItem =>
-          String(cartItem.id) ===
-          String(productId)
-      );
-
-
-    cart =
-      cart.filter(
-        cartItem =>
-          String(cartItem.id) !==
-          String(productId)
-      );
-
-
-    saveCart();
-
-    renderCart();
-
-
-    if (item) {
-
-      showToast(
-        item.name +
-        " removed from cart."
-      );
-
-    }
-
-  }
-
-
-  function showToast(text) {
-
-    toast.textContent =
-      text;
-
-
-    toast.style.display =
-      "block";
-
-
-    clearTimeout(
-      window.toastTimer
-    );
-
-
-    window.toastTimer =
-      setTimeout(
-        function () {
-
-          toast.style.display =
-            "none";
-
-        },
-        2500
-      );
-
-  }
-
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
-
-  /*
-   * START
-   */
-
-  loadData();
 
   renderCart();
 
