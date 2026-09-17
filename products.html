@@ -8,7 +8,7 @@
 
   <meta
     name="description"
-    content="Shop products from E&B SHOP in Sweden. Electronics, fashion, shoes, home, gaming, beauty and more."
+    content="Shop products from E&B SHOP in Sweden."
   >
 
   <style>
@@ -20,8 +20,9 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #0a0a0a;
+      background: #090909;
       color: #fff;
+      min-height: 100vh;
     }
 
     a {
@@ -88,88 +89,85 @@
       color: #000;
     }
 
-    .hero {
+    .container {
       max-width: 1200px;
       margin: auto;
-      padding: 55px 20px 30px;
+      padding: 45px 20px 80px;
     }
 
-    .hero small {
+    .page-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .page-heading h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .page-heading h1 span {
       color: #d4af37;
-      font-weight: 700;
-      letter-spacing: 2px;
     }
 
-    .hero h1 {
-      font-size: 46px;
-      margin: 10px 0;
+    .page-heading p {
+      color: #999;
+      font-size: 16px;
     }
 
-    .hero p {
-      color: #aaa;
-      max-width: 700px;
-      line-height: 1.6;
+    /* SEARCH AREA */
+
+    .filters {
+      background: #121212;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 35px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
     }
 
-    .controls {
-      max-width: 1200px;
-      margin: 0 auto 35px;
-      padding: 0 20px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 230px;
+    .search-box,
+    .category-box {
+      position: relative;
     }
 
     .search-box input,
-    .category-select {
+    .category-box select {
       width: 100%;
-      background: #151515;
-      color: white;
+      height: 50px;
+      padding: 0 15px;
       border: 1px solid #333;
-      padding: 14px 16px;
       border-radius: 9px;
+      background: #1a1a1a;
+      color: #fff;
       outline: none;
       font-size: 15px;
     }
 
     .search-box input:focus,
-    .category-select:focus {
+    .category-box select:focus {
       border-color: #d4af37;
     }
 
-    .category-wrap {
-      width: 220px;
+    .category-box select {
+      cursor: pointer;
     }
 
-    .products-section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 20px 70px;
-    }
+    /* PRODUCTS */
 
-    .section-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      gap: 15px;
-    }
-
-    .section-top h2 {
-      font-size: 25px;
-    }
-
-    #productCount {
+    .results-info {
       color: #999;
+      margin-bottom: 18px;
       font-size: 14px;
     }
 
-    .product-grid {
+    .results-info span {
+      color: #d4af37;
+      font-weight: 700;
+    }
+
+    .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
@@ -178,154 +176,182 @@
     .product-card {
       background: #121212;
       border: 1px solid #292929;
-      border-radius: 14px;
+      border-radius: 13px;
       overflow: hidden;
-      transition: 0.25s;
-      display: flex;
-      flex-direction: column;
+      transition: .2s;
     }
 
     .product-card:hover {
       transform: translateY(-4px);
       border-color: #d4af37;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      background: #1b1b1b;
+      overflow: hidden;
     }
 
     .product-image {
       width: 100%;
-      height: 220px;
+      height: 100%;
       object-fit: cover;
       display: block;
-      background: #1b1b1b;
     }
 
     .no-image {
       width: 100%;
-      height: 220px;
-      background: #1b1b1b;
+      height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-size: 45px;
-      color: #777;
+      justify-content: center;
+      font-size: 60px;
+      color: #666;
     }
 
-    .product-info {
-      padding: 17px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .category {
-      color: #d4af37;
-      font-size: 12px;
+    .category-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #d4af37;
+      color: #000;
+      padding: 6px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-      margin-bottom: 8px;
     }
 
-    .product-name {
+    .out-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #b3261e;
+      color: #fff;
+      padding: 6px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .product-content {
+      padding: 17px;
+    }
+
+    .product-content h3 {
       font-size: 18px;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
       line-height: 1.3;
     }
 
     .description {
-      color: #999;
+      color: #888;
       font-size: 13px;
       line-height: 1.5;
+      min-height: 39px;
       margin-bottom: 12px;
-    }
-
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      margin-bottom: 14px;
-      gap: 10px;
     }
 
     .price {
       color: #d4af37;
       font-size: 21px;
       font-weight: 800;
+      margin-bottom: 8px;
     }
 
     .stock {
-      color: #8fd18f;
-      font-size: 12px;
+      color: #8bc98b;
+      font-size: 13px;
+      margin-bottom: 15px;
     }
 
-    .out-stock {
+    .out-stock-text {
       color: #ff7777;
     }
 
-    .buttons {
-      display: flex;
+    .product-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
 
-    .btn {
-      flex: 1;
-      border: none;
-      cursor: pointer;
-      padding: 11px 10px;
-      border-radius: 8px;
-      font-weight: 700;
+    .view-btn,
+    .cart-add-btn {
+      padding: 10px 8px;
+      border-radius: 7px;
+      text-align: center;
       font-size: 13px;
-      transition: .2s;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
     }
 
-    .details-btn {
-      background: #252525;
-      color: white;
-      border: 1px solid #3a3a3a;
+    .view-btn {
+      border: 1px solid #444;
+      color: #fff;
+      background: transparent;
     }
 
-    .details-btn:hover {
-      color: #d4af37;
+    .view-btn:hover {
       border-color: #d4af37;
+      color: #d4af37;
     }
 
-    .add-btn {
+    .cart-add-btn {
       background: #d4af37;
       color: #000;
     }
 
-    .add-btn:hover {
+    .cart-add-btn:hover {
       background: #f0cf55;
     }
 
-    .add-btn:disabled {
-      background: #333;
-      color: #777;
+    .cart-add-btn:disabled {
+      background: #292929;
+      color: #666;
       cursor: not-allowed;
     }
 
-    .empty {
+    /* EMPTY */
+
+    .empty-state {
       text-align: center;
-      padding: 70px 20px;
+      padding: 80px 20px;
       background: #121212;
-      border: 1px solid #292929;
+      border: 1px dashed #333;
       border-radius: 14px;
       grid-column: 1 / -1;
     }
 
-    .empty-icon {
-      font-size: 45px;
+    .empty-state .icon {
+      font-size: 60px;
       margin-bottom: 15px;
     }
 
-    .empty h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
+    .empty-state h2 {
+      margin-bottom: 10px;
     }
 
-    .empty p {
-      color: #999;
+    .empty-state p {
+      color: #888;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #d4af37;
+      color: #000;
+      padding: 14px 18px;
+      border-radius: 9px;
+      font-weight: 800;
+      display: none;
+      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0,0,0,.4);
     }
 
     footer {
@@ -337,21 +363,8 @@
       font-size: 13px;
     }
 
-    .toast {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background: #d4af37;
-      color: #000;
-      padding: 14px 18px;
-      border-radius: 9px;
-      font-weight: 700;
-      display: none;
-      z-index: 9999;
-    }
-
     @media (max-width: 1000px) {
-      .product-grid {
+      .products-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
@@ -361,35 +374,34 @@
         flex-direction: column;
       }
 
-      .product-grid {
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .category-wrap {
-        width: 100%;
+      .page-heading h1 {
+        font-size: 34px;
       }
     }
 
     @media (max-width: 500px) {
-      .product-grid {
+      .container {
+        padding: 30px 15px 60px;
+      }
+
+      .products-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero h1 {
+      .page-heading h1 {
         font-size: 30px;
       }
 
-      .product-image,
-      .no-image {
-        height: 250px;
-      }
-
-      .buttons {
-        flex-direction: column;
+      .image-wrapper {
+        height: 260px;
       }
     }
   </style>
@@ -421,29 +433,29 @@
 </header>
 
 
-<main>
+<main class="container">
 
-  <section class="hero">
+  <section class="page-heading">
 
-    <small>E&B SHOP • SWEDEN 🇸🇪</small>
-
-    <h1>All Products</h1>
+    <h1>
+      Shop <span>Products</span>
+    </h1>
 
     <p>
-      Discover products available at E&B SHOP.
-      Search and browse electronics, fashion, shoes,
-      home products, gaming, beauty and more.
+      Find the products you are looking for at E&B SHOP.
     </p>
 
   </section>
 
 
-  <section class="controls">
+  <!-- SEARCH + CATEGORY -->
+
+  <section class="filters">
 
     <div class="search-box">
 
       <input
-        type="text"
+        type="search"
         id="productSearch"
         placeholder="🔎 Search products..."
         autocomplete="off"
@@ -452,9 +464,9 @@
     </div>
 
 
-    <div class="category-wrap">
+    <div class="category-box">
 
-      <select id="categoryFilter" class="category-select">
+      <select id="categoryFilter">
 
         <option value="all">
           All Categories
@@ -467,22 +479,15 @@
   </section>
 
 
-  <section class="products-section">
-
-    <div class="section-top">
-
-      <h2>Shop Now</h2>
-
-      <span id="productCount">
-        0 products
-      </span>
-
-    </div>
+  <div class="results-info">
+    Showing <span id="resultCount">0</span> products
+  </div>
 
 
-    <div id="productGrid" class="product-grid"></div>
-
-  </section>
+  <section
+    id="productGrid"
+    class="products-grid"
+  ></section>
 
 </main>
 
@@ -492,141 +497,79 @@
 </footer>
 
 
-<div id="toast" class="toast"></div>
+<div
+  id="toast"
+  class="toast"
+></div>
 
 
 <script>
 
-  /*
-   * E&B SHOP
-   *
-   * Products are stored in:
-   * ebShopProducts
-   *
-   * This is the same storage used by admin.html.
-   */
+  const STORAGE_KEY =
+    "ebShopProducts";
 
 
-  const DEFAULT_PRODUCTS = [
-
-    {
-      id: "smartphone",
-      name: "Smartphone",
-      price: 4999,
-      category: "Electronics",
-      stock: 10,
-      image: "",
-      description: "Modern smartphone for everyday use."
-    },
-
-    {
-      id: "sport-shoes",
-      name: "Sport Shoes",
-      price: 899,
-      category: "Shoes",
-      stock: 15,
-      image: "",
-      description: "Comfortable shoes for sport and everyday activities."
-    },
-
-    {
-      id: "wireless-headphones",
-      name: "Wireless Headphones",
-      price: 699,
-      category: "Electronics",
-      stock: 20,
-      image: "",
-      description: "Wireless headphones with clear sound."
-    },
-
-    {
-      id: "smart-watch",
-      name: "Smart Watch",
-      price: 1299,
-      category: "Electronics",
-      stock: 8,
-      image: "",
-      description: "Smart watch for notifications and daily activities."
-    },
-
-    {
-      id: "fashion-bag",
-      name: "Fashion Bag",
-      price: 599,
-      category: "Fashion",
-      stock: 12,
-      image: "",
-      description: "Stylish everyday fashion bag."
-    },
-
-    {
-      id: "home-air-fryer",
-      name: "Air Fryer",
-      price: 999,
-      category: "Home",
-      stock: 7,
-      image: "",
-      description: "Convenient air fryer for everyday meals."
-    },
-
-    {
-      id: "gaming-controller",
-      name: "Gaming Controller",
-      price: 499,
-      category: "Gaming",
-      stock: 14,
-      image: "",
-      description: "Gaming controller for compatible devices."
-    },
-
-    {
-      id: "beauty-products",
-      name: "Beauty Products",
-      price: 299,
-      category: "Beauty",
-      stock: 25,
-      image: "",
-      description: "Everyday beauty products."
-    }
-
-  ];
+  const CART_KEY =
+    "ebShopCart";
 
 
   const productGrid =
-    document.getElementById("productGrid");
+    document.getElementById(
+      "productGrid"
+    );
+
 
   const productSearch =
-    document.getElementById("productSearch");
+    document.getElementById(
+      "productSearch"
+    );
+
 
   const categoryFilter =
-    document.getElementById("categoryFilter");
+    document.getElementById(
+      "categoryFilter"
+    );
 
-  const productCount =
-    document.getElementById("productCount");
+
+  const resultCount =
+    document.getElementById(
+      "resultCount"
+    );
+
 
   const cartCount =
-    document.getElementById("cartCount");
+    document.getElementById(
+      "cartCount"
+    );
+
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
 
   let products = [];
 
 
+  /*
+   * LOAD PRODUCTS
+   */
+
   function loadProducts() {
 
     const saved =
-      localStorage.getItem("ebShopProducts");
+      localStorage.getItem(
+        STORAGE_KEY
+      );
 
 
     if (!saved) {
 
-      products = DEFAULT_PRODUCTS;
-
-      saveProducts();
+      products = [];
 
       return;
+
     }
 
 
@@ -636,69 +579,28 @@
         JSON.parse(saved);
 
 
-      if (Array.isArray(parsed)) {
-
-        products = parsed;
-
-      } else {
-
-        products = DEFAULT_PRODUCTS;
-
-        saveProducts();
-
-      }
+      products =
+        Array.isArray(parsed)
+          ? parsed
+          : [];
 
     } catch (error) {
 
       console.error(
-        "Error loading products:",
+        "Could not load products:",
         error
       );
 
-      products = DEFAULT_PRODUCTS;
-
-      saveProducts();
+      products = [];
 
     }
 
   }
 
 
-  function saveProducts() {
-
-    localStorage.setItem(
-      "ebShopProducts",
-      JSON.stringify(products)
-    );
-
-  }
-
-
-  function formatPrice(price) {
-
-    return (
-      Number(price || 0)
-        .toLocaleString("sv-SE", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        })
-      + " SEK"
-    );
-
-  }
-
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
+  /*
+   * UPDATE CART COUNT
+   */
 
   function updateCartCount() {
 
@@ -709,7 +611,9 @@
 
       cart =
         JSON.parse(
-          localStorage.getItem("ebShopCart") || "[]"
+          localStorage.getItem(
+            CART_KEY
+          ) || "[]"
         );
 
 
@@ -727,46 +631,451 @@
     const count =
       cart.reduce(
         (total, item) =>
-          total + (Number(item.quantity) || 0),
+          total +
+          (Number(item.quantity) || 0),
         0
       );
 
 
-    cartCount.textContent = count;
+    cartCount.textContent =
+      count;
 
   }
 
 
-  function getProductId(product) {
+  /*
+   * CREATE CATEGORIES
+   */
 
-    if (product.id) {
-      return String(product.id);
+  function createCategories() {
+
+    const categories =
+      [
+        ...new Set(
+          products
+            .map(
+              product =>
+                product.category
+            )
+            .filter(Boolean)
+        )
+      ]
+      .sort();
+
+
+    categoryFilter.innerHTML = `
+
+      <option value="all">
+        All Categories
+      </option>
+
+    `;
+
+
+    categories.forEach(
+      category => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          category;
+
+
+        option.textContent =
+          category;
+
+
+        categoryFilter.appendChild(
+          option
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+   * FILTER PRODUCTS
+   */
+
+  function filterProducts() {
+
+    const searchText =
+      productSearch.value
+        .trim()
+        .toLowerCase();
+
+
+    const selectedCategory =
+      categoryFilter.value;
+
+
+    const filtered =
+      products.filter(
+        product => {
+
+          const name =
+            String(
+              product.name || ""
+            ).toLowerCase();
+
+
+          const description =
+            String(
+              product.description || ""
+            ).toLowerCase();
+
+
+          const category =
+            String(
+              product.category || ""
+            ).toLowerCase();
+
+
+          const matchesSearch =
+            !searchText ||
+            name.includes(searchText) ||
+            description.includes(searchText) ||
+            category.includes(searchText);
+
+
+          const matchesCategory =
+            selectedCategory === "all" ||
+            product.category ===
+              selectedCategory;
+
+
+          return (
+            matchesSearch &&
+            matchesCategory
+          );
+
+        }
+      );
+
+
+    renderProducts(
+      filtered
+    );
+
+  }
+
+
+  /*
+   * RENDER PRODUCTS
+   */
+
+  function renderProducts(list) {
+
+    resultCount.textContent =
+      list.length;
+
+
+    if (list.length === 0) {
+
+      productGrid.innerHTML = `
+
+        <div class="empty-state">
+
+          <div class="icon">
+            🔎
+          </div>
+
+          <h2>
+            No Products Found
+          </h2>
+
+          <p>
+            Try another search or category.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
     }
 
 
-    return String(product.name || "product")
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
+    productGrid.innerHTML =
+      list.map(
+        product =>
+          createProductCard(
+            product
+          )
+      ).join("");
+
+
+    /*
+     * Add image error handlers
+     */
+
+    document
+      .querySelectorAll(
+        ".product-image"
+      )
+      .forEach(
+        image => {
+
+          image.addEventListener(
+            "error",
+            function () {
+
+              this.style.display =
+                "none";
+
+
+              const fallback =
+                this.nextElementSibling;
+
+
+              if (fallback) {
+
+                fallback.style.display =
+                  "flex";
+
+              }
+
+            }
+          );
+
+        }
+      );
 
   }
 
 
-  function addToCart(id) {
+  /*
+   * PRODUCT CARD
+   */
+
+  function createProductCard(product) {
+
+    const id =
+      String(product.id || "");
+
+
+    const name =
+      escapeHtml(
+        product.name ||
+        "Unnamed Product"
+      );
+
+
+    const category =
+      escapeHtml(
+        product.category ||
+        "Other"
+      );
+
+
+    const description =
+      escapeHtml(
+        product.description ||
+        "No description available."
+      );
+
+
+    const price =
+      formatPrice(
+        product.price
+      );
+
+
+    const stock =
+      Number(product.stock) || 0;
+
+
+    let imageHTML;
+
+
+    if (product.image) {
+
+      imageHTML = `
+
+        <img
+          class="product-image"
+          src="${escapeHtml(product.image)}"
+          alt="${name}"
+        >
+
+        <div
+          class="no-image"
+          style="display:none;"
+        >
+          🛍️
+        </div>
+
+      `;
+
+    } else {
+
+      imageHTML = `
+
+        <div class="no-image">
+          🛍️
+        </div>
+
+      `;
+
+    }
+
+
+    const stockHTML =
+      stock > 0
+
+        ? `
+
+          <div class="stock">
+            ✓ ${stock} available
+          </div>
+
+        `
+
+        : `
+
+          <div class="stock out-stock-text">
+            Out of stock
+          </div>
+
+        `;
+
+
+    const outBadge =
+      stock <= 0
+
+        ? `
+
+          <div class="out-badge">
+            OUT OF STOCK
+          </div>
+
+        `
+
+        : "";
+
+
+    return `
+
+      <article class="product-card">
+
+        <div class="image-wrapper">
+
+          ${imageHTML}
+
+          <div class="category-badge">
+            ${category}
+          </div>
+
+          ${outBadge}
+
+        </div>
+
+
+        <div class="product-content">
+
+          <h3>
+            ${name}
+          </h3>
+
+
+          <div class="description">
+            ${description}
+          </div>
+
+
+          <div class="price">
+            ${price}
+          </div>
+
+
+          ${stockHTML}
+
+
+          <div class="product-buttons">
+
+            <a
+              href="product-details.html?product=${encodeURIComponent(id)}"
+              class="view-btn"
+            >
+              View
+            </a>
+
+
+            <button
+              class="cart-add-btn"
+              data-product-id="${escapeHtml(id)}"
+              ${stock <= 0 ? "disabled" : ""}
+            >
+              🛒 Add
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }
+
+
+  /*
+   * ADD TO CART
+   */
+
+  productGrid.addEventListener(
+    "click",
+    function (event) {
+
+      const button =
+        event.target.closest(
+          ".cart-add-btn"
+        );
+
+
+      if (!button) {
+        return;
+      }
+
+
+      const productId =
+        button.dataset.productId;
+
+
+      addToCart(
+        productId
+      );
+
+    }
+  );
+
+
+  function addToCart(productId) {
 
     const product =
       products.find(
         item =>
-          String(item.id) === String(id)
+          String(item.id) ===
+          String(productId)
       );
 
 
     if (!product) {
 
-      showToast("Product not found.");
+      showToast(
+        "Product not found."
+      );
 
       return;
+
     }
 
 
@@ -776,9 +1085,12 @@
 
     if (stock <= 0) {
 
-      showToast("This product is out of stock.");
+      showToast(
+        "This product is out of stock."
+      );
 
       return;
+
     }
 
 
@@ -789,7 +1101,9 @@
 
       cart =
         JSON.parse(
-          localStorage.getItem("ebShopCart") || "[]"
+          localStorage.getItem(
+            CART_KEY
+          ) || "[]"
         );
 
 
@@ -814,22 +1128,27 @@
 
     if (existing) {
 
-      const quantity =
-        Number(existing.quantity) || 0;
+      const currentQuantity =
+        Number(
+          existing.quantity
+        ) || 0;
 
 
-      if (quantity >= stock) {
+      if (
+        currentQuantity >= stock
+      ) {
 
         showToast(
-          "You cannot add more than available stock."
+          "You reached the available stock."
         );
 
         return;
+
       }
 
 
       existing.quantity =
-        quantity + 1;
+        currentQuantity + 1;
 
     } else {
 
@@ -850,385 +1169,138 @@
 
 
     localStorage.setItem(
-      "ebShopCart",
+      CART_KEY,
       JSON.stringify(cart)
     );
 
 
     updateCartCount();
 
+
     showToast(
-      product.name + " added to cart!"
+      product.name +
+      " added to cart!"
     );
 
   }
 
 
-  function viewProduct(id) {
-
-    window.location.href =
-      "product-details.html?product=" +
-      encodeURIComponent(id);
-
-  }
-
-
-  function showToast(message) {
-
-    toast.textContent = message;
-
-    toast.style.display = "block";
-
-
-    clearTimeout(window.toastTimer);
-
-
-    window.toastTimer =
-      setTimeout(() => {
-
-        toast.style.display = "none";
-
-      }, 2500);
-
-  }
-
-
-  function loadCategories() {
-
-    const categories =
-      [
-        ...new Set(
-          products
-            .map(
-              product =>
-                String(
-                  product.category || ""
-                ).trim()
-            )
-            .filter(Boolean)
-        )
-      ].sort();
-
-
-    categoryFilter.innerHTML =
-      '<option value="all">All Categories</option>';
-
-
-    categories.forEach(category => {
-
-      const option =
-        document.createElement("option");
-
-
-      option.value = category;
-
-      option.textContent = category;
-
-
-      categoryFilter.appendChild(option);
-
-    });
-
-  }
-
-
-  function getFilteredProducts() {
-
-    const searchTerm =
-      productSearch.value
-        .trim()
-        .toLowerCase();
-
-
-    const selectedCategory =
-      categoryFilter.value;
-
-
-    return products.filter(product => {
-
-      const name =
-        String(
-          product.name || ""
-        ).toLowerCase();
-
-
-      const category =
-        String(
-          product.category || ""
-        ).toLowerCase();
-
-
-      const description =
-        String(
-          product.description || ""
-        ).toLowerCase();
-
-
-      const matchesSearch =
-        !searchTerm ||
-        name.includes(searchTerm) ||
-        category.includes(searchTerm) ||
-        description.includes(searchTerm);
-
-
-      const matchesCategory =
-        selectedCategory === "all" ||
-        String(product.category || "") ===
-          selectedCategory;
-
-
-      return (
-        matchesSearch &&
-        matchesCategory
-      );
-
-    });
-
-  }
-
-
-  function renderProducts() {
-
-    const filtered =
-      getFilteredProducts();
-
-
-    productCount.textContent =
-      filtered.length +
-      (
-        filtered.length === 1
-          ? " product"
-          : " products"
-      );
-
-
-    if (filtered.length === 0) {
-
-      productGrid.innerHTML = `
-
-        <div class="empty">
-
-          <div class="empty-icon">
-            🛍️
-          </div>
-
-          <h3>
-            No products found
-          </h3>
-
-          <p>
-            Try another search or category.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-    }
-
-
-    productGrid.innerHTML =
-      filtered.map(product => {
-
-        const id =
-          getProductId(product);
-
-
-        const name =
-          escapeHtml(
-            product.name ||
-            "Unnamed Product"
-          );
-
-
-        const category =
-          escapeHtml(
-            product.category ||
-            "Other"
-          );
-
-
-        const description =
-          escapeHtml(
-            product.description ||
-            "Discover this product at E&B SHOP."
-          );
-
-
-        const price =
-          formatPrice(product.price);
-
-
-        const stock =
-          Number(product.stock) || 0;
-
-
-        let imageHTML;
-
-
-        if (product.image) {
-
-          imageHTML = `
-
-            <img
-              class="product-image"
-              src="${escapeHtml(product.image)}"
-              alt="${name}"
-              loading="lazy"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-            >
-
-            <div
-              class="no-image"
-              style="display:none;"
-            >
-              🛍️
-            </div>
-
-          `;
-
-        } else {
-
-          imageHTML = `
-
-            <div class="no-image">
-              🛍️
-            </div>
-
-          `;
-
-        }
-
-
-        const stockHTML =
-          stock > 0
-
-            ? `
-              <span class="stock">
-                ✓ ${stock} in stock
-              </span>
-            `
-
-            : `
-              <span class="stock out-stock">
-                Out of stock
-              </span>
-            `;
-
-
-        const disabled =
-          stock <= 0
-            ? "disabled"
-            : "";
-
-
-        return `
-
-          <article class="product-card">
-
-            ${imageHTML}
-
-            <div class="product-info">
-
-              <div class="category">
-                ${category}
-              </div>
-
-              <h3 class="product-name">
-                ${name}
-              </h3>
-
-              <p class="description">
-                ${description}
-              </p>
-
-              <div class="price-row">
-
-                <span class="price">
-                  ${price}
-                </span>
-
-                ${stockHTML}
-
-              </div>
-
-              <div class="buttons">
-
-                <button
-                  class="btn details-btn"
-                  onclick="viewProduct('${escapeHtml(id)}')"
-                >
-                  View
-                </button>
-
-                <button
-                  class="btn add-btn"
-                  ${disabled}
-                  onclick="addToCart('${escapeHtml(id)}')"
-                >
-                  ${
-                    stock > 0
-                      ? "Add to Cart"
-                      : "Out of Stock"
-                  }
-                </button>
-
-              </div>
-
-            </div>
-
-          </article>
-
-        `;
-
-      }).join("");
-
-  }
-
+  /*
+   * SEARCH
+   */
 
   productSearch.addEventListener(
     "input",
-    renderProducts
+    filterProducts
   );
 
+
+  /*
+   * CATEGORY
+   */
 
   categoryFilter.addEventListener(
     "change",
-    renderProducts
+    filterProducts
   );
 
 
-  window.addEventListener(
-    "storage",
-    event => {
+  /*
+   * PRICE FORMAT
+   */
 
-      if (
-        event.key === "ebShopProducts" ||
-        event.key === "ebShopCart"
-      ) {
+  function formatPrice(price) {
 
-        loadProducts();
+    return (
+      Number(price || 0)
+        .toLocaleString(
+          "sv-SE",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )
+      + " SEK"
+    );
 
-        loadCategories();
+  }
 
-        renderProducts();
 
-        updateCartCount();
+  /*
+   * HTML SECURITY
+   */
 
-      }
+  function escapeHtml(value) {
 
-    }
-  );
+    return String(value ?? "")
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
 
+  }
+
+
+  /*
+   * TOAST MESSAGE
+   */
+
+  function showToast(text) {
+
+    toast.textContent =
+      text;
+
+
+    toast.style.display =
+      "block";
+
+
+    clearTimeout(
+      window.toastTimer
+    );
+
+
+    window.toastTimer =
+      setTimeout(
+        function () {
+
+          toast.style.display =
+            "none";
+
+        },
+        2500
+      );
+
+  }
+
+
+  /*
+   * START
+   */
 
   loadProducts();
 
-  loadCategories();
-
-  renderProducts();
+  createCategories();
 
   updateCartCount();
+
+  filterProducts();
 
 </script>
 
