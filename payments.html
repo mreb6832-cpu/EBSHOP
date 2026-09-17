@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Payments | E&B SHOP</title>
+  <title>Payment - EBSHOP</title>
 
   <style>
     * {
@@ -16,153 +17,119 @@
 
     body {
       background: #f5f7fb;
-      color: #111827;
+      color: #222;
     }
 
     header {
       background: #111827;
       color: white;
-      padding: 18px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 20px;
+      text-align: center;
     }
 
     header h1 {
-      font-size: 22px;
-    }
-
-    .back {
-      background: #374151;
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 8px;
+      font-size: 28px;
     }
 
     .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
     }
 
-    .welcome {
-      margin-bottom: 25px;
-    }
-
-    .welcome h2 {
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #6b7280;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
-      margin-bottom: 25px;
-    }
-
-    .stat {
-      background: white;
-      padding: 22px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,.07);
-    }
-
-    .stat-title {
-      color: #6b7280;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .stat-value {
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .payments-box {
+    .payment-box {
       background: white;
       border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 5px 20px rgba(0,0,0,.07);
-      overflow-x: auto;
+      padding: 30px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
     }
 
-    .payments-box h2 {
+    h2 {
       margin-bottom: 20px;
     }
 
-    table {
+    .order-summary {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .order-row:last-child {
+      border-bottom: none;
+    }
+
+    .total {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .methods {
+      display: grid;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .method {
+      border: 2px solid #ddd;
+      padding: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .method:hover {
+      border-color: #111827;
+    }
+
+    .method input {
+      margin-right: 10px;
+    }
+
+    .method strong {
+      font-size: 17px;
+    }
+
+    .pay-button {
       width: 100%;
-      border-collapse: collapse;
-      min-width: 750px;
+      padding: 16px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    th,
-    td {
-      padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #e5e7eb;
+    .pay-button:hover {
+      background: #000;
     }
 
-    th {
-      background: #f9fafb;
-      color: #4b5563;
-      font-size: 13px;
-      text-transform: uppercase;
-    }
-
-    td {
+    .secure {
+      text-align: center;
+      margin-top: 15px;
+      color: #666;
       font-size: 14px;
     }
 
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-    }
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px auto;
+        padding: 12px;
+      }
 
-    .paid {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .pending {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .failed {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 40px;
-      color: #6b7280;
-    }
-
-    #denied {
-      display: none;
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    #page {
-      display: none;
-    }
-
-    @media (max-width: 650px) {
-      header {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
+      .payment-box {
+        padding: 20px;
       }
     }
   </style>
@@ -170,402 +137,98 @@
 
 <body>
 
-  <!-- ACCESS DENIED -->
-  <div id="denied">
-    <h1>🚫 Access Denied</h1>
-    <p>Only the E&B SHOP Owner can access payments.</p>
-  </div>
+  <header>
+    <h1>🛍️ EBSHOP</h1>
+    <p>Secure Checkout</p>
+  </header>
 
+  <div class="container">
 
-  <!-- PAYMENT PAGE -->
-  <div id="page">
+    <div class="payment-box">
 
-    <header>
-      <h1>💳 E&B SHOP Payments</h1>
+      <h2>Payment</h2>
 
-      <a href="admin.html" class="back">
-        ← Owner Dashboard
-      </a>
-    </header>
+      <div class="order-summary">
+        <h3>Order Summary</h3>
 
+        <div class="order-row">
+          <span>Product</span>
+          <span>100 SEK</span>
+        </div>
 
-    <main class="container">
+        <div class="order-row">
+          <span>Shipping</span>
+          <span>0 SEK</span>
+        </div>
 
-      <div class="welcome">
-        <h2>Payment Overview</h2>
-        <p>Monitor payment records and transaction status.</p>
+        <div class="order-row total">
+          <span>Total</span>
+          <span>100 SEK</span>
+        </div>
       </div>
 
+      <h2>Choose payment method</h2>
 
-      <!-- STATS -->
+      <div class="methods">
 
-      <div class="stats">
+        <label class="method">
+          <input type="radio" name="payment" value="card">
+          <strong>💳 Card</strong>
+          <p>Pay securely with your bank card.</p>
+        </label>
 
-        <div class="stat">
-          <div class="stat-title">
-            Total Payments
-          </div>
+        <label class="method">
+          <input type="radio" name="payment" value="swish">
+          <strong>📱 Swish</strong>
+          <p>Pay using Swish.</p>
+        </label>
 
-          <div class="stat-value" id="totalPayments">
-            0
-          </div>
-        </div>
-
-
-        <div class="stat">
-          <div class="stat-title">
-            Paid
-          </div>
-
-          <div class="stat-value" id="paidPayments">
-            0
-          </div>
-        </div>
-
-
-        <div class="stat">
-          <div class="stat-title">
-            Pending
-          </div>
-
-          <div class="stat-value" id="pendingPayments">
-            0
-          </div>
-        </div>
-
-
-        <div class="stat">
-          <div class="stat-title">
-            Revenue
-          </div>
-
-          <div class="stat-value" id="revenue">
-            0.00 SEK
-          </div>
-        </div>
+        <label class="method">
+          <input type="radio" name="payment" value="invoice">
+          <strong>🧾 Invoice</strong>
+          <p>Pay later using an invoice.</p>
+        </label>
 
       </div>
 
+      <button class="pay-button" onclick="startPayment()">
+        Continue to Payment
+      </button>
 
-      <!-- PAYMENT TABLE -->
+      <p class="secure">
+        🔒 Your payment information is protected.
+      </p>
 
-      <div class="payments-box">
-
-        <h2>Transactions</h2>
-
-        <div id="paymentTable"></div>
-
-      </div>
-
-    </main>
+    </div>
 
   </div>
-
 
   <script>
+    function startPayment() {
 
-    /* =========================
-       OWNER ACCESS
-    ========================= */
-
-    const ADMIN_EMAIL =
-      "mucyoemmy539@gmail.com";
-
-    const currentEmail =
-      localStorage.getItem(
-        "ebShopCustomerEmail"
+      const selected = document.querySelector(
+        'input[name="payment"]:checked'
       );
 
-
-    if (
-      !currentEmail ||
-      currentEmail.trim().toLowerCase() !==
-      ADMIN_EMAIL.toLowerCase()
-    ) {
-
-      document.getElementById("denied")
-        .style.display = "block";
-
-      setTimeout(() => {
-        window.location.href =
-          "index.html";
-      }, 1500);
-
-    } else {
-
-      document.getElementById("page")
-        .style.display = "block";
-
-      loadPayments();
-
-    }
-
-
-    /* =========================
-       LOAD PAYMENTS
-    ========================= */
-
-    function loadPayments() {
-
-      let payments = [];
-
-      try {
-
-        payments =
-          JSON.parse(
-            localStorage.getItem(
-              "ebShopPayments"
-            )
-          ) || [];
-
-      } catch (error) {
-
-        payments = [];
-
-      }
-
-
-      document.getElementById(
-        "totalPayments"
-      ).textContent =
-        payments.length;
-
-
-      const paid =
-        payments.filter(
-          payment =>
-            payment.status === "paid"
-        );
-
-
-      const pending =
-        payments.filter(
-          payment =>
-            payment.status === "pending"
-        );
-
-
-      document.getElementById(
-        "paidPayments"
-      ).textContent =
-        paid.length;
-
-
-      document.getElementById(
-        "pendingPayments"
-      ).textContent =
-        pending.length;
-
-
-      const revenue =
-        paid.reduce(
-          (total, payment) =>
-            total +
-            Number(payment.amount || 0),
-          0
-        );
-
-
-      document.getElementById(
-        "revenue"
-      ).textContent =
-        revenue.toFixed(2) +
-        " SEK";
-
-
-      renderPayments(payments);
-
-    }
-
-
-    /* =========================
-       RENDER
-    ========================= */
-
-    function renderPayments(payments) {
-
-      const container =
-        document.getElementById(
-          "paymentTable"
-        );
-
-
-      if (!payments.length) {
-
-        container.innerHTML = `
-          <div class="empty">
-            💳 No payments yet.
-            <br><br>
-            Payments will appear here
-            after customers complete
-            a real checkout.
-          </div>
-        `;
-
+      if (!selected) {
+        alert("Please choose a payment method.");
         return;
-
       }
 
+      if (selected.value === "card") {
+        alert("Card payment will be connected next.");
+      }
 
-      container.innerHTML = `
+      if (selected.value === "swish") {
+        alert("Swish payment will be connected next.");
+      }
 
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Payment ID</th>
-              <th>Customer</th>
-              <th>Order</th>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            ${payments.map(payment => `
-
-              <tr>
-
-                <td>
-                  ${escapeHtml(
-                    payment.id || "-"
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHtml(
-                    payment.customer || "-"
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHtml(
-                    payment.orderId || "-"
-                  )}
-                </td>
-
-                <td>
-                  <strong>
-                    ${Number(
-                      payment.amount || 0
-                    ).toFixed(2)} SEK
-                  </strong>
-                </td>
-
-                <td>
-                  ${formatDate(
-                    payment.date
-                  )}
-                </td>
-
-                <td>
-                  ${statusBadge(
-                    payment.status
-                  )}
-                </td>
-
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
-
-      `;
-
+      if (selected.value === "invoice") {
+        alert("Invoice payment will be connected next.");
+      }
     }
-
-
-    /* =========================
-       STATUS
-    ========================= */
-
-    function statusBadge(status) {
-
-      const value =
-        String(
-          status || "pending"
-        ).toLowerCase();
-
-
-      if (value === "paid") {
-
-        return `
-          <span class="status paid">
-            ✓ Paid
-          </span>
-        `;
-
-      }
-
-
-      if (value === "failed") {
-
-        return `
-          <span class="status failed">
-            ✕ Failed
-          </span>
-        `;
-
-      }
-
-
-      return `
-        <span class="status pending">
-          ⏳ Pending
-        </span>
-      `;
-
-    }
-
-
-    /* =========================
-       DATE
-    ========================= */
-
-    function formatDate(date) {
-
-      if (!date) {
-        return "-";
-      }
-
-      const d =
-        new Date(date);
-
-      if (
-        Number.isNaN(
-          d.getTime()
-        )
-      ) {
-        return "-";
-      }
-
-      return d.toLocaleString();
-
-    }
-
-
-    /* =========================
-       SECURITY
-    ========================= */
-
-    function escapeHtml(value) {
-
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    }
-
   </script>
 
 </body>
 </html>
+```
