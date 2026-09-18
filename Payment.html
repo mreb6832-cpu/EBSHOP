@@ -15,285 +15,203 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: #050505;
-      color: #f5f5f5;
+      background: #080808;
+      color: #fff;
       min-height: 100vh;
     }
 
     header {
-      border-bottom: 1px solid #252525;
-      padding: 20px 4%;
+      background: #000;
+      border-bottom: 1px solid #c9a227;
+      padding: 18px 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
     }
 
     .logo {
-      color: #d9af2f;
-      font-size: 30px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    nav {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     nav a {
       color: #fff;
       text-decoration: none;
-      font-size: 16px;
+      margin-left: 20px;
     }
 
     nav a:hover {
-      color: #d9af2f;
+      color: #d4af37;
     }
 
     .container {
-      width: min(1200px, 92%);
-      margin: 50px auto;
+      width: 92%;
+      max-width: 1100px;
+      margin: 40px auto;
     }
 
-    .hero {
+    h1 {
+      color: #d4af37;
+      margin-bottom: 30px;
       text-align: center;
-      margin-bottom: 35px;
     }
 
-    .hero h1 {
-      color: #d9af2f;
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #aaa;
-      font-size: 18px;
-    }
-
-    .layout {
+    .grid {
       display: grid;
-      grid-template-columns: 1.4fr 0.8fr;
-      gap: 30px;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
     }
 
-    .card {
+    .box {
       background: #111;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 25px;
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 25px;
     }
 
-    .card h2 {
-      color: #d9af2f;
-      margin-bottom: 22px;
-      font-size: 25px;
-    }
-
-    .notice {
-      background: #191500;
-      border: 1px solid #6b5611;
-      color: #f1d66c;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 22px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
+    .box h2 {
+      color: #d4af37;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
+      margin: 14px 0 7px;
       color: #ddd;
-      font-weight: 600;
     }
 
     input,
     textarea {
       width: 100%;
-      padding: 14px;
-      background: #080808;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #181818;
       color: #fff;
-      border: 1px solid #333;
-      border-radius: 9px;
       outline: none;
-      font-size: 15px;
     }
 
     input:focus,
     textarea:focus {
-      border-color: #d9af2f;
+      border-color: #d4af37;
     }
 
     textarea {
-      min-height: 100px;
+      min-height: 90px;
       resize: vertical;
-    }
-
-    .readonly {
-      color: #aaa;
-    }
-
-    .payment-options {
-      display: grid;
-      gap: 12px;
-    }
-
-    .payment-option {
-      border: 1px solid #333;
-      background: #080808;
-      padding: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .payment-option:hover {
-      border-color: #d9af2f;
-    }
-
-    .payment-option input {
-      width: auto;
-    }
-
-    .payment-option strong {
-      color: #fff;
-    }
-
-    .payment-option small {
-      display: block;
-      color: #999;
-      margin-top: 4px;
     }
 
     .item {
       display: flex;
       justify-content: space-between;
       gap: 15px;
-      padding: 15px 0;
-      border-bottom: 1px solid #292929;
-    }
-
-    .item:last-child {
-      border-bottom: none;
+      padding: 13px 0;
+      border-bottom: 1px solid #333;
     }
 
     .item-name {
-      font-weight: 700;
+      font-weight: bold;
     }
 
     .item-info {
-      color: #999;
+      color: #aaa;
       font-size: 14px;
       margin-top: 5px;
-    }
-
-    .item-price {
-      color: #d9af2f;
-      font-weight: 700;
-      white-space: nowrap;
     }
 
     .summary-row {
       display: flex;
       justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid #292929;
-      color: #ccc;
+      padding: 10px 0;
     }
 
-    .summary-row.total {
-      border-bottom: none;
-      font-size: 24px;
-      font-weight: 800;
-      color: #d9af2f;
-      padding-top: 22px;
+    .total {
+      border-top: 1px solid #555;
+      margin-top: 12px;
+      padding-top: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #d4af37;
     }
 
-    .free {
-      color: #d9af2f;
-      font-weight: 700;
-    }
-
-    .place-order {
-      width: 100%;
-      border: none;
-      background: #d9af2f;
-      color: #050505;
-      padding: 16px;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: 800;
-      cursor: pointer;
+    .payment-note {
+      background: #191500;
+      border: 1px solid #806b18;
+      padding: 14px;
+      border-radius: 8px;
       margin-top: 20px;
+      color: #ddd;
+      line-height: 1.5;
     }
 
-    .place-order:hover {
-      background: #f0c63b;
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 15px;
+      border: none;
+      border-radius: 9px;
+      background: #d4af37;
+      color: #000;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f0cf55;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .back {
       display: inline-block;
-      margin-top: 15px;
-      color: #d9af2f;
+      margin-top: 20px;
+      color: #d4af37;
       text-decoration: none;
     }
 
     .empty {
       text-align: center;
-      padding: 40px 10px;
+      padding: 30px;
       color: #aaa;
     }
 
     .error {
-      color: #ff7070;
-      margin-top: 10px;
       display: none;
+      margin-top: 15px;
+      padding: 12px;
+      background: #2a1010;
+      border: 1px solid #8b3030;
+      border-radius: 8px;
+      color: #ffb0b0;
     }
 
-    @media (max-width: 850px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .success-message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      background: #102a16;
+      border: 1px solid #347a45;
+      border-radius: 8px;
+      color: #b8f0c3;
+    }
 
-      nav {
-        gap: 15px;
-      }
-
-      .layout {
+    @media (max-width: 750px) {
+      .grid {
         grid-template-columns: 1fr;
       }
 
-      .hero h1 {
-        font-size: 38px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .container {
-        width: 94%;
-        margin: 30px auto;
+      header {
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .card {
-        padding: 20px;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .logo {
-        font-size: 25px;
+      nav a {
+        margin: 0 8px;
       }
     }
   </style>
@@ -302,274 +220,205 @@
 <body>
 
 <header>
-  <a href="index.html" class="logo">E&B SHOP</a>
+  <div class="logo">🛒 E&B SHOP</div>
 
   <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
     <a href="cart.html">Cart</a>
-    <a href="account.html">My Account</a>
-    <a href="orders.html">Orders</a>
+    <a href="account.html">Account</a>
   </nav>
 </header>
 
-<main class="container">
+<div class="container">
 
-  <div class="hero">
-    <h1>Payment</h1>
-    <p>Complete your order with E&B SHOP 🇸🇪</p>
-  </div>
+  <h1>Secure Checkout</h1>
 
-  <div id="emptyMessage" class="card empty" style="display:none;">
-    <h2>Your cart is empty.</h2>
-    <p>Add products before placing an order.</p>
-    <a href="products.html" class="back">← Continue Shopping</a>
-  </div>
+  <div class="grid">
 
-  <form id="paymentForm">
+    <!-- CUSTOMER INFORMATION -->
+    <div class="box">
 
-    <div class="layout">
+      <h2>Customer Information</h2>
 
-      <section>
+      <form id="paymentForm">
 
-        <div class="card">
-          <h2>Customer Information</h2>
+        <label for="fullName">Full Name</label>
+        <input
+          type="text"
+          id="fullName"
+          required
+          placeholder="Your full name"
+        >
 
-          <div class="form-group">
-            <label for="fullName">Full Name *</label>
-            <input
-              type="text"
-              id="fullName"
-              placeholder="Enter your full name"
-              required
-            >
-          </div>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          required
+          placeholder="you@example.com"
+        >
 
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            >
-          </div>
+        <label for="phone">Phone</label>
+        <input
+          type="tel"
+          id="phone"
+          required
+          placeholder="+46..."
+        >
 
-          <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input
-              type="tel"
-              id="phone"
-              placeholder="Enter your phone number"
-              required
-            >
-          </div>
+        <h2 style="margin-top:25px;">Delivery Address</h2>
+
+        <label for="street">Street Address</label>
+        <input
+          type="text"
+          id="street"
+          required
+          placeholder="Street and house number"
+        >
+
+        <label for="city">City</label>
+        <input
+          type="text"
+          id="city"
+          required
+          placeholder="City"
+        >
+
+        <label for="postcode">Postcode</label>
+        <input
+          type="text"
+          id="postcode"
+          required
+          placeholder="Postcode"
+        >
+
+        <label for="notes">Order Notes</label>
+        <textarea
+          id="notes"
+          placeholder="Optional notes..."
+        ></textarea>
+
+        <div class="payment-note">
+          <strong>Payment:</strong><br>
+          You will be redirected to Stripe's secure checkout
+          page to complete your payment.
         </div>
 
+        <div id="errorMessage" class="error"></div>
 
-        <div class="card">
-          <h2>Delivery Address</h2>
-
-          <div class="form-group">
-            <label for="street">Street Address *</label>
-            <input
-              type="text"
-              id="street"
-              placeholder="Street and house number"
-              required
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="city">City *</label>
-            <input
-              type="text"
-              id="city"
-              placeholder="City"
-              required
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="postcode">Postcode *</label>
-            <input
-              type="text"
-              id="postcode"
-              placeholder="Postcode"
-              required
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="country">Country</label>
-            <input
-              type="text"
-              id="country"
-              value="Sweden"
-              readonly
-              class="readonly"
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="notes">Order Notes</label>
-            <textarea
-              id="notes"
-              placeholder="Optional notes about your order"
-            ></textarea>
-          </div>
+        <div id="successMessage" class="success-message">
+          Redirecting to Stripe...
         </div>
 
+        <button id="payButton" type="submit">
+          Pay Now
+        </button>
 
-        <div class="card">
-          <h2>Payment Method</h2>
-
-          <div class="notice">
-            <strong>Payment is not connected yet.</strong><br>
-            You can select a payment method for testing.
-            Real Card, Swish and Invoice payments will be connected later.
-          </div>
-
-          <div class="payment-options">
-
-            <label class="payment-option">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="Card"
-              >
-
-              <div>
-                <strong>💳 Card</strong>
-                <small>Credit or debit card</small>
-              </div>
-            </label>
-
-
-            <label class="payment-option">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="Swish"
-              >
-
-              <div>
-                <strong>📱 Swish</strong>
-                <small>Swish payment</small>
-              </div>
-            </label>
-
-
-            <label class="payment-option">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="Invoice"
-              >
-
-              <div>
-                <strong>🧾 Invoice</strong>
-                <small>Pay by invoice</small>
-              </div>
-            </label>
-
-          </div>
-
-          <div id="paymentError" class="error">
-            Please select a payment method.
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <aside>
-
-        <div class="card">
-
-          <h2>Order Summary</h2>
-
-          <div id="items"></div>
-
-          <div class="summary-row">
-            <span>Items</span>
-            <strong id="itemCount">0</strong>
-          </div>
-
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <strong id="subtotal">0 SEK</strong>
-          </div>
-
-          <div class="summary-row">
-            <span>Delivery</span>
-            <strong class="free">FREE</strong>
-          </div>
-
-          <div class="summary-row total">
-            <span>Total</span>
-            <span id="total">0 SEK</span>
-          </div>
-
-          <button type="submit" class="place-order">
-            Place Order
-          </button>
-
-          <a href="cart.html" class="back">
-            ← Back to Cart
-          </a>
-
-        </div>
-
-      </aside>
+      </form>
 
     </div>
 
-  </form>
 
-</main>
+    <!-- ORDER SUMMARY -->
+    <div class="box">
+
+      <h2>Order Summary</h2>
+
+      <div id="orderItems"></div>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal">0 SEK</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span>FREE</span>
+      </div>
+
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="total">0 SEK</span>
+      </div>
+
+      <a class="back" href="cart.html">
+        ← Back to Cart
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
 
 
 <script>
+  /*
+    E&B SHOP
+    Stripe Test Checkout
+  */
 
-  const cartKey = "ebShopCart";
-  const productsKey = "ebShopProducts";
+  const STRIPE_API =
+    "https://ebshop.vercel.app/api/create-checkout-session";
 
-  let cart = JSON.parse(localStorage.getItem(cartKey) || "[]");
-  const products = JSON.parse(localStorage.getItem(productsKey) || "[]");
 
-  const form = document.getElementById("paymentForm");
-  const emptyMessage = document.getElementById("emptyMessage");
+  const cart =
+    JSON.parse(localStorage.getItem("ebShopCart")) || [];
 
-  const itemsBox = document.getElementById("items");
-  const itemCountBox = document.getElementById("itemCount");
-  const subtotalBox = document.getElementById("subtotal");
-  const totalBox = document.getElementById("total");
 
-  const fullName = document.getElementById("fullName");
-  const email = document.getElementById("email");
-  const phone = document.getElementById("phone");
+  const customerName =
+    localStorage.getItem("ebShopCustomerName") || "";
 
-  const savedName = localStorage.getItem("ebShopCustomerName");
-  const savedEmail = localStorage.getItem("ebShopCustomerEmail");
-  const savedPhone = localStorage.getItem("ebShopCustomerPhone");
+  const customerEmail =
+    localStorage.getItem("ebShopCustomerEmail") || "";
 
-  if (savedName) {
-    fullName.value = savedName;
+
+  const fullNameInput =
+    document.getElementById("fullName");
+
+  const emailInput =
+    document.getElementById("email");
+
+
+  fullNameInput.value = customerName;
+  emailInput.value = customerEmail;
+
+
+  const orderItems =
+    document.getElementById("orderItems");
+
+  const subtotalElement =
+    document.getElementById("subtotal");
+
+  const totalElement =
+    document.getElementById("total");
+
+  const form =
+    document.getElementById("paymentForm");
+
+  const payButton =
+    document.getElementById("payButton");
+
+  const errorMessage =
+    document.getElementById("errorMessage");
+
+  const successMessage =
+    document.getElementById("successMessage");
+
+
+  function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
   }
 
-  if (savedEmail) {
-    email.value = savedEmail;
-  }
 
-  if (savedPhone) {
-    phone.value = savedPhone;
-  }
-
-
-  function getProduct(id) {
-    return products.find(product => String(product.id) === String(id));
+  function calculateSubtotal() {
+    return cart.reduce((sum, item) => {
+      return sum +
+        Number(item.price || 0) *
+        Number(item.quantity || 1);
+    }, 0);
   }
 
 
@@ -577,58 +426,62 @@
 
     if (!cart.length) {
 
-      form.style.display = "none";
-      emptyMessage.style.display = "block";
+      orderItems.innerHTML = `
+        <div class="empty">
+          Your cart is empty.
+        </div>
+      `;
+
+      subtotalElement.textContent = "0 SEK";
+      totalElement.textContent = "0 SEK";
+
+      payButton.disabled = true;
 
       return;
     }
 
-    let subtotal = 0;
-    let itemCount = 0;
 
-    itemsBox.innerHTML = "";
+    orderItems.innerHTML = cart.map(item => {
 
-    cart.forEach(item => {
+      const price =
+        Number(item.price || 0);
 
-      const product = getProduct(item.id);
+      const quantity =
+        Number(item.quantity || 1);
 
-      const name = product?.name || item.name || "Product";
-      const price = Number(product?.price ?? item.price ?? 0);
-      const quantity = Number(item.quantity || 1);
+      const lineTotal =
+        price * quantity;
 
-      const itemTotal = price * quantity;
+      return `
+        <div class="item">
 
-      subtotal += itemTotal;
-      itemCount += quantity;
+          <div>
+            <div class="item-name">
+              ${escapeHtml(item.name)}
+            </div>
 
-      const div = document.createElement("div");
-
-      div.className = "item";
-
-      div.innerHTML = `
-        <div>
-          <div class="item-name">${escapeHtml(name)}</div>
-          <div class="item-info">
-            ${quantity} × ${price.toFixed(2)} SEK
+            <div class="item-info">
+              ${quantity} × ${price.toFixed(2)} SEK
+            </div>
           </div>
-        </div>
 
-        <div class="item-price">
-          ${itemTotal.toFixed(2)} SEK
+          <strong>
+            ${lineTotal.toFixed(2)} SEK
+          </strong>
+
         </div>
       `;
 
-      itemsBox.appendChild(div);
-
-    });
+    }).join("");
 
 
-    itemCountBox.textContent = itemCount;
+    const subtotal =
+      calculateSubtotal();
 
-    subtotalBox.textContent =
+    subtotalElement.textContent =
       subtotal.toFixed(2) + " SEK";
 
-    totalBox.textContent =
+    totalElement.textContent =
       subtotal.toFixed(2) + " SEK";
   }
 
@@ -644,152 +497,221 @@
   }
 
 
-  form.addEventListener("submit", function(event) {
+  form.addEventListener("submit", async function(event) {
 
     event.preventDefault();
 
+    errorMessage.style.display = "none";
+
     if (!cart.length) {
-
-      alert("Your cart is empty.");
-
-      window.location.href = "products.html";
-
+      showError("Your cart is empty.");
       return;
     }
 
 
-    const selectedPayment =
-      document.querySelector(
-        'input[name="paymentMethod"]:checked'
-      );
+    const customer = {
 
-    const paymentError =
-      document.getElementById("paymentError");
+      fullName:
+        fullNameInput.value.trim(),
 
+      email:
+        emailInput.value.trim(),
 
-    if (!selectedPayment) {
-
-      paymentError.style.display = "block";
-
-      return;
-    }
-
-    paymentError.style.display = "none";
-
-
-    const subtotal = cart.reduce((sum, item) => {
-
-      const product = getProduct(item.id);
-
-      const price =
-        Number(product?.price ?? item.price ?? 0);
-
-      const quantity =
-        Number(item.quantity || 1);
-
-      return sum + price * quantity;
-
-    }, 0);
-
-
-    const orderNumber =
-      "EB-" +
-      Date.now().toString().slice(-8);
-
-
-    const orderItems = cart.map(item => {
-
-      const product = getProduct(item.id);
-
-      return {
-        id: item.id,
-        name: product?.name || item.name || "Product",
-        price: Number(product?.price ?? item.price ?? 0),
-        quantity: Number(item.quantity || 1)
-      };
-
-    });
-
-
-    const order = {
-
-      orderNumber: orderNumber,
-
-      customer: {
-        fullName: fullName.value.trim(),
-        email: email.value.trim(),
-        phone: phone.value.trim()
-      },
-
-      delivery: {
-        street:
-          document.getElementById("street").value.trim(),
-
-        city:
-          document.getElementById("city").value.trim(),
-
-        postcode:
-          document.getElementById("postcode").value.trim(),
-
-        country: "Sweden"
-      },
-
-      notes:
-        document.getElementById("notes").value.trim(),
-
-      items: orderItems,
-
-      subtotal: subtotal,
-
-      deliveryFee: 0,
-
-      total: subtotal,
-
-      paymentMethod:
-        selectedPayment.value,
-
-      paymentStatus:
-        "Payment Pending",
-
-      orderStatus:
-        "Order Received",
-
-      createdAt:
-        new Date().toISOString()
+      phone:
+        document
+          .getElementById("phone")
+          .value.trim()
     };
 
 
-    localStorage.setItem(
-      "ebShopLastOrder",
-      JSON.stringify(order)
-    );
+    const delivery = {
+
+      street:
+        document
+          .getElementById("street")
+          .value.trim(),
+
+      city:
+        document
+          .getElementById("city")
+          .value.trim(),
+
+      postcode:
+        document
+          .getElementById("postcode")
+          .value.trim(),
+
+      country:
+        "Sweden"
+    };
 
 
-    localStorage.setItem(
-      "ebShopCustomerName",
-      fullName.value.trim()
-    );
-
-    localStorage.setItem(
-      "ebShopCustomerEmail",
-      email.value.trim()
-    );
-
-    localStorage.setItem(
-      "ebShopCustomerPhone",
-      phone.value.trim()
-    );
-
-    localStorage.setItem(
-      "ebShopLoggedIn",
-      "true"
-    );
+    const notes =
+      document
+        .getElementById("notes")
+        .value.trim();
 
 
-    localStorage.removeItem(cartKey);
+    if (
+      !customer.fullName ||
+      !customer.email ||
+      !customer.phone ||
+      !delivery.street ||
+      !delivery.city ||
+      !delivery.postcode
+    ) {
+
+      showError(
+        "Please complete all required information."
+      );
+
+      return;
+    }
 
 
-    window.location.href = "orders.html";
+    payButton.disabled = true;
+
+    payButton.textContent =
+      "Connecting to Stripe...";
+
+
+    try {
+
+      const response =
+        await fetch(STRIPE_API, {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            items: cart
+          })
+
+        });
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Could not start payment."
+        );
+
+      }
+
+
+      if (!data.url) {
+
+        throw new Error(
+          "Stripe Checkout URL was not returned."
+        );
+
+      }
+
+
+      /*
+        Save customer/order information locally
+        before redirecting to Stripe.
+      */
+
+      const order = {
+
+        orderNumber:
+          "EB-" +
+          Date.now(),
+
+        customer,
+
+        delivery,
+
+        notes,
+
+        items: cart,
+
+        subtotal:
+          calculateSubtotal(),
+
+        deliveryFee:
+          0,
+
+        total:
+          calculateSubtotal(),
+
+        paymentMethod:
+          "Stripe",
+
+        paymentStatus:
+          "Payment Pending",
+
+        orderStatus:
+          "Order Received",
+
+        createdAt:
+          new Date().toISOString()
+
+      };
+
+
+      localStorage.setItem(
+        "ebShopLastOrder",
+        JSON.stringify(order)
+      );
+
+
+      localStorage.setItem(
+        "ebShopCustomerName",
+        customer.fullName
+      );
+
+
+      localStorage.setItem(
+        "ebShopCustomerEmail",
+        customer.email
+      );
+
+
+      localStorage.setItem(
+        "ebShopLoggedIn",
+        "true"
+      );
+
+
+      successMessage.style.display =
+        "block";
+
+      payButton.textContent =
+        "Redirecting...";
+
+
+      /*
+        Go to Stripe Checkout
+      */
+
+      window.location.href =
+        data.url;
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showError(
+        error.message ||
+        "Something went wrong while starting payment."
+      );
+
+      payButton.disabled = false;
+
+      payButton.textContent =
+        "Pay Now";
+    }
 
   });
 
