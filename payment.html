@@ -3,492 +3,1104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment - EB SHOP</title>
 
-  <!-- PayPal Sandbox -->
+  <title>E&B SHOP - Payment</title>
+
+  <!-- PayPal Sandbox SDK -->
   <script
-    src="https://www.sandbox.paypal.com/sdk/js?client-id=AA8FJNd0EuKss1qmEOHckjBUjNaaMjLOOhw26eRQ_BZq-N2U7SbM6XVDAA11k41yPkU6OE-k4fdmwOjv&currency=SEK&components=buttons">
+    src="https://www.sandbox.paypal.com/sdk/js?client-id=AA8FJNd0EuKss1qmEOHckjBUjNaaMjLOOhw26eRQ_BZq-N2U7SbM6XVDAA11k41yPkU6OE-k4fdmwOj&currency=SEK&components=buttons">
   </script>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #080808;
-      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f8fa;
+      color: #111827;
     }
 
-    .container {
-      width: min(700px, 92%);
-      margin: 40px auto;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    .box {
-      background: #141414;
-      border: 1px solid #292929;
+    .topbar {
+      height: 76px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 27px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .logo-icon {
+      color: #d99a00;
+      font-size: 34px;
+    }
+
+    .logo span {
+      color: #d99a00;
+    }
+
+    .tagline {
+      margin-left: 18px;
+      padding-left: 18px;
+      border-left: 1px solid #d1d5db;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .secure {
+      color: #374151;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .secure span {
+      color: #d99a00;
+      margin-right: 7px;
+    }
+
+    .checkout {
+      width: 92%;
+      max-width: 1200px;
+      margin: 45px auto;
+      display: grid;
+      grid-template-columns: 0.85fr 1.35fr;
+      gap: 28px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
       border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 15px 45px rgba(0,0,0,.35);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
     }
 
-    h1 {
-      text-align: center;
-      color: #d4af37;
-      margin-top: 0;
-    }
+    /* LEFT */
 
-    .total-box {
-      text-align: center;
-      background: #0c0c0c;
-      border: 1px solid #333;
-      border-radius: 14px;
-      padding: 20px;
-      margin: 25px 0;
-    }
-
-    .total-label {
-      color: #999;
-      font-size: 14px;
-    }
-
-    .total {
-      color: #d4af37;
-      font-size: 32px;
-      font-weight: bold;
-      margin-top: 6px;
-    }
-
-    .method {
-      background: #101010;
-      border: 1px solid #303030;
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 18px;
-    }
-
-    .method h2 {
-      margin-top: 0;
-      font-size: 18px;
-    }
-
-    .stripe-btn {
-      width: 100%;
-      border: 0;
-      border-radius: 10px;
-      padding: 15px;
-      background: #d4af37;
-      color: #000;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .stripe-btn:hover {
-      opacity: .9;
-    }
-
-    .stripe-btn:disabled {
-      opacity: .6;
-      cursor: wait;
-    }
-
-    #paypal-button-container {
-      margin-top: 10px;
-    }
-
-    .message {
-      text-align: center;
-      color: #999;
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    .error {
-      text-align: center;
-      color: #ff6b6b;
-      font-size: 14px;
-      margin-top: 12px;
+    .summary {
+      padding: 30px;
     }
 
     .back {
-      display: block;
-      text-align: center;
-      color: #d4af37;
-      text-decoration: none;
-      margin-top: 25px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #c58b00;
+      font-weight: 700;
+      margin-bottom: 28px;
     }
 
-    .back:hover {
-      text-decoration: underline;
+    .line {
+      height: 1px;
+      background: #e5e7eb;
+      margin-bottom: 28px;
+    }
+
+    .summary h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      color: #475569;
+    }
+
+    .item-row strong {
+      color: #111827;
+    }
+
+    .cart-icon {
+      font-size: 32px;
+      margin-right: 12px;
+    }
+
+    .total-box {
+      margin-top: 25px;
+      background: #fffaf0;
+      border: 1px solid #efd48a;
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .total-label {
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .total {
+      color: #c58b00;
+      font-size: 32px;
+      font-weight: 800;
+    }
+
+    .security {
+      margin-top: 30px;
+      padding: 22px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .security-icon {
+      font-size: 34px;
+      color: #d99a00;
+    }
+
+    .security h3 {
+      margin-bottom: 8px;
+    }
+
+    .security p {
+      color: #64748b;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .trust {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+      gap: 10px;
+    }
+
+    .trust div {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .trust strong {
+      display: block;
+      color: #334155;
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    /* RIGHT */
+
+    .payment {
+      padding: 30px;
+    }
+
+    .payment-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 7px;
+    }
+
+    .payment-title-icon {
+      color: #d99a00;
+      font-size: 38px;
+    }
+
+    .payment h2 {
+      font-size: 29px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-left: 52px;
+      margin-bottom: 28px;
+    }
+
+    .method {
+      border: 1px solid #dbe1e8;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      padding: 21px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: 0.2s;
+    }
+
+    .method.selected {
+      border: 2px solid #e0a400;
+      background: #fffdf7;
+    }
+
+    .radio {
+      width: 25px;
+      height: 25px;
+      border: 2px solid #94a3b8;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .method.selected .radio {
+      border-color: #d99a00;
+    }
+
+    .method.selected .radio::after {
+      content: "";
+      width: 11px;
+      height: 11px;
+      background: #d99a00;
+      border-radius: 50%;
+    }
+
+    .method-icon {
+      font-size: 38px;
+      width: 55px;
+      text-align: center;
+    }
+
+    .method-content {
+      flex: 1;
+    }
+
+    .method-content h3 {
+      font-size: 19px;
+      margin-bottom: 5px;
+    }
+
+    .method-content p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .brands {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #f1f5f9;
+    }
+
+    .visa {
+      color: #1d4ed8;
+    }
+
+    .master {
+      color: #dc2626;
+    }
+
+    .amex {
+      color: #0284c7;
+    }
+
+    .klarna {
+      color: #111827;
+      background: #ffb5d0;
+    }
+
+    .paypal {
+      color: #0070ba;
+      font-weight: 800;
+      font-size: 23px;
+    }
+
+    /* PAYPAL AREA */
+
+    .paypal-area {
+      display: none;
+      margin-top: -3px;
+      margin-bottom: 18px;
+      padding: 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+    }
+
+    .paypal-area.show {
+      display: block;
+    }
+
+    .paypal-title {
+      font-weight: 700;
+      margin-bottom: 13px;
+      color: #334155;
+    }
+
+    #paypal-button-container {
+      max-width: 100%;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 25px 0;
+      color: #64748b;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: #e5e7eb;
+      flex: 1;
+    }
+
+    .stripe-button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 18px;
+      background: #e0a400;
+      color: #111827;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .stripe-button:hover {
+      background: #c98f00;
+      transform: translateY(-1px);
+    }
+
+    .stripe-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .error.show {
+      display: block;
+    }
+
+    .bottom-back {
+      margin-top: 25px;
+      display: inline-block;
+      color: #c58b00;
+      font-weight: 700;
+    }
+
+    @media (max-width: 850px) {
+      .checkout {
+        grid-template-columns: 1fr;
+        width: 94%;
+        margin: 25px auto;
+      }
+
+      .tagline {
+        display: none;
+      }
+
+      .topbar {
+        padding: 0 4%;
+      }
+
+      .secure {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .topbar {
+        height: 65px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .logo-icon {
+        font-size: 28px;
+      }
+
+      .summary,
+      .payment {
+        padding: 20px;
+      }
+
+      .payment h2 {
+        font-size: 23px;
+      }
+
+      .subtitle {
+        margin-left: 0;
+      }
+
+      .brands {
+        display: none;
+      }
+
+      .trust {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="box">
+<header class="topbar">
+  <div class="logo">
+    <div class="logo-icon">🛒</div>
+    E&B <span>SHOP</span>
 
-      <h1>Choose Payment Method</h1>
-
-      <div class="total-box">
-        <div class="total-label">Order Total</div>
-        <div class="total" id="orderTotal">SEK 0.00</div>
-      </div>
-
-      <!-- STRIPE -->
-      <div class="method">
-        <h2>💳 Pay with Card</h2>
-
-        <button
-          id="stripeBtn"
-          class="stripe-btn"
-          type="button">
-          Pay with Card
-        </button>
-
-        <div class="message">
-          Secure checkout powered by Stripe.
-        </div>
-      </div>
-
-      <!-- PAYPAL -->
-      <div class="method">
-        <h2>🅿️ Pay with PayPal</h2>
-
-        <div id="paypal-button-container"></div>
-
-        <div id="paypalMessage" class="message"></div>
-        <div id="paypalError" class="error"></div>
-      </div>
-
-      <a href="cart.html" class="back">
-        ← Back to Cart
-      </a>
-
+    <div class="tagline">
+      Better Products. Better Life.
     </div>
   </div>
 
-
-  <script>
-    const STRIPE_API =
-      "https://ebshop.vercel.app/api/create-checkout-session";
-
-    const PAYPAL_CREATE_API =
-      "https://ebshop.vercel.app/api/paypal-create-order";
-
-    const PAYPAL_CAPTURE_API =
-      "https://ebshop.vercel.app/api/paypal-capture-order";
+  <div class="secure">
+    <span>🔒</span>
+    Secure Checkout
+  </div>
+</header>
 
 
-    /* =========================
-       CART
-    ========================= */
+<main class="checkout">
 
-    const cart = JSON.parse(
-      localStorage.getItem("ebShopCart") || "[]"
+  <!-- LEFT SIDE -->
+
+  <section class="card summary">
+
+    <a href="cart.html" class="back">
+      ← Back to Cart
+    </a>
+
+    <div class="line"></div>
+
+    <h1>Order Summary</h1>
+
+    <div class="item-row">
+      <div>
+        <span class="cart-icon">🛒</span>
+        Total Items
+      </div>
+
+      <strong id="itemCount">0</strong>
+    </div>
+
+    <div class="item-row">
+      <span>Subtotal</span>
+      <strong id="subtotal">SEK 0.00</strong>
+    </div>
+
+    <div class="item-row">
+      <span>Shipping</span>
+      <strong>SEK 0.00</strong>
+    </div>
+
+    <div class="total-box">
+      <div class="total-label">
+        Total Amount
+      </div>
+
+      <div class="total" id="total">
+        SEK 0.00
+      </div>
+    </div>
+
+    <div class="security">
+      <div class="security-icon">🛡️</div>
+
+      <div>
+        <h3>Secure & Safe Payments</h3>
+
+        <p>
+          Your payment information is securely processed
+          by our payment providers.
+        </p>
+      </div>
+    </div>
+
+    <div class="trust">
+
+      <div>
+        <strong>🔒</strong>
+        SSL Encrypted
+      </div>
+
+      <div>
+        <strong>🛡️</strong>
+        Trusted Platform
+      </div>
+
+      <div>
+        <strong>🎧</strong>
+        Support
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RIGHT SIDE -->
+
+  <section class="card payment">
+
+    <div class="payment-title">
+      <div class="payment-title-icon">💳</div>
+
+      <h2>Choose Payment Method</h2>
+    </div>
+
+    <p class="subtitle">
+      Select your preferred payment method below.
+    </p>
+
+
+    <!-- STRIPE -->
+
+    <div
+      class="method selected"
+      id="stripeMethod"
+      onclick="selectStripe()"
+    >
+
+      <div class="radio"></div>
+
+      <div class="method-icon">
+        💳
+      </div>
+
+      <div class="method-content">
+
+        <h3>Card / Klarna</h3>
+
+        <p>
+          Pay securely with your card or Klarna.
+        </p>
+
+      </div>
+
+      <div class="brands">
+
+        <span class="brand visa">VISA</span>
+        <span class="brand master">●●</span>
+        <span class="brand amex">AMEX</span>
+        <span class="brand klarna">Klarna</span>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAYPAL -->
+
+    <div
+      class="method"
+      id="paypalMethod"
+      onclick="selectPayPal()"
+    >
+
+      <div class="radio"></div>
+
+      <div class="method-icon paypal">
+        P
+      </div>
+
+      <div class="method-content">
+
+        <h3>PayPal</h3>
+
+        <p>
+          Pay securely with your PayPal account or card.
+        </p>
+
+      </div>
+
+      <div class="paypal">
+        PayPal
+      </div>
+
+    </div>
+
+
+    <!-- REAL PAYPAL BUTTON -->
+
+    <div
+      class="paypal-area"
+      id="paypalArea"
+    >
+
+      <div class="paypal-title">
+        Continue with PayPal
+      </div>
+
+      <div id="paypal-button-container"></div>
+
+      <div
+        id="paypalError"
+        class="error"
+      ></div>
+
+    </div>
+
+
+    <div class="divider">
+      OR
+    </div>
+
+
+    <!-- STRIPE BUTTON -->
+
+    <button
+      id="stripeButton"
+      class="stripe-button"
+      onclick="payWithStripe()"
+    >
+      🔒 Continue to Payment →
+    </button>
+
+
+    <a
+      href="cart.html"
+      class="bottom-back"
+    >
+      ← Back to Cart
+    </a>
+
+  </section>
+
+</main>
+
+
+<script>
+
+  const STRIPE_API =
+    "https://ebshop.vercel.app/api/create-checkout-session";
+
+  const PAYPAL_CREATE_API =
+    "https://ebshop.vercel.app/api/paypal-create-order";
+
+  const PAYPAL_CAPTURE_API =
+    "https://ebshop.vercel.app/api/paypal-capture-order";
+
+
+  let cart =
+    JSON.parse(localStorage.getItem("ebShopCart")) || [];
+
+
+  function getTotal() {
+
+    return cart.reduce((sum, item) => {
+
+      return sum +
+        Number(item.price || 0) *
+        Number(item.quantity || 1);
+
+    }, 0);
+
+  }
+
+
+  function updateSummary() {
+
+    const count = cart.reduce(
+      (sum, item) =>
+        sum + Number(item.quantity || 1),
+      0
     );
-
-    if (!Array.isArray(cart) || cart.length === 0) {
-      alert("Your cart is empty.");
-      window.location.href = "cart.html";
-    }
-
-
-    /* =========================
-       TOTAL
-    ========================= */
-
-    function getTotal() {
-      return cart.reduce((sum, item) => {
-        const price = Number(item.price) || 0;
-        const quantity = Number(item.quantity) || 0;
-
-        return sum + (price * quantity);
-      }, 0);
-    }
 
     const total = getTotal();
 
-    document.getElementById("orderTotal").textContent =
+    document.getElementById("itemCount").textContent =
+      count;
+
+    document.getElementById("subtotal").textContent =
       `SEK ${total.toFixed(2)}`;
 
+    document.getElementById("total").textContent =
+      `SEK ${total.toFixed(2)}`;
 
-    /* =========================
-       STRIPE
-    ========================= */
+  }
 
-    document.getElementById("stripeBtn").addEventListener(
-      "click",
-      async function () {
 
-        const button =
-          document.getElementById("stripeBtn");
+  function selectStripe() {
 
-        button.disabled = true;
-        button.textContent = "Opening Stripe...";
+    document
+      .getElementById("stripeMethod")
+      .classList.add("selected");
 
-        try {
+    document
+      .getElementById("paypalMethod")
+      .classList.remove("selected");
 
-          const response = await fetch(
-            STRIPE_API,
+    document
+      .getElementById("paypalArea")
+      .classList.remove("show");
+
+    document
+      .getElementById("stripeButton")
+      .style.display = "block";
+
+  }
+
+
+  function selectPayPal() {
+
+    document
+      .getElementById("paypalMethod")
+      .classList.add("selected");
+
+    document
+      .getElementById("stripeMethod")
+      .classList.remove("selected");
+
+    document
+      .getElementById("paypalArea")
+      .classList.add("show");
+
+    document
+      .getElementById("stripeButton")
+      .style.display = "none";
+
+  }
+
+
+  async function payWithStripe() {
+
+    if (!cart.length) {
+
+      alert("Your cart is empty.");
+
+      return;
+    }
+
+
+    const button =
+      document.getElementById("stripeButton");
+
+    button.disabled = true;
+
+    button.textContent =
+      "Opening secure payment...";
+
+
+    try {
+
+      const response = await fetch(
+        STRIPE_API,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            items: cart
+          })
+        }
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok || !data.url) {
+
+        throw new Error(
+          data.error ||
+          "Could not start Stripe payment."
+        );
+
+      }
+
+
+      window.location.href = data.url;
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(error.message);
+
+      button.disabled = false;
+
+      button.textContent =
+        "🔒 Continue to Payment →";
+
+    }
+
+  }
+
+
+  function showPayPalError(message) {
+
+    const box =
+      document.getElementById("paypalError");
+
+    box.textContent = message;
+
+    box.classList.add("show");
+
+  }
+
+
+  function clearPayPalError() {
+
+    const box =
+      document.getElementById("paypalError");
+
+    box.textContent = "";
+
+    box.classList.remove("show");
+
+  }
+
+
+  function setupPayPal() {
+
+    if (!window.paypal) {
+
+      showPayPalError(
+        "PayPal could not load. Please refresh the page."
+      );
+
+      return;
+    }
+
+
+    paypal.Buttons({
+
+      style: {
+        layout: "vertical",
+        shape: "rect",
+        label: "paypal",
+        height: 48
+      },
+
+
+      async createOrder() {
+
+        clearPayPalError();
+
+
+        if (!cart.length) {
+
+          throw new Error(
+            "Your cart is empty."
+          );
+
+        }
+
+
+        const response =
+          await fetch(
+            PAYPAL_CREATE_API,
             {
               method: "POST",
+
               headers: {
                 "Content-Type": "application/json"
               },
+
               body: JSON.stringify({
                 items: cart
               })
             }
           );
 
-          const data = await response.json();
 
-          if (!response.ok || !data.url) {
-            throw new Error(
-              data.error ||
-              "Could not start Stripe payment."
-            );
-          }
+        const data =
+          await response.json();
 
-          window.location.href = data.url;
 
-        } catch (error) {
+        if (!response.ok || !data.id) {
 
-          console.error(error);
-
-          alert(
-            error.message ||
-            "Stripe payment could not be started."
+          throw new Error(
+            data.error ||
+            "Could not create PayPal order."
           );
 
-          button.disabled = false;
-          button.textContent = "Pay with Card";
         }
-      }
-    );
 
 
-    /* =========================
-       PAYPAL
-    ========================= */
+        return data.id;
 
-    if (
-      window.paypal &&
-      typeof window.paypal.Buttons === "function"
-    ) {
-
-      window.paypal.Buttons({
-
-        style: {
-          layout: "vertical",
-          color: "gold",
-          shape: "rect",
-          label: "paypal",
-          height: 48
-        },
+      },
 
 
-        /* CREATE PAYPAL ORDER */
+      async onApprove(data) {
 
-        createOrder: async function () {
-
-          document.getElementById(
-            "paypalMessage"
-          ).textContent =
-            "Creating PayPal order...";
-
-          document.getElementById(
-            "paypalError"
-          ).textContent = "";
-
-          try {
-
-            const response = await fetch(
-              PAYPAL_CREATE_API,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  items: cart
-                })
-              }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok || !data.id) {
-              throw new Error(
-                data.error ||
-                "Could not create PayPal order."
-              );
-            }
-
-            return data.id;
-
-          } catch (error) {
-
-            console.error(error);
-
-            document.getElementById(
-              "paypalMessage"
-            ).textContent = "";
-
-            document.getElementById(
-              "paypalError"
-            ).textContent =
-              error.message ||
-              "PayPal order could not be created.";
-
-            throw error;
-          }
-        },
+        clearPayPalError();
 
 
-        /* CAPTURE PAYMENT */
+        try {
 
-        onApprove: async function (data) {
-
-          document.getElementById(
-            "paypalMessage"
-          ).textContent =
-            "Completing your payment...";
-
-          document.getElementById(
-            "paypalError"
-          ).textContent = "";
-
-          try {
-
-            const response = await fetch(
+          const response =
+            await fetch(
               PAYPAL_CAPTURE_API,
               {
                 method: "POST",
+
                 headers: {
                   "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
                   orderID: data.orderID
                 })
               }
             );
 
-            const result = await response.json();
 
-            if (!response.ok) {
-              throw new Error(
-                result.error ||
-                "Could not complete PayPal payment."
-              );
-            }
+          const result =
+            await response.json();
 
-            if (result.status === "COMPLETED") {
 
-              localStorage.setItem(
-                "ebShopLastOrder",
-                JSON.stringify({
-                  paymentMethod: "PayPal",
-                  paymentStatus: "Paid",
-                  orderStatus: "Order Received",
-                  total: total,
-                  currency: "SEK",
-                  items: cart,
-                  paypalOrderId: data.orderID,
-                  createdAt: new Date().toISOString()
-                })
-              );
-
-              localStorage.removeItem("ebShopCart");
-
-              window.location.href =
-                "orders.html?payment=paypal-success";
-
-              return;
-            }
+          if (
+            !response.ok ||
+            result.status !== "COMPLETED"
+          ) {
 
             throw new Error(
+              result.error ||
               "PayPal payment was not completed."
             );
 
-          } catch (error) {
-
-            console.error(error);
-
-            document.getElementById(
-              "paypalMessage"
-            ).textContent = "";
-
-            document.getElementById(
-              "paypalError"
-            ).textContent =
-              error.message ||
-              "PayPal payment could not be completed.";
           }
-        },
 
 
-        /* CANCEL */
+          const order = {
 
-        onCancel: function () {
+            id:
+              "PP-" +
+              Date.now(),
 
-          document.getElementById(
-            "paypalMessage"
-          ).textContent =
-            "PayPal payment was cancelled.";
+            items: cart,
 
-        },
+            total: getTotal(),
+
+            currency: "SEK",
+
+            paymentMethod: "PayPal",
+
+            paymentStatus: "Paid",
+
+            orderStatus: "Order Received",
+
+            paypalOrderID:
+              data.orderID,
+
+            createdAt:
+              new Date().toISOString()
+
+          };
 
 
-        /* ERROR */
-
-        onError: function (error) {
-
-          console.error(
-            "PayPal Button Error:",
-            error
+          localStorage.setItem(
+            "ebShopLastOrder",
+            JSON.stringify(order)
           );
 
-          document.getElementById(
-            "paypalMessage"
-          ).textContent = "";
 
-          document.getElementById(
-            "paypalError"
-          ).textContent =
-            "PayPal payment could not be started.";
+          localStorage.removeItem(
+            "ebShopCart"
+          );
+
+
+          window.location.href =
+            "orders.html?payment=paypal-success";
+
+        } catch (error) {
+
+          console.error(error);
+
+          showPayPalError(
+            error.message ||
+            "PayPal payment failed."
+          );
+
         }
 
-      }).render(
-        "#paypal-button-container"
-      );
+      },
 
-    } else {
 
-      document.getElementById(
-        "paypalError"
-      ).textContent =
-        "PayPal could not load. Check your PayPal Client ID.";
-    }
+      onCancel() {
 
-  </script>
+        showPayPalError(
+          "PayPal payment was cancelled."
+        );
+
+      },
+
+
+      onError(error) {
+
+        console.error(
+          "PayPal Error:",
+          error
+        );
+
+        showPayPalError(
+          "PayPal payment could not be completed."
+        );
+
+      }
+
+    }).render(
+      "#paypal-button-container"
+    );
+
+  }
+
+
+  updateSummary();
+
+
+  /*
+    PayPal SDK is loaded before this script.
+  */
+
+  if (window.paypal) {
+
+    setupPayPal();
+
+  } else {
+
+    window.addEventListener(
+      "load",
+      setupPayPal
+    );
+
+  }
+
+</script>
 
 </body>
 </html>
-```
-
-### Ubu kora ibi 3 gusa
-
-1. Fungura **`payment.html`**.
-2. **Siba code yose** isanzwe irimo.
-3. Paste iyi code → **Commit changes**.
-
-Hanyuma Vercel/GitHub Pages nibimara update, kuri payment page uzabona **Pay with Card** na **PayPal**. PayPal's SDK is designed to render the PayPal button on the checkout page and call your server's create/capture endpoints.
-
-⚠️ Iyi ni **Sandbox/Test mode**. Ntukoreshe amafaranga nyayo ubu. Client Secret ya PayPal iguma muri Vercel, ntabwo iri muri `payment.html`.
