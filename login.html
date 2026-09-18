@@ -38,6 +38,8 @@
       color: inherit;
     }
 
+    /* HEADER */
+
     header {
       background: #050505;
       color: white;
@@ -70,6 +72,8 @@
     .back:hover {
       color: var(--gold);
     }
+
+    /* MAIN */
 
     main {
       min-height: calc(100vh - 126px);
@@ -153,7 +157,6 @@
       font-size: 12px;
       color: #9a700e;
       font-weight: 700;
-      cursor: pointer;
     }
 
     .login-btn {
@@ -225,6 +228,8 @@
       font-weight: 800;
     }
 
+    /* FOOTER */
+
     footer {
       background: #050505;
       color: #777;
@@ -235,5 +240,232 @@
 
     @media (max-width: 500px) {
       .login-box {
-        pa
-```
+        padding: 32px 23px;
+      }
+
+      .nav {
+        min-height: 68px;
+      }
+
+      .logo {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <div class="nav">
+
+      <a href="index.html" class="logo">
+        🛒 <span>E&B</span> SHOP
+      </a>
+
+      <a href="index.html" class="back">
+        ← Back to Shop
+      </a>
+
+    </div>
+  </header>
+
+
+  <!-- LOGIN -->
+
+  <main>
+
+    <div class="login-box">
+
+      <div class="login-icon">
+        🔐
+      </div>
+
+      <h1>Welcome Back</h1>
+
+      <p class="subtitle">
+        Login to your E&B SHOP account.
+      </p>
+
+
+      <div id="message" class="message"></div>
+
+
+      <form id="loginForm">
+
+        <div class="form-group">
+
+          <label for="email">
+            Email Address
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <div class="password-row">
+
+            <label for="password">
+              Password
+            </label>
+
+            <a href="#" class="forgot" onclick="forgotPassword(event)">
+              Forgot password?
+            </a>
+
+          </div>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="login-btn"
+        >
+          Login →
+        </button>
+
+      </form>
+
+
+      <div class="divider">
+        OR
+      </div>
+
+
+      <p class="register-text">
+        Don't have an account?
+        <a href="register.html">
+          Create Account
+        </a>
+      </p>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 E&B SHOP. All rights reserved. 🇸🇪
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const message =
+      document.getElementById("message");
+
+
+    loginForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      message.className = "message";
+      message.textContent = "";
+
+
+      if (!email || !password) {
+
+        message.className = "message error";
+
+        message.textContent =
+          "Please enter your email and password.";
+
+        return;
+      }
+
+
+      /*
+        TEMPORARY LOGIN
+
+        Real authentication will be connected
+        to the E&B SHOP database later.
+      */
+
+
+      const savedEmail =
+        localStorage.getItem("ebShopCustomerEmail");
+
+
+      if (
+        savedEmail &&
+        savedEmail.toLowerCase() === email.toLowerCase()
+      ) {
+
+        localStorage.setItem(
+          "ebShopLoggedIn",
+          "true"
+        );
+
+        message.className =
+          "message success";
+
+        message.textContent =
+          "Login successful. Opening your account...";
+
+
+        setTimeout(function() {
+
+          window.location.href =
+            "account.html";
+
+        }, 1000);
+
+      } else {
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Account not found. Please register first.";
+
+      }
+
+    });
+
+
+    function forgotPassword(event) {
+
+      event.preventDefault();
+
+      alert(
+        "Password recovery will be connected when the real account system is added."
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
