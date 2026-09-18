@@ -4,153 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Payment | E&B SHOP</title>
+  <title>Payment - EB SHOP</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: #080808;
+      background: #0a0a0a;
       color: #fff;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #000;
-      border-bottom: 1px solid #c9a227;
-      padding: 18px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      color: #d4af37;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 20px;
-    }
-
-    nav a:hover {
-      color: #d4af37;
     }
 
     .container {
-      width: 92%;
-      max-width: 1100px;
-      margin: 40px auto;
-    }
-
-    h1 {
-      color: #d4af37;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
+      width: min(700px, 92%);
+      margin: 50px auto;
     }
 
     .box {
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 14px;
-      padding: 25px;
+      background: #151515;
+      border: 1px solid #292929;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
     }
 
-    .box h2 {
+    h1 {
+      margin-top: 0;
       color: #d4af37;
-      margin-bottom: 20px;
+      text-align: center;
     }
 
-    label {
-      display: block;
-      margin: 14px 0 7px;
-      color: #ddd;
+    .total-box {
+      background: #0d0d0d;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 25px 0;
+      text-align: center;
     }
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
-      border: 1px solid #444;
-      background: #181818;
-      color: #fff;
-      outline: none;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: #d4af37;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .item {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 13px 0;
-      border-bottom: 1px solid #333;
-    }
-
-    .item-name {
-      font-weight: bold;
-    }
-
-    .item-info {
+    .total-label {
       color: #aaa;
       font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
     }
 
     .total {
-      border-top: 1px solid #555;
-      margin-top: 12px;
-      padding-top: 15px;
-      font-size: 22px;
+      font-size: 32px;
       font-weight: bold;
       color: #d4af37;
+      margin-top: 6px;
     }
 
-    .payment-note {
-      background: #191500;
-      border: 1px solid #806b18;
-      padding: 14px;
-      border-radius: 8px;
-      margin-top: 20px;
-      color: #ddd;
-      line-height: 1.5;
-    }
-
-    button {
-      width: 100%;
+    .method {
       margin-top: 22px;
+      padding: 20px;
+      background: #101010;
+      border: 1px solid #303030;
+      border-radius: 14px;
+    }
+
+    .method h2 {
+      font-size: 18px;
+      margin: 0 0 15px;
+    }
+
+    .stripe-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
       padding: 15px;
-      border: none;
-      border-radius: 9px;
       background: #d4af37;
       color: #000;
       font-size: 17px;
@@ -158,567 +83,408 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background: #f0cf55;
+    .stripe-btn:hover {
+      opacity: .9;
     }
 
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    #paypal-button-container {
+      margin-top: 10px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 25px 0;
+      color: #777;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: #333;
+      flex: 1;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      color: #aaa;
+      font-size: 14px;
     }
 
     .back {
-      display: inline-block;
-      margin-top: 20px;
+      display: block;
+      text-align: center;
+      margin-top: 25px;
       color: #d4af37;
       text-decoration: none;
     }
 
-    .empty {
-      text-align: center;
-      padding: 30px;
-      color: #aaa;
+    .back:hover {
+      text-decoration: underline;
     }
 
     .error {
-      display: none;
+      color: #ff6b6b;
+      text-align: center;
       margin-top: 15px;
-      padding: 12px;
-      background: #2a1010;
-      border: 1px solid #8b3030;
-      border-radius: 8px;
-      color: #ffb0b0;
-    }
-
-    .success-message {
-      display: none;
-      margin-top: 15px;
-      padding: 12px;
-      background: #102a16;
-      border: 1px solid #347a45;
-      border-radius: 8px;
-      color: #b8f0c3;
-    }
-
-    @media (max-width: 750px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      header {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      nav a {
-        margin: 0 8px;
-      }
     }
   </style>
+
+  <!-- PayPal Sandbox SDK -->
+  <script src="https://www.sandbox.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=SEK&components=buttons"></script>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">🛒 E&B SHOP</div>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="cart.html">Cart</a>
-    <a href="account.html">Account</a>
-  </nav>
-</header>
-
-<div class="container">
-
-  <h1>Secure Checkout</h1>
-
-  <div class="grid">
-
-    <!-- CUSTOMER INFORMATION -->
+  <div class="container">
     <div class="box">
 
-      <h2>Customer Information</h2>
+      <h1>Choose Payment Method</h1>
 
-      <form id="paymentForm">
+      <div class="total-box">
+        <div class="total-label">Order Total</div>
+        <div class="total" id="orderTotal">SEK 0.00</div>
+      </div>
 
-        <label for="fullName">Full Name</label>
-        <input
-          type="text"
-          id="fullName"
-          required
-          placeholder="Your full name"
-        >
+      <!-- STRIPE -->
+      <div class="method">
+        <h2>💳 Pay with Card</h2>
 
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          required
-          placeholder="you@example.com"
-        >
-
-        <label for="phone">Phone</label>
-        <input
-          type="tel"
-          id="phone"
-          required
-          placeholder="+46..."
-        >
-
-        <h2 style="margin-top:25px;">Delivery Address</h2>
-
-        <label for="street">Street Address</label>
-        <input
-          type="text"
-          id="street"
-          required
-          placeholder="Street and house number"
-        >
-
-        <label for="city">City</label>
-        <input
-          type="text"
-          id="city"
-          required
-          placeholder="City"
-        >
-
-        <label for="postcode">Postcode</label>
-        <input
-          type="text"
-          id="postcode"
-          required
-          placeholder="Postcode"
-        >
-
-        <label for="notes">Order Notes</label>
-        <textarea
-          id="notes"
-          placeholder="Optional notes..."
-        ></textarea>
-
-        <div class="payment-note">
-          <strong>Payment:</strong><br>
-          You will be redirected to Stripe's secure checkout
-          page to complete your payment.
-        </div>
-
-        <div id="errorMessage" class="error"></div>
-
-        <div id="successMessage" class="success-message">
-          Redirecting to Stripe...
-        </div>
-
-        <button id="payButton" type="submit">
-          Pay Now
+        <button
+          class="stripe-btn"
+          id="stripeBtn"
+          type="button">
+          Pay with Card
         </button>
 
-      </form>
-
-    </div>
-
-
-    <!-- ORDER SUMMARY -->
-    <div class="box">
-
-      <h2>Order Summary</h2>
-
-      <div id="orderItems"></div>
-
-      <div class="summary-row">
-        <span>Subtotal</span>
-        <span id="subtotal">0 SEK</span>
+        <div class="message">
+          Secure checkout powered by Stripe.
+        </div>
       </div>
 
-      <div class="summary-row">
-        <span>Delivery</span>
-        <span>FREE</span>
+      <div class="divider">OR</div>
+
+      <!-- PAYPAL -->
+      <div class="method">
+        <h2>🅿️ Pay with PayPal</h2>
+
+        <div id="paypal-button-container"></div>
+
+        <div id="paypalMessage" class="message"></div>
+        <div id="paypalError" class="error"></div>
       </div>
 
-      <div class="summary-row total">
-        <span>Total</span>
-        <span id="total">0 SEK</span>
-      </div>
-
-      <a class="back" href="cart.html">
+      <a href="cart.html" class="back">
         ← Back to Cart
       </a>
 
     </div>
-
   </div>
 
-</div>
+
+  <script>
+    const STRIPE_API =
+      "https://ebshop.vercel.app/api/create-checkout-session";
+
+    const PAYPAL_CREATE_API =
+      "https://ebshop.vercel.app/api/paypal-create-order";
+
+    const PAYPAL_CAPTURE_API =
+      "https://ebshop.vercel.app/api/paypal-capture-order";
 
 
-<script>
-  /*
-    E&B SHOP
-    Stripe Test Checkout
-  */
+    /* =========================
+       CART
+    ========================= */
 
-  const STRIPE_API =
-    "https://ebshop.vercel.app/api/create-checkout-session";
+    const cart = JSON.parse(
+      localStorage.getItem("ebShopCart") || "[]"
+    );
 
-
-  const cart =
-    JSON.parse(localStorage.getItem("ebShopCart")) || [];
-
-
-  const customerName =
-    localStorage.getItem("ebShopCustomerName") || "";
-
-  const customerEmail =
-    localStorage.getItem("ebShopCustomerEmail") || "";
-
-
-  const fullNameInput =
-    document.getElementById("fullName");
-
-  const emailInput =
-    document.getElementById("email");
-
-
-  fullNameInput.value = customerName;
-  emailInput.value = customerEmail;
-
-
-  const orderItems =
-    document.getElementById("orderItems");
-
-  const subtotalElement =
-    document.getElementById("subtotal");
-
-  const totalElement =
-    document.getElementById("total");
-
-  const form =
-    document.getElementById("paymentForm");
-
-  const payButton =
-    document.getElementById("payButton");
-
-  const errorMessage =
-    document.getElementById("errorMessage");
-
-  const successMessage =
-    document.getElementById("successMessage");
-
-
-  function showError(message) {
-    errorMessage.textContent = message;
-    errorMessage.style.display = "block";
-  }
-
-
-  function calculateSubtotal() {
-    return cart.reduce((sum, item) => {
-      return sum +
-        Number(item.price || 0) *
-        Number(item.quantity || 1);
-    }, 0);
-  }
-
-
-  function renderOrder() {
-
-    if (!cart.length) {
-
-      orderItems.innerHTML = `
-        <div class="empty">
-          Your cart is empty.
-        </div>
-      `;
-
-      subtotalElement.textContent = "0 SEK";
-      totalElement.textContent = "0 SEK";
-
-      payButton.disabled = true;
-
-      return;
+    if (!Array.isArray(cart) || cart.length === 0) {
+      alert("Your cart is empty.");
+      window.location.href = "cart.html";
     }
 
 
-    orderItems.innerHTML = cart.map(item => {
+    /* =========================
+       TOTAL
+    ========================= */
 
-      const price =
-        Number(item.price || 0);
+    function getTotal() {
+      return cart.reduce((sum, item) => {
+        const price = Number(item.price) || 0;
+        const quantity = Number(item.quantity) || 0;
 
-      const quantity =
-        Number(item.quantity || 1);
-
-      const lineTotal =
-        price * quantity;
-
-      return `
-        <div class="item">
-
-          <div>
-            <div class="item-name">
-              ${escapeHtml(item.name)}
-            </div>
-
-            <div class="item-info">
-              ${quantity} × ${price.toFixed(2)} SEK
-            </div>
-          </div>
-
-          <strong>
-            ${lineTotal.toFixed(2)} SEK
-          </strong>
-
-        </div>
-      `;
-
-    }).join("");
-
-
-    const subtotal =
-      calculateSubtotal();
-
-    subtotalElement.textContent =
-      subtotal.toFixed(2) + " SEK";
-
-    totalElement.textContent =
-      subtotal.toFixed(2) + " SEK";
-  }
-
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-
-  form.addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-    errorMessage.style.display = "none";
-
-    if (!cart.length) {
-      showError("Your cart is empty.");
-      return;
+        return sum + (price * quantity);
+      }, 0);
     }
 
+    const total = getTotal();
 
-    const customer = {
-
-      fullName:
-        fullNameInput.value.trim(),
-
-      email:
-        emailInput.value.trim(),
-
-      phone:
-        document
-          .getElementById("phone")
-          .value.trim()
-    };
+    document.getElementById("orderTotal").textContent =
+      `SEK ${total.toFixed(2)}`;
 
 
-    const delivery = {
+    /* =========================
+       STRIPE
+    ========================= */
 
-      street:
-        document
-          .getElementById("street")
-          .value.trim(),
+    document.getElementById("stripeBtn").addEventListener(
+      "click",
+      async () => {
 
-      city:
-        document
-          .getElementById("city")
-          .value.trim(),
+        const button =
+          document.getElementById("stripeBtn");
 
-      postcode:
-        document
-          .getElementById("postcode")
-          .value.trim(),
+        button.disabled = true;
+        button.textContent = "Opening Stripe...";
 
-      country:
-        "Sweden"
-    };
+        try {
+
+          const response = await fetch(
+            STRIPE_API,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                items: cart
+              })
+            }
+          );
+
+          const data = await response.json();
+
+          if (!response.ok || !data.url) {
+            throw new Error(
+              data.error || "Could not start Stripe payment."
+            );
+          }
+
+          window.location.href = data.url;
+
+        } catch (error) {
+
+          console.error(error);
+
+          alert(
+            error.message ||
+            "Stripe payment could not be started."
+          );
+
+          button.disabled = false;
+          button.textContent = "Pay with Card";
+        }
+      }
+    );
 
 
-    const notes =
-      document
-        .getElementById("notes")
-        .value.trim();
-
+    /* =========================
+       PAYPAL
+    ========================= */
 
     if (
-      !customer.fullName ||
-      !customer.email ||
-      !customer.phone ||
-      !delivery.street ||
-      !delivery.city ||
-      !delivery.postcode
+      window.paypal &&
+      typeof window.paypal.Buttons === "function"
     ) {
 
-      showError(
-        "Please complete all required information."
+      window.paypal.Buttons({
+
+        style: {
+          layout: "vertical",
+          color: "gold",
+          shape: "rect",
+          label: "paypal",
+          height: 48
+        },
+
+
+        /* CREATE ORDER */
+
+        createOrder: async function () {
+
+          document.getElementById(
+            "paypalMessage"
+          ).textContent = "Creating PayPal order...";
+
+          document.getElementById(
+            "paypalError"
+          ).textContent = "";
+
+          try {
+
+            const response = await fetch(
+              PAYPAL_CREATE_API,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  items: cart
+                })
+              }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.id) {
+              throw new Error(
+                data.error ||
+                "Could not create PayPal order."
+              );
+            }
+
+            return data.id;
+
+          } catch (error) {
+
+            console.error(error);
+
+            document.getElementById(
+              "paypalMessage"
+            ).textContent = "";
+
+            document.getElementById(
+              "paypalError"
+            ).textContent =
+              error.message ||
+              "PayPal order could not be created.";
+
+            throw error;
+          }
+        },
+
+
+        /* PAYMENT APPROVED */
+
+        onApprove: async function (data) {
+
+          document.getElementById(
+            "paypalMessage"
+          ).textContent =
+            "Completing your payment...";
+
+          try {
+
+            const response = await fetch(
+              PAYPAL_CAPTURE_API,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  orderID: data.orderID
+                })
+              }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              throw new Error(
+                result.error ||
+                "Could not complete PayPal payment."
+              );
+            }
+
+            if (
+              result.status === "COMPLETED"
+            ) {
+
+              localStorage.setItem(
+                "ebShopLastOrder",
+                JSON.stringify({
+                  paymentMethod: "PayPal",
+                  paymentStatus: "Paid",
+                  orderStatus: "Order Received",
+                  total: total,
+                  currency: "SEK",
+                  items: cart,
+                  paypalOrderId: data.orderID,
+                  createdAt: new Date().toISOString()
+                })
+              );
+
+              localStorage.removeItem("ebShopCart");
+
+              window.location.href =
+                "orders.html?payment=paypal-success";
+
+            } else {
+
+              throw new Error(
+                "PayPal payment was not completed."
+              );
+            }
+
+          } catch (error) {
+
+            console.error(error);
+
+            document.getElementById(
+              "paypalMessage"
+            ).textContent = "";
+
+            document.getElementById(
+              "paypalError"
+            ).textContent =
+              error.message ||
+              "PayPal payment could not be completed.";
+          }
+        },
+
+
+        /* CANCEL */
+
+        onCancel: function () {
+
+          document.getElementById(
+            "paypalMessage"
+          ).textContent =
+            "PayPal payment was cancelled.";
+
+        },
+
+
+        /* ERROR */
+
+        onError: function (error) {
+
+          console.error(
+            "PayPal Button Error:",
+            error
+          );
+
+          document.getElementById(
+            "paypalMessage"
+          ).textContent = "";
+
+          document.getElementById(
+            "paypalError"
+          ).textContent =
+            "PayPal payment could not be started.";
+        }
+
+      }).render(
+        "#paypal-button-container"
       );
 
-      return;
+    } else {
+
+      document.getElementById(
+        "paypalError"
+      ).textContent =
+        "PayPal could not load. Check your Client ID.";
     }
 
-
-    payButton.disabled = true;
-
-    payButton.textContent =
-      "Connecting to Stripe...";
-
-
-    try {
-
-      const response =
-        await fetch(STRIPE_API, {
-
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            items: cart
-          })
-
-        });
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          data.error ||
-          "Could not start payment."
-        );
-
-      }
-
-
-      if (!data.url) {
-
-        throw new Error(
-          "Stripe Checkout URL was not returned."
-        );
-
-      }
-
-
-      /*
-        Save customer/order information locally
-        before redirecting to Stripe.
-      */
-
-      const order = {
-
-        orderNumber:
-          "EB-" +
-          Date.now(),
-
-        customer,
-
-        delivery,
-
-        notes,
-
-        items: cart,
-
-        subtotal:
-          calculateSubtotal(),
-
-        deliveryFee:
-          0,
-
-        total:
-          calculateSubtotal(),
-
-        paymentMethod:
-          "Stripe",
-
-        paymentStatus:
-          "Payment Pending",
-
-        orderStatus:
-          "Order Received",
-
-        createdAt:
-          new Date().toISOString()
-
-      };
-
-
-      localStorage.setItem(
-        "ebShopLastOrder",
-        JSON.stringify(order)
-      );
-
-
-      localStorage.setItem(
-        "ebShopCustomerName",
-        customer.fullName
-      );
-
-
-      localStorage.setItem(
-        "ebShopCustomerEmail",
-        customer.email
-      );
-
-
-      localStorage.setItem(
-        "ebShopLoggedIn",
-        "true"
-      );
-
-
-      successMessage.style.display =
-        "block";
-
-      payButton.textContent =
-        "Redirecting...";
-
-
-      /*
-        Go to Stripe Checkout
-      */
-
-      window.location.href =
-        data.url;
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      showError(
-        error.message ||
-        "Something went wrong while starting payment."
-      );
-
-      payButton.disabled = false;
-
-      payButton.textContent =
-        "Pay Now";
-    }
-
-  });
-
-
-  renderOrder();
-
-</script>
+  </script>
 
 </body>
 </html>
