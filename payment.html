@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Payment - EB SHOP</title>
+
+  <!-- PayPal Sandbox -->
+  <script
+    src="https://www.sandbox.paypal.com/sdk/js?client-id=AA8FJNd0EuKss1qmEOHckjBUjNaaMjLOOhw26eRQ_BZq-N2U7SbM6XVDAA11k41yPkU6OE-k4fdmwOjv&currency=SEK&components=buttons">
+  </script>
 
   <style>
     * {
@@ -14,61 +18,61 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0a0a0a;
+      background: #080808;
       color: #fff;
     }
 
     .container {
       width: min(700px, 92%);
-      margin: 50px auto;
+      margin: 40px auto;
     }
 
     .box {
-      background: #151515;
+      background: #141414;
       border: 1px solid #292929;
       border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+      padding: 28px;
+      box-shadow: 0 15px 45px rgba(0,0,0,.35);
     }
 
     h1 {
-      margin-top: 0;
-      color: #d4af37;
       text-align: center;
+      color: #d4af37;
+      margin-top: 0;
     }
 
     .total-box {
-      background: #0d0d0d;
+      text-align: center;
+      background: #0c0c0c;
       border: 1px solid #333;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 20px;
       margin: 25px 0;
-      text-align: center;
     }
 
     .total-label {
-      color: #aaa;
+      color: #999;
       font-size: 14px;
     }
 
     .total {
+      color: #d4af37;
       font-size: 32px;
       font-weight: bold;
-      color: #d4af37;
       margin-top: 6px;
     }
 
     .method {
-      margin-top: 22px;
-      padding: 20px;
       background: #101010;
       border: 1px solid #303030;
       border-radius: 14px;
+      padding: 20px;
+      margin-top: 18px;
     }
 
     .method h2 {
+      margin-top: 0;
       font-size: 18px;
-      margin: 0 0 15px;
     }
 
     .stripe-btn {
@@ -87,54 +91,41 @@
       opacity: .9;
     }
 
+    .stripe-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
     #paypal-button-container {
       margin-top: 10px;
     }
 
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 25px 0;
-      color: #777;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      height: 1px;
-      background: #333;
-      flex: 1;
-    }
-
     .message {
-      margin-top: 15px;
       text-align: center;
-      color: #aaa;
+      color: #999;
       font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .error {
+      text-align: center;
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 12px;
     }
 
     .back {
       display: block;
       text-align: center;
-      margin-top: 25px;
       color: #d4af37;
       text-decoration: none;
+      margin-top: 25px;
     }
 
     .back:hover {
       text-decoration: underline;
     }
-
-    .error {
-      color: #ff6b6b;
-      text-align: center;
-      margin-top: 15px;
-    }
   </style>
-
-  <!-- PayPal Sandbox SDK -->
-  <script src="https://www.sandbox.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=SEK&components=buttons"></script>
 </head>
 
 <body>
@@ -154,8 +145,8 @@
         <h2>💳 Pay with Card</h2>
 
         <button
-          class="stripe-btn"
           id="stripeBtn"
+          class="stripe-btn"
           type="button">
           Pay with Card
         </button>
@@ -164,8 +155,6 @@
           Secure checkout powered by Stripe.
         </div>
       </div>
-
-      <div class="divider">OR</div>
 
       <!-- PAYPAL -->
       <div class="method">
@@ -235,7 +224,7 @@
 
     document.getElementById("stripeBtn").addEventListener(
       "click",
-      async () => {
+      async function () {
 
         const button =
           document.getElementById("stripeBtn");
@@ -262,7 +251,8 @@
 
           if (!response.ok || !data.url) {
             throw new Error(
-              data.error || "Could not start Stripe payment."
+              data.error ||
+              "Could not start Stripe payment."
             );
           }
 
@@ -304,13 +294,14 @@
         },
 
 
-        /* CREATE ORDER */
+        /* CREATE PAYPAL ORDER */
 
         createOrder: async function () {
 
           document.getElementById(
             "paypalMessage"
-          ).textContent = "Creating PayPal order...";
+          ).textContent =
+            "Creating PayPal order...";
 
           document.getElementById(
             "paypalError"
@@ -361,7 +352,7 @@
         },
 
 
-        /* PAYMENT APPROVED */
+        /* CAPTURE PAYMENT */
 
         onApprove: async function (data) {
 
@@ -369,6 +360,10 @@
             "paypalMessage"
           ).textContent =
             "Completing your payment...";
+
+          document.getElementById(
+            "paypalError"
+          ).textContent = "";
 
           try {
 
@@ -394,9 +389,7 @@
               );
             }
 
-            if (
-              result.status === "COMPLETED"
-            ) {
+            if (result.status === "COMPLETED") {
 
               localStorage.setItem(
                 "ebShopLastOrder",
@@ -417,12 +410,12 @@
               window.location.href =
                 "orders.html?payment=paypal-success";
 
-            } else {
-
-              throw new Error(
-                "PayPal payment was not completed."
-              );
+              return;
             }
+
+            throw new Error(
+              "PayPal payment was not completed."
+            );
 
           } catch (error) {
 
@@ -481,10 +474,21 @@
       document.getElementById(
         "paypalError"
       ).textContent =
-        "PayPal could not load. Check your Client ID.";
+        "PayPal could not load. Check your PayPal Client ID.";
     }
 
   </script>
 
 </body>
 </html>
+```
+
+### Ubu kora ibi 3 gusa
+
+1. Fungura **`payment.html`**.
+2. **Siba code yose** isanzwe irimo.
+3. Paste iyi code → **Commit changes**.
+
+Hanyuma Vercel/GitHub Pages nibimara update, kuri payment page uzabona **Pay with Card** na **PayPal**. PayPal's SDK is designed to render the PayPal button on the checkout page and call your server's create/capture endpoints.
+
+⚠️ Iyi ni **Sandbox/Test mode**. Ntukoreshe amafaranga nyayo ubu. Client Secret ya PayPal iguma muri Vercel, ntabwo iri muri `payment.html`.
