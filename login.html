@@ -38,8 +38,6 @@
       color: inherit;
     }
 
-    /* HEADER */
-
     header {
       background: #050505;
       color: white;
@@ -72,8 +70,6 @@
     .back:hover {
       color: var(--gold);
     }
-
-    /* MAIN */
 
     main {
       min-height: calc(100vh - 126px);
@@ -228,8 +224,6 @@
       font-weight: 800;
     }
 
-    /* FOOTER */
-
     footer {
       background: #050505;
       color: #777;
@@ -256,11 +250,8 @@
 
 <body>
 
-  <!-- HEADER -->
-
   <header>
     <div class="nav">
-
       <a href="index.html" class="logo">
         🛒 <span>E&B</span> SHOP
       </a>
@@ -268,12 +259,8 @@
       <a href="index.html" class="back">
         ← Back to Shop
       </a>
-
     </div>
   </header>
-
-
-  <!-- LOGIN -->
 
   <main>
 
@@ -289,9 +276,7 @@
         Login to your E&B SHOP account.
       </p>
 
-
       <div id="message" class="message"></div>
-
 
       <form id="loginForm">
 
@@ -310,7 +295,6 @@
 
         </div>
 
-
         <div class="form-group">
 
           <div class="password-row">
@@ -319,7 +303,11 @@
               Password
             </label>
 
-            <a href="#" class="forgot" onclick="forgotPassword(event)">
+            <a
+              href="#"
+              class="forgot"
+              id="forgotPassword"
+            >
               Forgot password?
             </a>
 
@@ -334,7 +322,6 @@
 
         </div>
 
-
         <button
           type="submit"
           class="login-btn"
@@ -344,14 +331,13 @@
 
       </form>
 
-
       <div class="divider">
         OR
       </div>
 
-
       <p class="register-text">
         Don't have an account?
+
         <a href="register.html">
           Create Account
         </a>
@@ -361,17 +347,19 @@
 
   </main>
 
-
-  <!-- FOOTER -->
-
   <footer>
     © 2026 E&B SHOP. All rights reserved. 🇸🇪
   </footer>
 
 
-  <!-- JAVASCRIPT -->
+  <script type="module">
 
-  <script>
+    import { supabase } from "./supabaseClient.js";
+
+
+    /* =========================
+       LOGIN
+    ========================= */
 
     const loginForm =
       document.getElementById("loginForm");
@@ -380,90 +368,160 @@
       document.getElementById("message");
 
 
-    loginForm.addEventListener("submit", function(event) {
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
 
-      event.preventDefault();
+        event.preventDefault();
 
-      const email =
-        document.getElementById("email").value.trim();
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
 
-      const password =
-        document.getElementById("password").value;
+        const password =
+          document
+            .getElementById("password")
+            .value;
 
 
-      message.className = "message";
-      message.textContent = "";
+        message.className = "message";
+        message.textContent = "";
 
 
-      if (!email || !password) {
+        if (!email || !password) {
 
-        message.className = "message error";
+          message.className =
+            "message error";
 
-        message.textContent =
-          "Please enter your email and password.";
+          message.textContent =
+            "Please enter your email and password.";
 
-        return;
+          return;
+        }
+
+
+        try {
+
+          const { data, error } =
+            await supabase.auth.signInWithPassword({
+              email: email,
+              password: password
+            });
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          message.className =
+            "message success";
+
+          message.textContent =
+            "Login successful. Opening your account...";
+
+
+          setTimeout(function() {
+
+            window.location.href =
+              "account.html";
+
+          }, 1000);
+
+
+        } catch (error) {
+
+          message.className =
+            "message error";
+
+          message.textContent =
+            error.message ||
+            "Login failed. Please check your email and password.";
+
+        }
+
       }
+    );
 
 
-      /*
-        TEMPORARY LOGIN
+    /* =========================
+       FORGOT PASSWORD
+    ========================= */
 
-        Real authentication will be connected
-        to the E&B SHOP database later.
-      */
-
-
-      const savedEmail =
-        localStorage.getItem("ebShopCustomerEmail");
+    const forgotPassword =
+      document.getElementById("forgotPassword");
 
 
-      if (
-        savedEmail &&
-        savedEmail.toLowerCase() === email.toLowerCase()
-      ) {
+    forgotPassword.addEventListener(
+      "click",
+      async function(event) {
 
-        localStorage.setItem(
-          "ebShopLoggedIn",
-          "true"
-        );
-
-        message.className =
-          "message success";
-
-        message.textContent =
-          "Login successful. Opening your account...";
+        event.preventDefault();
 
 
-        setTimeout(function() {
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
 
-          window.location.href =
-            "account.html";
 
-        }, 1000);
+        if (!email) {
 
-      } else {
+          alert(
+            "Please enter your email address first."
+          );
 
-        message.className =
-          "message error";
+          document
+            .getElementById("email")
+            .focus();
 
-        message.textContent =
-          "Account not found. Please register first.";
+          return;
+        }
+
+
+        try {
+
+          const redirectUrl =
+            window.location.origin +
+            window.location.pathname.replace(
+              "login.html",
+              "reset-password.html"
+            );
+
+
+          const { error } =
+            await supabase.auth.resetPasswordForEmail(
+              email,
+              {
+                redirectTo: redirectUrl
+              }
+            );
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          alert(
+            "Password reset email sent. Please check your email."
+          );
+
+
+        } catch (error) {
+
+          alert(
+            error.message ||
+            "Unable to send password reset email."
+          );
+
+        }
 
       }
-
-    });
-
-
-    function forgotPassword(event) {
-
-      event.preventDefault();
-
-      alert(
-        "Password recovery will be connected when the real account system is added."
-      );
-
-    }
+    );
 
   </script>
 
