@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>EB SHOP - Payment</title>
+  <title>EB SHOP - Secure Checkout</title>
 
   <style>
     * {
@@ -13,169 +13,1330 @@
 
     body {
       margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+      background: #f4f7fa;
+      color: #142033;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .checkout-page {
       min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      padding: 28px;
+    }
+
+    /* =========================
+       LEFT SIDE
+    ========================= */
+
+    .left-side {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 42px;
+      min-height: calc(100vh - 56px);
+      box-shadow: 0 2px 15px rgba(20, 32, 51, 0.04);
+    }
+
+    .left-content {
+      max-width: 760px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .store-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 58px;
+    }
+
+    .back-button {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      border: 1px solid #e5e9ee;
+      background: #f7f9fb;
+      color: #627083;
+      font-size: 27px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .back-button:hover {
+      background: #eef2f6;
+    }
+
+    .store-logo {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      color: #303030;
+      font-size: 27px;
     }
 
-    .payment-box {
-      text-align: center;
+    .store-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .store-name {
+      font-size: 21px;
+      font-weight: 750;
+      color: #111827;
+    }
+
+    .secure-title {
+      font-size: 16px;
+      color: #758399;
+    }
+
+    /* PRODUCT */
+
+    .product-box {
+      display: grid;
+      grid-template-columns: 138px 1fr auto;
+      gap: 22px;
+      align-items: center;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #e7ebef;
+    }
+
+    .product-image {
+      width: 138px;
+      height: 112px;
+      border-radius: 9px;
+      background: #f1f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image img {
       width: 100%;
-      max-width: 420px;
-      padding: 40px 25px;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
     }
 
-    .logo {
-      font-size: 30px;
-      margin-bottom: 25px;
+    .product-placeholder {
+      font-size: 45px;
     }
 
-    h1 {
-      margin: 0 0 10px;
+    .product-name {
+      font-size: 20px;
+      font-weight: 650;
+      color: #172238;
+      margin-bottom: 7px;
+    }
+
+    .product-description {
+      color: #7b899c;
+      font-size: 16px;
+    }
+
+    .product-right {
+      text-align: right;
+    }
+
+    .product-price {
+      font-size: 18px;
+      color: #172238;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+
+    .product-quantity {
+      color: #8090a5;
+      font-size: 15px;
+    }
+
+    /* SUMMARY */
+
+    .summary {
+      padding-top: 31px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 19px;
+      font-size: 17px;
+    }
+
+    .summary-label {
+      color: #172238;
+    }
+
+    .summary-value {
+      color: #172238;
+    }
+
+    .free {
+      font-weight: 500;
+    }
+
+    .summary-divider {
+      height: 1px;
+      background: #e7ebef;
+      margin: 28px 0;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-label {
+      font-size: 25px;
+      font-weight: 750;
+    }
+
+    .total-value {
       font-size: 28px;
+      font-weight: 750;
     }
 
-    p {
-      color: #777;
+    /* SECURITY */
+
+    .security {
+      margin-top: auto;
+      padding-top: 70px;
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      color: #718198;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .lock-icon {
+      font-size: 22px;
+      margin-top: 1px;
+    }
+
+    /* =========================
+       RIGHT SIDE
+    ========================= */
+
+    .right-side {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 42px;
+      min-height: calc(100vh - 56px);
+      box-shadow: 0 2px 15px rgba(20, 32, 51, 0.04);
+    }
+
+    .right-content {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .main-title {
+      margin: 0 0 23px;
+      font-size: 25px;
+      font-weight: 750;
+      color: #142033;
+    }
+
+    /* EXPRESS */
+
+    .express-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 12px;
       margin-bottom: 30px;
     }
 
-    .pay-button {
-      width: 100%;
-      height: 58px;
-      border: 0;
+    .express-button {
+      height: 68px;
+      border: none;
       border-radius: 8px;
-      background: #0879d1;
-      color: white;
       font-size: 18px;
       font-weight: 700;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .apple-pay {
+      background: #050505;
+      color: #ffffff;
+    }
+
+    .klarna-top {
+      background: #ff9bc7;
+      color: #171717;
+    }
+
+    .link-top {
+      background: #08d67b;
+      color: #061c12;
+    }
+
+    .amazon-top {
+      background: #ffd044;
+      color: #111111;
+    }
+
+    /* OR */
+
+    .or-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 6px 0 29px;
+      color: #8290a3;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .or-line::before,
+    .or-line::after {
+      content: "";
+      height: 1px;
+      background: #e1e6eb;
+      flex: 1;
+    }
+
+    /* SECTIONS */
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 17px;
+      color: #142033;
+    }
+
+    .field-label {
+      display: block;
+      color: #65758a;
+      font-size: 16px;
+      margin-bottom: 9px;
+    }
+
+    /* CONTACT */
+
+    .contact-box {
+      border: 1px solid #d9e0e7;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 34px;
+    }
+
+    .contact-row {
+      height: 57px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 0 17px;
+      color: #728198;
+      font-size: 16px;
+    }
+
+    .contact-row + .contact-row {
+      border-top: 1px solid #dfe4e9;
+    }
+
+    .contact-icon {
+      width: 27px;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .contact-input {
+      border: none;
+      outline: none;
+      width: 100%;
+      color: #607087;
+      background: transparent;
+      font-size: 16px;
+    }
+
+    .contact-input::placeholder {
+      color: #7e8ca0;
+    }
+
+    /* PAYMENT */
+
+    .payment-methods {
+      border: 1px solid #d9e0e7;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 21px;
+    }
+
+    .payment-option {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 17px;
       cursor: pointer;
+      transition: background .15s;
+    }
+
+    .payment-option:hover {
+      background: #fafcfd;
+    }
+
+    .payment-option + .payment-option {
+      border-top: 1px solid #dfe4e9;
+    }
+
+    .radio {
+      width: 23px;
+      height: 23px;
+      border: 2px solid #b9c4d0;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .payment-option.active .radio {
+      border-color: #0879d1;
+    }
+
+    .payment-option.active .radio::after {
+      content: "";
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      background: #0879d1;
+      border-radius: 50%;
+      top: 4px;
+      left: 4px;
+    }
+
+    .payment-logo {
+      width: 31px;
+      height: 31px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .card-logo {
+      background: #111111;
+      color: white;
+    }
+
+    .klarna-logo {
+      background: #ff9bc7;
+      color: #111111;
+    }
+
+    .payment-name {
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .card-brands {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .brand {
+      min-width: 39px;
+      height: 27px;
+      padding: 3px 5px;
+      border: 1px solid #e0e5eb;
+      border-radius: 4px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .visa {
+      color: #1434cb;
+    }
+
+    .mastercard {
+      color: #111111;
+      font-size: 13px;
+    }
+
+    .amex {
+      color: #1475c9;
+    }
+
+    .jcb {
+      color: #198b51;
+    }
+
+    /* SAVE */
+
+    .save-info {
+      border: 1px solid #d9e0e7;
+      border-radius: 10px;
+      padding: 15px 17px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .save-checkbox {
+      width: 24px;
+      height: 24px;
+      margin: 1px 0 0;
+      accent-color: #0879d1;
+      flex-shrink: 0;
+    }
+
+    .save-title {
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 5px;
+      color: #172238;
+    }
+
+    .save-text {
+      color: #7b899d;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .save-text u {
+      color: #60758d;
+    }
+
+    /* PAY */
+
+    .pay-button {
+      width: 100%;
+      height: 68px;
+      border: none;
+      border-radius: 8px;
+      background: #0879d1;
+      color: #ffffff;
+      font-size: 21px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+
+    .pay-button:hover {
+      background: #066bb9;
+    }
+
+    .pay-button:active {
+      transform: scale(.995);
     }
 
     .pay-button:disabled {
-      opacity: .6;
+      opacity: .65;
       cursor: not-allowed;
     }
 
     .message {
-      margin-top: 18px;
+      min-height: 23px;
+      margin-top: 11px;
+      text-align: center;
       color: #c62828;
       font-size: 14px;
     }
 
-    .loading {
-      margin-top: 20px;
-      color: #777;
-      font-size: 14px;
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1100px) {
+      .checkout-page {
+        grid-template-columns: 1fr;
+      }
+
+      .left-side,
+      .right-side {
+        min-height: auto;
+      }
+
+      .security {
+        margin-top: 60px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .checkout-page {
+        padding: 12px;
+        gap: 12px;
+      }
+
+      .left-side,
+      .right-side {
+        padding: 25px 20px;
+        border-radius: 12px;
+      }
+
+      .product-box {
+        grid-template-columns: 95px 1fr;
+      }
+
+      .product-image {
+        width: 95px;
+        height: 90px;
+      }
+
+      .product-right {
+        grid-column: 2;
+        text-align: left;
+      }
+
+      .express-buttons {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .express-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .express-button {
+        height: 55px;
+      }
+
+      .card-brands {
+        display: none;
+      }
+
+      .total-value {
+        font-size: 23px;
+      }
+
+      .total-label {
+        font-size: 21px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="payment-box">
+  <div class="checkout-page">
 
-    <div class="logo">🛒</div>
+    <!-- =========================
+         LEFT
+    ========================== -->
 
-    <h1>EB SHOP</h1>
+    <section class="left-side">
 
-    <p>Secure checkout</p>
+      <div class="left-content">
 
-    <button id="payButton" class="pay-button">
-      Continue to Payment
-    </button>
+        <div class="store-header">
 
-    <div id="loading" class="loading"></div>
+          <button
+            class="back-button"
+            onclick="history.back()"
+            aria-label="Go back"
+          >
+            ‹
+          </button>
 
-    <div id="message" class="message"></div>
+          <div class="store-logo">
+            🛒
+          </div>
+
+          <div class="store-info">
+            <div class="store-name">
+              EB SHOP
+            </div>
+
+            <div class="secure-title">
+              Secure checkout
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- PRODUCT -->
+
+        <div class="product-box">
+
+          <div class="product-image" id="productImage">
+            <div class="product-placeholder">
+              ✂️
+            </div>
+          </div>
+
+          <div>
+
+            <div
+              class="product-name"
+              id="productName"
+            >
+              Nail Clipper
+            </div>
+
+            <div
+              class="product-description"
+              id="productDescription"
+            >
+              High quality nail clipper
+            </div>
+
+          </div>
+
+          <div class="product-right">
+
+            <div
+              class="product-price"
+              id="productPriceTop"
+            >
+              SEK 30.00
+            </div>
+
+            <div
+              class="product-quantity"
+              id="productQuantity"
+            >
+              × 1
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary">
+
+          <div class="summary-row">
+
+            <span class="summary-label">
+              Subtotal
+            </span>
+
+            <span
+              class="summary-value"
+              id="subtotal"
+            >
+              SEK 30.00
+            </span>
+
+          </div>
+
+
+          <div class="summary-row">
+
+            <span class="summary-label">
+              Shipping
+            </span>
+
+            <span class="summary-value free">
+              Free
+            </span>
+
+          </div>
+
+
+          <div class="summary-divider"></div>
+
+
+          <div class="total-row">
+
+            <span class="total-label">
+              Total
+            </span>
+
+            <span
+              class="total-value"
+              id="total"
+            >
+              SEK 30.00
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- SECURITY -->
+
+        <div class="security">
+
+          <div class="lock-icon">
+            🔒
+          </div>
+
+          <div>
+            Your payment information is encrypted and secure.<br>
+            Powered by Stripe
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RIGHT
+    ========================== -->
+
+    <section class="right-side">
+
+      <div class="right-content">
+
+        <h1 class="main-title">
+          Payment method
+        </h1>
+
+
+        <!-- EXPRESS PAYMENT -->
+
+        <div class="express-buttons">
+
+          <button class="express-button apple-pay">
+             Pay
+          </button>
+
+          <button class="express-button klarna-top">
+            Klarna
+          </button>
+
+          <button class="express-button link-top">
+            ● link
+          </button>
+
+          <button class="express-button amazon-top">
+            amazon pay
+          </button>
+
+        </div>
+
+
+        <div class="or-line">
+          <span>OR</span>
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="section-title">
+          Contact information
+        </div>
+
+        <label class="field-label">
+          Contact details
+        </label>
+
+        <div class="contact-box">
+
+          <div class="contact-row">
+
+            <span class="contact-icon">
+              ✉
+            </span>
+
+            <input
+              id="customerEmail"
+              class="contact-input"
+              type="email"
+              placeholder="email@example.com"
+            >
+
+          </div>
+
+
+          <div class="contact-row">
+
+            <span class="contact-icon">
+              🇸🇪
+            </span>
+
+            <input
+              id="customerPhone"
+              class="contact-input"
+              type="tel"
+              placeholder="070-123 45 67"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- PAYMENT METHOD -->
+
+        <div class="section-title">
+          Payment method
+        </div>
+
+
+        <div class="payment-methods">
+
+          <div
+            class="payment-option active"
+            id="cardOption"
+          >
+
+            <div class="radio"></div>
+
+            <div class="payment-logo card-logo">
+              ▰
+            </div>
+
+            <div class="payment-name">
+              Card
+            </div>
+
+            <div class="card-brands">
+
+              <span class="brand visa">
+                VISA
+              </span>
+
+              <span class="brand mastercard">
+                ●●
+              </span>
+
+              <span class="brand amex">
+                AMEX
+              </span>
+
+              <span class="brand jcb">
+                JCB
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="payment-option"
+            id="klarnaOption"
+          >
+
+            <div class="radio"></div>
+
+            <div class="payment-logo klarna-logo">
+              K
+            </div>
+
+            <div class="payment-name">
+              Klarna
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SAVE INFORMATION -->
+
+        <div class="save-info">
+
+          <input
+            type="checkbox"
+            class="save-checkbox"
+            id="saveInfo"
+          >
+
+          <div>
+
+            <div class="save-title">
+              Save my information for faster checkout
+            </div>
+
+            <div class="save-text">
+              Pay securely at EB SHOP and everywhere
+              <u>Link</u> is accepted.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PAY -->
+
+        <button
+          id="payButton"
+          class="pay-button"
+        >
+          Pay
+        </button>
+
+        <div
+          id="message"
+          class="message"
+        ></div>
+
+      </div>
+
+    </section>
 
   </div>
 
 
   <script>
-    const payButton = document.getElementById("payButton");
-    const loading = document.getElementById("loading");
-    const message = document.getElementById("message");
+
+    /* =========================
+       CART
+    ========================== */
 
     const cart = JSON.parse(
       localStorage.getItem("ebShopCart") || "[]"
     );
 
 
-    payButton.addEventListener("click", startPayment);
+    /* =========================
+       ELEMENTS
+    ========================== */
+
+    const payButton =
+      document.getElementById("payButton");
+
+    const message =
+      document.getElementById("message");
+
+    const productName =
+      document.getElementById("productName");
+
+    const productDescription =
+      document.getElementById("productDescription");
+
+    const productPriceTop =
+      document.getElementById("productPriceTop");
+
+    const productQuantity =
+      document.getElementById("productQuantity");
+
+    const productImage =
+      document.getElementById("productImage");
+
+    const subtotal =
+      document.getElementById("subtotal");
+
+    const totalElement =
+      document.getElementById("total");
+
+    const customerEmail =
+      document.getElementById("customerEmail");
+
+    const customerPhone =
+      document.getElementById("customerPhone");
+
+    const cardOption =
+      document.getElementById("cardOption");
+
+    const klarnaOption =
+      document.getElementById("klarnaOption");
 
 
-    async function startPayment() {
+    /* =========================
+       SAVED CUSTOMER INFO
+    ========================== */
 
-      if (!cart.length) {
-        message.textContent = "Your cart is empty.";
-        return;
+    const savedEmail =
+      localStorage.getItem("ebShopCustomerEmail");
+
+    const savedPhone =
+      localStorage.getItem("ebShopCustomerPhone");
+
+
+    if (savedEmail) {
+      customerEmail.value = savedEmail;
+    }
+
+    if (savedPhone) {
+      customerPhone.value = savedPhone;
+    }
+
+
+    /* =========================
+       ORDER
+    ========================== */
+
+    let total = 0;
+
+    if (cart.length > 0) {
+
+      const firstItem = cart[0];
+
+      const firstPrice =
+        Number(firstItem.price) || 0;
+
+      const firstQuantity =
+        Number(firstItem.quantity) || 1;
+
+
+      productName.textContent =
+        firstItem.name || "E&B SHOP Product";
+
+
+      productDescription.textContent =
+        firstItem.description ||
+        "High quality product";
+
+
+      productQuantity.textContent =
+        `× ${firstQuantity}`;
+
+
+      /*
+        PRODUCT IMAGE
+        Uses image from cart if available.
+      */
+
+      if (firstItem.image) {
+
+        productImage.innerHTML = `
+          <img
+            src="${escapeHtml(firstItem.image)}"
+            alt="${escapeHtml(firstItem.name || "Product")}"
+          >
+        `;
+
       }
 
-      payButton.disabled = true;
-      payButton.textContent = "Opening secure checkout...";
-      message.textContent = "";
-      loading.textContent = "Connecting to Stripe...";
+
+      cart.forEach(item => {
+
+        const price =
+          Number(item.price) || 0;
+
+        const quantity =
+          Number(item.quantity) || 1;
+
+        total += price * quantity;
+
+      });
+
+    } else {
+
+      productName.textContent =
+        "Your cart is empty";
+
+      productDescription.textContent =
+        "Add products before checkout";
+
+      productQuantity.textContent =
+        "× 0";
+
+      total = 0;
+
+    }
 
 
-      try {
+    /* =========================
+       DISPLAY TOTAL
+    ========================== */
 
-        const response = await fetch(
-          "https://ebshop.vercel.app/api/create-checkout-session",
-          {
-            method: "POST",
+    const formattedTotal =
+      `SEK ${total.toFixed(2)}`;
 
-            headers: {
-              "Content-Type": "application/json"
-            },
 
-            body: JSON.stringify({
-              items: cart
-            })
-          }
+    productPriceTop.textContent =
+      formattedTotal;
+
+    subtotal.textContent =
+      formattedTotal;
+
+    totalElement.textContent =
+      formattedTotal;
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================== */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================
+       PAYMENT METHOD
+    ========================== */
+
+    cardOption.addEventListener(
+      "click",
+      () => {
+
+        cardOption.classList.add("active");
+
+        klarnaOption.classList.remove("active");
+
+      }
+    );
+
+
+    klarnaOption.addEventListener(
+      "click",
+      () => {
+
+        klarnaOption.classList.add("active");
+
+        cardOption.classList.remove("active");
+
+      }
+    );
+
+
+    /* =========================
+       SAVE CUSTOMER INFO
+    ========================== */
+
+    customerEmail.addEventListener(
+      "change",
+      () => {
+
+        localStorage.setItem(
+          "ebShopCustomerEmail",
+          customerEmail.value.trim()
         );
 
+      }
+    );
 
-        const data = await response.json();
+
+    customerPhone.addEventListener(
+      "change",
+      () => {
+
+        localStorage.setItem(
+          "ebShopCustomerPhone",
+          customerPhone.value.trim()
+        );
+
+      }
+    );
 
 
-        if (!response.ok || !data.url) {
-          throw new Error(
-            data.error ||
-            "Could not create Stripe Checkout session."
-          );
+    /* =========================
+       STRIPE CHECKOUT
+    ========================== */
+
+    payButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!cart.length) {
+
+          message.textContent =
+            "Your cart is empty.";
+
+          return;
+
         }
 
 
-        /*
-          This opens the REAL Stripe-hosted
-          checkout page.
+        payButton.disabled = true;
 
-          Stripe controls the payment UI,
-          including available payment methods.
-        */
+        payButton.textContent =
+          "Processing...";
 
-        window.location.href = data.url;
+        message.textContent = "";
 
 
-      } catch (error) {
+        try {
 
-        console.error("Stripe error:", error);
+          const response =
+            await fetch(
+              "https://ebshop.vercel.app/api/create-checkout-session",
+              {
+                method: "POST",
 
-        loading.textContent = "";
+                headers: {
+                  "Content-Type": "application/json"
+                },
 
-        message.textContent =
-          error.message ||
-          "Payment could not be started.";
+                body: JSON.stringify({
+                  items: cart
+                })
+              }
+            );
 
-        payButton.disabled = false;
-        payButton.textContent = "Continue to Payment";
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok || !data.url) {
+
+            throw new Error(
+              data.error ||
+              "Could not start Stripe Checkout."
+            );
+
+          }
+
+
+          /*
+            Go to Stripe's secure checkout.
+          */
+
+          window.location.href =
+            data.url;
+
+
+        } catch (error) {
+
+          console.error(
+            "Payment error:",
+            error
+          );
+
+
+          message.textContent =
+            error.message ||
+            "Payment could not be started.";
+
+
+          payButton.disabled = false;
+
+          payButton.textContent =
+            "Pay";
+
+        }
+
       }
-    }
+    );
+
   </script>
 
 </body>
