@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="google-site-verification" content="w1xjlGEr733FoAZAauHPqOYr5VTdH4t9pbAeVH5VR0s" />
+
+  <title>E&B SHOP | Online Shop in Sweden</title>
+
+  <meta
+    name="description"
+    content="E&B SHOP is a modern online shop in Sweden offering electronics, fashion, shoes, home products, beauty, gaming, kids products and more."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #080808;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 8, 8, 0.97);
+      border-bottom: 1px solid #292929;
+      padding: 15px 5%;
+    }
+
+    .nav {
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: white;
+    }
+    .logo img {
+      width: 120px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+
+    .search-box {
+      flex: 1;
+      max-width: 360px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 11px 15px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #111;
+      color: white;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #d4af37;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .login-btn {
+      border: 1px solid #d4af37;
+      padding: 8px 12px;
+      border-radius: 7px;
+    }
+
+    .register-btn {
+      background: #d4af37;
+      color: #080808 !important;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .admin-btn {
+      display: none;
+      background: #d4af37;
+      color: #080808 !important;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .cart-btn {
+      background: #171717;
+      border: 1px solid #333;
+      padding: 8px 12px;
+      border-radius: 7px;
+      color: white !important;
+    }
+
+    .cart-count {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .user-area {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-name {
+      color: #d4af37;
+      font-size: 13px;
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .logout-btn {
+      background: transparent;
+      color: #aaa;
+      border: 1px solid #333;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      color: white;
+      border-color: #d4af37;
+    }
+
+    .hero {
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+      max-width: 1300px;
+      margin: auto;
+      padding: 70px 5%;
+    }
+
+    .hero-text small {
+      color: #d4af37;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.05;
+      margin: 18px 0;
+    }
+
+    .hero-text h1 span {
+      color: #d4af37;
+    }
+
+    .hero-text p {
+      color: #aaa;
+      max-width: 600px;
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background: #d4af37;
+      color: #080808;
+    }
+
+    .secondary-btn {
+      border: 1px solid #555;
+      color: white;
+    }
+
+    .secondary-btn:hover {
+      border-color: #d4af37;
+      color: #d4af37;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid #333;
+    }
+
+    section {
+      max-width: 1300px;
+      margin: auto;
+      padding: 60px 5%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      color: #d4af37;
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #888;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 12px;
+    }
+
+    .category {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 10px;
+      padding: 18px 8px;
+      text-align: center;
+      color: #ddd;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      border-color: #d4af37;
+      transform: translateY(-3px);
+    }
+
+    .category-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 13px;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: #d4af37;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-content {
+      padding: 17px;
+    }
+
+    .product-category {
+      color: #888;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .product-content h3 {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .product-price {
+      color: #d4af37;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 8px 0 14px;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .view-btn,
+    .add-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 7px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .view-btn {
+      background: #292929;
+      color: white;
+    }
+
+    .add-btn {
+      background: #d4af37;
+      color: #080808;
+    }
+
+    .empty-products {
+      text-align: center;
+      color: #888;
+      padding: 40px;
+      grid-column: 1 / -1;
+    }
+
+    .about-box {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 35px;
+      text-align: center;
+    }
+
+    .about-box p {
+      color: #aaa;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .sweden {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+    .newsletter {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 35px;
+      text-align: center;
+    }
+
+    .newsletter h2 {
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+
+    .newsletter p {
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 7px;
+      border: 1px solid #333;
+      background: #080808;
+      color: white;
+    }
+
+    .newsletter-form button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 7px;
+      background: #d4af37;
+      color: #080808;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      border-top: 1px solid #292929;
+      text-align: center;
+      padding: 30px 15px;
+      color: #777;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    @media (max-width: 1100px) {
+      .categories {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        order: 3;
+        max-width: none;
+        width: 100%;
+        flex-basis: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      header {
+        position: relative;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .logo {
+        text-align: center;
+      }
+      .logo img {
+        width: 95px;
+        margin: auto;
+      }
+
+      .nav-links {
+        justify-content: center;
+        margin-left: 0;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .user-area {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+
+    <a href="index.html" class="logo" aria-label="E&B SHOP">
+      <img src="logo.png" alt="E&B SHOP">
+    </a>
+
+    <div class="search-box">
+      <input
+        type="search"
+        id="mainSearch"
+        placeholder="Search products..."
+      >
+    </div>
+
+    <div class="nav-links">
+
+      <a href="index.html">Home</a>
+
+      <a href="products.html">Products</a>
+
+      <a href="about.html">About</a>
+
+      <a href="contact.html">Contact</a>
+
+      <a href="login.html" class="login-btn" id="loginLink">
+        Login
+      </a>
+
+      <a href="register.html" class="register-btn" id="registerLink">
+        Register
+      </a>
+
+      <!-- ADMIN BUTTON -->
+      <a href="admin.html" class="admin-btn" id="adminButton">
+        👑 Admin
+      </a>
+
+      <a href="cart.html" class="cart-btn">
+        🛒 Cart
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+
+    </div>
+
+    <div class="user-area" id="userArea">
+
+      <span class="user-name" id="userName"></span>
+
+      <button class="logout-btn" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </nav>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-text">
+
+    <small>🇸🇪 SWEDEN • BUY • SHOP • ENJOY</small>
+
+    <h1>
+      Everything You Need
+      <span>In One Shop.</span>
+    </h1>
+
+    <p>
+      Welcome to E&B SHOP — a modern online shop in Sweden
+      where you can discover electronics, fashion, shoes,
+      home products, beauty, gaming, kids products and more.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="products.html" class="primary-btn">
+        🛍️ Shop Now
+      </a>
+
+      <a href="register.html" class="secondary-btn">
+        Create Account
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="hero-image">
+
+    <img
+      src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200"
+      alt="E&B SHOP online marketplace"
+    >
+
+  </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section id="categories">
+
+  <div class="section-title">
+
+    <h2>Shop by Category</h2>
+
+    <p>Find what you need quickly.</p>
+
+  </div>
+
+  <div class="categories">
+
+    <div class="category" onclick="filterCategory('Electronics')">
+      <span class="category-icon">📱</span>
+      Electronics
+    </div>
+
+    <div class="category" onclick="filterCategory('Fashion')">
+      <span class="category-icon">👕</span>
+      Fashion
+    </div>
+
+    <div class="category" onclick="filterCategory('Shoes')">
+      <span class="category-icon">👟</span>
+      Shoes
+    </div>
+
+    <div class="category" onclick="filterCategory('Home')">
+      <span class="category-icon">🏠</span>
+      Home
+    </div>
+
+    <div class="category" onclick="filterCategory('Beauty')">
+      <span class="category-icon">💄</span>
+      Beauty
+    </div>
+
+    <div class="category" onclick="filterCategory('Gaming')">
+      <span class="category-icon">🎮</span>
+      Gaming
+    </div>
+
+    <div class="category" onclick="filterCategory('Kids')">
+      <span class="category-icon">🧸</span>
+      Kids
+    </div>
+
+    <div class="category" onclick="filterCategory('Other')">
+      <span class="category-icon">📦</span>
+      Other
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section id="products">
+
+  <div class="section-title">
+
+    <h2>Featured Products</h2>
+
+    <p>Discover products available at E&B SHOP.</p>
+
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section>
+
+  <div class="section-title">
+    <h2>About E&B SHOP</h2>
+  </div>
+
+  <div class="about-box">
+
+    <p>
+      E&B SHOP is a modern online shopping platform created
+      for customers in <span class="sweden">Sweden 🇸🇪</span>.
+      Our goal is to make shopping simple by bringing many
+      product categories together in one place.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- NEWSLETTER -->
+
+<section>
+
+  <div class="newsletter">
+
+    <h2>Stay Updated</h2>
+
+    <p>
+      Subscribe to receive updates about new products.
+    </p>
+
+    <form class="newsletter-form" id="newsletterForm">
+
+      <input
+        type="email"
+        id="newsletterEmail"
+        placeholder="Your email address"
+        required
+      >
+
+      <button type="submit">
+        Subscribe
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
+
+</footer>
+
+
+<script>
+
+  const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
+
+  const PRODUCT_STORAGE_KEY = "ebShopProducts";
+
+  const defaultProducts = [
+    {
+      id: "p1",
+      name: "Smartphone",
+      price: 4999,
+      category: "Electronics",
+      stock: 10,
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
+    },
+
+    {
+      id: "p2",
+      name: "Sport Shoes",
+      price: 999,
+      category: "Shoes",
+      stock: 15,
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800"
+    },
+
+    {
+      id: "p3",
+      name: "Wireless Headphones",
+      price: 699,
+      category: "Electronics",
+      stock: 20,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"
+    },
+
+    {
+      id: "p4",
+      name: "Smart Watch",
+      price: 899,
+      category: "Electronics",
+      stock: 12,
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
+    },
+
+    {
+      id: "p5",
+      name: "Fashion Bag",
+      price: 1299,
+      category: "Fashion",
+      stock: 8,
+      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800"
+    },
+
+    {
+      id: "p6",
+      name: "Home Air Fryer",
+      price: 1299,
+      category: "Home",
+      stock: 7,
+      image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=800"
+    },
+
+    {
+      id: "p7",
+      name: "Gaming Controller",
+      price: 599,
+      category: "Gaming",
+      stock: 14,
+      image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=800"
+    },
+
+    {
+      id: "p8",
+      name: "Beauty Products",
+      price: 399,
+      category: "Beauty",
+      stock: 25,
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800"
+    }
+  ];
+
+
+  function getProducts() {
+
+    const saved =
+      localStorage.getItem(PRODUCT_STORAGE_KEY);
+
+    if (!saved) {
+
+      localStorage.setItem(
+        PRODUCT_STORAGE_KEY,
+        JSON.stringify(defaultProducts)
+      );
+
+      return defaultProducts;
+    }
+
+    try {
+
+      return JSON.parse(saved);
+
+    } catch (error) {
+
+      localStorage.setItem(
+        PRODUCT_STORAGE_KEY,
+        JSON.stringify(defaultProducts)
+      );
+
+      return defaultProducts;
+    }
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function renderProducts(products = getProducts()) {
+
+    const grid =
+      document.getElementById("productsGrid");
+
+    if (!products.length) {
+
+      grid.innerHTML =
+        '<div class="empty-products">No products found.</div>';
+
+      return;
+    }
+
+
+    grid.innerHTML = products.map(product => `
+
+      <article class="product-card">
+
+        <img
+          class="product-image"
+          src="${escapeHtml(product.image)}"
+          alt="${escapeHtml(product.name)}"
+        >
+
+        <div class="product-content">
+
+          <div class="product-category">
+            ${escapeHtml(product.category)}
+          </div>
+
+          <h3>
+            ${escapeHtml(product.name)}
+          </h3>
+
+          <div class="product-price">
+            ${Number(product.price).toLocaleString()} SEK
+          </div>
+
+          <div class="product-actions">
+
+            <a
+              class="view-btn"
+              href="product-details.html?product=${encodeURIComponent(product.id)}"
+            >
+              View
+            </a>
+
+            <button
+              class="add-btn"
+              onclick="addToCart('${product.id}')"
+              ${Number(product.stock) <= 0 ? "disabled" : ""}
+            >
+              ${Number(product.stock) <= 0 ? "Out of stock" : "Add"}
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `).join("");
+  }
+
+
+  function addToCart(productId) {
+
+    const products = getProducts();
+
+    const product =
+      products.find(p => p.id === productId);
+
+    if (!product) return;
+
+    if (Number(product.stock) <= 0) {
+
+      alert("This product is out of stock.");
+
+      return;
+    }
+
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem("ebShopCart")
+        ) || [];
+
+    } catch (error) {
+
+      cart = [];
+    }
+
+
+    const existing =
+      cart.find(item => item.id === product.id);
+
+
+    if (existing) {
+
+      existing.quantity =
+        Number(existing.quantity || 0) + 1;
+
+    } else {
+
+      cart.push({
+
+        id: product.id,
+
+        name: product.name,
+
+        price: Number(product.price),
+
+        quantity: 1
+
+      });
+
+    }
+
+
+    localStorage.setItem(
+      "ebShopCart",
+      JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(
+      product.name + " added to cart!"
+    );
+
+  }
+
+
+  function updateCartCount() {
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem("ebShopCart")
+        ) || [];
+
+    } catch (error) {
+
+      cart = [];
+    }
+
+
+    const count =
+      cart.reduce(
+        (total, item) =>
+          total + Number(item.quantity || 0),
+        0
+      );
+
+
+    document.getElementById("cartCount").textContent =
+      count;
+
+  }
+
+
+  function filterCategory(category) {
+
+    const products = getProducts();
+
+    const filtered =
+      products.filter(
+        product =>
+          String(product.category).toLowerCase() ===
+          category.toLowerCase()
+      );
+
+    renderProducts(filtered);
+
+    document
+      .getElementById("products")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  document
+    .getElementById("mainSearch")
+    .addEventListener("input", function() {
+
+      const search =
+        this.value.trim().toLowerCase();
+
+      const products =
+        getProducts();
+
+      const filtered =
+        products.filter(product =>
+
+          String(product.name)
+            .toLowerCase()
+            .includes(search)
+
+          ||
+
+          String(product.category)
+            .toLowerCase()
+            .includes(search)
+
+        );
+
+      renderProducts(filtered);
+
+    });
+
+
+  function updateUserArea() {
+
+    const email =
+      localStorage.getItem("ebShopCustomerEmail");
+
+    const name =
+      localStorage.getItem("ebShopCustomerName");
+
+
+    const loginLink =
+      document.getElementById("loginLink");
+
+    const registerLink =
+      document.getElementById("registerLink");
+
+    const adminButton =
+      document.getElementById("adminButton");
+
+    const userArea =
+      document.getElementById("userArea");
+
+    const userName =
+      document.getElementById("userName");
+
+
+    // DEFAULT STATE
+
+    loginLink.style.display = "inline-block";
+
+    registerLink.style.display = "inline-block";
+
+    adminButton.style.display = "none";
+
+    userArea.style.display = "none";
+
+
+    if (!email) {
+      return;
+    }
+
+
+    // LOGGED-IN CUSTOMER
+
+    loginLink.style.display = "none";
+
+    registerLink.style.display = "none";
+
+    userArea.style.display = "flex";
+
+    userName.textContent =
+      name || email;
+
+
+    // OWNER / ADMIN
+
+    if (
+      email.trim().toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ) {
+
+      adminButton.style.display =
+        "inline-block";
+
+    }
+
+  }
+
+
+  function logout() {
+
+    localStorage.removeItem(
+      "ebShopCustomerEmail"
+    );
+
+    localStorage.removeItem(
+      "ebShopCustomerName"
+    );
+
+    localStorage.removeItem(
+      "ebShopCustomerPhone"
+    );
+
+    localStorage.removeItem(
+      "ebShopLoggedIn"
+    );
+
+    window.location.href =
+      "index.html";
+
+  }
+
+
+  document
+    .getElementById("newsletterForm")
+    .addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById(
+          "newsletterEmail"
+        ).value.trim();
+
+      localStorage.setItem(
+        "ebShopNewsletterEmail",
+        email
+      );
+
+      alert(
+        "Thank you for subscribing!"
+      );
+
+      this.reset();
+
+    });
+
+
+  // START WEBSITE
+
+  renderProducts();
+
+  updateCartCount();
+
+  updateUserArea();
+
+</script>
+
+</body>
+</html>
