@@ -3,18 +3,28 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  const allowedOrigin = "https://mreb6832-cpu.github.io";
+  const origin = req.headers.origin;
 
-  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  // CORS
+  res.setHeader("Vary", "Origin");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://mreb6832-cpu.github.io"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "POST, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
 
-  // CORS preflight
+  // Browser preflight
   if (req.method === "OPTIONS") {
-    return res.status(200).end();
+    return res.status(204).end();
   }
 
-  // Only POST is allowed
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method not allowed"
@@ -24,14 +34,12 @@ export default async function handler(req, res) {
   try {
     const { items } = req.body;
 
-    // Check cart
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         error: "Cart is empty"
       });
     }
 
-    // Convert cart items to Stripe line items
     const lineItems = items.map((item) => {
       const price = Number(item.price);
       const quantity = Number(item.quantity);
@@ -49,7 +57,9 @@ export default async function handler(req, res) {
           currency: "sek",
 
           product_data: {
-            name: String(item.name || "E&B SHOP Product")
+            name: String(
+              item.name || "E&B SHOP Product"
+            )
           },
 
           unit_amount: Math.round(price * 100)
@@ -59,8 +69,8 @@ export default async function handler(req, res) {
       };
     });
 
-    // Frontend URL from Vercel Environment Variables
-    const baseUrl = process.env.FRONTEND_URL;
+    const baseUrl =
+      process.env.FRONTEND_URL;
 
     if (!baseUrl) {
       return res.status(500).json({
@@ -68,34 +78,40 @@ export default async function handler(req, res) {
       });
     }
 
-    // Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+    const session =
+      await stripe.checkout.sessions.create({
+        mode: "payment",
+        line_items: lineItems,
 
-      line_items: lineItems,
+        billing_address_collection:
+          "required",
 
-      billing_address_collection: "required",
+        phone_number_collection: {
+          enabled: true
+        },
 
-      phone_number_collection: {
-        enabled: true
-      },
+        success_url:
+          `${baseUrl}/orders.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
 
-      success_url:
-        `${baseUrl}/orders.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
-
-      cancel_url:
-        `${baseUrl}/payment.html?payment=cancelled`
-    });
+        cancel_url:
+          `${baseUrl}/payment.html?payment=cancelled`
+      });
 
     return res.status(200).json({
       url: session.url
     });
 
   } catch (error) {
-    console.error("Stripe Checkout Error:", error);
+
+    console.error(
+      "Stripe Checkout Error:",
+      error
+    );
 
     return res.status(500).json({
-      error: "Could not create Stripe Checkout session"
+      error:
+        error.message ||
+        "Could not create Stripe Checkout session"
     });
   }
 }
