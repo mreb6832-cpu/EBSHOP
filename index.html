@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="icon" type="image/png" href="logo.png">
-  <meta name="google-site-verification" content="w1xjlGEr733FoAZAauHPqOYr5VTdH4t9pbAeVH5VR0s" />
+
+  <meta
+    name="google-site-verification"
+    content="w1xjlGEr733FoAZAauHPqOYr5VTdH4t9pbAeVH5VR0s"
+  >
 
   <title>E&B SHOP | Online Shop in Sweden</title>
 
@@ -61,13 +67,13 @@
     .logo span {
       color: white;
     }
+
     .logo img {
       width: 120px;
       height: auto;
       display: block;
       object-fit: contain;
     }
-
 
     .search-box {
       flex: 1;
@@ -364,6 +370,11 @@
       color: #080808;
     }
 
+    .add-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .empty-products {
       text-align: center;
       color: #888;
@@ -446,6 +457,7 @@
     }
 
     @media (max-width: 1100px) {
+
       .categories {
         grid-template-columns: repeat(4, 1fr);
       }
@@ -467,6 +479,7 @@
     }
 
     @media (max-width: 700px) {
+
       header {
         position: relative;
       }
@@ -479,6 +492,7 @@
       .logo {
         text-align: center;
       }
+
       .logo img {
         width: 95px;
         margin: auto;
@@ -530,53 +544,99 @@
 <header>
   <nav class="nav">
 
-    <a href="index.html" class="logo" aria-label="E&B SHOP">
-      <img src="logo.png" alt="E&B SHOP">
+    <a
+      href="index.html"
+      class="logo"
+      aria-label="E&B SHOP"
+    >
+      <img
+        src="logo.png"
+        alt="E&B SHOP"
+      >
     </a>
 
     <div class="search-box">
+
       <input
         type="search"
         id="mainSearch"
         placeholder="Search products..."
       >
+
     </div>
 
     <div class="nav-links">
 
-      <a href="index.html">Home</a>
+      <a href="index.html">
+        Home
+      </a>
 
-      <a href="products.html">Products</a>
+      <a href="products.html">
+        Products
+      </a>
 
-      <a href="about.html">About</a>
+      <a href="about.html">
+        About
+      </a>
 
-      <a href="contact.html">Contact</a>
+      <a href="contact.html">
+        Contact
+      </a>
 
-      <a href="login.html" class="login-btn" id="loginLink">
+      <a
+        href="login.html"
+        class="login-btn"
+        id="loginLink"
+      >
         Login
       </a>
 
-      <a href="register.html" class="register-btn" id="registerLink">
+      <a
+        href="register.html"
+        class="register-btn"
+        id="registerLink"
+      >
         Register
       </a>
 
-      <!-- ADMIN BUTTON -->
-      <a href="admin.html" class="admin-btn" id="adminButton">
+      <a
+        href="admin.html"
+        class="admin-btn"
+        id="adminButton"
+      >
         👑 Admin
       </a>
 
-      <a href="cart.html" class="cart-btn">
+      <a
+        href="cart.html"
+        class="cart-btn"
+      >
         🛒 Cart
-        <span class="cart-count" id="cartCount">0</span>
+        <span
+          class="cart-count"
+          id="cartCount"
+        >
+          0
+        </span>
       </a>
 
     </div>
 
-    <div class="user-area" id="userArea">
+    <div
+      class="user-area"
+      id="userArea"
+    >
 
-      <span class="user-name" id="userName"></span>
+      <span
+        class="user-name"
+        id="userName"
+      ></span>
 
-      <button class="logout-btn" onclick="logout()">
+      <button
+        class="logout-btn"
+        id="logoutButton"
+        type="button"
+      >
         Logout
       </button>
 
@@ -592,7 +652,9 @@
 
   <div class="hero-text">
 
-    <small>🇸🇪 SWEDEN • BUY • SHOP • ENJOY</small>
+    <small>
+      🇸🇪 SWEDEN • BUY • SHOP • ENJOY
+    </small>
 
     <h1>
       Everything You Need
@@ -607,11 +669,17 @@
 
     <div class="hero-buttons">
 
-      <a href="products.html" class="primary-btn">
+      <a
+        href="products.html"
+        class="primary-btn"
+      >
         🛍️ Shop Now
       </a>
 
-      <a href="register.html" class="secondary-btn">
+      <a
+        href="register.html"
+        class="secondary-btn"
+      >
         Create Account
       </a>
 
@@ -637,51 +705,95 @@
 
   <div class="section-title">
 
-    <h2>Shop by Category</h2>
+    <h2>
+      Shop by Category
+    </h2>
 
-    <p>Find what you need quickly.</p>
+    <p>
+      Find what you need quickly.
+    </p>
 
   </div>
 
   <div class="categories">
 
-    <div class="category" onclick="filterCategory('Electronics')">
-      <span class="category-icon">📱</span>
+    <div
+      class="category"
+      onclick="filterCategory('Electronics')"
+    >
+      <span class="category-icon">
+        📱
+      </span>
       Electronics
     </div>
 
-    <div class="category" onclick="filterCategory('Fashion')">
-      <span class="category-icon">👕</span>
+    <div
+      class="category"
+      onclick="filterCategory('Fashion')"
+    >
+      <span class="category-icon">
+        👕
+      </span>
       Fashion
     </div>
 
-    <div class="category" onclick="filterCategory('Shoes')">
-      <span class="category-icon">👟</span>
+    <div
+      class="category"
+      onclick="filterCategory('Shoes')"
+    >
+      <span class="category-icon">
+        👟
+      </span>
       Shoes
     </div>
 
-    <div class="category" onclick="filterCategory('Home')">
-      <span class="category-icon">🏠</span>
+    <div
+      class="category"
+      onclick="filterCategory('Home')"
+    >
+      <span class="category-icon">
+        🏠
+      </span>
       Home
     </div>
 
-    <div class="category" onclick="filterCategory('Beauty')">
-      <span class="category-icon">💄</span>
+    <div
+      class="category"
+      onclick="filterCategory('Beauty')"
+    >
+      <span class="category-icon">
+        💄
+      </span>
       Beauty
     </div>
 
-    <div class="category" onclick="filterCategory('Gaming')">
-      <span class="category-icon">🎮</span>
+    <div
+      class="category"
+      onclick="filterCategory('Gaming')"
+    >
+      <span class="category-icon">
+        🎮
+      </span>
       Gaming
     </div>
 
-    <div class="category" onclick="filterCategory('Kids')">
-      <span class="category-icon">🧸</span>
+    <div
+      class="category"
+      onclick="filterCategory('Kids')"
+    >
+      <span class="category-icon">
+        🧸
+      </span>
       Kids
     </div>
 
-    <div class="category" onclick="filterCategory('Other')">
-      <span class="category-icon">📦</span>
+    <div
+      class="category"
+      onclick="filterCategory('Other')"
+    >
+      <span class="category-icon">
+        📦
+      </span>
       Other
     </div>
 
@@ -696,13 +808,26 @@
 
   <div class="section-title">
 
-    <h2>Featured Products</h2>
+    <h2>
+      Featured Products
+    </h2>
 
-    <p>Discover products available at E&B SHOP.</p>
+    <p>
+      Discover products available at E&B SHOP.
+    </p>
 
   </div>
 
-  <div class="products-grid" id="productsGrid"></div>
+  <div
+    class="products-grid"
+    id="productsGrid"
+  >
+
+    <div class="empty-products">
+      Loading products...
+    </div>
+
+  </div>
 
 </section>
 
@@ -712,14 +837,21 @@
 <section>
 
   <div class="section-title">
-    <h2>About E&B SHOP</h2>
+
+    <h2>
+      About E&B SHOP
+    </h2>
+
   </div>
 
   <div class="about-box">
 
     <p>
       E&B SHOP is a modern online shopping platform created
-      for customers in <span class="sweden">Sweden 🇸🇪</span>.
+      for customers in
+      <span class="sweden">
+        Sweden 🇸🇪
+      </span>.
       Our goal is to make shopping simple by bringing many
       product categories together in one place.
     </p>
@@ -735,13 +867,18 @@
 
   <div class="newsletter">
 
-    <h2>Stay Updated</h2>
+    <h2>
+      Stay Updated
+    </h2>
 
     <p>
       Subscribe to receive updates about new products.
     </p>
 
-    <form class="newsletter-form" id="newsletterForm">
+    <form
+      class="newsletter-form"
+      id="newsletterForm"
+    >
 
       <input
         type="email"
@@ -763,122 +900,34 @@
 
 <footer>
 
-  © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
+  © 2026
+  <strong>
+    E&B SHOP
+  </strong>
+  — Sweden 🇸🇪
 
 </footer>
 
 
-<script>
+<script type="module">
 
-  const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
-
-  const PRODUCT_STORAGE_KEY = "ebShopProducts";
-
-  const defaultProducts = [
-    {
-      id: "p1",
-      name: "Smartphone",
-      price: 4999,
-      category: "Electronics",
-      stock: 10,
-      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800"
-    },
-
-    {
-      id: "p2",
-      name: "Sport Shoes",
-      price: 999,
-      category: "Shoes",
-      stock: 15,
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800"
-    },
-
-    {
-      id: "p3",
-      name: "Wireless Headphones",
-      price: 699,
-      category: "Electronics",
-      stock: 20,
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"
-    },
-
-    {
-      id: "p4",
-      name: "Smart Watch",
-      price: 899,
-      category: "Electronics",
-      stock: 12,
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
-    },
-
-    {
-      id: "p5",
-      name: "Fashion Bag",
-      price: 1299,
-      category: "Fashion",
-      stock: 8,
-      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800"
-    },
-
-    {
-      id: "p6",
-      name: "Home Air Fryer",
-      price: 1299,
-      category: "Home",
-      stock: 7,
-      image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=800"
-    },
-
-    {
-      id: "p7",
-      name: "Gaming Controller",
-      price: 599,
-      category: "Gaming",
-      stock: 14,
-      image: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=800"
-    },
-
-    {
-      id: "p8",
-      name: "Beauty Products",
-      price: 399,
-      category: "Beauty",
-      stock: 25,
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800"
-    }
-  ];
+  import { supabase } from "./supabaseClient.js";
 
 
-  function getProducts() {
+  /* =========================
+     ADMIN
+  ========================== */
 
-    const saved =
-      localStorage.getItem(PRODUCT_STORAGE_KEY);
+  const ADMIN_EMAIL =
+    "mucyoemmy@gmail.com";
 
-    if (!saved) {
 
-      localStorage.setItem(
-        PRODUCT_STORAGE_KEY,
-        JSON.stringify(defaultProducts)
-      );
+  let products = [];
 
-      return defaultProducts;
-    }
 
-    try {
-
-      return JSON.parse(saved);
-
-    } catch (error) {
-
-      localStorage.setItem(
-        PRODUCT_STORAGE_KEY,
-        JSON.stringify(defaultProducts)
-      );
-
-      return defaultProducts;
-    }
-  }
-
+  /* =========================
+     ESCAPE HTML
+  ========================== */
 
   function escapeHtml(value) {
 
@@ -892,346 +941,734 @@
   }
 
 
-  function renderProducts(products = getProducts()) {
+  /* =========================
+     LOAD PRODUCTS
+     FROM SUPABASE
+  ========================== */
+
+  async function loadProducts() {
 
     const grid =
-      document.getElementById("productsGrid");
-
-    if (!products.length) {
-
-      grid.innerHTML =
-        '<div class="empty-products">No products found.</div>';
-
-      return;
-    }
+      document.getElementById(
+        "productsGrid"
+      );
 
 
-    grid.innerHTML = products.map(product => `
+    grid.innerHTML = `
+      <div class="empty-products">
+        Loading products...
+      </div>
+    `;
 
-      <article class="product-card">
-
-        <img
-          class="product-image"
-          src="${escapeHtml(product.image)}"
-          alt="${escapeHtml(product.name)}"
-        >
-
-        <div class="product-content">
-
-          <div class="product-category">
-            ${escapeHtml(product.category)}
-          </div>
-
-          <h3>
-            ${escapeHtml(product.name)}
-          </h3>
-
-          <div class="product-price">
-            ${Number(product.price).toLocaleString()} SEK
-          </div>
-
-          <div class="product-actions">
-
-            <a
-              class="view-btn"
-              href="product-details.html?product=${encodeURIComponent(product.id)}"
-            >
-              View
-            </a>
-
-            <button
-              class="add-btn"
-              onclick="addToCart('${product.id}')"
-              ${Number(product.stock) <= 0 ? "disabled" : ""}
-            >
-              ${Number(product.stock) <= 0 ? "Out of stock" : "Add"}
-            </button>
-
-          </div>
-
-        </div>
-
-      </article>
-
-    `).join("");
-  }
-
-
-  function addToCart(productId) {
-
-    const products = getProducts();
-
-    const product =
-      products.find(p => p.id === productId);
-
-    if (!product) return;
-
-    if (Number(product.stock) <= 0) {
-
-      alert("This product is out of stock.");
-
-      return;
-    }
-
-
-    let cart = [];
 
     try {
 
-      cart =
-        JSON.parse(
-          localStorage.getItem("ebShopCart")
-        ) || [];
+      const {
+        data,
+        error
+      } =
+        await supabase
+          .from("products")
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Could not load products:",
+          error
+        );
+
+
+        grid.innerHTML = `
+          <div class="empty-products">
+            Could not load products.
+          </div>
+        `;
+
+
+        return;
+      }
+
+
+      products =
+        Array.isArray(data)
+          ? data
+          : [];
+
+
+      renderProducts(
+        products
+      );
+
 
     } catch (error) {
 
-      cart = [];
-    }
+      console.error(
+        "Unexpected product loading error:",
+        error
+      );
 
 
-    const existing =
-      cart.find(item => item.id === product.id);
-
-
-    if (existing) {
-
-      existing.quantity =
-        Number(existing.quantity || 0) + 1;
-
-    } else {
-
-      cart.push({
-
-        id: product.id,
-
-        name: product.name,
-
-        price: Number(product.price),
-
-        quantity: 1
-
-      });
+      grid.innerHTML = `
+        <div class="empty-products">
+          Could not load products.
+        </div>
+      `;
 
     }
-
-
-    localStorage.setItem(
-      "ebShopCart",
-      JSON.stringify(cart)
-    );
-
-    updateCartCount();
-
-    alert(
-      product.name + " added to cart!"
-    );
 
   }
 
+
+  /* =========================
+     RENDER PRODUCTS
+  ========================== */
+
+  function renderProducts(
+    list = products
+  ) {
+
+    const grid =
+      document.getElementById(
+        "productsGrid"
+      );
+
+
+    if (!list.length) {
+
+      grid.innerHTML = `
+        <div class="empty-products">
+          No products available.
+        </div>
+      `;
+
+
+      return;
+    }
+
+
+    grid.innerHTML =
+      list
+        .map(product => {
+
+          const image =
+            product.image || "";
+
+
+          const name =
+            product.name ||
+            "E&B SHOP Product";
+
+
+          const category =
+            product.category ||
+            "Other";
+
+
+          const price =
+            Number(product.price) || 0;
+
+
+          const stock =
+            Number(product.stock) || 0;
+
+
+          const imageHTML =
+            image
+              ? `
+                <img
+                  class="product-image"
+                  src="${escapeHtml(image)}"
+                  alt="${escapeHtml(name)}"
+                >
+              `
+              : `
+                <div
+                  class="product-image"
+                  style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#151515;
+                    font-size:50px;
+                  "
+                >
+                  🛍️
+                </div>
+              `;
+
+
+          return `
+
+            <article class="product-card">
+
+              ${imageHTML}
+
+              <div class="product-content">
+
+                <div class="product-category">
+                  ${escapeHtml(category)}
+                </div>
+
+                <h3>
+                  ${escapeHtml(name)}
+                </h3>
+
+                <div class="product-price">
+                  ${price.toLocaleString("sv-SE")} SEK
+                </div>
+
+                <div class="product-actions">
+
+                  <a
+                    class="view-btn"
+                    href="product-details.html?product=${encodeURIComponent(product.id)}"
+                  >
+                    View
+                  </a>
+
+                  <button
+                    class="add-btn"
+                    onclick="addToCart('${escapeHtml(product.id)}')"
+                    ${stock <= 0 ? "disabled" : ""}
+                  >
+                    ${
+                      stock <= 0
+                        ? "Out of stock"
+                        : "Add"
+                    }
+                  </button>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          `;
+
+        })
+        .join("");
+
+  }
+
+
+  /* =========================
+     ADD TO CART
+  ========================== */
+
+  window.addToCart =
+    function(productId) {
+
+      const product =
+        products.find(
+          item =>
+            String(item.id) ===
+            String(productId)
+        );
+
+
+      if (!product) {
+
+        alert(
+          "Product could not be found."
+        );
+
+
+        return;
+      }
+
+
+      const stock =
+        Number(product.stock) || 0;
+
+
+      if (stock <= 0) {
+
+        alert(
+          "This product is out of stock."
+        );
+
+
+        return;
+      }
+
+
+      let cart = [];
+
+
+      try {
+
+        cart =
+          JSON.parse(
+            localStorage.getItem(
+              "ebShopCart"
+            ) || "[]"
+          );
+
+
+        if (!Array.isArray(cart)) {
+          cart = [];
+        }
+
+
+      } catch {
+
+        cart = [];
+
+      }
+
+
+      const existing =
+        cart.find(
+          item =>
+            String(item.id) ===
+            String(product.id)
+        );
+
+
+      if (existing) {
+
+        const currentQuantity =
+          Number(
+            existing.quantity
+          ) || 0;
+
+
+        if (
+          currentQuantity >= stock
+        ) {
+
+          alert(
+            "You reached the available stock."
+          );
+
+
+          return;
+        }
+
+
+        existing.quantity =
+          currentQuantity + 1;
+
+
+        existing.name =
+          product.name;
+
+
+        existing.price =
+          Number(product.price) || 0;
+
+
+        existing.image =
+          product.image || "";
+
+
+        existing.description =
+          product.description || "";
+
+
+        existing.stock =
+          stock;
+
+
+      } else {
+
+        cart.push({
+
+          id:
+            product.id,
+
+          name:
+            product.name,
+
+          price:
+            Number(product.price) || 0,
+
+          quantity:
+            1,
+
+          image:
+            product.image || "",
+
+          description:
+            product.description || "",
+
+          stock:
+            stock
+
+        });
+
+      }
+
+
+      localStorage.setItem(
+        "ebShopCart",
+        JSON.stringify(cart)
+      );
+
+
+      updateCartCount();
+
+
+      alert(
+        product.name +
+        " added to cart!"
+      );
+
+    };
+
+
+  /* =========================
+     CART COUNT
+  ========================== */
 
   function updateCartCount() {
 
     let cart = [];
 
+
     try {
 
       cart =
         JSON.parse(
-          localStorage.getItem("ebShopCart")
-        ) || [];
+          localStorage.getItem(
+            "ebShopCart"
+          ) || "[]"
+        );
 
-    } catch (error) {
+
+      if (!Array.isArray(cart)) {
+        cart = [];
+      }
+
+
+    } catch {
 
       cart = [];
+
     }
 
 
     const count =
       cart.reduce(
-        (total, item) =>
-          total + Number(item.quantity || 0),
+        (
+          total,
+          item
+        ) =>
+          total +
+          (
+            Number(
+              item.quantity
+            ) || 0
+          ),
         0
       );
 
 
-    document.getElementById("cartCount").textContent =
+    document.getElementById(
+      "cartCount"
+    ).textContent =
       count;
 
   }
 
 
-  function filterCategory(category) {
+  /* =========================
+     CATEGORY FILTER
+  ========================== */
 
-    const products = getProducts();
-
-    const filtered =
-      products.filter(
-        product =>
-          String(product.category).toLowerCase() ===
-          category.toLowerCase()
-      );
-
-    renderProducts(filtered);
-
-    document
-      .getElementById("products")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
-
-
-  document
-    .getElementById("mainSearch")
-    .addEventListener("input", function() {
-
-      const search =
-        this.value.trim().toLowerCase();
-
-      const products =
-        getProducts();
+  window.filterCategory =
+    function(category) {
 
       const filtered =
-        products.filter(product =>
-
-          String(product.name)
-            .toLowerCase()
-            .includes(search)
-
-          ||
-
-          String(product.category)
-            .toLowerCase()
-            .includes(search)
-
+        products.filter(
+          product =>
+            String(
+              product.category || ""
+            ).toLowerCase() ===
+            category.toLowerCase()
         );
 
-      renderProducts(filtered);
 
-    });
-
-
-  function updateUserArea() {
-
-    const email =
-      localStorage.getItem("ebShopCustomerEmail");
-
-    const name =
-      localStorage.getItem("ebShopCustomerName");
+      renderProducts(
+        filtered
+      );
 
 
-    const loginLink =
-      document.getElementById("loginLink");
+      document
+        .getElementById(
+          "products"
+        )
+        .scrollIntoView({
+          behavior: "smooth"
+        });
 
-    const registerLink =
-      document.getElementById("registerLink");
-
-    const adminButton =
-      document.getElementById("adminButton");
-
-    const userArea =
-      document.getElementById("userArea");
-
-    const userName =
-      document.getElementById("userName");
+    };
 
 
-    // DEFAULT STATE
-
-    loginLink.style.display = "inline-block";
-
-    registerLink.style.display = "inline-block";
-
-    adminButton.style.display = "none";
-
-    userArea.style.display = "none";
-
-
-    if (!email) {
-      return;
-    }
-
-
-    // LOGGED-IN CUSTOMER
-
-    loginLink.style.display = "none";
-
-    registerLink.style.display = "none";
-
-    userArea.style.display = "flex";
-
-    userName.textContent =
-      name || email;
-
-
-    // OWNER / ADMIN
-
-    if (
-      email.trim().toLowerCase() ===
-      ADMIN_EMAIL.toLowerCase()
-    ) {
-
-      adminButton.style.display =
-        "inline-block";
-
-    }
-
-  }
-
-
-  function logout() {
-
-    localStorage.removeItem(
-      "ebShopCustomerEmail"
-    );
-
-    localStorage.removeItem(
-      "ebShopCustomerName"
-    );
-
-    localStorage.removeItem(
-      "ebShopCustomerPhone"
-    );
-
-    localStorage.removeItem(
-      "ebShopLoggedIn"
-    );
-
-    window.location.href =
-      "index.html";
-
-  }
-
+  /* =========================
+     SEARCH
+  ========================== */
 
   document
-    .getElementById("newsletterForm")
-    .addEventListener("submit", function(event) {
+    .getElementById(
+      "mainSearch"
+    )
+    .addEventListener(
+      "input",
+      function() {
 
-      event.preventDefault();
+        const search =
+          this.value
+            .trim()
+            .toLowerCase();
+
+
+        const filtered =
+          products.filter(
+            product => {
+
+              const name =
+                String(
+                  product.name || ""
+                ).toLowerCase();
+
+
+              const category =
+                String(
+                  product.category || ""
+                ).toLowerCase();
+
+
+              const description =
+                String(
+                  product.description || ""
+                ).toLowerCase();
+
+
+              return (
+                name.includes(
+                  search
+                ) ||
+                category.includes(
+                  search
+                ) ||
+                description.includes(
+                  search
+                )
+              );
+
+            }
+          );
+
+
+        renderProducts(
+          filtered
+        );
+
+      }
+    );
+
+
+  /* =========================
+     USER AREA
+  ========================== */
+
+  async function updateUserArea() {
+
+    const loginLink =
+      document.getElementById(
+        "loginLink"
+      );
+
+
+    const registerLink =
+      document.getElementById(
+        "registerLink"
+      );
+
+
+    const adminButton =
+      document.getElementById(
+        "adminButton"
+      );
+
+
+    const userArea =
+      document.getElementById(
+        "userArea"
+      );
+
+
+    const userName =
+      document.getElementById(
+        "userName"
+      );
+
+
+    loginLink.style.display =
+      "inline-block";
+
+
+    registerLink.style.display =
+      "inline-block";
+
+
+    adminButton.style.display =
+      "none";
+
+
+    userArea.style.display =
+      "none";
+
+
+    try {
+
+      const {
+        data: {
+          user
+        }
+      } =
+        await supabase.auth.getUser();
+
+
+      if (!user) {
+        return;
+      }
+
+
+      loginLink.style.display =
+        "none";
+
+
+      registerLink.style.display =
+        "none";
+
+
+      userArea.style.display =
+        "flex";
+
 
       const email =
-        document.getElementById(
-          "newsletterEmail"
-        ).value.trim();
+        user.email || "";
 
-      localStorage.setItem(
-        "ebShopNewsletterEmail",
+
+      userName.textContent =
+        email;
+
+
+      if (
         email
+          .trim()
+          .toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase()
+      ) {
+
+        adminButton.style.display =
+          "inline-block";
+
+      }
+
+
+    } catch (error) {
+
+      console.error(
+        "Could not load user:",
+        error
       );
 
-      alert(
-        "Thank you for subscribing!"
-      );
+    }
 
-      this.reset();
-
-    });
+  }
 
 
-  // START WEBSITE
+  /* =========================
+     LOGOUT
+  ========================== */
 
-  renderProducts();
+  document
+    .getElementById(
+      "logoutButton"
+    )
+    .addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          await supabase.auth.signOut();
+
+        } catch (error) {
+
+          console.error(
+            "Logout error:",
+            error
+          );
+
+        }
+
+
+        window.location.href =
+          "index.html";
+
+      }
+    );
+
+
+  /* =========================
+     NEWSLETTER
+  ========================== */
+
+  document
+    .getElementById(
+      "newsletterForm"
+    )
+    .addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById(
+              "newsletterEmail"
+            )
+            .value
+            .trim();
+
+
+        localStorage.setItem(
+          "ebShopNewsletterEmail",
+          email
+        );
+
+
+        alert(
+          "Thank you for subscribing!"
+        );
+
+
+        this.reset();
+
+      }
+    );
+
+
+  /* =========================
+     START WEBSITE
+  ========================== */
+
+  loadProducts();
 
   updateCartCount();
 
