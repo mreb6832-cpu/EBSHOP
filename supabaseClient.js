@@ -1,14 +1,12 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const SUPABASE_URL =
-  "https://zfieaqyctllvpxqhfuds.supabase.co";
+  "https://akbictykozgaeuvbqbjl.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_MiaCjYNbhsvWn4hadaSFaQ_jokbx0mG";
+const SUPABASE_KEY =
+  "sb_publishable_Y4soeQaBE8hn8RazFTZPpQ_7eoaw_cB";
 
 export const supabase = createClient(
   SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
+  SUPABASE_KEY
 );
-
-export const supabaseReady = true;
