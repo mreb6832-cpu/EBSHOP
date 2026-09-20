@@ -1,72 +1,527 @@
-<script type="module">
-  import { supabase } from "./supabaseClient.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  const CART_KEY = "ebShopCart";
+  <title>Checkout | E&B SHOP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    header {
+      height: 70px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+    }
+
+    .logo {
+      color: #111;
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #d6a900;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: #c99d00;
+    }
+
+    .page {
+      width: 92%;
+      max-width: 1050px;
+      margin: 45px auto 70px;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .title p {
+      color: #777;
+    }
+
+    .checkout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr;
+      gap: 25px;
+    }
+
+    .box {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 25px;
+    }
+
+    .box h2 {
+      font-size: 21px;
+      margin-bottom: 22px;
+    }
+
+    .product {
+      display: flex;
+      gap: 18px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 22px;
+    }
+
+    .product-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #eee;
+      flex-shrink: 0;
+    }
+
+    .placeholder {
+      width: 110px;
+      height: 110px;
+      background: #eee;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      flex-shrink: 0;
+    }
+
+    .product-info h3 {
+      font-size: 19px;
+      margin-bottom: 9px;
+    }
+
+    .description {
+      color: #777;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      color: #b18400;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .quantity {
+      color: #666;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0 13px;
+      font-size: 15px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #d1a400;
+    }
+
+    .methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .method {
+      border: 1px solid #ccc;
+      border-radius: 9px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+      background: white;
+    }
+
+    .method.active {
+      border: 2px solid #d1a400;
+      background: #fffdf3;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+      color: #555;
+    }
+
+    .summary-row strong {
+      color: #111;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 22px;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .total span:last-child {
+      color: #b18400;
+    }
+
+    #payButton {
+      width: 100%;
+      height: 52px;
+      margin-top: 25px;
+      border: none;
+      border-radius: 8px;
+      background: #d6aa00;
+      color: #111;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    #payButton:hover {
+      background: #e5ba12;
+    }
+
+    #payButton:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #message {
+      min-height: 22px;
+      margin-top: 15px;
+      color: #d33;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 22px;
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back:hover {
+      color: #b18400;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 45px 10px;
+      color: #777;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid #ddd;
+      text-align: center;
+      padding: 25px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .checkout {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 0 4%;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .page {
+        width: 94%;
+        margin-top: 30px;
+      }
+
+      .box {
+        padding: 18px;
+      }
+
+      .product-image,
+      .placeholder {
+        width: 85px;
+        height: 85px;
+      }
+
+      .title h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    E<span>&</span>B SHOP
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<main class="page">
+
+  <div class="title">
+    <h1>Checkout</h1>
+    <p>Complete your order securely.</p>
+  </div>
+
+  <div class="checkout">
+
+    <section class="box">
+
+      <h2>Your Order</h2>
+
+      <div id="orderArea">
+        <div class="empty">
+          Loading your order...
+        </div>
+      </div>
+
+      <h2>Customer Information</h2>
+
+      <label for="customerEmail">
+        Email
+      </label>
+
+      <input
+        id="customerEmail"
+        type="email"
+        placeholder="you@example.com"
+      >
+
+      <label for="customerPhone">
+        Phone
+      </label>
+
+      <input
+        id="customerPhone"
+        type="tel"
+        placeholder="+46..."
+      >
+
+      <h2>Payment Method</h2>
+
+      <div class="methods">
+
+        <div
+          id="cardOption"
+          class="method active"
+        >
+          💳 Card
+        </div>
+
+        <div
+          id="klarnaOption"
+          class="method"
+        >
+          Klarna
+        </div>
+
+      </div>
+
+      <div id="message"></div>
+
+      <button
+        id="payButton"
+        type="button"
+      >
+        Pay
+      </button>
+
+      <a
+        href="cart.html"
+        class="back"
+      >
+        ← Back to Cart
+      </a>
+
+    </section>
+
+
+    <aside class="box">
+
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="subtotal">
+          SEK 0.00
+        </strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery</span>
+        <strong>
+          FREE
+        </strong>
+      </div>
+
+      <div class="total">
+        <span>Total</span>
+
+        <span id="total">
+          SEK 0.00
+        </span>
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  © 2026 E&B SHOP. All rights reserved.
+</footer>
+
+
+<script type="module">
+
+  import { supabase }
+    from "./supabaseClient.js";
+
+
+  const CART_KEY =
+    "ebShopCart";
+
 
   let cart = [];
 
 
-  /* =========================
-     ELEMENTS
-  ========================== */
-
-  const payButton =
-    document.getElementById("payButton");
-
-  const message =
-    document.getElementById("message");
-
-  const productName =
-    document.getElementById("productName");
-
-  const productDescription =
-    document.getElementById("productDescription");
-
-  const productPriceTop =
-    document.getElementById("productPriceTop");
-
-  const productQuantity =
-    document.getElementById("productQuantity");
-
-  const productImage =
-    document.getElementById("productImage");
+  const orderArea =
+    document.getElementById(
+      "orderArea"
+    );
 
   const subtotal =
-    document.getElementById("subtotal");
+    document.getElementById(
+      "subtotal"
+    );
 
-  const totalElement =
-    document.getElementById("total");
+  const total =
+    document.getElementById(
+      "total"
+    );
+
+  const payButton =
+    document.getElementById(
+      "payButton"
+    );
+
+  const message =
+    document.getElementById(
+      "message"
+    );
 
   const customerEmail =
-    document.getElementById("customerEmail");
+    document.getElementById(
+      "customerEmail"
+    );
 
   const customerPhone =
-    document.getElementById("customerPhone");
+    document.getElementById(
+      "customerPhone"
+    );
 
   const cardOption =
-    document.getElementById("cardOption");
+    document.getElementById(
+      "cardOption"
+    );
 
   const klarnaOption =
-    document.getElementById("klarnaOption");
+    document.getElementById(
+      "klarnaOption"
+    );
 
-
-  /* =========================
-     LOAD CART
-  ========================== */
 
   function loadCart() {
+
     try {
-      cart = JSON.parse(
-        localStorage.getItem(CART_KEY) || "[]"
-      );
+
+      const saved =
+        localStorage.getItem(
+          CART_KEY
+        );
+
+      cart =
+        saved
+          ? JSON.parse(saved)
+          : [];
 
       if (!Array.isArray(cart)) {
         cart = [];
       }
 
     } catch (error) {
+
       console.error(
-        "Could not load cart:",
+        "Cart loading error:",
         error
       );
 
@@ -75,11 +530,8 @@
   }
 
 
-  /* =========================
-     SAVE CART
-  ========================== */
-
   function saveCart() {
+
     localStorage.setItem(
       CART_KEY,
       JSON.stringify(cart)
@@ -87,311 +539,288 @@
   }
 
 
-  /* =========================
-     ESCAPE HTML
-  ========================== */
-
   function escapeHtml(value) {
+
     return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
   }
 
 
-  /* =========================
-     LOAD PRODUCTS
-     FROM SUPABASE
-  ========================== */
+  function formatPrice(price) {
 
-  async function syncCartWithSupabase() {
+    return (
+      "SEK " +
+      Number(price || 0)
+        .toLocaleString(
+          "sv-SE",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )
+    );
+  }
+
+
+  async function loadProducts() {
 
     if (!cart.length) {
-      showEmptyCart();
-      return;
-    }
 
-
-    const productIds = cart
-      .map(item => item.id)
-      .filter(Boolean);
-
-
-    if (!productIds.length) {
-      message.textContent =
-        "Your cart contains an old product item. Please return to the products page and add the product again.";
-
-      showOrderSummary();
+      showEmpty();
 
       return;
     }
 
 
-    try {
-
-      const { data, error } =
-        await supabase
-          .from("products")
-          .select(
-            "id, name, price, stock, category, image, description"
-          )
-          .in("id", productIds);
+    const ids =
+      cart
+        .map(item => item.id)
+        .filter(Boolean);
 
 
-      if (error) {
-        console.error(
-          "Supabase product error:",
-          error
-        );
+    if (!ids.length) {
 
-        message.textContent =
-          "Could not load your products.";
+      showEmpty();
 
-        showOrderSummary();
-
-        return;
-      }
+      return;
+    }
 
 
-      const products =
-        Array.isArray(data)
-          ? data
-          : [];
+    const {
+      data,
+      error
+    } = await supabase
+      .from("products")
+      .select(
+        "id,name,price,stock,image,description"
+      )
+      .in(
+        "id",
+        ids
+      );
 
 
-      const syncedCart = [];
-
-
-      for (const item of cart) {
-
-        const product =
-          products.find(
-            p =>
-              String(p.id) ===
-              String(item.id)
-          );
-
-
-        if (!product) {
-          continue;
-        }
-
-
-        const stock =
-          Number(product.stock) || 0;
-
-        const requestedQuantity =
-          Number(item.quantity) || 1;
-
-
-        if (stock <= 0) {
-          continue;
-        }
-
-
-        const quantity =
-          Math.min(
-            requestedQuantity,
-            stock
-          );
-
-
-        syncedCart.push({
-          id: product.id,
-          name: product.name || "E&B SHOP Product",
-          price: Number(product.price) || 0,
-          quantity,
-          stock,
-          category: product.category || "",
-          image: product.image || "",
-          description:
-            product.description ||
-            "High quality product"
-        });
-
-      }
-
-
-      cart = syncedCart;
-
-      saveCart();
-
-      showOrderSummary();
-
-
-    } catch (error) {
+    if (error) {
 
       console.error(
-        "Unexpected Supabase error:",
+        "Supabase error:",
         error
       );
 
-      message.textContent =
-        "Could not load your products.";
+      orderArea.innerHTML = `
+        <div class="empty">
+          Could not load your order.
+        </div>
+      `;
 
-      showOrderSummary();
-    }
-  }
+      payButton.disabled = true;
 
-
-  /* =========================
-     EMPTY CART
-  ========================== */
-
-  function showEmptyCart() {
-
-    productName.textContent =
-      "Your cart is empty";
-
-    productDescription.textContent =
-      "Add products before checkout";
-
-    productQuantity.textContent =
-      "× 0";
-
-    productPriceTop.textContent =
-      "SEK 0.00";
-
-    subtotal.textContent =
-      "SEK 0.00";
-
-    totalElement.textContent =
-      "SEK 0.00";
-
-    productImage.innerHTML = `
-      <div class="product-placeholder">
-        🛍️
-      </div>
-    `;
-  }
-
-
-  /* =========================
-     ORDER SUMMARY
-  ========================== */
-
-  function showOrderSummary() {
-
-    if (!cart.length) {
-      showEmptyCart();
       return;
     }
 
 
-    /*
-      Show the first product
-      in the left checkout panel.
-    */
-
-    const firstItem =
-      cart[0];
+    const products =
+      data || [];
 
 
-    productName.textContent =
-      firstItem.name ||
-      "E&B SHOP Product";
-
-
-    productDescription.textContent =
-      firstItem.description ||
-      "High quality product";
-
-
-    productQuantity.textContent =
-      `× ${firstItem.quantity}`;
-
-
-    if (firstItem.image) {
-
-      productImage.innerHTML = `
-        <img
-          src="${escapeHtml(firstItem.image)}"
-          alt="${escapeHtml(
-            firstItem.name || "Product"
-          )}"
-        >
-      `;
-
-    } else {
-
-      productImage.innerHTML = `
-        <div class="product-placeholder">
-          🛍️
-        </div>
-      `;
-    }
-
-
-    let total = 0;
+    const newCart = [];
 
 
     cart.forEach(item => {
 
-      const price =
-        Number(item.price) || 0;
+      const product =
+        products.find(
+          p =>
+            String(p.id) ===
+            String(item.id)
+        );
 
-      const quantity =
+
+      if (!product) {
+        return;
+      }
+
+
+      const stock =
+        Number(product.stock) || 0;
+
+
+      if (stock <= 0) {
+        return;
+      }
+
+
+      let quantity =
         Number(item.quantity) || 1;
 
-      total +=
-        price * quantity;
+
+      if (quantity > stock) {
+        quantity = stock;
+      }
+
+
+      newCart.push({
+
+        id: product.id,
+
+        name:
+          product.name,
+
+        price:
+          Number(product.price) || 0,
+
+        stock,
+
+        quantity,
+
+        image:
+          product.image || "",
+
+        description:
+          product.description || ""
+
+      });
 
     });
 
 
-    const formattedTotal =
-      `SEK ${total.toFixed(2)}`;
+    cart = newCart;
+
+    saveCart();
+
+    renderOrder();
+  }
 
 
-    /*
-      The product price shown
-      on the left represents
-      the whole cart total.
-    */
+  function showEmpty() {
 
-    productPriceTop.textContent =
-      formattedTotal;
+    orderArea.innerHTML = `
+      <div class="empty">
+        Your cart is empty.
+        <br><br>
+        <a
+          href="products.html"
+          style="color:#b18400;text-decoration:none;"
+        >
+          Start Shopping →
+        </a>
+      </div>
+    `;
 
     subtotal.textContent =
-      formattedTotal;
+      "SEK 0.00";
 
-    totalElement.textContent =
-      formattedTotal;
+    total.textContent =
+      "SEK 0.00";
+
+    payButton.disabled = true;
   }
 
 
-  /* =========================
-     SAVED CUSTOMER INFO
-  ========================== */
+  function renderOrder() {
 
-  const savedEmail =
-    localStorage.getItem(
-      "ebShopCustomerEmail"
-    );
+    if (!cart.length) {
 
-  const savedPhone =
-    localStorage.getItem(
-      "ebShopCustomerPhone"
-    );
+      showEmpty();
+
+      return;
+    }
 
 
-  if (savedEmail) {
-    customerEmail.value =
-      savedEmail;
+    let totalAmount = 0;
+
+
+    orderArea.innerHTML =
+      cart.map(item => {
+
+        const quantity =
+          Number(item.quantity) || 1;
+
+        const price =
+          Number(item.price) || 0;
+
+        totalAmount +=
+          price * quantity;
+
+
+        const image =
+          item.image
+            ? `
+              <img
+                class="product-image"
+                src="${escapeHtml(item.image)}"
+                alt="${escapeHtml(item.name)}"
+              >
+            `
+            : `
+              <div class="placeholder">
+                🛍️
+              </div>
+            `;
+
+
+        return `
+          <div class="product">
+
+            ${image}
+
+            <div class="product-info">
+
+              <h3>
+                ${escapeHtml(item.name)}
+              </h3>
+
+              <div class="description">
+                ${escapeHtml(
+                  item.description ||
+                  "E&B SHOP Product"
+                )}
+              </div>
+
+              <div class="price">
+                ${formatPrice(price)}
+              </div>
+
+              <div class="quantity">
+                Quantity: ${quantity}
+              </div>
+
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+
+
+    subtotal.textContent =
+      formatPrice(totalAmount);
+
+    total.textContent =
+      formatPrice(totalAmount);
+
+    payButton.disabled = false;
   }
 
-
-  if (savedPhone) {
-    customerPhone.value =
-      savedPhone;
-  }
-
-
-  /* =========================
-     PAYMENT METHOD
-  ========================== */
 
   cardOption.addEventListener(
     "click",
@@ -423,9 +852,29 @@
   );
 
 
-  /* =========================
-     SAVE CUSTOMER INFO
-  ========================== */
+  const savedEmail =
+    localStorage.getItem(
+      "ebShopCustomerEmail"
+    );
+
+
+  const savedPhone =
+    localStorage.getItem(
+      "ebShopCustomerPhone"
+    );
+
+
+  if (savedEmail) {
+    customerEmail.value =
+      savedEmail;
+  }
+
+
+  if (savedPhone) {
+    customerPhone.value =
+      savedPhone;
+  }
+
 
   customerEmail.addEventListener(
     "change",
@@ -450,10 +899,6 @@
     }
   );
 
-
-  /* =========================
-     STRIPE CHECKOUT
-  ========================== */
 
   payButton.addEventListener(
     "click",
@@ -483,21 +928,18 @@
       }
 
 
-      payButton.disabled = true;
+      payButton.disabled =
+        true;
 
       payButton.textContent =
         "Processing...";
 
-      message.textContent = "";
+
+      message.textContent =
+        "";
 
 
       try {
-
-        /*
-          Send only the current
-          Supabase product data
-          to the Stripe backend.
-        */
 
         const items =
           cart.map(item => ({
@@ -521,20 +963,50 @@
               },
 
               body: JSON.stringify({
+
                 items,
-                customerEmail: email,
+
+                customerEmail:
+                  email,
+
                 customerPhone:
                   customerPhone.value.trim()
+
               })
             }
           );
+
+
+        const contentType =
+          response.headers.get(
+            "content-type"
+          ) || "";
+
+
+        if (
+          !contentType.includes(
+            "application/json"
+          )
+        ) {
+
+          const text =
+            await response.text();
+
+          throw new Error(
+            text ||
+            "Payment server returned an invalid response."
+          );
+        }
 
 
         const data =
           await response.json();
 
 
-        if (!response.ok || !data.url) {
+        if (
+          !response.ok ||
+          !data.url
+        ) {
 
           throw new Error(
             data.error ||
@@ -542,11 +1014,6 @@
           );
         }
 
-
-        /*
-          Go to Stripe's
-          secure checkout.
-        */
 
         window.location.href =
           data.url;
@@ -575,12 +1042,11 @@
   );
 
 
-  /* =========================
-     START
-  ========================== */
-
   loadCart();
 
-  syncCartWithSupabase();
+  await loadProducts();
 
 </script>
+
+</body>
+</html>
