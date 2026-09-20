@@ -1,392 +1,222 @@
-<script type="module">
-  import { supabase } from "./supabaseClient.js";
+<!DOCTYPE html>
 
-  const CART_KEY = "ebShopCart";
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  let cart = [];
+  <title>E&B SHOP - Cart</title>
 
-  const cartItems =
-    document.getElementById("cartItems");
-
-  const itemCount =
-    document.getElementById("itemCount");
-
-  const subtotal =
-    document.getElementById("subtotal");
-
-  const total =
-    document.getElementById("total");
-
-  const checkoutButton =
-    document.getElementById("checkoutButton");
-
-
-  /* =========================
-     LOAD CART
-  ========================== */
-
-  function loadCart() {
-    try {
-      cart =
-        JSON.parse(
-          localStorage.getItem(CART_KEY) || "[]"
-        );
-
-      if (!Array.isArray(cart)) {
-        cart = [];
-      }
-
-    } catch {
-      cart = [];
-    }
-  }
-
-
-  /* =========================
-     SAVE CART
-  ========================== */
-
-  function saveCart() {
-    localStorage.setItem(
-      CART_KEY,
-      JSON.stringify(cart)
-    );
-  }
-
-
-  /* =========================
-     LOAD PRODUCT DATA
-     FROM SUPABASE
-  ========================== */
-
-  async function syncProductsFromSupabase() {
-    if (!cart.length) {
-      renderCart();
-      return;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    const productIds = cart
-      .map(item => item.id)
-      .filter(Boolean);
-
-    if (!productIds.length) {
-      renderCart();
-      return;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
     }
 
-    try {
-      const { data, error } = await supabase
-        .from("products")
-        .select(
-          "id, name, price, stock, image"
-        )
-        .in("id", productIds);
-
-      if (error) {
-        console.error(
-          "Could not load cart products:",
-          error
-        );
-
-        renderCart();
-        return;
-      }
-
-      const products =
-        Array.isArray(data)
-          ? data
-          : [];
-
-      cart = cart.filter(item => {
-        const product =
-          products.find(
-            product =>
-              String(product.id) ===
-              String(item.id)
-          );
-
-        if (!product) {
-          return false;
-        }
-
-        item.name =
-          product.name;
-
-        item.price =
-          Number(product.price) || 0;
-
-        item.image =
-          product.image || "";
-
-        item.stock =
-          Number(product.stock) || 0;
-
-        return true;
-      });
-
-      saveCart();
-
-      renderCart();
-
-    } catch (error) {
-      console.error(
-        "Unexpected product loading error:",
-        error
-      );
-
-      renderCart();
-    }
-  }
-
-
-  /* =========================
-     ESCAPE HTML
-  ========================== */
-
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-
-  /* =========================
-     RENDER CART
-  ========================== */
-
-  function renderCart() {
-    cartItems.innerHTML = "";
-
-    let totalAmount = 0;
-    let totalItems = 0;
-
-    if (!cart.length) {
-      cartItems.innerHTML = `
-        <div class="empty">
-          Your cart is empty.
-        </div>
-      `;
-
-      itemCount.textContent = "0";
-      subtotal.textContent = "0 SEK";
-      total.textContent = "0 SEK";
-
-      return;
+    header {
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      border-bottom: 1px solid #292929;
+      background: #050505;
     }
 
-
-    cart.forEach((item, index) => {
-      const price =
-        Number(item.price) || 0;
-
-      const quantity =
-        Number(item.quantity) || 1;
-
-      const itemTotal =
-        price * quantity;
-
-      totalAmount += itemTotal;
-      totalItems += quantity;
-
-
-      const image =
-        item.image || "";
-
-      const name =
-        item.name ||
-        "E&B SHOP Product";
-
-
-      const imageHTML =
-        image
-          ? `
-            <img
-              class="product-image"
-              src="${escapeHtml(image)}"
-              alt="${escapeHtml(name)}"
-            >
-          `
-          : `
-            <div
-              class="product-image"
-              style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:#777;
-                font-size:30px;
-              "
-            >
-              🛍️
-            </div>
-          `;
-
-
-      cartItems.innerHTML += `
-        <div class="cart-item">
-
-          ${imageHTML}
-
-          <div>
-
-            <div class="product-name">
-              ${escapeHtml(name)}
-            </div>
-
-            <div class="product-price">
-              ${price.toLocaleString("sv-SE")} SEK
-            </div>
-
-            <div class="quantity-area">
-
-              <button
-                class="quantity-btn"
-                onclick="changeQuantity(${index}, -1)"
-                type="button"
-              >
-                −
-              </button>
-
-              <span class="quantity">
-                ${quantity}
-              </span>
-
-              <button
-                class="quantity-btn"
-                onclick="changeQuantity(${index}, 1)"
-                type="button"
-              >
-                +
-              </button>
-
-              <button
-                class="remove-btn"
-                onclick="removeItem(${index})"
-                type="button"
-              >
-                Remove
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="item-total">
-            ${itemTotal.toLocaleString("sv-SE")} SEK
-          </div>
-
-        </div>
-      `;
-    });
-
-
-    itemCount.textContent =
-      totalItems;
-
-    subtotal.textContent =
-      `${totalAmount.toLocaleString("sv-SE")} SEK`;
-
-    total.textContent =
-      `${totalAmount.toLocaleString("sv-SE")} SEK`;
-  }
-
-
-  /* =========================
-     CHANGE QUANTITY
-  ========================== */
-
-  window.changeQuantity =
-    function(index, amount) {
-      if (!cart[index]) {
-        return;
-      }
-
-      const currentQuantity =
-        Number(
-          cart[index].quantity
-        ) || 1;
-
-      const newQuantity =
-        currentQuantity + amount;
-
-      const stock =
-        Number(
-          cart[index].stock
-        ) || 0;
-
-      if (amount > 0 && stock > 0) {
-        if (newQuantity > stock) {
-          alert(
-            "You reached the available stock."
-          );
-          return;
-        }
-      }
-
-      cart[index].quantity =
-        newQuantity;
-
-      if (
-        cart[index].quantity <= 0
-      ) {
-        cart.splice(index, 1);
-      }
-
-      saveCart();
-
-      renderCart();
-    };
-
-
-  /* =========================
-     REMOVE ITEM
-  ========================== */
-
-  window.removeItem =
-    function(index) {
-      if (!cart[index]) {
-        return;
-      }
-
-      cart.splice(index, 1);
-
-      saveCart();
-
-      renderCart();
-    };
-
-
-  /* =========================
-     PROCEED TO CHECKOUT
-  ========================== */
-
-  checkoutButton.addEventListener(
-    "click",
-    () => {
-      if (!cart.length) {
-        alert(
-          "Your cart is empty."
-        );
-
-        return;
-      }
-
-      saveCart();
-
-      window.location.href =
-        "payment.html";
+    .logo {
+      color: #e3b82f;
+      font-size: 30px;
+      font-weight: 800;
     }
-  );
 
+    nav {
+      display: flex;
+      gap: 28px;
+    }
 
-  /* =========================
-     START
-  ========================== */
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
 
-  loadCart();
+    nav a:hover {
+      color: #e3b82f;
+    }
 
-  syncProductsFromSupabase();
-</script>
+    .hero {
+      text-align: center;
+      padding: 60px 20px 45px;
+    }
+
+    .hero h1 {
+      color: #e3b82f;
+      font-size: 50px;
+      margin: 0 0 14px;
+    }
+
+    .hero p {
+      color: #aeb6c2;
+      font-size: 21px;
+      margin: 0;
+    }
+
+    .cart-layout {
+      width: 88%;
+      max-width: 1400px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      padding-bottom: 60px;
+    }
+
+    .cart-box,
+    .summary-box {
+      background: #111111;
+      border: 1px solid #292929;
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .box-title {
+      color: #e3b82f;
+      font-size: 32px;
+      margin: 0 0 45px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-bottom: 25px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #292929;
+    }
+
+    .product-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .product-name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .product-price {
+      color: #e3b82f;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 17px;
+    }
+
+    .quantity-area {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .quantity-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid #444;
+      border-radius: 9px;
+      background: #171717;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .quantity-btn:hover {
+      border-color: #e3b82f;
+      color: #e3b82f;
+    }
+
+    .quantity {
+      font-size: 18px;
+      min-width: 15px;
+      text-align: center;
+    }
+
+    .remove-btn {
+      border: none;
+      background: transparent;
+      color: #999;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 5px;
+    }
+
+    .remove-btn:hover {
+      color: #ff5b5b;
+    }
+
+    .item-total {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 21px 0;
+      border-bottom: 1px solid #292929;
+      color: #bfc6d0;
+      font-size: 19px;
+    }
+
+    .summary-row strong {
+      color: white;
+    }
+
+    .free {
+      color: #e3b82f !important;
+      font-weight: 700;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .total-price {
+      color: #e3b82f;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      height: 64px;
+      margin-top: 40px;
+      border: none;
+      border-radius: 10px;
+      background: #e3b82f;
+      color: #080808;
+      font-size: 19px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background: #f0c83f;
+    }
+
+    .continue-shopping {
+      display: block;
+      text-align: center;
+      m
