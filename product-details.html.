@@ -1,607 +1,312 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="module">
+  import { supabase } from "./supabaseClient.js";
 
-  <title>Product Details | E&B SHOP</title>
-
-  <meta
-    name="description"
-    content="View product details and add products to your E&B SHOP cart."
-  >
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #080808;
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #111;
-      border-bottom: 1px solid #d4af37;
-      padding: 18px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      color: #d4af37;
-      font-size: 25px;
-      font-weight: bold;
-    }
-
-    nav {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    nav a:hover {
-      color: #d4af37;
-    }
-
-    .cart-link {
-      color: #d4af37;
-      font-weight: bold;
-    }
-
-    main {
-      width: 92%;
-      max-width: 1100px;
-      margin: 55px auto;
-    }
-
-    .back {
-      display: inline-block;
-      color: #d4af37;
-      text-decoration: none;
-      margin-bottom: 25px;
-    }
-
-    .product {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 45px;
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      padding: 30px;
-    }
-
-    .image-box {
-      min-height: 420px;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #0b0b0b;
-    }
-
-    .image-box img {
-      width: 100%;
-      height: 100%;
-      min-height: 420px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .details {
-      padding: 15px 0;
-    }
-
-    .category {
-      color: #d4af37;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 42px;
-      margin-bottom: 15px;
-    }
-
-    .price {
-      color: #d4af37;
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 25px;
-    }
-
-    .description {
-      color: #aaa;
-      line-height: 1.7;
-      margin-bottom: 25px;
-    }
-
-    .stock {
-      color: #7fd47f;
-      margin-bottom: 20px;
-    }
-
-    .quantity-box {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .quantity-box label {
-      color: #ccc;
-    }
-
-    .quantity-box input {
-      width: 80px;
-      padding: 12px;
-      background: #080808;
-      color: #fff;
-      border: 1px solid #444;
-      border-radius: 8px;
-      font-size: 16px;
-      text-align: center;
-    }
-
-    .add-btn {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 9px;
-      background: #d4af37;
-      color: #000;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .add-btn:hover {
-      background: #f0d46a;
-    }
-
-    .message {
-      display: none;
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 8px;
-      background: #102010;
-      border: 1px solid #3b713b;
-      color: #bce8bc;
-      text-align: center;
-    }
-
-    .cart-button {
-      display: block;
-      text-align: center;
-      margin-top: 12px;
-      padding: 14px;
-      border: 1px solid #d4af37;
-      border-radius: 9px;
-      color: #d4af37;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid #222;
-      color: #777;
-      margin-top: 60px;
-    }
-
-    @media (max-width: 800px) {
-
-      .product {
-        grid-template-columns: 1fr;
-      }
-
-      .image-box,
-      .image-box img {
-        min-height: 300px;
-      }
-
-      h1 {
-        font-size: 32px;
-      }
-
-      header {
-        justify-content: center;
-      }
-
-      nav {
-        justify-content: center;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-
-  <div class="logo">
-    🛒 E&B SHOP
-  </div>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="cart.html" class="cart-link">
-      🛒 Cart (<span id="cartCount">0</span>)
-    </a>
-    <a href="orders.html">My Orders</a>
-    <a href="account.html">My Account</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
-</header>
-
-
-<main>
-
-  <a href="products.html" class="back">
-    ← Back to Products
-  </a>
-
-  <div class="product">
-
-    <div class="image-box">
-      <img
-        id="productImage"
-        src=""
-        alt="Product"
-      >
-    </div>
-
-
-    <div class="details">
-
-      <div class="category" id="productCategory">
-        Product
-      </div>
-
-      <h1 id="productName">
-        Product Name
-      </h1>
-
-      <div class="price" id="productPrice">
-        0 SEK
-      </div>
-
-      <p class="description" id="productDescription">
-        Product description.
-      </p>
-
-      <div class="stock">
-        ✓ Available
-      </div>
-
-      <div class="quantity-box">
-
-        <label for="quantity">
-          Quantity:
-        </label>
-
-        <input
-          type="number"
-          id="quantity"
-          min="1"
-          value="1"
-        >
-
-      </div>
-
-      <button class="add-btn" id="addButton">
-        🛒 Add to Cart
-      </button>
-
-      <a href="cart.html" class="cart-button">
-        View Cart
-      </a>
-
-      <div class="message" id="message">
-        ✅ Product added to cart!
-      </div>
-
-    </div>
-
-  </div>
-
-</main>
-
-
-<footer>
-  © 2026 E&B SHOP — Sweden 🇸🇪
-</footer>
-
-
-<script>
-
-  /*
-    Product data.
-    These demo products can later be replaced
-    with products from the real database.
-  */
-
-  const products = {
-
-    smartphone: {
-      name: "Smartphone",
-      price: 4999,
-      category: "Electronics",
-      description:
-        "A modern smartphone suitable for everyday communication, entertainment and online shopping.",
-      image:
-        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "sport-shoes": {
-      name: "Sport Shoes",
-      price: 999,
-      category: "Shoes",
-      description:
-        "Comfortable sport shoes designed for everyday use and active lifestyles.",
-      image:
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "wireless-headphones": {
-      name: "Wireless Headphones",
-      price: 699,
-      category: "Electronics",
-      description:
-        "Wireless headphones for music, videos and everyday entertainment.",
-      image:
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "smart-watch": {
-      name: "Smart Watch",
-      price: 899,
-      category: "Electronics",
-      description:
-        "A modern smart watch for everyday activities, notifications and useful features.",
-      image:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "fashion-bag": {
-      name: "Fashion Bag",
-      price: 1299,
-      category: "Fashion",
-      description:
-        "A stylish everyday bag suitable for different occasions.",
-      image:
-        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "home-air-fryer": {
-      name: "Home Air Fryer",
-      price: 1299,
-      category: "Home",
-      description:
-        "A practical kitchen air fryer for preparing a variety of meals.",
-      image:
-        "https://images.unsplash.com/photo-1585515656973-7d6b5c3f3f5f?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "gaming-controller": {
-      name: "Gaming Controller",
-      price: 599,
-      category: "Gaming",
-      description:
-        "A comfortable controller for gaming and entertainment.",
-      image:
-        "https://images.unsplash.com/photo-1605901309584-818e25960a8f?auto=format&fit=crop&w=1000&q=80"
-    },
-
-    "beauty-products": {
-      name: "Beauty Products",
-      price: 399,
-      category: "Beauty",
-      description:
-        "A selection of beauty products for everyday personal care.",
-      image:
-        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1000&q=80"
-    }
-
-  };
-
+  const CART_KEY = "ebShopCart";
 
   function getProductId() {
-
     const params = new URLSearchParams(
       window.location.search
     );
 
-    return params.get("product") || "smartphone";
+    return params.get("product");
   }
 
 
   function formatPrice(price) {
-
-    return Number(price).toLocaleString("sv-SE")
-      + " SEK";
-
+    return (
+      Number(price || 0).toLocaleString("sv-SE") +
+      " SEK"
+    );
   }
 
 
-  function loadProduct() {
-
+  async function loadProduct() {
     const productId = getProductId();
 
-    const product = products[productId];
-
-    if (!product) {
-
-      document.getElementById("productName").textContent =
-        "Product not found";
-
-      document.getElementById("productDescription").textContent =
-        "The product you are looking for could not be found.";
-
-      document.getElementById("addButton").style.display =
-        "none";
-
+    if (!productId) {
+      showProductNotFound();
       return;
-
     }
 
+    try {
+      const { data: product, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("id", productId)
+        .maybeSingle();
 
+      if (error) {
+        console.error(
+          "Could not load product:",
+          error
+        );
+
+        showProductNotFound();
+        return;
+      }
+
+      if (!product) {
+        showProductNotFound();
+        return;
+      }
+
+      displayProduct(product);
+
+    } catch (error) {
+      console.error(
+        "Unexpected error:",
+        error
+      );
+
+      showProductNotFound();
+    }
+  }
+
+
+  function displayProduct(product) {
     document.getElementById("productName").textContent =
-      product.name;
+      product.name || "Unnamed Product";
 
     document.getElementById("productPrice").textContent =
       formatPrice(product.price);
 
     document.getElementById("productCategory").textContent =
-      product.category;
+      product.category || "Other";
 
     document.getElementById("productDescription").textContent =
-      product.description;
+      product.description ||
+      "No description available.";
 
-    document.getElementById("productImage").src =
-      product.image;
+    const image =
+      document.getElementById("productImage");
 
-    document.getElementById("productImage").alt =
-      product.name;
+    if (product.image) {
+      image.src = product.image;
+      image.alt =
+        product.name || "Product";
+      image.style.display = "block";
+    } else {
+      image.removeAttribute("src");
+      image.alt = "No product image";
+      image.style.display = "none";
+    }
 
+    const stock =
+      Number(product.stock) || 0;
 
-    document.getElementById("addButton")
-      .addEventListener("click", function() {
+    const stockElement =
+      document.querySelector(".stock");
 
-        addToCart(product);
+    if (stock > 0) {
+      stockElement.textContent =
+        `✓ ${stock} available`;
 
-      });
+      stockElement.style.color =
+        "#7fd47f";
+    } else {
+      stockElement.textContent =
+        "Out of stock";
 
-  }
-
-
-  function addToCart(product) {
+      stockElement.style.color =
+        "#ff7777";
+    }
 
     const quantityInput =
       document.getElementById("quantity");
 
+    quantityInput.max =
+      stock > 0 ? stock : 1;
+
+    if (stock <= 0) {
+      quantityInput.disabled = true;
+    }
+
+    const addButton =
+      document.getElementById("addButton");
+
+    if (stock <= 0) {
+      addButton.disabled = true;
+      addButton.textContent =
+        "Out of Stock";
+      addButton.style.background =
+        "#292929";
+      addButton.style.color =
+        "#666";
+      addButton.style.cursor =
+        "not-allowed";
+    } else {
+      addButton.addEventListener(
+        "click",
+        function () {
+          addToCart(product);
+        }
+      );
+    }
+  }
+
+
+  function showProductNotFound() {
+    document.getElementById("productName").textContent =
+      "Product not found";
+
+    document.getElementById("productPrice").textContent =
+      "0 SEK";
+
+    document.getElementById("productCategory").textContent =
+      "Product";
+
+    document.getElementById("productDescription").textContent =
+      "The product you are looking for could not be found.";
+
+    document.getElementById("productImage")
+      .style.display = "none";
+
+    document.getElementById("addButton")
+      .style.display = "none";
+
+    document.getElementById("quantity")
+      .disabled = true;
+  }
+
+
+  function addToCart(product) {
+    const quantityInput =
+      document.getElementById("quantity");
+
     let quantity =
-      parseInt(quantityInput.value);
+      parseInt(quantityInput.value, 10);
+
+    const stock =
+      Number(product.stock) || 0;
 
     if (!quantity || quantity < 1) {
       quantity = 1;
     }
 
+    if (quantity > stock) {
+      quantity = stock;
+    }
+
+    if (quantity <= 0) {
+      showMessage(
+        "This product is out of stock."
+      );
+      return;
+    }
 
     let cart = [];
 
     try {
+      cart =
+        JSON.parse(
+          localStorage.getItem(CART_KEY) || "[]"
+        );
 
-      cart = JSON.parse(
-        localStorage.getItem("ebShopCart")
-      ) || [];
+      if (!Array.isArray(cart)) {
+        cart = [];
+      }
 
-    } catch (error) {
-
+    } catch {
       cart = [];
-
     }
-
 
     const existing =
-      cart.find(item => item.name === product.name);
-
+      cart.find(
+        item =>
+          String(item.id) ===
+          String(product.id)
+      );
 
     if (existing) {
+      const currentQuantity =
+        Number(existing.quantity) || 0;
 
-      existing.quantity += quantity;
+      if (
+        currentQuantity + quantity >
+        stock
+      ) {
+        showMessage(
+          "You reached the available stock."
+        );
+        return;
+      }
+
+      existing.quantity =
+        currentQuantity + quantity;
 
     } else {
-
       cart.push({
-
+        id: product.id,
         name: product.name,
-        price: product.price,
+        price:
+          Number(product.price) || 0,
         quantity: quantity
-
       });
-
     }
 
-
     localStorage.setItem(
-      "ebShopCart",
+      CART_KEY,
       JSON.stringify(cart)
     );
 
-
     updateCartCount();
 
+    showMessage(
+      product.name +
+      " added to cart!"
+    );
+  }
 
+
+  function showMessage(text) {
     const message =
       document.getElementById("message");
 
-    message.style.display = "block";
+    message.textContent =
+      "✅ " + text;
 
+    message.style.display =
+      "block";
 
-    setTimeout(function() {
-
-      message.style.display = "none";
-
+    setTimeout(function () {
+      message.style.display =
+        "none";
     }, 2500);
-
   }
 
 
   function updateCartCount() {
-
     let cart = [];
 
     try {
+      cart =
+        JSON.parse(
+          localStorage.getItem(CART_KEY) || "[]"
+        );
 
-      cart = JSON.parse(
-        localStorage.getItem("ebShopCart")
-      ) || [];
+      if (!Array.isArray(cart)) {
+        cart = [];
+      }
 
-    } catch (error) {
-
+    } catch {
       cart = [];
-
     }
 
+    const count =
+      cart.reduce(
+        (total, item) =>
+          total +
+          (Number(item.quantity) || 0),
+        0
+      );
 
-    const count = cart.reduce(
-      (total, item) =>
-        total + Number(item.quantity),
-      0
-    );
-
-
-    document.getElementById("cartCount")
-      .textContent = count;
-
+    document.getElementById(
+      "cartCount"
+    ).textContent = count;
   }
 
 
-  loadProduct();
   updateCartCount();
 
+  loadProduct();
 </script>
-
-</body>
-</html>
