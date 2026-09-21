@@ -252,6 +252,7 @@
 
   <header>
     <div class="nav">
+
       <a href="index.html" class="logo">
         🛒 <span>E&B</span> SHOP
       </a>
@@ -259,8 +260,10 @@
       <a href="index.html" class="back">
         ← Back to Shop
       </a>
+
     </div>
   </header>
+
 
   <main>
 
@@ -278,6 +281,7 @@
 
       <div id="message" class="message"></div>
 
+
       <form id="loginForm">
 
         <div class="form-group">
@@ -294,6 +298,7 @@
           >
 
         </div>
+
 
         <div class="form-group">
 
@@ -322,6 +327,7 @@
 
         </div>
 
+
         <button
           type="submit"
           class="login-btn"
@@ -331,21 +337,26 @@
 
       </form>
 
+
       <div class="divider">
         OR
       </div>
 
+
       <p class="register-text">
+
         Don't have an account?
 
         <a href="register.html">
           Create Account
         </a>
+
       </p>
 
     </div>
 
   </main>
+
 
   <footer>
     © 2026 E&B SHOP. All rights reserved. 🇸🇪
@@ -374,11 +385,13 @@
 
         event.preventDefault();
 
+
         const email =
           document
             .getElementById("email")
             .value
             .trim();
+
 
         const password =
           document
@@ -386,8 +399,11 @@
             .value;
 
 
-        message.className = "message";
-        message.textContent = "";
+        message.className =
+          "message";
+
+        message.textContent =
+          "";
 
 
         if (!email || !password) {
@@ -406,8 +422,11 @@
 
           const { data, error } =
             await supabase.auth.signInWithPassword({
+
               email: email,
+
               password: password
+
             });
 
 
@@ -433,6 +452,11 @@
 
         } catch (error) {
 
+          console.error(
+            "Login error:",
+            error
+          );
+
           message.className =
             "message error";
 
@@ -451,7 +475,9 @@
     ========================= */
 
     const forgotPassword =
-      document.getElementById("forgotPassword");
+      document.getElementById(
+        "forgotPassword"
+      );
 
 
     forgotPassword.addEventListener(
@@ -474,9 +500,11 @@
             "Please enter your email address first."
           );
 
+
           document
             .getElementById("email")
             .focus();
+
 
           return;
         }
@@ -484,20 +512,25 @@
 
         try {
 
+          /*
+            IMPORTANT:
+            Always use the production E&B SHOP URL.
+            Do not use a Vercel preview URL.
+          */
+
           const redirectUrl =
-            window.location.origin +
-            window.location.pathname.replace(
-              "login.html",
-              "reset-password.html"
-            );
+            "https://ebshop.vercel.app/reset-password.html";
 
 
           const { error } =
             await supabase.auth.resetPasswordForEmail(
+
               email,
+
               {
                 redirectTo: redirectUrl
               }
+
             );
 
 
@@ -512,6 +545,12 @@
 
 
         } catch (error) {
+
+          console.error(
+            "Password reset error:",
+            error
+          );
+
 
           alert(
             error.message ||
