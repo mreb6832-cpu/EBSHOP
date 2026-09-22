@@ -1,11 +1,12 @@
 {
   "name": "E&B SHOP",
   "short_name": "EB SHOP",
-  "description": "E&B SHOP - Online Shopping in Sweden",
+  "description": "E&B SHOP - Online Shop in Sweden",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ff6a00",
+  "background_color": "#070707",
+  "theme_color": "#d4af37",
   "orientation": "portrait",
   "icons": [
     {
