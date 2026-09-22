@@ -1,8 +1,6 @@
 import Stripe from "stripe";
 
 export default async function handler(req, res) {
-
-  // CORS
   res.setHeader("Vary", "Origin");
 
   res.setHeader(
@@ -20,26 +18,18 @@ export default async function handler(req, res) {
     "Content-Type"
   );
 
-
-  // Browser preflight
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
 
-
-  // Only POST
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method not allowed"
     });
   }
 
-
   try {
-
-    // Check Stripe key
-    const secretKey =
-      process.env.STRIPE_SECRET_KEY;
+    const secretKey = process.env.STRIPE_SECRET_KEY;
 
     if (!secretKey) {
       return res.status(500).json({
@@ -47,10 +37,7 @@ export default async function handler(req, res) {
       });
     }
 
-
-    // Create Stripe client
     const stripe = new Stripe(secretKey);
-
 
     const {
       items,
@@ -59,26 +46,39 @@ export default async function handler(req, res) {
       paymentMethod
     } = req.body || {};
 
-
-    // Check cart
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         error: "Cart is empty"
       });
     }
 
+    /*
+      E&B SHOP currently supports:
+      - Card
+      - Klarna
+    */
+    let paymentMethodTypes = ["card"];
 
-    // Build Stripe products
+    if (paymentMethod === "klarna") {
+      paymentMethodTypes = ["klarna"];
+    }
+
+    if (
+      paymentMethod !== "card" &&
+      paymentMethod !== "klarna"
+    ) {
+      return res.status(400).json({
+        error: "Unsupported payment method"
+      });
+    }
+
     const lineItems = items.map((item) => {
-
       const price = Number(item.price);
       const quantity = Number(item.quantity);
-
 
       if (!Number.isFinite(price) || price < 0) {
         throw new Error("Invalid product price");
       }
-
 
       if (
         !Number.isInteger(quantity) ||
@@ -87,36 +87,24 @@ export default async function handler(req, res) {
         throw new Error("Invalid product quantity");
       }
 
-
       return {
-
         price_data: {
-
           currency: "sek",
 
           product_data: {
             name: String(
-              item.name ||
-              "E&B SHOP Product"
+              item.name || "E&B SHOP Product"
             )
           },
 
-          unit_amount:
-            Math.round(price * 100)
-
+          unit_amount: Math.round(price * 100)
         },
 
         quantity
-
       };
-
     });
 
-
-    // Frontend URL
-    const baseUrl =
-      process.env.FRONTEND_URL;
-
+    const baseUrl = process.env.FRONTEND_URL;
 
     if (!baseUrl) {
       return res.status(500).json({
@@ -124,25 +112,8 @@ export default async function handler(req, res) {
       });
     }
 
-
-    // Payment method
-    let paymentMethodTypes = ["card"];
-
-
-    if (paymentMethod === "swish") {
-      paymentMethodTypes = ["swish"];
-    }
-
-
-    if (paymentMethod === "klarna") {
-      paymentMethodTypes = ["klarna"];
-    }
-
-
-    // Create Stripe Checkout Session
     const session =
       await stripe.checkout.sessions.create({
-
         mode: "payment",
 
         line_items: lineItems,
@@ -161,13 +132,11 @@ export default async function handler(req, res) {
         },
 
         metadata: {
-
           customerPhone:
             customerPhone || "",
 
           paymentMethod:
             paymentMethod || "card"
-
         },
 
         success_url:
@@ -175,30 +144,22 @@ export default async function handler(req, res) {
 
         cancel_url:
           `${baseUrl}/payment.html?payment=cancelled`
-
       });
 
-
-    // Return Stripe Checkout URL
     return res.status(200).json({
       url: session.url
     });
 
-
   } catch (error) {
-
     console.error(
       "Stripe Checkout Error:",
       error
     );
-
 
     return res.status(500).json({
       error:
         error?.message ||
         "Could not create Stripe Checkout session"
     });
-
   }
-
 }
