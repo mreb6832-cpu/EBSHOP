@@ -1,7 +1,5 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export default async function handler(req, res) {
 
   // CORS
@@ -39,6 +37,21 @@ export default async function handler(req, res) {
 
   try {
 
+    // Check Stripe key
+    const secretKey =
+      process.env.STRIPE_SECRET_KEY;
+
+    if (!secretKey) {
+      return res.status(500).json({
+        error: "STRIPE_SECRET_KEY is not configured"
+      });
+    }
+
+
+    // Create Stripe client
+    const stripe = new Stripe(secretKey);
+
+
     const {
       items,
       customerEmail,
@@ -71,9 +84,7 @@ export default async function handler(req, res) {
         !Number.isInteger(quantity) ||
         quantity < 1
       ) {
-        throw new Error(
-          "Invalid product quantity"
-        );
+        throw new Error("Invalid product quantity");
       }
 
 
@@ -108,12 +119,9 @@ export default async function handler(req, res) {
 
 
     if (!baseUrl) {
-
       return res.status(500).json({
-        error:
-          "FRONTEND_URL is not configured"
+        error: "FRONTEND_URL is not configured"
       });
-
     }
 
 
@@ -122,20 +130,16 @@ export default async function handler(req, res) {
 
 
     if (paymentMethod === "swish") {
-
       paymentMethodTypes = ["swish"];
-
     }
 
 
     if (paymentMethod === "klarna") {
-
       paymentMethodTypes = ["klarna"];
-
     }
 
 
-    // Stripe Checkout
+    // Create Stripe Checkout Session
     const session =
       await stripe.checkout.sessions.create({
 
@@ -175,11 +179,9 @@ export default async function handler(req, res) {
       });
 
 
-    // Return Stripe URL
+    // Return Stripe Checkout URL
     return res.status(200).json({
-
       url: session.url
-
     });
 
 
@@ -192,11 +194,9 @@ export default async function handler(req, res) {
 
 
     return res.status(500).json({
-
       error:
-        error.message ||
+        error?.message ||
         "Could not create Stripe Checkout session"
-
     });
 
   }
