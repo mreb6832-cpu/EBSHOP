@@ -42,33 +42,12 @@ export default async function handler(req, res) {
     const {
       items,
       customerEmail,
-      customerPhone,
-      paymentMethod
+      customerPhone
     } = req.body || {};
 
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         error: "Cart is empty"
-      });
-    }
-
-    /*
-      E&B SHOP currently supports:
-      - Card
-      - Klarna
-    */
-    let paymentMethodTypes = ["card"];
-
-    if (paymentMethod === "klarna") {
-      paymentMethodTypes = ["klarna"];
-    }
-
-    if (
-      paymentMethod !== "card" &&
-      paymentMethod !== "klarna"
-    ) {
-      return res.status(400).json({
-        error: "Unsupported payment method"
       });
     }
 
@@ -80,10 +59,7 @@ export default async function handler(req, res) {
         throw new Error("Invalid product price");
       }
 
-      if (
-        !Number.isInteger(quantity) ||
-        quantity < 1
-      ) {
+      if (!Number.isInteger(quantity) || quantity < 1) {
         throw new Error("Invalid product quantity");
       }
 
@@ -112,39 +88,32 @@ export default async function handler(req, res) {
       });
     }
 
-    const session =
-      await stripe.checkout.sessions.create({
-        mode: "payment",
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
 
-        line_items: lineItems,
+      line_items: lineItems,
 
-        payment_method_types:
-          paymentMethodTypes,
+      customer_email:
+        customerEmail || undefined,
 
-        customer_email:
-          customerEmail || undefined,
+      billing_address_collection:
+        "required",
 
-        billing_address_collection:
-          "required",
+      phone_number_collection: {
+        enabled: true
+      },
 
-        phone_number_collection: {
-          enabled: true
-        },
+      metadata: {
+        customerPhone:
+          customerPhone || ""
+      },
 
-        metadata: {
-          customerPhone:
-            customerPhone || "",
+      success_url:
+        `${baseUrl}/orders.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
 
-          paymentMethod:
-            paymentMethod || "card"
-        },
-
-        success_url:
-          `${baseUrl}/orders.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
-
-        cancel_url:
-          `${baseUrl}/payment.html?payment=cancelled`
-      });
+      cancel_url:
+        `${baseUrl}/payment.html?payment=cancelled`
+    });
 
     return res.status(200).json({
       url: session.url
