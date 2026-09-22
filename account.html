@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,6 @@
       color: #d4af37;
     }
 
-    /* HEADER */
     header {
       background: #050505;
       border-bottom: 1px solid #2a2a2a;
@@ -70,11 +70,16 @@
       color: #d4af37;
     }
 
+    .shop-btn,
+    .admin-btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
     .shop-btn {
       border: 1px solid #d4af37;
       color: #d4af37;
-      padding: 10px 16px;
-      border-radius: 8px;
     }
 
     .shop-btn:hover {
@@ -82,7 +87,17 @@
       color: #000;
     }
 
-    /* MAIN */
+    .admin-btn {
+      display: none;
+      background: #d4af37;
+      color: #000;
+      border: 1px solid #d4af37;
+    }
+
+    .admin-btn:hover {
+      background: #f0cc55;
+    }
+
     main {
       width: 90%;
       max-width: 1150px;
@@ -109,14 +124,12 @@
       margin-top: 10px;
     }
 
-    /* ACCOUNT GRID */
     .account-grid {
       display: grid;
       grid-template-columns: 280px 1fr;
       gap: 25px;
     }
 
-    /* SIDEBAR */
     .sidebar {
       background: #111;
       border: 1px solid #292929;
@@ -181,6 +194,16 @@
       color: #d4af37;
     }
 
+    .admin-link {
+      display: none !important;
+      color: #d4af37 !important;
+      border: 1px solid #4a3b0d !important;
+    }
+
+    .admin-link:hover {
+      background: #1d1a0d !important;
+    }
+
     .logout {
       color: #ff7777;
     }
@@ -189,7 +212,6 @@
       background: #251414;
     }
 
-    /* CONTENT */
     .content {
       display: grid;
       gap: 20px;
@@ -211,7 +233,6 @@
       color: #d4af37;
     }
 
-    /* STATS */
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -242,7 +263,6 @@
       font-size: 13px;
     }
 
-    /* PROFILE INFO */
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -268,7 +288,6 @@
       word-break: break-word;
     }
 
-    /* ORDERS */
     .empty-orders {
       text-align: center;
       padding: 35px 15px;
@@ -299,14 +318,12 @@
       background: #f0cc55;
     }
 
-    /* SECURITY */
     .security {
       color: #aaa;
       line-height: 1.7;
       font-size: 14px;
     }
 
-    /* FOOTER */
     footer {
       margin-top: 70px;
       background: #050505;
@@ -321,7 +338,6 @@
       color: #d4af37;
     }
 
-    /* MOBILE */
     @media (max-width: 800px) {
       header {
         flex-direction: column;
@@ -369,264 +385,565 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header>
+<header>
 
-    <a href="index.html" class="logo">
-      🛒 <span>E&B</span> SHOP
+  <a href="index.html" class="logo">
+    🛒 <span>E&B</span> SHOP
+  </a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Products</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+
+    <a
+      href="admin.html"
+      id="adminTopButton"
+      class="admin-btn"
+    >
+      👑 Admin
     </a>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="index.html#products">Products</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#contact">Contact</a>
-      <a href="index.html" class="shop-btn">🛍 Shop Now</a>
-    </nav>
+    <a href="index.html" class="shop-btn">
+      🛍 Shop Now
+    </a>
+  </nav>
 
-  </header>
+</header>
 
+<main>
 
-  <!-- MAIN -->
-  <main>
+  <section class="welcome">
 
-    <section class="welcome">
-      <small>🇸🇪 E&B SHOP • SWEDEN</small>
+    <small>🇸🇪 E&B SHOP • SWEDEN</small>
 
-      <h1>
-        Welcome, <span class="gold" id="welcomeName">Customer</span> 👋
-      </h1>
+    <h1>
+      Welcome,
+      <span class="gold" id="welcomeName">
+        Customer
+      </span>
+      👋
+    </h1>
 
-      <p>
-        Manage your E&B SHOP account, orders and personal information.
-      </p>
+    <p>
+      Manage your E&B SHOP account, orders and personal information.
+    </p>
+
+  </section>
+
+  <div class="account-grid">
+
+    <aside class="sidebar">
+
+      <div class="profile">
+
+        <div class="avatar" id="avatar">
+          E
+        </div>
+
+        <h3 id="profileName">
+          Customer
+        </h3>
+
+        <p id="profileEmail">
+          Loading...
+        </p>
+
+      </div>
+
+      <div class="side-links">
+
+        <a href="#overview">
+          🏠 Account Overview
+        </a>
+
+        <a href="#profile">
+          👤 My Information
+        </a>
+
+        <a href="#orders">
+          📦 My Orders
+        </a>
+
+        <a
+          href="admin.html"
+          id="adminSideButton"
+          class="admin-link"
+        >
+          👑 Owner / Admin Dashboard
+        </a>
+
+        <a href="index.html#products">
+          🛍 Continue Shopping
+        </a>
+
+        <button
+          class="logout"
+          id="logoutBtn"
+        >
+          🚪 Logout
+        </button>
+
+      </div>
+
+    </aside>
+
+    <section class="content">
+
+      <div class="card" id="overview">
+
+        <h2>
+          Account <span>Overview</span>
+        </h2>
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-icon">📦</div>
+            <strong>0</strong>
+            <p>Total Orders</p>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">🛒</div>
+            <strong id="cartCount">0</strong>
+            <p>Cart Items</p>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">🇸🇪</div>
+            <strong>SEK</strong>
+            <p>Shopping Currency</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card" id="profile">
+
+        <h2>
+          My <span>Information</span>
+        </h2>
+
+        <div class="info-grid">
+
+          <div class="info-box">
+            <label>FULL NAME</label>
+            <p id="infoName">Loading...</p>
+          </div>
+
+          <div class="info-box">
+            <label>EMAIL ADDRESS</label>
+            <p id="infoEmail">Loading...</p>
+          </div>
+
+          <div class="info-box">
+            <label>PHONE NUMBER</label>
+            <p id="infoPhone">Not added yet</p>
+          </div>
+
+          <div class="info-box">
+            <label>COUNTRY</label>
+            <p>🇸🇪 Sweden</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card" id="orders">
+
+        <h2>
+          My <span>Orders</span>
+        </h2>
+
+        <div class="empty-orders">
+
+          <div class="icon">📦</div>
+
+          <h3>No orders yet</h3>
+
+          <p>
+            Your orders will appear here after you make a purchase.
+          </p>
+
+          <a
+            href="index.html#products"
+            class="browse-btn"
+          >
+            Browse Products
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <h2>
+          Account <span>Security</span>
+        </h2>
+
+        <p class="security">
+          Your account is authenticated through Supabase.
+          Your password is handled by Supabase Auth and is not stored
+          directly in this page.
+        </p>
+
+      </div>
+
     </section>
 
+  </div>
 
-    <div class="account-grid">
+</main>
 
-      <!-- SIDEBAR -->
-      <aside class="sidebar">
-
-        <div class="profile">
-
-          <div class="avatar" id="avatar">
-            E
-          </div>
-
-          <h3 id="profileName">
-            Customer
-          </h3>
-
-          <p id="profileEmail">
-            customer@example.com
-          </p>
-
-        </div>
+<footer>
+  © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
+  <br>
+  Everything You Need in One Shop.
+</footer>
 
 
-        <div class="side-links">
+<script type="module">
 
-          <a href="#overview">
-            🏠 Account Overview
-          </a>
-
-          <a href="#profile">
-            👤 My Information
-          </a>
-
-          <a href="#orders">
-            📦 My Orders
-          </a>
-
-          <a href="index.html#products">
-            🛍 Continue Shopping
-          </a>
-
-          <button class="logout" id="logoutBtn">
-            🚪 Logout
-          </button>
-
-        </div>
-
-      </aside>
+  import { supabase } from "./supabaseClient.js";
 
 
-      <!-- CONTENT -->
-      <section class="content">
+  /*
+    ==========================================
+    E&B SHOP ADMIN CONFIGURATION
+    ==========================================
 
-        <!-- OVERVIEW -->
-        <div class="card" id="overview">
+    Replace this with the exact email of
+    the E&B SHOP owner/admin account.
+  */
 
-          <h2>
-            Account <span>Overview</span>
-          </h2>
-
-          <div class="stats">
-
-            <div class="stat">
-              <div class="stat-icon">📦</div>
-              <strong>0</strong>
-              <p>Total Orders</p>
-            </div>
-
-            <div class="stat">
-              <div class="stat-icon">🛒</div>
-              <strong>0</strong>
-              <p>Cart Items</p>
-            </div>
-
-            <div class="stat">
-              <div class="stat-icon">🇸🇪</div>
-              <strong>SEK</strong>
-              <p>Shopping Currency</p>
-            </div>
-
-          </div>
-
-        </div>
+  const ADMIN_EMAIL =
+    "YOUR_ADMIN_EMAIL@example.com";
 
 
-        <!-- PERSONAL INFORMATION -->
-        <div class="card" id="profile">
+  const adminTopButton =
+    document.getElementById("adminTopButton");
 
-          <h2>
-            My <span>Information</span>
-          </h2>
+  const adminSideButton =
+    document.getElementById("adminSideButton");
 
-          <div class="info-grid">
+  const welcomeName =
+    document.getElementById("welcomeName");
 
-            <div class="info-box">
-              <label>FULL NAME</label>
-              <p id="infoName">Customer</p>
-            </div>
+  const profileName =
+    document.getElementById("profileName");
 
-            <div class="info-box">
-              <label>EMAIL ADDRESS</label>
-              <p id="infoEmail">customer@example.com</p>
-            </div>
+  const profileEmail =
+    document.getElementById("profileEmail");
 
-            <div class="info-box">
-              <label>PHONE NUMBER</label>
-              <p id="infoPhone">Not added yet</p>
-            </div>
+  const infoName =
+    document.getElementById("infoName");
 
-            <div class="info-box">
-              <label>COUNTRY</label>
-              <p>🇸🇪 Sweden</p>
-            </div>
+  const infoEmail =
+    document.getElementById("infoEmail");
 
-          </div>
+  const infoPhone =
+    document.getElementById("infoPhone");
 
-        </div>
+  const avatar =
+    document.getElementById("avatar");
 
+  const cartCount =
+    document.getElementById("cartCount");
 
-        <!-- ORDERS -->
-        <div class="card" id="orders">
-
-          <h2>
-            My <span>Orders</span>
-          </h2>
-
-          <div class="empty-orders">
-
-            <div class="icon">📦</div>
-
-            <h3>No orders yet</h3>
-
-            <p>
-              Your orders will appear here after you make a purchase.
-            </p>
-
-            <a href="index.html#products" class="browse-btn">
-              Browse Products
-            </a>
-
-          </div>
-
-        </div>
+  const logoutBtn =
+    document.getElementById("logoutBtn");
 
 
-        <!-- SECURITY -->
-        <div class="card">
+  /*
+    ==========================================
+    CART COUNT
+    ==========================================
+  */
 
-          <h2>
-            Account <span>Security</span>
-          </h2>
+  function updateCartCount() {
 
-          <p class="security">
-            Your account information is currently stored locally for this
-            demo version of E&B SHOP. Real authentication, password recovery,
-            database storage and secure customer accounts will be connected
-            in a later step.
-          </p>
+    try {
 
-        </div>
+      const saved =
+        localStorage.getItem("ebShopCart");
 
-      </section>
+      const cart =
+        saved ? JSON.parse(saved) : [];
 
-    </div>
+      if (!Array.isArray(cart)) {
+        cartCount.textContent = "0";
+        return;
+      }
 
-  </main>
+      const count =
+        cart.reduce(
+          (total, item) =>
+            total +
+            (Number(item.quantity) || 1),
+          0
+        );
+
+      cartCount.textContent =
+        String(count);
+
+    } catch (error) {
+
+      console.error(
+        "Cart count error:",
+        error
+      );
+
+      cartCount.textContent = "0";
+    }
+  }
 
 
-  <!-- FOOTER -->
-  <footer>
-    © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
-    <br>
-    Everything You Need in One Shop.
-  </footer>
+  /*
+    ==========================================
+    SHOW ADMIN BUTTONS
+    ==========================================
+  */
+
+  function showAdminAccess() {
+
+    adminTopButton.style.display =
+      "inline-block";
+
+    adminSideButton.style.display =
+      "block";
+  }
 
 
-  <script>
+  /*
+    ==========================================
+    HIDE ADMIN BUTTONS
+    ==========================================
+  */
+
+  function hideAdminAccess() {
+
+    adminTopButton.style.display =
+      "none";
+
+    adminSideButton.style.display =
+      "none";
+  }
+
+
+  /*
+    ==========================================
+    LOAD SUPABASE USER
+    ==========================================
+  */
+
+  async function loadAccount() {
+
+    const {
+      data,
+      error
+    } = await supabase.auth.getUser();
+
+
+    if (error) {
+
+      console.error(
+        "Supabase Auth error:",
+        error
+      );
+
+      window.location.href =
+        "login.html";
+
+      return;
+    }
+
+
+    const user =
+      data?.user;
+
+
+    if (!user) {
+
+      window.location.href =
+        "login.html";
+
+      return;
+    }
+
 
     /*
-      E&B SHOP ACCOUNT
-      ----------------
-      This version uses localStorage because
-      real database authentication has not been
-      connected yet.
+      User email
     */
 
-    const name =
-      localStorage.getItem("ebShopCustomerName") || "Customer";
-
     const email =
-      localStorage.getItem("ebShopCustomerEmail") ||
-      "customer@example.com";
+      (user.email || "").trim();
+
+
+    /*
+      User metadata
+
+      These allow the signup page to save
+      the customer's name and phone.
+    */
+
+    const metadata =
+      user.user_metadata || {};
+
+
+    const name =
+      metadata.full_name ||
+      metadata.name ||
+      email.split("@")[0] ||
+      "Customer";
+
 
     const phone =
-      localStorage.getItem("ebShopCustomerPhone") ||
+      metadata.phone ||
+      localStorage.getItem(
+        "ebShopCustomerPhone"
+      ) ||
       "Not added yet";
 
 
-    // Display customer information
-    document.getElementById("welcomeName").textContent = name;
-    document.getElementById("profileName").textContent = name;
-    document.getElementById("profileEmail").textContent = email;
+    /*
+      Display information
+    */
 
-    document.getElementById("infoName").textContent = name;
-    document.getElementById("infoEmail").textContent = email;
-    document.getElementById("infoPhone").textContent = phone;
+    welcomeName.textContent =
+      name;
+
+    profileName.textContent =
+      name;
+
+    profileEmail.textContent =
+      email;
+
+    infoName.textContent =
+      name;
+
+    infoEmail.textContent =
+      email;
+
+    infoPhone.textContent =
+      phone;
 
 
-    // Create avatar letter
+    /*
+      Avatar
+    */
+
     const firstLetter =
-      name.trim().charAt(0).toUpperCase() || "E";
+      name
+        .trim()
+        .charAt(0)
+        .toUpperCase() || "E";
 
-    document.getElementById("avatar").textContent = firstLetter;
+    avatar.textContent =
+      firstLetter;
 
 
-    // Logout
-    document.getElementById("logoutBtn").addEventListener("click", function () {
+    /*
+      ======================================
+      ADMIN CHECK
+      ======================================
 
-      localStorage.removeItem("ebShopLoggedIn");
+      Admin access is based on the authenticated
+      Supabase account email, NOT localStorage.
+    */
 
-      window.location.href = "login.html";
+    if (
+      email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ) {
 
-    });
+      showAdminAccess();
 
-  </script>
+    } else {
+
+      hideAdminAccess();
+
+    }
+  }
+
+
+  /*
+    ==========================================
+    LOGOUT
+    ==========================================
+  */
+
+  logoutBtn.addEventListener(
+    "click",
+    async () => {
+
+      logoutBtn.disabled = true;
+
+      logoutBtn.textContent =
+        "Logging out...";
+
+      const {
+        error
+      } = await supabase.auth.signOut();
+
+
+      if (error) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
+
+        logoutBtn.disabled = false;
+
+        logoutBtn.textContent =
+          "🚪 Logout";
+
+        return;
+      }
+
+
+      localStorage.removeItem(
+        "ebShopLoggedIn"
+      );
+
+      localStorage.removeItem(
+        "ebShopCustomerName"
+      );
+
+      localStorage.removeItem(
+        "ebShopCustomerEmail"
+      );
+
+      localStorage.removeItem(
+        "ebShopCustomerPhone"
+      );
+
+
+      window.location.href =
+        "login.html";
+    }
+  );
+
+
+  /*
+    ==========================================
+    START
+    ==========================================
+  */
+
+  hideAdminAccess();
+
+  updateCartCount();
+
+  await loadAccount();
+
+</script>
 
 </body>
 </html>
+```
