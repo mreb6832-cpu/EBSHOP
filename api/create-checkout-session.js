@@ -1,134 +1,30 @@
-import Stripe from "stripe";
+const session = await stripe.checkout.sessions.create({
+  mode: "payment",
 
-export default async function handler(req, res) {
-  res.setHeader("Vary", "Origin");
+  managed_payments: {
+    enabled: false
+  },
 
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://ebshop.vercel.app"
-  );
+  line_items: lineItems,
 
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "POST, OPTIONS"
-  );
+  customer_email:
+    customerEmail || undefined,
 
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type"
-  );
+  billing_address_collection:
+    "required",
 
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
+  phone_number_collection: {
+    enabled: true
+  },
 
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
-  }
+  metadata: {
+    customerPhone:
+      customerPhone || ""
+  },
 
-  try {
-    const secretKey = process.env.STRIPE_SECRET_KEY;
+  success_url:
+    `${baseUrl}/orders.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
 
-    if (!secretKey) {
-      return res.status(500).json({
-        error: "STRIPE_SECRET_KEY is not configured"
-      });
-    }
-
-    const stripe = new Stripe(secretKey);
-
-    const {
-      items,
-      customerEmail,
-      customerPhone
-    } = req.body || {};
-
-    if (!Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({
-        error: "Cart is empty"
-      });
-    }
-
-    const lineItems = items.map((item) => {
-      const price = Number(item.price);
-      const quantity = Number(item.quantity);
-
-      if (!Number.isFinite(price) || price < 0) {
-        throw new Error("Invalid product price");
-      }
-
-      if (!Number.isInteger(quantity) || quantity < 1) {
-        throw new Error("Invalid product quantity");
-      }
-
-      return {
-        price_data: {
-          currency: "sek",
-
-          product_data: {
-            name: String(
-              item.name || "E&B SHOP Product"
-            )
-          },
-
-          unit_amount: Math.round(price * 100)
-        },
-
-        quantity
-      };
-    });
-
-    const baseUrl = process.env.FRONTEND_URL;
-
-    if (!baseUrl) {
-      return res.status(500).json({
-        error: "FRONTEND_URL is not configured"
-      });
-    }
-
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-
-      line_items: lineItems,
-
-      customer_email:
-        customerEmail || undefined,
-
-      billing_address_collection:
-        "required",
-
-      phone_number_collection: {
-        enabled: true
-      },
-
-      metadata: {
-        customerPhone:
-          customerPhone || ""
-      },
-
-      success_url:
-        `${baseUrl}/orders.html?payment=success&session_id={CHECKOUT_SESSION_ID}`,
-
-      cancel_url:
-        `${baseUrl}/payment.html?payment=cancelled`
-    });
-
-    return res.status(200).json({
-      url: session.url
-    });
-
-  } catch (error) {
-    console.error(
-      "Stripe Checkout Error:",
-      error
-    );
-
-    return res.status(500).json({
-      error:
-        error?.message ||
-        "Could not create Stripe Checkout session"
-    });
-  }
-}
+  cancel_url:
+    `${baseUrl}/payment.html?payment=cancelled`
+});
