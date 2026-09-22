@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>E&B SHOP — Admin Dashboard</title>
+  <title>E&B SHOP - Admin Dashboard</title>
 
   <style>
     * {
@@ -13,548 +13,371 @@
       padding: 0;
     }
 
-    :root {
-      --bg: #f4f6f8;
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --dark: #111827;
-      --danger: #dc2626;
-      --success: #16a34a;
-    }
-
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #171717;
     }
 
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* ================= SIDEBAR ================= */
-
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 245px;
-      height: 100vh;
-      background: #111827;
+    header {
+      background: #111;
       color: white;
-      padding: 24px 16px;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
       z-index: 100;
     }
 
     .logo {
-      padding: 8px 12px 28px;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-      margin-bottom: 25px;
-    }
-
-    .logo h1 {
+      color: #f5b400;
       font-size: 22px;
+      font-weight: 800;
     }
 
-    .logo span {
-      display: block;
-      margin-top: 5px;
-      color: #9ca3af;
-      font-size: 12px;
-    }
-
-    .nav-title {
-      color: #6b7280;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0 12px 10px;
-    }
-
-    .nav-item {
-      width: 100%;
-      border: 0;
-      background: transparent;
-      color: #d1d5db;
-      text-align: left;
-      padding: 12px;
-      border-radius: 9px;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    .nav-item:hover,
-    .nav-item.active {
-      background: #1f2937;
-      color: white;
-    }
-
-    .sidebar-bottom {
-      position: absolute;
-      bottom: 25px;
-      left: 16px;
-      right: 16px;
-    }
-
-    .logout {
-      width: 100%;
-      border: 0;
-      padding: 12px;
-      border-radius: 9px;
-      background: #1f2937;
-      color: white;
-      font-weight: bold;
-    }
-
-    .logout:hover {
-      background: #374151;
-    }
-
-    /* ================= MAIN ================= */
-
-    .main {
-      margin-left: 245px;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      height: 72px;
-      background: white;
-      border-bottom: 1px solid var(--border);
+    .header-right {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 30px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-
-    .topbar-title h2 {
-      font-size: 20px;
-    }
-
-    .topbar-title p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    .admin-profile {
-      display: flex;
-      align-items: center;
       gap: 10px;
+      align-items: center;
     }
 
-    .avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: #111827;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .header-btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 14px;
+      cursor: pointer;
       font-weight: bold;
     }
 
-    .admin-profile small {
-      color: var(--muted);
-    }
-
-    .content {
-      padding: 30px;
-      max-width: 1450px;
-      margin: auto;
-    }
-
-    /* ================= ACCESS ================= */
-
-    #loading {
+    .home-btn {
       background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 40px;
-      text-align: center;
-      color: var(--muted);
+      color: #111;
     }
 
-    /* ================= STATS ================= */
+    .logout-btn {
+      background: #e53935;
+      color: white;
+    }
+
+    .container {
+      width: min(1250px, 94%);
+      margin: 25px auto 50px;
+    }
+
+    .page-title {
+      margin-bottom: 22px;
+    }
+
+    .page-title h1 {
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+
+    .page-title p {
+      color: #666;
+    }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
       margin-bottom: 25px;
     }
 
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
+    .stat {
+      background: white;
       border-radius: 14px;
-      padding: 20px;
+      padding: 22px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+      border: 1px solid #eee;
     }
 
-    .stat-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .stat-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      background: #f3f4f6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 19px;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 13px;
+    .stat-title {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 8px;
     }
 
     .stat-value {
-      font-size: 27px;
-      font-weight: 700;
+      font-size: 28px;
+      font-weight: 800;
     }
 
-    /* ================= SECTIONS ================= */
-
-    .section {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 25px;
-      overflow: hidden;
-    }
-
-    .section-header {
-      padding: 20px 22px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .section-header h3 {
-      font-size: 17px;
-    }
-
-    .section-header p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    .section-body {
-      padding: 22px;
-    }
-
-    /* ================= FORM ================= */
-
-    .form-grid {
+    .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 17px;
+      grid-template-columns: 390px 1fr;
+      gap: 22px;
+      align-items: start;
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.06);
+      border: 1px solid #eee;
     }
 
-    .field.full {
-      grid-column: 1 / -1;
+    .card h2 {
+      margin-bottom: 18px;
+      font-size: 20px;
     }
 
-    .field label {
-      font-size: 13px;
-      font-weight: 700;
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 12px 13px;
+      padding: 11px 12px;
+      border: 1px solid #d8d8d8;
+      border-radius: 8px;
+      font-size: 14px;
       outline: none;
       background: white;
-      color: var(--text);
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: #6b7280;
+      border-color: #f5b400;
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 100px;
       resize: vertical;
     }
 
-    .image-box {
-      border: 1px dashed #cfd4dc;
-      border-radius: 11px;
-      padding: 18px;
-      background: #fafafa;
-    }
-
     .image-preview {
-      display: none;
-      margin-top: 14px;
+      width: 100%;
+      height: 180px;
+      border: 2px dashed #ddd;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin-top: 8px;
+      background: #fafafa;
+      color: #888;
+      text-align: center;
     }
 
     .image-preview img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 10px;
-      border: 1px solid var(--border);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .form-buttons {
       display: flex;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 9px;
+      margin-top: 18px;
     }
 
-    .primary-btn {
-      background: #111827;
+    .btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      background: #f5b400;
+      color: #111;
+      flex: 1;
+    }
+
+    .update-btn {
+      background: #111;
       color: white;
-      border: 0;
-      padding: 12px 20px;
-      border-radius: 9px;
-      font-weight: 700;
+      flex: 1;
     }
 
-    .primary-btn:hover {
-      background: #1f2937;
-    }
-
-    .secondary-btn {
-      background: #f3f4f6;
-      color: #111827;
-      border: 0;
-      padding: 12px 20px;
-      border-radius: 9px;
-      font-weight: 700;
+    .cancel-btn {
+      background: #ddd;
+      color: #222;
       display: none;
     }
 
-    #message {
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    /* ================= PRODUCTS HEADER ================= */
-
-    .products-toolbar {
+    .products-header {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 12px;
-      align-items: center;
-    }
-
-    .search {
-      width: 260px;
-    }
-
-    /* ================= PRODUCTS ================= */
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .product-card {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: white;
-      transition: .2s;
-    }
-
-    .product-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,.07);
-    }
-
-    .product-image {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      background: #f3f4f6;
-      display: block;
-    }
-
-    .no-image {
-      height: 190px;
-      background: #f3f4f6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #9ca3af;
-    }
-
-    .product-info {
-      padding: 15px;
-    }
-
-    .product-category {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-
-    .product-name {
-      font-size: 16px;
-      margin-bottom: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .product-price {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .product-stock {
-      color: var(--muted);
-      font-size: 13px;
       margin-bottom: 15px;
     }
 
-    .product-actions {
+    .products-header h2 {
+      margin: 0;
+    }
+
+    .search {
+      max-width: 270px;
+    }
+
+    .products {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .product {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 13px;
+      display: grid;
+      grid-template-columns: 85px 1fr auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .product-image {
+      width: 85px;
+      height: 85px;
+      border-radius: 9px;
+      background: #f3f3f3;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .product-info p {
+      color: #666;
+      font-size: 13px;
+      margin: 3px 0;
+    }
+
+    .price {
+      color: #d99500;
+      font-weight: 800;
+    }
+
+    .stock {
+      font-weight: bold;
+    }
+
+    .actions {
+      display: flex;
       gap: 7px;
     }
 
-    .edit-btn,
-    .delete-btn {
-      border: 0;
-      padding: 9px;
-      border-radius: 7px;
-      font-weight: 700;
-      font-size: 12px;
-    }
-
     .edit-btn {
-      background: #f3f4f6;
-      color: #111827;
+      background: #111;
+      color: white;
     }
 
     .delete-btn {
-      background: #fee2e2;
-      color: #b91c1c;
+      background: #e53935;
+      color: white;
     }
 
     .empty {
-      grid-column: 1 / -1;
-      padding: 50px 20px;
       text-align: center;
-      color: var(--muted);
+      padding: 40px 10px;
+      color: #777;
     }
 
-    /* ================= MOBILE ================= */
-
-    .mobile-menu {
+    .message {
       display: none;
-      border: 0;
-      background: #f3f4f6;
+      padding: 11px;
       border-radius: 8px;
-      padding: 9px 12px;
+      margin-bottom: 14px;
+      font-size: 14px;
     }
 
-    @media (max-width: 1150px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .products {
-        grid-template-columns: repeat(3, 1fr);
-      }
+    .success {
+      background: #e7f7ec;
+      color: #187a36;
     }
 
-    @media (max-width: 850px) {
-      .sidebar {
-        transform: translateX(-100%);
-        transition: .25s;
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
-      .main {
-        margin-left: 0;
-      }
-
-      .mobile-menu {
-        display: block;
-      }
-
-      .topbar {
-        padding: 0 18px;
-      }
-
-      .content {
-        padding: 20px;
-      }
-
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .error {
+      background: #fdeaea;
+      color: #b42323;
     }
 
-    @media (max-width: 600px) {
-      .stats,
-      .form-grid,
-      .products {
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid {
         grid-template-columns: 1fr;
       }
 
-      .products-toolbar {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      header {
+        padding: 13px 15px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .header-right {
+        gap: 5px;
+      }
+
+      .header-btn {
+        padding: 8px 9px;
+        font-size: 12px;
+      }
+
+      .container {
+        width: 94%;
+      }
+
+      .products-header {
         flex-direction: column;
         align-items: stretch;
       }
 
       .search {
-        width: 100%;
+        max-width: none;
       }
 
-      .admin-profile div {
-        display: none;
+      .product {
+        grid-template-columns: 65px 1fr;
       }
 
-      .content {
-        padding: 15px;
+      .product-image {
+        width: 65px;
+        height: 65px;
       }
 
-      .section-body {
-        padding: 16px;
+      .actions {
+        grid-column: 1 / -1;
+      }
+
+      .actions .btn {
+        flex: 1;
       }
     }
   </style>
@@ -562,1653 +385,916 @@
 
 <body>
 
-  <!-- ================= SIDEBAR ================= -->
+<header>
+  <div class="logo">E&B SHOP ADMIN</div>
 
-  <aside class="sidebar" id="sidebar">
-
-    <div class="logo">
-      <h1>🛍️ E&B SHOP</h1>
-      <span>Owner Dashboard</span>
-    </div>
-
-    <div class="nav-title">
-      Management
-    </div>
-
-    <button class="nav-item active">
-      📊 Dashboard
+  <div class="header-right">
+    <button class="header-btn home-btn" onclick="location.href='index.html'">
+      🏠 Home
     </button>
 
-    <button
-      class="nav-item"
-      onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})"
-    >
-      📦 Products
+    <button class="header-btn logout-btn" id="logoutBtn">
+      Logout
     </button>
+  </div>
+</header>
 
-    <button
-      class="nav-item"
-      onclick="document.getElementById('addProductSection').scrollIntoView({behavior:'smooth'})"
-    >
-      ➕ Add Product
-    </button>
+<div class="container">
 
-    <div class="sidebar-bottom">
+  <div class="page-title">
+    <h1>Owner Dashboard</h1>
+    <p>Manage your E&B SHOP products from one place.</p>
+  </div>
 
-      <button
-        class="logout"
-        id="logoutBtn"
-      >
-        🚪 Logout
-      </button>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-title">Total Products</div>
+      <div class="stat-value" id="totalProducts">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title">Total Stock</div>
+      <div class="stat-value" id="totalStock">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title">Categories</div>
+      <div class="stat-value" id="totalCategories">0</div>
+    </div>
+  </div>
+
+  <div id="message" class="message"></div>
+
+  <div class="dashboard-grid">
+
+    <!-- ADD / EDIT PRODUCT -->
+    <div class="card">
+
+      <h2 id="formTitle">➕ Add Product</h2>
+
+      <form id="productForm">
+
+        <div class="form-group">
+          <label for="name">Product Name *</label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Product name"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price (SEK) *</label>
+          <input
+            id="price"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category *</label>
+          <select id="category" required>
+            <option value="">Select category</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Home">Home</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Gaming">Gaming</option>
+            <option value="Kids">Kids</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="stock">Stock *</label>
+          <input
+            id="stock"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="0"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="image">Product Image *</label>
+
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+          >
+
+          <div class="image-preview" id="imagePreview">
+            Product image preview
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description *</label>
+
+          <textarea
+            id="description"
+            placeholder="Product description"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-buttons">
+
+          <button
+            type="submit"
+            class="btn add-btn"
+            id="saveBtn"
+          >
+            Add Product
+          </button>
+
+          <button
+            type="button"
+            class="btn cancel-btn"
+            id="cancelBtn"
+          >
+            Cancel
+          </button>
+
+        </div>
+
+      </form>
 
     </div>
 
-  </aside>
+    <!-- PRODUCTS -->
+    <div class="card">
 
+      <div class="products-header">
 
-  <!-- ================= MAIN ================= -->
+        <h2>📦 Products</h2>
 
-  <div class="main">
-
-    <header class="topbar">
-
-      <div style="display:flex;align-items:center;gap:12px;">
-
-        <button
-          class="mobile-menu"
-          id="mobileMenu"
-        >
-          ☰
-        </button>
-
-        <div class="topbar-title">
-          <h2>Admin Dashboard</h2>
-          <p>Manage your E&B SHOP store</p>
-        </div>
-
-      </div>
-
-
-      <div class="admin-profile">
-
-        <div class="avatar">
-          EB
-        </div>
-
-        <div>
-          <strong>Owner</strong><br>
-          <small>Administrator</small>
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <main class="content">
-
-      <div id="loading">
-        Checking admin access...
-      </div>
-
-
-      <div
-        id="adminContent"
-        style="display:none;"
-      >
-
-        <!-- ================= STATS ================= -->
-
-        <section class="stats">
-
-          <div class="stat-card">
-
-            <div class="stat-top">
-              <span class="stat-label">
-                Total Products
-              </span>
-
-              <div class="stat-icon">
-                📦
-              </div>
-            </div>
-
-            <div
-              class="stat-value"
-              id="totalProducts"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-top">
-              <span class="stat-label">
-                Total Stock
-              </span>
-
-              <div class="stat-icon">
-                🏷️
-              </div>
-            </div>
-
-            <div
-              class="stat-value"
-              id="totalStock"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-top">
-              <span class="stat-label">
-                Orders
-              </span>
-
-              <div class="stat-icon">
-                🛒
-              </div>
-            </div>
-
-            <div
-              class="stat-value"
-              id="totalOrders"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-top">
-              <span class="stat-label">
-                Revenue
-              </span>
-
-              <div class="stat-icon">
-                💰
-              </div>
-            </div>
-
-            <div
-              class="stat-value"
-              id="totalRevenue"
-            >
-              0 SEK
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- ================= ADD PRODUCT ================= -->
-
-        <section
-          class="section"
-          id="addProductSection"
+        <input
+          class="search"
+          id="searchInput"
+          type="search"
+          placeholder="Search products..."
         >
 
-          <div class="section-header">
-
-            <div>
-
-              <h3 id="formTitle">
-                Add New Product
-              </h3>
-
-              <p>
-                Add products to your E&B SHOP store.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="section-body">
-
-            <form id="productForm">
-
-              <div class="form-grid">
-
-                <div class="field">
-
-                  <label>
-                    Product Name
-                  </label>
-
-                  <input
-                    id="productName"
-                    type="text"
-                    placeholder="e.g. Nail Clipper"
-                    required
-                  >
-
-                </div>
-
-
-                <div class="field">
-
-                  <label>
-                    Price (SEK)
-                  </label>
-
-                  <input
-                    id="productPrice"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="25"
-                    required
-                  >
-
-                </div>
-
-
-                <div class="field">
-
-                  <label>
-                    Category
-                  </label>
-
-                  <select
-                    id="productCategory"
-                    required
-                  >
-
-                    <option value="">
-                      Select category
-                    </option>
-
-                    <option value="Electronics">
-                      Electronics
-                    </option>
-
-                    <option value="Fashion">
-                      Fashion
-                    </option>
-
-                    <option value="Beauty">
-                      Beauty
-                    </option>
-
-                    <option value="Home">
-                      Home
-                    </option>
-
-                    <option value="Sports">
-                      Sports
-                    </option>
-
-                    <option value="Food">
-                      Food
-                    </option>
-
-                    <option value="Other">
-                      Other
-                    </option>
-
-                  </select>
-
-                </div>
-
-
-                <div class="field">
-
-                  <label>
-                    Stock
-                  </label>
-
-                  <input
-                    id="productStock"
-                    type="number"
-                    min="0"
-                    step="1"
-                    placeholder="10"
-                    required
-                  >
-
-                </div>
-
-
-                <div class="field full">
-
-                  <label>
-                    Product Picture
-                  </label>
-
-                  <div class="image-box">
-
-                    <input
-                      id="productImage"
-                      type="file"
-                      accept="image/*"
-                    >
-
-                    <div
-                      id="imagePreview"
-                      class="image-preview"
-                    >
-
-                      <img
-                        id="previewImage"
-                        src=""
-                        alt="Preview"
-                      >
-
-                    </div>
-
-                  </div>
-
-                  <small>
-                    A picture is required when adding a new product.
-                  </small>
-
-                </div>
-
-
-                <div class="field full">
-
-                  <label>
-                    Description
-                  </label>
-
-                  <textarea
-                    id="productDescription"
-                    placeholder="Write a description of the product..."
-                    required
-                  ></textarea>
-
-                </div>
-
-              </div>
-
-
-              <div class="form-buttons">
-
-                <button
-                  class="primary-btn"
-                  id="saveBtn"
-                  type="submit"
-                >
-                  ➕ Add Product
-                </button>
-
-                <button
-                  class="secondary-btn"
-                  id="cancelEdit"
-                  type="button"
-                >
-                  Cancel Edit
-                </button>
-
-              </div>
-
-
-              <div id="message"></div>
-
-            </form>
-
-          </div>
-
-        </section>
-
-
-        <!-- ================= PRODUCTS ================= -->
-
-        <section
-          class="section"
-          id="productsSection"
-        >
-
-          <div class="section-header">
-
-            <div>
-
-              <h3>
-                Your Products
-              </h3>
-
-              <p>
-                Manage products currently in your store.
-              </p>
-
-            </div>
-
-
-            <div class="products-toolbar">
-
-              <input
-                class="search"
-                id="searchInput"
-                type="search"
-                placeholder="🔎 Search products..."
-              >
-
-            </div>
-
-          </div>
-
-
-          <div class="section-body">
-
-            <div
-              id="productsList"
-              class="products"
-            >
-
-              <div class="empty">
-                Loading products...
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
       </div>
 
-    </main>
+      <div id="productsList" class="products">
+        <div class="loading">Loading products...</div>
+      </div>
+
+    </div>
 
   </div>
 
+</div>
 
-  <!-- ================= JAVASCRIPT ================= -->
+<script type="module">
 
-  <script type="module">
+import { supabase } from "./supabaseClient.js";
 
-    import { supabase } from "./supabaseClient.js";
+const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
 
+let products = [];
+let editingId = null;
 
-    const ADMIN_EMAIL =
-      "mucyoemmy539@gmail.com";
+const productForm = document.getElementById("productForm");
+const productsList = document.getElementById("productsList");
+const searchInput = document.getElementById("searchInput");
+const imageInput = document.getElementById("image");
 
+const imagePreview = document.getElementById("imagePreview");
+const saveBtn = document.getElementById("saveBtn");
+const cancelBtn = document.getElementById("cancelBtn");
 
-    const loading =
-      document.getElementById("loading");
+const formTitle = document.getElementById("formTitle");
 
-    const adminContent =
-      document.getElementById("adminContent");
+const message = document.getElementById("message");
 
-    const logoutBtn =
-      document.getElementById("logoutBtn");
+const totalProducts = document.getElementById("totalProducts");
+const totalStock = document.getElementById("totalStock");
+const totalCategories = document.getElementById("totalCategories");
 
-    const mobileMenu =
-      document.getElementById("mobileMenu");
 
-    const sidebar =
-      document.getElementById("sidebar");
+// ===============================
+// MESSAGE
+// ===============================
 
-    const productForm =
-      document.getElementById("productForm");
+function showMessage(text, type = "success") {
 
-    const productName =
-      document.getElementById("productName");
+  message.textContent = text;
+  message.className = `message ${type}`;
+  message.style.display = "block";
 
-    const productPrice =
-      document.getElementById("productPrice");
+  setTimeout(() => {
+    message.style.display = "none";
+  }, 4000);
+}
 
-    const productCategory =
-      document.getElementById("productCategory");
 
-    const productStock =
-      document.getElementById("productStock");
+// ===============================
+// CHECK ADMIN
+// ===============================
 
-    const productImage =
-      document.getElementById("productImage");
+async function checkAdmin() {
 
-    const productDescription =
-      document.getElementById("productDescription");
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
 
-    const productsList =
-      document.getElementById("productsList");
+  if (!user) {
+    location.href = "login.html";
+    return false;
+  }
 
-    const totalProducts =
-      document.getElementById("totalProducts");
+  if (
+    String(user.email).toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ) {
+    alert("Access denied. Admin only.");
+    location.href = "index.html";
+    return false;
+  }
 
-    const totalStock =
-      document.getElementById("totalStock");
+  return true;
+}
 
-    const message =
-      document.getElementById("message");
 
-    const formTitle =
-      document.getElementById("formTitle");
+// ===============================
+// LOAD PRODUCTS
+// ===============================
 
-    const saveBtn =
-      document.getElementById("saveBtn");
+async function loadProducts() {
 
-    const cancelEdit =
-      document.getElementById("cancelEdit");
+  productsList.innerHTML =
+    `<div class="loading">Loading products...</div>`;
 
-    const imagePreview =
-      document.getElementById("imagePreview");
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", {
+      ascending: false
+    });
 
-    const previewImage =
-      document.getElementById("previewImage");
+  if (error) {
 
-    const searchInput =
-      document.getElementById("searchInput");
+    console.error(error);
 
+    productsList.innerHTML =
+      `<div class="empty">
+        Failed to load products.<br>
+        ${escapeHtml(error.message)}
+      </div>`;
 
-    let products = [];
+    return;
+  }
 
-    let editingId = null;
+  products = data || [];
 
-    let selectedImage = null;
+  updateStats();
 
-    let currentImageUrl = "";
+  renderProducts(products);
+}
 
 
-    /* ================= MOBILE MENU ================= */
+// ===============================
+// STATS
+// ===============================
 
-    mobileMenu.addEventListener(
-      "click",
-      () => {
+function updateStats() {
 
-        sidebar.classList.toggle(
-          "open"
-        );
+  totalProducts.textContent = products.length;
 
-      }
-    );
+  const stock = products.reduce(
+    (sum, product) =>
+      sum + Number(product.stock || 0),
+    0
+  );
 
+  totalStock.textContent = stock;
 
-    /* ================= ADMIN CHECK ================= */
+  const categories = new Set(
+    products
+      .map(product => product.category)
+      .filter(Boolean)
+  );
 
-    async function checkAdmin() {
+  totalCategories.textContent =
+    categories.size;
+}
 
-      try {
 
-        const {
-          data: { user },
-          error
-        } =
-          await supabase.auth.getUser();
+// ===============================
+// RENDER PRODUCTS
+// ===============================
 
+function renderProducts(list) {
 
-        if (error) {
-          throw error;
-        }
+  if (!list.length) {
 
+    productsList.innerHTML =
+      `<div class="empty">
+        No products found.
+      </div>`;
 
-        if (!user) {
+    return;
+  }
 
-          loading.innerHTML = `
-            You are not logged in.<br><br>
-            <a href="login.html">
-              Login here
-            </a>
-          `;
+  productsList.innerHTML = list.map(product => {
 
-          return;
+    const image =
+      product.image ||
+      "https://via.placeholder.com/300x300?text=No+Image";
 
-        }
+    return `
+      <div class="product">
 
-
-        if (
-          !user.email ||
-          user.email.toLowerCase() !==
-          ADMIN_EMAIL.toLowerCase()
-        ) {
-
-          loading.innerHTML = `
-            <strong>
-              Access denied
-            </strong>
-            <br><br>
-            This dashboard is only available
-            to the E&B SHOP owner.
-          `;
-
-          return;
-
-        }
-
-
-        loading.style.display =
-          "none";
-
-        adminContent.style.display =
-          "block";
-
-
-        await loadProducts();
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        loading.innerHTML = `
-          Could not check admin access.
-          <br><br>
-          ${escapeHtml(
-            error.message
-          )}
-        `;
-
-      }
-
-    }
-
-
-    /* ================= LOAD PRODUCTS ================= */
-
-    async function loadProducts() {
-
-      productsList.innerHTML = `
-        <div class="empty">
-          Loading products...
+        <div class="product-image">
+          <img
+            src="${escapeAttribute(image)}"
+            alt="${escapeAttribute(product.name || "Product")}"
+          >
         </div>
-      `;
+
+        <div class="product-info">
+
+          <h3>
+            ${escapeHtml(product.name || "Unnamed Product")}
+          </h3>
+
+          <p class="price">
+            ${formatPrice(product.price)} SEK
+          </p>
+
+          <p>
+            Category:
+            <strong>
+              ${escapeHtml(product.category || "Other")}
+            </strong>
+          </p>
+
+          <p class="stock">
+            Stock:
+            ${Number(product.stock || 0)}
+          </p>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn edit-btn"
+            data-edit="${escapeAttribute(product.id)}"
+          >
+            Edit
+          </button>
+
+          <button
+            class="btn delete-btn"
+            data-delete="${escapeAttribute(product.id)}"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+
+  document
+    .querySelectorAll("[data-edit]")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+        editProduct(button.dataset.edit);
+      });
+
+    });
+
+  document
+    .querySelectorAll("[data-delete]")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+        deleteProduct(button.dataset.delete);
+      });
+
+    });
+}
 
 
-      const {
-        data,
-        error
-      } =
-        await supabase
-          .from("products")
-          .select("*")
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
+// ===============================
+// ADD / UPDATE
+// ===============================
 
+productForm.addEventListener("submit", async (event) => {
 
-      if (error) {
+  event.preventDefault();
 
-        console.error(error);
+  const name =
+    document.getElementById("name").value.trim();
 
-        productsList.innerHTML = `
-          <div class="empty">
-            Could not load products.
-            <br><br>
-            ${escapeHtml(
-              error.message
-            )}
-          </div>
-        `;
+  const price =
+    Number(document.getElementById("price").value);
 
-        return;
+  const category =
+    document.getElementById("category").value;
 
-      }
+  const stock =
+    Number(document.getElementById("stock").value);
 
+  const description =
+    document.getElementById("description").value.trim();
 
-      products =
-        data || [];
+  const file =
+    imageInput.files[0];
 
+  if (!name || !category || !description) {
+    showMessage(
+      "Please fill in all required fields.",
+      "error"
+    );
+    return;
+  }
 
-      renderProducts(
-        products
-      );
+  if (!Number.isFinite(price) || price < 0) {
+    showMessage(
+      "Please enter a valid price.",
+      "error"
+    );
+    return;
+  }
 
-    }
+  if (!Number.isInteger(stock) || stock < 0) {
+    showMessage(
+      "Please enter a valid stock quantity.",
+      "error"
+    );
+    return;
+  }
 
+  // Image required when creating
+  if (!editingId && !file) {
 
-    /* ================= RENDER ================= */
-
-    function renderProducts(list) {
-
-      totalProducts.textContent =
-        products.length;
-
-
-      totalStock.textContent =
-        products.reduce(
-          (total, product) =>
-            total +
-            (
-              Number(
-                product.stock
-              ) || 0
-            ),
-          0
-        );
-
-
-      if (!list.length) {
-
-        productsList.innerHTML = `
-          <div class="empty">
-            No products found.
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      productsList.innerHTML =
-        list.map(product => {
-
-          const image =
-            product.image
-              ? `
-                <img
-                  class="product-image"
-                  src="${escapeHtml(
-                    product.image
-                  )}"
-                  alt="${escapeHtml(
-                    product.name
-                  )}"
-                  onerror="
-                    this.style.display='none';
-                    this.nextElementSibling.style.display='flex';
-                  "
-                >
-
-                <div
-                  class="no-image"
-                  style="display:none;"
-                >
-                  No image
-                </div>
-              `
-              : `
-                <div class="no-image">
-                  No image
-                </div>
-              `;
-
-
-          return `
-            <div class="product-card">
-
-              ${image}
-
-              <div class="product-info">
-
-                <div class="product-category">
-                  ${escapeHtml(
-                    product.category ||
-                    "Other"
-                  )}
-                </div>
-
-                <h3 class="product-name">
-                  ${escapeHtml(
-                    product.name
-                  )}
-                </h3>
-
-                <div class="product-price">
-                  ${formatPrice(
-                    product.price
-                  )}
-                </div>
-
-                <div class="product-stock">
-                  Stock:
-                  ${Number(
-                    product.stock
-                  ) || 0}
-                </div>
-
-                <div class="product-actions">
-
-                  <button
-                    class="edit-btn"
-                    onclick="editProduct('${escapeJs(
-                      product.id
-                    )}')"
-                  >
-                    ✏️ Edit
-                  </button>
-
-                  <button
-                    class="delete-btn"
-                    onclick="deleteProduct('${escapeJs(
-                      product.id
-                    )}')"
-                  >
-                    🗑️ Delete
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-          `;
-
-        }).join("");
-
-    }
-
-
-    /* ================= SEARCH ================= */
-
-    searchInput.addEventListener(
-      "input",
-      function () {
-
-        const query =
-          this.value
-            .trim()
-            .toLowerCase();
-
-
-        if (!query) {
-
-          renderProducts(
-            products
-          );
-
-          return;
-
-        }
-
-
-        const filtered =
-          products.filter(
-            product => {
-
-              const name =
-                String(
-                  product.name || ""
-                ).toLowerCase();
-
-              const category =
-                String(
-                  product.category || ""
-                ).toLowerCase();
-
-
-              return (
-                name.includes(query) ||
-                category.includes(query)
-              );
-
-            }
-          );
-
-
-        renderProducts(
-          filtered
-        );
-
-      }
+    showMessage(
+      "Product image is required.",
+      "error"
     );
 
+    return;
+  }
 
-    /* ================= IMAGE SELECT ================= */
+  saveBtn.disabled = true;
+  saveBtn.textContent =
+    editingId ? "Updating..." : "Adding...";
 
-    productImage.addEventListener(
-      "change",
-      function () {
+  try {
 
-        const file =
-          this.files[0];
+    let imageUrl = null;
 
+    // Upload new image if selected
+    if (file) {
 
-        if (!file) {
-
-          selectedImage =
-            null;
-
-          return;
-
-        }
-
-
-        if (
-          !file.type.startsWith(
-            "image/"
-          )
-        ) {
-
-          alert(
-            "Please choose an image file."
-          );
-
-          this.value =
-            "";
-
-          selectedImage =
-            null;
-
-          return;
-
-        }
-
-
-        if (
-          file.size >
-          5 * 1024 * 1024
-        ) {
-
-          alert(
-            "Please choose an image smaller than 5 MB."
-          );
-
-          this.value =
-            "";
-
-          selectedImage =
-            null;
-
-          return;
-
-        }
-
-
-        selectedImage =
-          file;
-
-
-        const previewUrl =
-          URL.createObjectURL(
-            file
-          );
-
-
-        previewImage.src =
-          previewUrl;
-
-
-        imagePreview.style.display =
-          "block";
-
-      }
-    );
-
-
-    /* ================= UPLOAD IMAGE ================= */
-
-    async function uploadImage(file) {
-
-      if (!file) {
-
-        return (
-          currentImageUrl ||
-          ""
+      if (!file.type.startsWith("image/")) {
+        throw new Error(
+          "Please select a valid image."
         );
-
       }
-
 
       const extension =
-        file.name
-          .split(".")
-          .pop()
-          .toLowerCase();
-
+        file.name.split(".").pop().toLowerCase();
 
       const fileName =
-        crypto.randomUUID() +
-        "." +
-        extension;
+        `products/${crypto.randomUUID()}.${extension}`;
+
+      const {
+        error: uploadError
+      } = await supabase.storage
+        .from("product-images")
+        .upload(
+          fileName,
+          file,
+          {
+            cacheControl: "3600",
+            upsert: false
+          }
+        );
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const {
+        data: publicData
+      } = supabase.storage
+        .from("product-images")
+        .getPublicUrl(fileName);
+
+      imageUrl =
+        publicData.publicUrl;
+    }
 
 
-      const filePath =
-        "products/" +
-        fileName;
+    // ===========================
+    // UPDATE
+    // ===========================
 
+    if (editingId) {
+
+      const updateData = {
+        name,
+        price,
+        category,
+        stock,
+        description
+      };
+
+      if (imageUrl) {
+        updateData.image = imageUrl;
+      }
 
       const {
         error
-      } =
-        await supabase.storage
-          .from(
-            "product-images"
-          )
-          .upload(
-            filePath,
-            file,
-            {
-              cacheControl:
-                "3600",
-              upsert:
-                false
-            }
-          );
-
+      } = await supabase
+        .from("products")
+        .update(updateData)
+        .eq("id", editingId);
 
       if (error) {
-
         throw error;
-
       }
 
-
-      const {
-        data
-      } =
-        supabase.storage
-          .from(
-            "product-images"
-          )
-          .getPublicUrl(
-            filePath
-          );
-
-
-      return data.publicUrl;
-
-    }
-
-
-    /* ================= SAVE ================= */
-
-    productForm.addEventListener(
-      "submit",
-      async function (event) {
-
-        event.preventDefault();
-
-
-        const name =
-          productName.value.trim();
-
-        const price =
-          Number(
-            productPrice.value
-          );
-
-        const category =
-          productCategory.value;
-
-        const stock =
-          Number(
-            productStock.value
-          );
-
-        const description =
-          productDescription.value.trim();
-
-
-        if (!name) {
-
-          alert(
-            "Please enter the product name."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          !Number.isFinite(price) ||
-          price < 0
-        ) {
-
-          alert(
-            "Please enter a valid price."
-          );
-
-          return;
-
-        }
-
-
-        if (!category) {
-
-          alert(
-            "Please select a category."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          !Number.isInteger(stock) ||
-          stock < 0
-        ) {
-
-          alert(
-            "Please enter valid stock."
-          );
-
-          return;
-
-        }
-
-
-        if (!description) {
-
-          alert(
-            "Please enter a description."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          !editingId &&
-          !selectedImage
-        ) {
-
-          alert(
-            "Please add a picture of the product."
-          );
-
-          return;
-
-        }
-
-
-        const oldText =
-          saveBtn.innerHTML;
-
-
-        saveBtn.disabled =
-          true;
-
-
-        saveBtn.innerHTML =
-          editingId
-            ? "Updating..."
-            : "Adding...";
-
-
-        try {
-
-          let imageUrl =
-            currentImageUrl ||
-            "";
-
-
-          if (selectedImage) {
-
-            imageUrl =
-              await uploadImage(
-                selectedImage
-              );
-
-          }
-
-
-          if (editingId) {
-
-            const {
-              error
-            } =
-              await supabase
-                .from("products")
-                .update({
-
-                  name:
-                    name,
-
-                  price:
-                    price,
-
-                  category:
-                    category,
-
-                  stock:
-                    stock,
-
-                  description:
-                    description,
-
-                  image:
-                    imageUrl
-
-                })
-                .eq(
-                  "id",
-                  editingId
-                );
-
-
-            if (error) {
-
-              throw error;
-
-            }
-
-
-            showMessage(
-              "Product updated successfully.",
-              true
-            );
-
-          } else {
-
-            const {
-              error
-            } =
-              await supabase
-                .from("products")
-                .insert({
-
-                  name:
-                    name,
-
-                  price:
-                    price,
-
-                  category:
-                    category,
-
-                  stock:
-                    stock,
-
-                  description:
-                    description,
-
-                  image:
-                    imageUrl
-
-                });
-
-
-            if (error) {
-
-              throw error;
-
-            }
-
-
-            showMessage(
-              "Product added successfully.",
-              true
-            );
-
-          }
-
-
-          resetForm();
-
-          await loadProducts();
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          showMessage(
-            error.message,
-            false
-          );
-
-        } finally {
-
-          saveBtn.disabled =
-            false;
-
-          saveBtn.innerHTML =
-            oldText;
-
-        }
-
-      }
-    );
-
-
-    /* ================= EDIT ================= */
-
-    window.editProduct =
-      function (id) {
-
-        const product =
-          products.find(
-            p =>
-              String(p.id) ===
-              String(id)
-          );
-
-
-        if (!product) {
-
-          alert(
-            "Product not found."
-          );
-
-          return;
-
-        }
-
-
-        editingId =
-          product.id;
-
-
-        productName.value =
-          product.name || "";
-
-
-        productPrice.value =
-          product.price ?? "";
-
-
-        productCategory.value =
-          product.category || "";
-
-
-        productStock.value =
-          product.stock ?? "";
-
-
-        productDescription.value =
-          product.description || "";
-
-
-        currentImageUrl =
-          product.image || "";
-
-
-        selectedImage =
-          null;
-
-
-        productImage.value =
-          "";
-
-
-        if (currentImageUrl) {
-
-          previewImage.src =
-            currentImageUrl;
-
-          imagePreview.style.display =
-            "block";
-
-        } else {
-
-          imagePreview.style.display =
-            "none";
-
-        }
-
-
-        formTitle.textContent =
-          "Edit Product";
-
-
-        saveBtn.innerHTML =
-          "💾 Update Product";
-
-
-        cancelEdit.style.display =
-          "inline-block";
-
-
-        document
-          .getElementById(
-            "addProductSection"
-          )
-          .scrollIntoView({
-            behavior:
-              "smooth"
-          });
-
-      };
-
-
-    /* ================= DELETE ================= */
-
-    window.deleteProduct =
-      async function (id) {
-
-        const product =
-          products.find(
-            p =>
-              String(p.id) ===
-              String(id)
-          );
-
-
-        if (!product) {
-
-          alert(
-            "Product not found."
-          );
-
-          return;
-
-        }
-
-
-        const confirmed =
-          confirm(
-            `Delete "${product.name}"?`
-          );
-
-
-        if (!confirmed) {
-
-          return;
-
-        }
-
-
-        try {
-
-          const {
-            error
-          } =
-            await supabase
-              .from("products")
-              .delete()
-              .eq(
-                "id",
-                id
-              );
-
-
-          if (error) {
-
-            throw error;
-
-          }
-
-
-          showMessage(
-            "Product deleted successfully.",
-            true
-          );
-
-
-          await loadProducts();
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          showMessage(
-            error.message,
-            false
-          );
-
-        }
-
-      };
-
-
-    /* ================= CANCEL ================= */
-
-    cancelEdit.addEventListener(
-      "click",
-      function () {
-
-        resetForm();
-
-      }
-    );
-
-
-    /* ================= RESET ================= */
-
-    function resetForm() {
-
-      editingId =
-        null;
-
-      selectedImage =
-        null;
-
-      currentImageUrl =
-        "";
-
-
-      productForm.reset();
-
-
-      imagePreview.style.display =
-        "none";
-
-
-      previewImage.src =
-        "";
-
-
-      formTitle.textContent =
-        "Add New Product";
-
-
-      saveBtn.innerHTML =
-        "➕ Add Product";
-
-
-      cancelEdit.style.display =
-        "none";
-
-    }
-
-
-    /* ================= MESSAGE ================= */
-
-    function showMessage(
-      text,
-      success
-    ) {
-
-      message.textContent =
-        success
-          ? "✅ " + text
-          : "❌ " + text;
-
-      message.style.color =
-        success
-          ? "#16a34a"
-          : "#dc2626";
-
-    }
-
-
-    /* ================= FORMAT ================= */
-
-    function formatPrice(
-      price
-    ) {
-
-      return (
-        Number(
-          price || 0
-        ).toLocaleString(
-          "sv-SE",
-          {
-            minimumFractionDigits:
-              2,
-
-            maximumFractionDigits:
-              2
-          }
-        ) +
-        " SEK"
+      showMessage(
+        "Product updated successfully."
       );
 
     }
 
+    // ===========================
+    // INSERT
+    // ===========================
 
-    /* ================= SECURITY ================= */
+    else {
 
-    function escapeHtml(
-      value
-    ) {
+      const {
+        error
+      } = await supabase
+        .from("products")
+        .insert({
+          name,
+          price,
+          category,
+          stock,
+          description,
+          image: imageUrl
+        });
 
-      return String(
-        value ?? ""
-      )
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-    function escapeJs(
-      value
-    ) {
-
-      return String(
-        value ?? ""
-      )
-        .replace(
-          /\\/g,
-          "\\\\"
-        )
-        .replace(
-          /'/g,
-          "\\'"
-        );
-
-    }
-
-
-    /* ================= LOGOUT ================= */
-
-    logoutBtn.addEventListener(
-      "click",
-      async function () {
-
-        await supabase.auth.signOut();
-
-        window.location.href =
-          "login.html";
-
+      if (error) {
+        throw error;
       }
+
+      showMessage(
+        "Product added successfully."
+      );
+    }
+
+    resetForm();
+
+    await loadProducts();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      error.message ||
+      "Something went wrong.",
+      "error"
     );
 
+  } finally {
 
-    /* ================= START ================= */
+    saveBtn.disabled = false;
 
-    checkAdmin();
+    saveBtn.textContent =
+      editingId
+        ? "Update Product"
+        : "Add Product";
+  }
 
-  </script>
+});
+
+
+// ===============================
+// EDIT
+// ===============================
+
+function editProduct(id) {
+
+  const product =
+    products.find(
+      item => String(item.id) === String(id)
+    );
+
+  if (!product) {
+    showMessage(
+      "Product not found.",
+      "error"
+    );
+    return;
+  }
+
+  editingId = product.id;
+
+  document.getElementById("name").value =
+    product.name || "";
+
+  document.getElementById("price").value =
+    product.price ?? "";
+
+  document.getElementById("category").value =
+    product.category || "";
+
+  document.getElementById("stock").value =
+    product.stock ?? 0;
+
+  document.getElementById("description").value =
+    product.description || "";
+
+  imageInput.value = "";
+
+  if (product.image) {
+
+    imagePreview.innerHTML =
+      `<img
+        src="${escapeAttribute(product.image)}"
+        alt="Current product image"
+      >`;
+
+  } else {
+
+    imagePreview.textContent =
+      "No current image";
+  }
+
+  formTitle.textContent =
+    "✏️ Edit Product";
+
+  saveBtn.textContent =
+    "Update Product";
+
+  cancelBtn.style.display =
+    "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+// ===============================
+// DELETE
+// ===============================
+
+async function deleteProduct(id) {
+
+  const product =
+    products.find(
+      item => String(item.id) === String(id)
+    );
+
+  if (!product) {
+    return;
+  }
+
+  const confirmed =
+    confirm(
+      `Delete "${product.name}"?\n\nThis action cannot be undone.`
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+
+    const {
+      error
+    } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    showMessage(
+      "Product deleted successfully."
+    );
+
+    if (
+      editingId &&
+      String(editingId) === String(id)
+    ) {
+      resetForm();
+    }
+
+    await loadProducts();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      error.message ||
+      "Could not delete product.",
+      "error"
+    );
+  }
+}
+
+
+// ===============================
+// IMAGE PREVIEW
+// ===============================
+
+imageInput.addEventListener("change", () => {
+
+  const file =
+    imageInput.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+
+    showMessage(
+      "Please select an image file.",
+      "error"
+    );
+
+    imageInput.value = "";
+    return;
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload = () => {
+
+    imagePreview.innerHTML =
+      `<img
+        src="${reader.result}"
+        alt="Image preview"
+      >`;
+  };
+
+  reader.readAsDataURL(file);
+});
+
+
+// ===============================
+// CANCEL EDIT
+// ===============================
+
+cancelBtn.addEventListener(
+  "click",
+  resetForm
+);
+
+
+function resetForm() {
+
+  editingId = null;
+
+  productForm.reset();
+
+  formTitle.textContent =
+    "➕ Add Product";
+
+  saveBtn.textContent =
+    "Add Product";
+
+  cancelBtn.style.display =
+    "none";
+
+  imagePreview.textContent =
+    "Product image preview";
+}
+
+
+// ===============================
+// SEARCH
+// ===============================
+
+searchInput.addEventListener(
+  "input",
+  () => {
+
+    const query =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+    if (!query) {
+      renderProducts(products);
+      return;
+    }
+
+    const filtered =
+      products.filter(product => {
+
+        return (
+          String(product.name || "")
+            .toLowerCase()
+            .includes(query) ||
+
+          String(product.category || "")
+            .toLowerCase()
+            .includes(query) ||
+
+          String(product.description || "")
+            .toLowerCase()
+            .includes(query)
+        );
+
+      });
+
+    renderProducts(filtered);
+  }
+);
+
+
+// ===============================
+// LOGOUT
+// ===============================
+
+document
+  .getElementById("logoutBtn")
+  .addEventListener("click", async () => {
+
+    await supabase.auth.signOut();
+
+    location.href =
+      "login.html";
+  });
+
+
+// ===============================
+// SECURITY HELPERS
+// ===============================
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+
+function formatPrice(value) {
+
+  return Number(value || 0)
+    .toLocaleString("sv-SE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+}
+
+
+// ===============================
+// START
+// ===============================
+
+const isAdmin =
+  await checkAdmin();
+
+if (isAdmin) {
+  await loadProducts();
+}
+
+</script>
 
 </body>
 </html>
