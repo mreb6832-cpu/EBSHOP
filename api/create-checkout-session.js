@@ -1,87 +1,150 @@
-```js
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
+
   // CORS
   res.setHeader("Vary", "Origin");
+
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://ebshop.vercel.app"
   );
+
   res.setHeader(
     "Access-Control-Allow-Methods",
     "POST, OPTIONS"
   );
+
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Content-Type"
   );
+
 
   // Browser preflight
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
 
-  // Only POST is allowed
+
+  // Only POST
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method not allowed"
     });
   }
 
-  try {
-    const { items, customerEmail, customerPhone } = req.body || {};
 
+  try {
+
+    const {
+      items,
+      customerEmail,
+      customerPhone,
+      paymentMethod
+    } = req.body || {};
+
+
+    // Check cart
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         error: "Cart is empty"
       });
     }
 
+
+    // Build Stripe products
     const lineItems = items.map((item) => {
+
       const price = Number(item.price);
       const quantity = Number(item.quantity);
+
 
       if (!Number.isFinite(price) || price < 0) {
         throw new Error("Invalid product price");
       }
 
-      if (!Number.isInteger(quantity) || quantity < 1) {
-        throw new Error("Invalid product quantity");
+
+      if (
+        !Number.isInteger(quantity) ||
+        quantity < 1
+      ) {
+        throw new Error(
+          "Invalid product quantity"
+        );
       }
 
+
       return {
+
         price_data: {
+
           currency: "sek",
 
           product_data: {
             name: String(
-              item.name || "E&B SHOP Product"
+              item.name ||
+              "E&B SHOP Product"
             )
           },
 
-          unit_amount: Math.round(price * 100)
+          unit_amount:
+            Math.round(price * 100)
+
         },
 
         quantity
+
       };
+
     });
 
-    const baseUrl = process.env.FRONTEND_URL;
+
+    // Frontend URL
+    const baseUrl =
+      process.env.FRONTEND_URL;
+
 
     if (!baseUrl) {
+
       return res.status(500).json({
-        error: "FRONTEND_URL is not configured"
+        error:
+          "FRONTEND_URL is not configured"
       });
+
     }
 
+
+    // Payment method
+    let paymentMethodTypes = ["card"];
+
+
+    if (paymentMethod === "swish") {
+
+      paymentMethodTypes = ["swish"];
+
+    }
+
+
+    if (paymentMethod === "klarna") {
+
+      paymentMethodTypes = ["klarna"];
+
+    }
+
+
+    // Stripe Checkout
     const session =
       await stripe.checkout.sessions.create({
+
         mode: "payment",
 
         line_items: lineItems,
+
+        payment_method_types:
+          paymentMethodTypes,
 
         customer_email:
           customerEmail || undefined,
@@ -94,8 +157,13 @@ export default async function handler(req, res) {
         },
 
         metadata: {
+
           customerPhone:
-            customerPhone || ""
+            customerPhone || "",
+
+          paymentMethod:
+            paymentMethod || "card"
+
         },
 
         success_url:
@@ -103,23 +171,34 @@ export default async function handler(req, res) {
 
         cancel_url:
           `${baseUrl}/payment.html?payment=cancelled`
+
       });
 
+
+    // Return Stripe URL
     return res.status(200).json({
+
       url: session.url
+
     });
 
+
   } catch (error) {
+
     console.error(
       "Stripe Checkout Error:",
       error
     );
 
+
     return res.status(500).json({
+
       error:
         error.message ||
         "Could not create Stripe Checkout session"
+
     });
+
   }
+
 }
-```
