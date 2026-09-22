@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "E&B SHOP",
+  "name": "E&amp;B SHOP",
   "short_name": "EB SHOP",
-  "description": "E&B SHOP - Online Shop in Sweden",
+  "description": "E&amp;B SHOP - Online Shop in Sweden",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
