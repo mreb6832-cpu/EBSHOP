@@ -101,10 +101,16 @@
       font-weight: 800;
       font-size: 16px;
       cursor: pointer;
+      transition: .2s;
     }
 
     .register-btn:hover {
       background: #ffd76a;
+    }
+
+    .register-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
     .message {
@@ -187,40 +193,48 @@
 
         <div class="form-group">
           <label for="name">Full Name</label>
+
           <input
             type="text"
             id="name"
             placeholder="Enter your full name"
+            autocomplete="name"
             required
           >
         </div>
 
         <div class="form-group">
           <label for="email">Email Address</label>
+
           <input
             type="email"
             id="email"
             placeholder="Enter your email"
+            autocomplete="email"
             required
           >
         </div>
 
         <div class="form-group">
           <label for="phone">Phone Number</label>
+
           <input
             type="tel"
             id="phone"
             placeholder="Enter your phone number"
+            autocomplete="tel"
             required
           >
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
+
           <input
             type="password"
             id="password"
             placeholder="Create a password"
+            autocomplete="new-password"
             minlength="6"
             required
           >
@@ -228,16 +242,22 @@
 
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
+
           <input
             type="password"
             id="confirmPassword"
             placeholder="Confirm your password"
+            autocomplete="new-password"
             minlength="6"
             required
           >
         </div>
 
-        <button type="submit" class="register-btn">
+        <button
+          type="submit"
+          class="register-btn"
+          id="registerBtn"
+        >
           Create Account
         </button>
 
@@ -255,127 +275,262 @@
       </a>
 
     </div>
+
   </div>
 
-  <script>
-    const form = document.getElementById("registerForm");
-    const message = document.getElementById("message");
 
-    const USERS_KEY = "ebShopUsers";
+  <script type="module">
 
-    form.addEventListener("submit", function(event) {
+    import { supabase } from "./supabaseClient.js";
+
+
+    const form =
+      document.getElementById("registerForm");
+
+    const message =
+      document.getElementById("message");
+
+    const registerBtn =
+      document.getElementById("registerBtn");
+
+
+    form.addEventListener("submit", async function(event) {
 
       event.preventDefault();
 
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim().toLowerCase();
-      const phone = document.getElementById("phone").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword =
-        document.getElementById("confirmPassword").value;
 
-      message.className = "message";
-      message.textContent = "";
+      const name =
+        document
+          .getElementById("name")
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById("email")
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      const phone =
+        document
+          .getElementById("phone")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+
+      const confirmPassword =
+        document
+          .getElementById("confirmPassword")
+          .value;
+
+
+      hideMessage();
+
+
+      if (!name || !email || !phone || !password || !confirmPassword) {
+
+        showMessage(
+          "Please complete all fields.",
+          "error"
+        );
+
+        return;
+      }
+
 
       if (password.length < 6) {
+
         showMessage(
           "Password must be at least 6 characters.",
           "error"
         );
+
         return;
       }
 
+
       if (password !== confirmPassword) {
+
         showMessage(
           "Passwords do not match.",
           "error"
         );
+
         return;
       }
 
-      let users = [];
+
+      registerBtn.disabled = true;
+
+      registerBtn.textContent =
+        "Creating Account...";
+
 
       try {
-        users = JSON.parse(
-          localStorage.getItem(USERS_KEY)
-        ) || [];
-      } catch (error) {
-        users = [];
-      }
 
-      if (!Array.isArray(users)) {
-        users = [];
-      }
+        /*
+          Create account using Supabase Auth
+        */
 
-      const existingUser = users.find(
-        user => String(user.email).toLowerCase() === email
-      );
+        const { data, error } =
+          await supabase.auth.signUp({
 
-      if (existingUser) {
+            email: email,
+
+            password: password,
+
+            options: {
+
+              data: {
+                full_name: name,
+                phone: phone
+              },
+
+              emailRedirectTo:
+                "https://ebshop.vercel.app/account.html"
+
+            }
+
+          });
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        /*
+          Save basic customer information locally
+          only for the website interface.
+
+          Password is NEVER saved here.
+        */
+
+        localStorage.setItem(
+          "ebShopCustomerEmail",
+          email
+        );
+
+        localStorage.setItem(
+          "ebShopCustomerName",
+          name
+        );
+
+        localStorage.setItem(
+          "ebShopCustomerPhone",
+          phone
+        );
+
+
+        /*
+          If Supabase immediately creates a session,
+          go directly to account.
+        */
+
+        if (data && data.session) {
+
+          showMessage(
+            "Account created successfully! Opening your account...",
+            "success"
+          );
+
+          setTimeout(function() {
+
+            window.location.href =
+              "account.html";
+
+          }, 1000);
+
+          return;
+        }
+
+
+        /*
+          If email confirmation is enabled,
+          the user must confirm their email first.
+        */
+
         showMessage(
-          "An account with this email already exists. Please login.",
+          "Account created successfully. Please check your email and confirm your account before logging in.",
+          "success"
+        );
+
+
+        registerBtn.disabled = false;
+
+        registerBtn.textContent =
+          "Create Account";
+
+
+      } catch (error) {
+
+        console.error(
+          "Registration error:",
+          error
+        );
+
+
+        let errorMessage =
+          error.message ||
+          "Unable to create your account.";
+
+
+        if (
+          errorMessage.toLowerCase().includes("already registered")
+        ) {
+
+          errorMessage =
+            "This email is already registered. Please login instead.";
+
+        }
+
+
+        showMessage(
+          errorMessage,
           "error"
         );
-        return;
+
+
+        registerBtn.disabled = false;
+
+        registerBtn.textContent =
+          "Create Account";
+
       }
-
-      const newUser = {
-        id: Date.now(),
-        name: name,
-        email: email,
-        phone: phone,
-        password: password,
-        createdAt: new Date().toISOString()
-      };
-
-      users.push(newUser);
-
-      localStorage.setItem(
-        USERS_KEY,
-        JSON.stringify(users)
-      );
-
-      /*
-        Save the currently logged-in customer.
-        This also allows the Owner Admin button
-        to recognize the Owner email.
-      */
-
-      localStorage.setItem(
-        "ebShopCustomerEmail",
-        email
-      );
-
-      localStorage.setItem(
-        "ebShopCustomerName",
-        name
-      );
-
-      localStorage.setItem(
-        "ebShopCustomerPhone",
-        phone
-      );
-
-      localStorage.setItem(
-        "ebShopLoggedIn",
-        "true"
-      );
-
-      showMessage(
-        "Account created successfully! Redirecting to your account...",
-        "success"
-      );
-
-      setTimeout(function() {
-        window.location.href = "account.html";
-      }, 1200);
 
     });
 
+
     function showMessage(text, type) {
-      message.textContent = text;
-      message.className = "message " + type;
+
+      message.textContent =
+        text;
+
+      message.className =
+        "message " + type;
+
     }
+
+
+    function hideMessage() {
+
+      message.textContent =
+        "";
+
+      message.className =
+        "message";
+
+    }
+
   </script>
 
 </body>
