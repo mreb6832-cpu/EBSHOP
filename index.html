@@ -6,6 +6,14 @@
 
   <link rel="icon" type="image/png" href="logo.png">
 
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#d4af37">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="E&B SHOP">
+
   <meta
     name="google-site-verification"
     content="w1xjlGEr733FoAZAauHPqOYr5VTdH4t9pbAeVH5VR0s"
@@ -45,7 +53,11 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at 15% 5%, rgba(212,175,55,.08), transparent 28%),
+        radial-gradient(
+          circle at 15% 5%,
+          rgba(212,175,55,.08),
+          transparent 28%
+        ),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -114,6 +126,7 @@
       transform: translateY(-50%);
       color: #777;
       pointer-events: none;
+      font-size: 20px;
     }
 
     .search-box input {
@@ -134,7 +147,8 @@
 
     .search-box input:focus {
       border-color: rgba(212,175,55,.65);
-      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+      box-shadow:
+        0 0 0 3px rgba(212,175,55,.08);
     }
 
     .nav-links {
@@ -354,11 +368,12 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        180deg,
-        transparent 45%,
-        rgba(0,0,0,.55)
-      );
+      background:
+        linear-gradient(
+          180deg,
+          transparent 45%,
+          rgba(0,0,0,.55)
+        );
       pointer-events: none;
     }
 
@@ -444,7 +459,12 @@
       gap: 9px;
       border: 1px solid var(--border);
       border-radius: 15px;
-      background: linear-gradient(145deg, #121212, #0d0d0d);
+      background:
+        linear-gradient(
+          145deg,
+          #121212,
+          #0d0d0d
+        );
       color: #ddd;
       cursor: pointer;
       transition: .22s;
@@ -623,7 +643,11 @@
       border: 1px solid var(--border);
       border-radius: 22px;
       background:
-        radial-gradient(circle at center, rgba(212,175,55,.07), transparent 50%),
+        radial-gradient(
+          circle at center,
+          rgba(212,175,55,.07),
+          transparent 50%
+        ),
         #101010;
     }
 
@@ -894,29 +918,47 @@
 <header>
   <nav class="nav">
 
-    <a href="index.html" class="logo" aria-label="E&B SHOP">
-      <img src="logo.png" alt="E&B SHOP">
+    <a
+      href="index.html"
+      class="logo"
+      aria-label="E&B SHOP"
+    >
+      <img
+        src="logo.png"
+        alt="E&B SHOP"
+      >
     </a>
 
     <div class="search-box">
+
       <span class="search-icon">⌕</span>
+
       <input
         type="search"
         id="mainSearch"
         placeholder="Search products..."
         autocomplete="off"
       >
+
     </div>
 
     <div class="nav-links">
 
-      <a href="index.html">Home</a>
+      <a href="index.html">
+        Home
+      </a>
 
-      <a href="products.html">Products</a>
+      <a href="products.html">
+        Products
+      </a>
 
-      <a href="about.html">About</a>
+      <a href="about.html">
+        About
+      </a>
 
-      <a href="contact.html">Contact</a>
+      <a href="contact.html">
+        Contact
+      </a>
 
       <a
         href="login.html"
@@ -942,16 +984,28 @@
         👑 Admin
       </a>
 
-      <a href="cart.html" class="cart-btn">
+      <a
+        href="cart.html"
+        class="cart-btn"
+      >
         🛒 Cart
-        <span class="cart-count" id="cartCount">0</span>
+        <span
+          class="cart-count"
+          id="cartCount"
+        >0</span>
       </a>
 
     </div>
 
-    <div class="user-area" id="userArea">
+    <div
+      class="user-area"
+      id="userArea"
+    >
 
-      <span class="user-name" id="userName"></span>
+      <span
+        class="user-name"
+        id="userName"
+      ></span>
 
       <button
         class="logout-btn"
@@ -967,9 +1021,7 @@
 </header>
 
 
-<!-- =========================
-     HERO
-========================== -->
+<!-- HERO -->
 
 <section class="hero">
 
@@ -1026,8 +1078,15 @@
       >
 
       <div class="hero-badge">
-        <strong>Welcome to E&B SHOP</strong>
-        <span>Shop online in Sweden 🇸🇪</span>
+
+        <strong>
+          Welcome to E&B SHOP
+        </strong>
+
+        <span>
+          Shop online in Sweden 🇸🇪
+        </span>
+
       </div>
 
     </div>
@@ -1037,17 +1096,22 @@
 </section>
 
 
-<!-- =========================
-     CATEGORIES
-========================== -->
+<!-- CATEGORIES -->
 
 <section id="categories">
 
   <div class="section-heading">
 
     <div>
-      <h2>Shop by <span>Category</span></h2>
-      <p>Find what you need quickly.</p>
+
+      <h2>
+        Shop by <span>Category</span>
+      </h2>
+
+      <p>
+        Find what you need quickly.
+      </p>
+
     </div>
 
   </div>
@@ -1058,64 +1122,104 @@
       class="category"
       onclick="filterCategory('Electronics')"
     >
-      <span class="category-icon">📱</span>
-      <span class="category-name">Electronics</span>
+      <span class="category-icon">
+        📱
+      </span>
+
+      <span class="category-name">
+        Electronics
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Fashion')"
     >
-      <span class="category-icon">👕</span>
-      <span class="category-name">Fashion</span>
+      <span class="category-icon">
+        👕
+      </span>
+
+      <span class="category-name">
+        Fashion
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Shoes')"
     >
-      <span class="category-icon">👟</span>
-      <span class="category-name">Shoes</span>
+      <span class="category-icon">
+        👟
+      </span>
+
+      <span class="category-name">
+        Shoes
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Home')"
     >
-      <span class="category-icon">🏠</span>
-      <span class="category-name">Home</span>
+      <span class="category-icon">
+        🏠
+      </span>
+
+      <span class="category-name">
+        Home
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Beauty')"
     >
-      <span class="category-icon">💄</span>
-      <span class="category-name">Beauty</span>
+      <span class="category-icon">
+        💄
+      </span>
+
+      <span class="category-name">
+        Beauty
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Gaming')"
     >
-      <span class="category-icon">🎮</span>
-      <span class="category-name">Gaming</span>
+      <span class="category-icon">
+        🎮
+      </span>
+
+      <span class="category-name">
+        Gaming
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Kids')"
     >
-      <span class="category-icon">🧸</span>
-      <span class="category-name">Kids</span>
+      <span class="category-icon">
+        🧸
+      </span>
+
+      <span class="category-name">
+        Kids
+      </span>
     </div>
 
     <div
       class="category"
       onclick="filterCategory('Other')"
     >
-      <span class="category-icon">📦</span>
-      <span class="category-name">Other</span>
+      <span class="category-icon">
+        📦
+      </span>
+
+      <span class="category-name">
+        Other
+      </span>
     </div>
 
   </div>
@@ -1123,9 +1227,7 @@
 </section>
 
 
-<!-- =========================
-     PRODUCTS
-========================== -->
+<!-- PRODUCTS -->
 
 <section
   id="products"
@@ -1135,8 +1237,15 @@
   <div class="section-heading">
 
     <div>
-      <h2>Featured <span>Products</span></h2>
-      <p>Discover products currently available at E&B SHOP.</p>
+
+      <h2>
+        Featured <span>Products</span>
+      </h2>
+
+      <p>
+        Discover products currently available at E&B SHOP.
+      </p>
+
     </div>
 
   </div>
@@ -1155,20 +1264,22 @@
 </section>
 
 
-<!-- =========================
-     ABOUT
-========================== -->
+<!-- ABOUT -->
 
 <section>
 
   <div class="about-box">
 
-    <h2>About E&B SHOP</h2>
+    <h2>
+      About E&B SHOP
+    </h2>
 
     <p>
       E&B SHOP is a modern online shopping platform created
       for customers in
-      <span class="sweden">Sweden 🇸🇪</span>.
+      <span class="sweden">
+        Sweden 🇸🇪
+      </span>.
       Our goal is to make shopping simple by bringing many
       product categories together in one place.
     </p>
@@ -1178,15 +1289,15 @@
 </section>
 
 
-<!-- =========================
-     NEWSLETTER
-========================== -->
+<!-- NEWSLETTER -->
 
 <section>
 
   <div class="newsletter">
 
-    <h2>Stay Updated</h2>
+    <h2>
+      Stay Updated
+    </h2>
 
     <p>
       Subscribe to receive updates about new products.
@@ -1233,7 +1344,8 @@
      ADMIN
   ========================== */
 
-  const ADMIN_EMAIL = "mucyoemmy@gmail.com";
+  const ADMIN_EMAIL =
+    "mucyoemmy@gmail.com";
 
   let products = [];
 
@@ -1261,7 +1373,9 @@
   async function loadProducts() {
 
     const grid =
-      document.getElementById("productsGrid");
+      document.getElementById(
+        "productsGrid"
+      );
 
     grid.innerHTML = `
       <div class="empty-products">
@@ -1271,14 +1385,18 @@
 
     try {
 
-      const { data, error } =
-        await supabase
-          .from("products")
-          .select("*")
-          .order(
-            "created_at",
-            { ascending: false }
-          );
+      const {
+        data,
+        error
+      } = await supabase
+        .from("products")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
 
       if (error) {
 
@@ -1325,10 +1443,14 @@
      RENDER PRODUCTS
   ========================== */
 
-  function renderProducts(list = products) {
+  function renderProducts(
+    list = products
+  ) {
 
     const grid =
-      document.getElementById("productsGrid");
+      document.getElementById(
+        "productsGrid"
+      );
 
     if (!list.length) {
 
@@ -1411,7 +1533,7 @@
 
                 <button
                   class="add-btn"
-                  onclick="addToCart('${escapeHtml(product.id)}')"
+                  data-product-id="${escapeHtml(product.id)}"
                   ${stock <= 0 ? "disabled" : ""}
                 >
                   ${
@@ -1430,6 +1552,26 @@
 
       }).join("");
 
+
+    /* Add-to-cart listeners */
+    grid
+      .querySelectorAll(".add-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const productId =
+              button.dataset.productId;
+
+            addToCart(productId);
+
+          }
+        );
+
+      });
+
   }
 
 
@@ -1437,7 +1579,7 @@
      ADD TO CART
   ========================== */
 
-  window.addToCart = function(productId) {
+  function addToCart(productId) {
 
     const product =
       products.find(
@@ -1448,7 +1590,9 @@
 
     if (!product) {
 
-      alert("Product could not be found.");
+      alert(
+        "Product could not be found."
+      );
 
       return;
     }
@@ -1458,7 +1602,9 @@
 
     if (stock <= 0) {
 
-      alert("This product is out of stock.");
+      alert(
+        "This product is out of stock."
+      );
 
       return;
     }
@@ -1496,7 +1642,9 @@
       const currentQuantity =
         Number(existing.quantity) || 0;
 
-      if (currentQuantity >= stock) {
+      if (
+        currentQuantity >= stock
+      ) {
 
         alert(
           "You reached the available stock."
@@ -1564,7 +1712,7 @@
       " added to cart!"
     );
 
-  };
+  }
 
 
   /* =========================
@@ -1604,9 +1752,15 @@
         0
       );
 
-    document.getElementById(
-      "cartCount"
-    ).textContent = count;
+    const cartCount =
+      document.getElementById(
+        "cartCount"
+      );
+
+    if (cartCount) {
+      cartCount.textContent =
+        count;
+    }
 
   }
 
@@ -1615,26 +1769,27 @@
      CATEGORY FILTER
   ========================== */
 
-  window.filterCategory = function(category) {
+  window.filterCategory =
+    function(category) {
 
-    const filtered =
-      products.filter(
-        product =>
-          String(
-            product.category || ""
-          ).toLowerCase() ===
-          category.toLowerCase()
-      );
+      const filtered =
+        products.filter(
+          product =>
+            String(
+              product.category || ""
+            ).toLowerCase() ===
+            category.toLowerCase()
+        );
 
-    renderProducts(filtered);
+      renderProducts(filtered);
 
-    document
-      .getElementById("products")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
+      document
+        .getElementById("products")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
 
-  };
+    };
 
 
   /* =========================
@@ -1653,30 +1808,32 @@
             .toLowerCase();
 
         const filtered =
-          products.filter(product => {
+          products.filter(
+            product => {
 
-            const name =
-              String(
-                product.name || ""
-              ).toLowerCase();
+              const name =
+                String(
+                  product.name || ""
+                ).toLowerCase();
 
-            const category =
-              String(
-                product.category || ""
-              ).toLowerCase();
+              const category =
+                String(
+                  product.category || ""
+                ).toLowerCase();
 
-            const description =
-              String(
-                product.description || ""
-              ).toLowerCase();
+              const description =
+                String(
+                  product.description || ""
+                ).toLowerCase();
 
-            return (
-              name.includes(search) ||
-              category.includes(search) ||
-              description.includes(search)
-            );
+              return (
+                name.includes(search) ||
+                category.includes(search) ||
+                description.includes(search)
+              );
 
-          });
+            }
+          );
 
         renderProducts(filtered);
 
@@ -1691,19 +1848,29 @@
   async function updateUserArea() {
 
     const loginLink =
-      document.getElementById("loginLink");
+      document.getElementById(
+        "loginLink"
+      );
 
     const registerLink =
-      document.getElementById("registerLink");
+      document.getElementById(
+        "registerLink"
+      );
 
     const adminButton =
-      document.getElementById("adminButton");
+      document.getElementById(
+        "adminButton"
+      );
 
     const userArea =
-      document.getElementById("userArea");
+      document.getElementById(
+        "userArea"
+      );
 
     const userName =
-      document.getElementById("userName");
+      document.getElementById(
+        "userName"
+      );
 
     loginLink.style.display =
       "inline-block";
@@ -1770,7 +1937,9 @@
   ========================== */
 
   document
-    .getElementById("logoutButton")
+    .getElementById(
+      "logoutButton"
+    )
     .addEventListener(
       "click",
       async () => {
@@ -1800,7 +1969,9 @@
   ========================== */
 
   document
-    .getElementById("newsletterForm")
+    .getElementById(
+      "newsletterForm"
+    )
     .addEventListener(
       "submit",
       function(event) {
@@ -1809,7 +1980,9 @@
 
         const email =
           document
-            .getElementById("newsletterEmail")
+            .getElementById(
+              "newsletterEmail"
+            )
             .value
             .trim();
 
@@ -1838,6 +2011,44 @@
 
   updateUserArea();
 
+</script>
+
+
+<!-- =========================
+     PWA SERVICE WORKER
+========================== -->
+
+<script>
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+      "load",
+      () => {
+
+        navigator.serviceWorker
+          .register(
+            "/service-worker.js"
+          )
+          .then(() => {
+
+            console.log(
+              "E&B SHOP PWA ready"
+            );
+
+          })
+          .catch(error => {
+
+            console.error(
+              "PWA service worker error:",
+              error
+            );
+
+          });
+
+      }
+    );
+
+  }
 </script>
 
 </body>
