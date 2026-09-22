@@ -161,6 +161,10 @@
       background: #fff0f0;
     }
 
+    .logout-btn:hover {
+      background: #ffe1e1;
+    }
+
     .main {
       display: grid;
       gap: 20px;
@@ -276,35 +280,57 @@
 <body>
 
   <header>
-    <a href="index.html" class="logo">E&B SHOP</a>
+
+    <a href="index.html" class="logo">
+      E&B SHOP
+    </a>
 
     <div class="header-buttons">
+
       <a href="cart.html" class="header-btn">
         🛒 Cart <span id="cartCount">0</span>
       </a>
 
-      <a href="admin.html" id="adminTopBtn" class="header-btn">
+      <a
+        href="admin.html"
+        id="adminTopBtn"
+        class="header-btn"
+      >
         ⚙️ Admin
       </a>
+
     </div>
+
   </header>
 
-  <div class="container" id="pageContent">
+
+  <div class="container">
 
     <div class="loading" id="loading">
       Loading your account...
     </div>
 
+
     <div id="accountContent" style="display:none;">
 
       <div class="welcome">
-        <h1>My Account</h1>
-        <p>Welcome back to E&B SHOP.</p>
+
+        <h1>
+          My Account
+        </h1>
+
+        <p>
+          Welcome back to E&B SHOP.
+        </p>
+
       </div>
+
 
       <div class="account-grid">
 
+
         <!-- SIDEBAR -->
+
         <aside class="sidebar">
 
           <div class="avatar" id="avatar">
@@ -319,93 +345,173 @@
             Loading...
           </div>
 
-          <a href="index.html" class="side-link">
+
+          <a
+            href="index.html"
+            class="side-link"
+          >
             🏠 Home
           </a>
 
-          <a href="products.html" class="side-link">
+
+          <a
+            href="products.html"
+            class="side-link"
+          >
             🛍️ Products
           </a>
 
-          <a href="cart.html" class="side-link">
+
+          <a
+            href="cart.html"
+            class="side-link"
+          >
             🛒 My Cart
           </a>
 
-          <a href="orders.html" class="side-link">
+
+          <a
+            href="orders.html"
+            class="side-link"
+          >
             📦 My Orders
           </a>
 
-          <a href="admin.html" id="adminSideBtn" class="side-link">
+
+          <a
+            href="admin.html"
+            id="adminSideBtn"
+            class="side-link"
+          >
             ⚙️ Admin Dashboard
           </a>
 
-          <button class="side-link logout-btn" id="logoutBtn">
+
+          <button
+            class="side-link logout-btn"
+            id="logoutBtn"
+            type="button"
+          >
             🚪 Logout
           </button>
 
         </aside>
 
+
         <!-- MAIN -->
+
         <main class="main">
 
+
           <!-- ACCOUNT INFORMATION -->
+
           <section class="card">
 
-            <h2>Account Information</h2>
+            <h2>
+              Account Information
+            </h2>
+
 
             <div class="info-row">
-              <div class="label">Name</div>
-              <div class="value" id="userName">
+
+              <div class="label">
+                Name
+              </div>
+
+              <div
+                class="value"
+                id="userName"
+              >
                 -
               </div>
+
             </div>
 
+
             <div class="info-row">
-              <div class="label">Email</div>
-              <div class="value" id="userEmail">
+
+              <div class="label">
+                Email
+              </div>
+
+              <div
+                class="value"
+                id="userEmail"
+              >
                 -
               </div>
+
             </div>
 
+
             <div class="info-row">
-              <div class="label">Phone</div>
-              <div class="value" id="userPhone">
+
+              <div class="label">
+                Phone
+              </div>
+
+              <div
+                class="value"
+                id="userPhone"
+              >
                 Not added
               </div>
+
             </div>
 
+
             <div class="info-row">
-              <div class="label">Account status</div>
+
+              <div class="label">
+                Account status
+              </div>
+
               <div class="value">
                 Active
               </div>
+
             </div>
 
           </section>
 
-          <!-- ADMIN AREA -->
-          <section class="card admin-card" id="adminCard">
 
-            <h2>👑 Owner / Admin</h2>
+          <!-- ADMIN AREA -->
+
+          <section
+            class="card admin-card"
+            id="adminCard"
+          >
+
+            <h2>
+              👑 Owner / Admin
+            </h2>
 
             <p style="color:#555; margin-bottom:15px;">
               You are signed in with the E&B SHOP owner account.
             </p>
 
-            <a href="admin.html" class="admin-button">
+            <a
+              href="admin.html"
+              class="admin-button"
+            >
               Open Admin Dashboard
             </a>
 
           </section>
 
+
           <!-- SECURITY -->
+
           <section class="card security">
 
-            <h2>Security</h2>
+            <h2>
+              Security
+            </h2>
 
             <p>
               Your account is connected to E&B SHOP authentication.
-              You can safely sign out using the Logout button.
+              Your password is securely managed by Supabase.
+              Use the Logout button when you finish using your account.
             </p>
 
           </section>
@@ -418,77 +524,117 @@
 
   </div>
 
+
   <script type="module">
 
     import { supabase } from "./supabaseClient.js";
 
-    // E&B SHOP OWNER / ADMIN EMAIL
-    const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
 
-    const loading = document.getElementById("loading");
-    const accountContent = document.getElementById("accountContent");
+    /*
+      E&B SHOP OWNER / ADMIN EMAIL
+    */
 
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
-    const userPhone = document.getElementById("userPhone");
-
-    const sideName = document.getElementById("sideName");
-    const sideEmail = document.getElementById("sideEmail");
-
-    const avatar = document.getElementById("avatar");
-
-    const adminTopBtn = document.getElementById("adminTopBtn");
-    const adminSideBtn = document.getElementById("adminSideBtn");
-    const adminCard = document.getElementById("adminCard");
-
-    const cartCount = document.getElementById("cartCount");
-    const logoutBtn = document.getElementById("logoutBtn");
+    const ADMIN_EMAIL =
+      "mucyoemmy539@gmail.com";
 
 
-    // -----------------------------
-    // CART COUNT
-    // -----------------------------
+    const loading =
+      document.getElementById("loading");
+
+    const accountContent =
+      document.getElementById("accountContent");
+
+
+    const userName =
+      document.getElementById("userName");
+
+    const userEmail =
+      document.getElementById("userEmail");
+
+    const userPhone =
+      document.getElementById("userPhone");
+
+
+    const sideName =
+      document.getElementById("sideName");
+
+    const sideEmail =
+      document.getElementById("sideEmail");
+
+
+    const avatar =
+      document.getElementById("avatar");
+
+
+    const adminTopBtn =
+      document.getElementById("adminTopBtn");
+
+    const adminSideBtn =
+      document.getElementById("adminSideBtn");
+
+    const adminCard =
+      document.getElementById("adminCard");
+
+
+    const cartCount =
+      document.getElementById("cartCount");
+
+
+    const logoutBtn =
+      document.getElementById("logoutBtn");
+
+
+    /*
+      CART COUNT
+    */
 
     function updateCartCount() {
 
       try {
 
         const cart =
-          JSON.parse(localStorage.getItem("ebShopCart")) || [];
+          JSON.parse(
+            localStorage.getItem("ebShopCart")
+          ) || [];
 
-        const count = cart.reduce(
-          (total, item) =>
-            total + Number(item.quantity || 1),
-          0
-        );
 
-        cartCount.textContent = count;
+        const count =
+          cart.reduce(
+            (total, item) =>
+              total + Number(item.quantity || 1),
+            0
+          );
+
+
+        cartCount.textContent =
+          count;
 
       } catch (error) {
 
-        cartCount.textContent = "0";
+        cartCount.textContent =
+          "0";
 
       }
 
     }
 
+
     updateCartCount();
 
 
-    // -----------------------------
-    // LOAD ACCOUNT
-    // -----------------------------
+    /*
+      LOAD ACCOUNT
+    */
 
     async function loadAccount() {
 
       try {
 
         const {
-          data: {
-            user
-          },
+          data,
           error
-        } = await supabase.auth.getUser();
+        } =
+          await supabase.auth.getUser();
 
 
         if (error) {
@@ -496,22 +642,34 @@
         }
 
 
-        // User not logged in
+        const user =
+          data?.user;
+
+
+        /*
+          User must be logged in.
+        */
+
         if (!user) {
 
-          window.location.href = "login.html";
+          window.location.href =
+            "login.html";
+
           return;
 
         }
 
 
-        const metadata = user.user_metadata || {};
+        const metadata =
+          user.user_metadata || {};
+
 
         const name =
           metadata.full_name ||
           metadata.name ||
           metadata.display_name ||
           "Customer";
+
 
         const email =
           user.email ||
@@ -524,29 +682,45 @@
           "Not added";
 
 
-        // -----------------------------
-        // SHOW USER INFORMATION
-        // -----------------------------
+        /*
+          ACCOUNT INFORMATION
+        */
 
-        userName.textContent = name;
+        userName.textContent =
+          name;
 
-        userEmail.textContent = email;
+        userEmail.textContent =
+          email;
 
-        userPhone.textContent = phone;
-
-        sideName.textContent = name;
-
-        sideEmail.textContent = email;
+        userPhone.textContent =
+          phone;
 
 
-        // Avatar first letter
+        sideName.textContent =
+          name;
+
+        sideEmail.textContent =
+          email;
+
+
+        /*
+          AVATAR
+        */
+
+        const firstLetter =
+          name.trim().charAt(0).toUpperCase();
+
+
         avatar.textContent =
-          name.trim().charAt(0).toUpperCase() || "U";
+          firstLetter || "U";
 
 
-        // -----------------------------
-        // ADMIN CHECK
-        // -----------------------------
+        /*
+          ADMIN CHECK
+
+          Only the specified owner email
+          gets access buttons.
+        */
 
         const isAdmin =
           email.trim().toLowerCase() ===
@@ -555,19 +729,27 @@
 
         if (isAdmin) {
 
-          adminTopBtn.style.display = "inline-block";
+          adminTopBtn.style.display =
+            "inline-block";
 
-          adminSideBtn.style.display = "block";
+          adminSideBtn.style.display =
+            "block";
 
-          adminCard.style.display = "block";
+          adminCard.style.display =
+            "block";
 
         }
 
 
-        loading.style.display = "none";
+        /*
+          SHOW ACCOUNT
+        */
 
-        accountContent.style.display = "block";
+        loading.style.display =
+          "none";
 
+        accountContent.style.display =
+          "block";
 
       } catch (error) {
 
@@ -576,14 +758,42 @@
           error
         );
 
-        loading.innerHTML = `
-          <p style="color:#c00;">
-            Could not load your account.
-          </p>
-          <p style="margin-top:8px;font-size:13px;">
-            ${error.message || "Authentication error"}
-          </p>
-        `;
+
+        loading.innerHTML =
+          "";
+
+
+        const errorTitle =
+          document.createElement("p");
+
+        errorTitle.style.color =
+          "#c00";
+
+        errorTitle.textContent =
+          "Could not load your account.";
+
+
+        const errorText =
+          document.createElement("p");
+
+        errorText.style.marginTop =
+          "8px";
+
+        errorText.style.fontSize =
+          "13px";
+
+        errorText.textContent =
+          error.message ||
+          "Authentication error";
+
+
+        loading.appendChild(
+          errorTitle
+        );
+
+        loading.appendChild(
+          errorText
+        );
 
       }
 
@@ -593,76 +803,94 @@
     loadAccount();
 
 
-    // -----------------------------
-    // LOGOUT
-    // -----------------------------
+    /*
+      LOGOUT
+    */
 
     logoutBtn.addEventListener(
       "click",
-      async () => {
+      async function() {
 
-        logoutBtn.disabled = true;
+        logoutBtn.disabled =
+          true;
 
         logoutBtn.textContent =
           "Logging out...";
 
-        const {
-          error
-        } = await supabase.auth.signOut();
+
+        try {
+
+          const {
+            error
+          } =
+            await supabase.auth.signOut();
 
 
-        if (error) {
+          if (error) {
+            throw error;
+          }
+
+
+          /*
+            Clear old interface-only
+            localStorage values.
+
+            Cart is intentionally NOT deleted.
+          */
+
+          localStorage.removeItem(
+            "ebShopLoggedIn"
+          );
+
+          localStorage.removeItem(
+            "ebShopCustomerName"
+          );
+
+          localStorage.removeItem(
+            "ebShopCustomerEmail"
+          );
+
+          localStorage.removeItem(
+            "ebShopCustomerPhone"
+          );
+
+
+          window.location.href =
+            "login.html";
+
+
+        } catch (error) {
 
           console.error(
             "Logout error:",
             error
           );
 
+
           alert(
+            error.message ||
             "Could not log out. Please try again."
           );
 
-          logoutBtn.disabled = false;
+
+          logoutBtn.disabled =
+            false;
 
           logoutBtn.textContent =
             "🚪 Logout";
 
-          return;
-
         }
-
-
-        // Remove old local demo data
-        localStorage.removeItem(
-          "ebShopLoggedIn"
-        );
-
-        localStorage.removeItem(
-          "ebShopCustomerName"
-        );
-
-        localStorage.removeItem(
-          "ebShopCustomerEmail"
-        );
-
-        localStorage.removeItem(
-          "ebShopCustomerPhone"
-        );
-
-
-        window.location.href =
-          "login.html";
 
       }
     );
 
 
-    // -----------------------------
-    // AUTH STATE LISTENER
-    // -----------------------------
+    /*
+      AUTH STATE LISTENER
+    */
 
     supabase.auth.onAuthStateChange(
-      (event, session) => {
+      function(event, session) {
 
         if (
           event === "SIGNED_OUT" ||
