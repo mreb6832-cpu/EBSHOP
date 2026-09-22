@@ -14,369 +14,260 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .gold {
-      color: #d4af37;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #111;
     }
 
     header {
-      background: #050505;
-      border-bottom: 1px solid #2a2a2a;
-      padding: 18px 6%;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 23px;
       font-weight: 800;
-      color: #d4af37;
-      white-space: nowrap;
+      color: #111;
+      text-decoration: none;
     }
 
-    .logo span {
-      color: white;
-    }
-
-    nav {
+    .header-buttons {
       display: flex;
+      gap: 8px;
       align-items: center;
-      gap: 22px;
     }
 
-    nav a {
-      color: #ddd;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #d4af37;
-    }
-
-    .shop-btn,
-    .admin-btn {
-      padding: 10px 16px;
+    .header-btn {
+      border: none;
+      background: #111;
+      color: #fff;
+      padding: 10px 14px;
       border-radius: 8px;
-      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
     }
 
-    .shop-btn {
-      border: 1px solid #d4af37;
-      color: #d4af37;
+    .header-btn:hover {
+      opacity: .85;
     }
 
-    .shop-btn:hover {
-      background: #d4af37;
-      color: #000;
-    }
-
-    .admin-btn {
+    #adminTopBtn {
       display: none;
-      background: #d4af37;
-      color: #000;
-      border: 1px solid #d4af37;
+      background: #0a7cff;
     }
 
-    .admin-btn:hover {
-      background: #f0cc55;
-    }
-
-    main {
-      width: 90%;
-      max-width: 1150px;
-      margin: 50px auto;
+    .container {
+      width: min(1100px, 94%);
+      margin: 35px auto;
     }
 
     .welcome {
-      margin-bottom: 35px;
-    }
-
-    .welcome small {
-      color: #d4af37;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      margin-bottom: 25px;
     }
 
     .welcome h1 {
-      margin-top: 10px;
-      font-size: 42px;
+      font-size: 30px;
+      margin-bottom: 8px;
     }
 
     .welcome p {
-      color: #aaa;
-      margin-top: 10px;
+      color: #666;
     }
 
     .account-grid {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 25px;
+      grid-template-columns: 260px 1fr;
+      gap: 22px;
+    }
+
+    .sidebar,
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #e3e3e3;
+      box-shadow: 0 4px 15px rgba(0,0,0,.04);
     }
 
     .sidebar {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      padding: 25px;
+      padding: 20px;
       height: fit-content;
-    }
-
-    .profile {
-      text-align: center;
-      padding-bottom: 25px;
-      border-bottom: 1px solid #292929;
     }
 
     .avatar {
       width: 75px;
       height: 75px;
       border-radius: 50%;
-      background: #d4af37;
-      color: #000;
+      background: #111;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: auto;
-      font-size: 30px;
+      font-size: 28px;
       font-weight: bold;
+      margin-bottom: 12px;
     }
 
-    .profile h3 {
-      margin-top: 15px;
-    }
-
-    .profile p {
-      color: #999;
-      font-size: 13px;
-      margin-top: 5px;
+    .side-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
       word-break: break-word;
     }
 
-    .side-links {
-      margin-top: 20px;
-      display: grid;
-      gap: 8px;
+    .side-email {
+      color: #777;
+      font-size: 13px;
+      word-break: break-word;
+      margin-bottom: 20px;
     }
 
-    .side-links a,
-    .logout {
-      display: block;
+    .side-link {
       width: 100%;
-      padding: 13px;
+      display: block;
+      padding: 12px;
+      margin-top: 8px;
       border-radius: 8px;
-      color: #ddd;
-      background: transparent;
+      text-decoration: none;
+      color: #222;
+      background: #f5f5f5;
       border: none;
-      text-align: left;
       cursor: pointer;
+      text-align: left;
       font-size: 14px;
     }
 
-    .side-links a:hover {
-      background: #1d1d1d;
-      color: #d4af37;
+    .side-link:hover {
+      background: #eaeaea;
     }
 
-    .admin-link {
-      display: none !important;
-      color: #d4af37 !important;
-      border: 1px solid #4a3b0d !important;
+    #adminSideBtn {
+      display: none;
+      background: #eaf3ff;
+      color: #0068d7;
+      font-weight: bold;
     }
 
-    .admin-link:hover {
-      background: #1d1a0d !important;
+    .logout-btn {
+      color: #d00000;
+      background: #fff0f0;
     }
 
-    .logout {
-      color: #ff7777;
-    }
-
-    .logout:hover {
-      background: #251414;
-    }
-
-    .content {
+    .main {
       display: grid;
       gap: 20px;
     }
 
     .card {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      padding: 25px;
+      padding: 24px;
     }
 
     .card h2 {
-      font-size: 21px;
-      margin-bottom: 20px;
+      font-size: 20px;
+      margin-bottom: 18px;
     }
 
-    .card h2 span {
-      color: #d4af37;
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
     }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+    .info-row:last-child {
+      border-bottom: none;
     }
 
-    .stat {
-      background: #181818;
-      border: 1px solid #292929;
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .stat-icon {
-      font-size: 25px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 27px;
-      margin-top: 12px;
-      color: #d4af37;
-    }
-
-    .stat p {
-      color: #999;
-      margin-top: 5px;
-      font-size: 13px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .info-box {
-      background: #181818;
-      border: 1px solid #292929;
-      border-radius: 10px;
-      padding: 15px;
-    }
-
-    .info-box label {
-      display: block;
-      color: #888;
-      font-size: 12px;
-      margin-bottom: 7px;
-    }
-
-    .info-box p {
-      color: white;
-      word-break: break-word;
-    }
-
-    .empty-orders {
-      text-align: center;
-      padding: 35px 15px;
-      color: #999;
-    }
-
-    .empty-orders .icon {
-      font-size: 42px;
-      margin-bottom: 12px;
-    }
-
-    .empty-orders h3 {
-      color: white;
-      margin-bottom: 8px;
-    }
-
-    .browse-btn {
-      display: inline-block;
-      margin-top: 18px;
-      background: #d4af37;
-      color: #000;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .browse-btn:hover {
-      background: #f0cc55;
-    }
-
-    .security {
-      color: #aaa;
-      line-height: 1.7;
+    .label {
+      color: #777;
       font-size: 14px;
     }
 
-    footer {
-      margin-top: 70px;
-      background: #050505;
-      border-top: 1px solid #222;
-      padding: 30px 6%;
+    .value {
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .admin-card {
+      display: none;
+      border: 1px solid #b9dcff;
+      background: #f3f9ff;
+    }
+
+    .admin-card h2 {
+      color: #0068d7;
+    }
+
+    .admin-button {
+      display: inline-block;
+      text-decoration: none;
+      background: #0a7cff;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .admin-button:hover {
+      background: #0068d7;
+    }
+
+    .security {
+      background: #fafafa;
+    }
+
+    .security p {
+      color: #666;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .loading {
       text-align: center;
-      color: #777;
-      font-size: 13px;
+      padding: 60px 20px;
+      color: #666;
     }
 
-    footer strong {
-      color: #d4af37;
-    }
-
-    @media (max-width: 800px) {
+    @media (max-width: 750px) {
       header {
-        flex-direction: column;
-        align-items: stretch;
+        padding: 12px;
       }
 
-      nav {
-        justify-content: center;
-        flex-wrap: wrap;
+      .logo {
+        font-size: 19px;
+      }
+
+      .header-btn {
+        padding: 8px 10px;
+        font-size: 12px;
       }
 
       .account-grid {
         grid-template-columns: 1fr;
       }
 
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
       .welcome h1 {
-        font-size: 32px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      nav {
-        gap: 12px;
+        font-size: 25px;
       }
 
-      nav a {
-        font-size: 13px;
+      .info-row {
+        flex-direction: column;
+        gap: 6px;
       }
 
-      main {
-        width: 94%;
-        margin-top: 30px;
+      .value {
+        text-align: left;
       }
     }
   </style>
@@ -384,565 +275,417 @@
 
 <body>
 
-<header>
+  <header>
+    <a href="index.html" class="logo">E&B SHOP</a>
 
-  <a href="index.html" class="logo">
-    🛒 <span>E&B</span> SHOP
-  </a>
+    <div class="header-buttons">
+      <a href="cart.html" class="header-btn">
+        🛒 Cart <span id="cartCount">0</span>
+      </a>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="index.html#products">Products</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
+      <a href="admin.html" id="adminTopBtn" class="header-btn">
+        ⚙️ Admin
+      </a>
+    </div>
+  </header>
 
-    <a
-      href="admin.html"
-      id="adminTopButton"
-      class="admin-btn"
-    >
-      👑 Admin
-    </a>
+  <div class="container" id="pageContent">
 
-    <a href="index.html" class="shop-btn">
-      🛍 Shop Now
-    </a>
-  </nav>
+    <div class="loading" id="loading">
+      Loading your account...
+    </div>
 
-</header>
+    <div id="accountContent" style="display:none;">
 
-<main>
-
-  <section class="welcome">
-
-    <small>🇸🇪 E&B SHOP • SWEDEN</small>
-
-    <h1>
-      Welcome,
-      <span class="gold" id="welcomeName">
-        Customer
-      </span>
-      👋
-    </h1>
-
-    <p>
-      Manage your E&B SHOP account, orders and personal information.
-    </p>
-
-  </section>
-
-  <div class="account-grid">
-
-    <aside class="sidebar">
-
-      <div class="profile">
-
-        <div class="avatar" id="avatar">
-          E
-        </div>
-
-        <h3 id="profileName">
-          Customer
-        </h3>
-
-        <p id="profileEmail">
-          Loading...
-        </p>
-
+      <div class="welcome">
+        <h1>My Account</h1>
+        <p>Welcome back to E&B SHOP.</p>
       </div>
 
-      <div class="side-links">
+      <div class="account-grid">
 
-        <a href="#overview">
-          🏠 Account Overview
-        </a>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
 
-        <a href="#profile">
-          👤 My Information
-        </a>
-
-        <a href="#orders">
-          📦 My Orders
-        </a>
-
-        <a
-          href="admin.html"
-          id="adminSideButton"
-          class="admin-link"
-        >
-          👑 Owner / Admin Dashboard
-        </a>
-
-        <a href="index.html#products">
-          🛍 Continue Shopping
-        </a>
-
-        <button
-          class="logout"
-          id="logoutBtn"
-        >
-          🚪 Logout
-        </button>
-
-      </div>
-
-    </aside>
-
-    <section class="content">
-
-      <div class="card" id="overview">
-
-        <h2>
-          Account <span>Overview</span>
-        </h2>
-
-        <div class="stats">
-
-          <div class="stat">
-            <div class="stat-icon">📦</div>
-            <strong>0</strong>
-            <p>Total Orders</p>
+          <div class="avatar" id="avatar">
+            U
           </div>
 
-          <div class="stat">
-            <div class="stat-icon">🛒</div>
-            <strong id="cartCount">0</strong>
-            <p>Cart Items</p>
+          <div class="side-name" id="sideName">
+            Customer
           </div>
 
-          <div class="stat">
-            <div class="stat-icon">🇸🇪</div>
-            <strong>SEK</strong>
-            <p>Shopping Currency</p>
+          <div class="side-email" id="sideEmail">
+            Loading...
           </div>
 
-        </div>
-
-      </div>
-
-      <div class="card" id="profile">
-
-        <h2>
-          My <span>Information</span>
-        </h2>
-
-        <div class="info-grid">
-
-          <div class="info-box">
-            <label>FULL NAME</label>
-            <p id="infoName">Loading...</p>
-          </div>
-
-          <div class="info-box">
-            <label>EMAIL ADDRESS</label>
-            <p id="infoEmail">Loading...</p>
-          </div>
-
-          <div class="info-box">
-            <label>PHONE NUMBER</label>
-            <p id="infoPhone">Not added yet</p>
-          </div>
-
-          <div class="info-box">
-            <label>COUNTRY</label>
-            <p>🇸🇪 Sweden</p>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="card" id="orders">
-
-        <h2>
-          My <span>Orders</span>
-        </h2>
-
-        <div class="empty-orders">
-
-          <div class="icon">📦</div>
-
-          <h3>No orders yet</h3>
-
-          <p>
-            Your orders will appear here after you make a purchase.
-          </p>
-
-          <a
-            href="index.html#products"
-            class="browse-btn"
-          >
-            Browse Products
+          <a href="index.html" class="side-link">
+            🏠 Home
           </a>
 
-        </div>
+          <a href="products.html" class="side-link">
+            🛍️ Products
+          </a>
+
+          <a href="cart.html" class="side-link">
+            🛒 My Cart
+          </a>
+
+          <a href="orders.html" class="side-link">
+            📦 My Orders
+          </a>
+
+          <a href="admin.html" id="adminSideBtn" class="side-link">
+            ⚙️ Admin Dashboard
+          </a>
+
+          <button class="side-link logout-btn" id="logoutBtn">
+            🚪 Logout
+          </button>
+
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+
+          <!-- ACCOUNT INFORMATION -->
+          <section class="card">
+
+            <h2>Account Information</h2>
+
+            <div class="info-row">
+              <div class="label">Name</div>
+              <div class="value" id="userName">
+                -
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="label">Email</div>
+              <div class="value" id="userEmail">
+                -
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="label">Phone</div>
+              <div class="value" id="userPhone">
+                Not added
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="label">Account status</div>
+              <div class="value">
+                Active
+              </div>
+            </div>
+
+          </section>
+
+          <!-- ADMIN AREA -->
+          <section class="card admin-card" id="adminCard">
+
+            <h2>👑 Owner / Admin</h2>
+
+            <p style="color:#555; margin-bottom:15px;">
+              You are signed in with the E&B SHOP owner account.
+            </p>
+
+            <a href="admin.html" class="admin-button">
+              Open Admin Dashboard
+            </a>
+
+          </section>
+
+          <!-- SECURITY -->
+          <section class="card security">
+
+            <h2>Security</h2>
+
+            <p>
+              Your account is connected to E&B SHOP authentication.
+              You can safely sign out using the Logout button.
+            </p>
+
+          </section>
+
+        </main>
 
       </div>
 
-      <div class="card">
-
-        <h2>
-          Account <span>Security</span>
-        </h2>
-
-        <p class="security">
-          Your account is authenticated through Supabase.
-          Your password is handled by Supabase Auth and is not stored
-          directly in this page.
-        </p>
-
-      </div>
-
-    </section>
+    </div>
 
   </div>
 
-</main>
+  <script type="module">
 
-<footer>
-  © 2026 <strong>E&B SHOP</strong> — Sweden 🇸🇪
-  <br>
-  Everything You Need in One Shop.
-</footer>
+    import { supabase } from "./supabaseClient.js";
 
+    // E&B SHOP OWNER / ADMIN EMAIL
+    const ADMIN_EMAIL = "mucyoemmy539@gmail.com";
 
-<script type="module">
+    const loading = document.getElementById("loading");
+    const accountContent = document.getElementById("accountContent");
 
-  import { supabase } from "./supabaseClient.js";
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const userPhone = document.getElementById("userPhone");
 
+    const sideName = document.getElementById("sideName");
+    const sideEmail = document.getElementById("sideEmail");
 
-  /*
-    ==========================================
-    E&B SHOP ADMIN CONFIGURATION
-    ==========================================
+    const avatar = document.getElementById("avatar");
 
-    Replace this with the exact email of
-    the E&B SHOP owner/admin account.
-  */
+    const adminTopBtn = document.getElementById("adminTopBtn");
+    const adminSideBtn = document.getElementById("adminSideBtn");
+    const adminCard = document.getElementById("adminCard");
 
-  const ADMIN_EMAIL =
-    "YOUR_ADMIN_EMAIL@example.com";
-
-
-  const adminTopButton =
-    document.getElementById("adminTopButton");
-
-  const adminSideButton =
-    document.getElementById("adminSideButton");
-
-  const welcomeName =
-    document.getElementById("welcomeName");
-
-  const profileName =
-    document.getElementById("profileName");
-
-  const profileEmail =
-    document.getElementById("profileEmail");
-
-  const infoName =
-    document.getElementById("infoName");
-
-  const infoEmail =
-    document.getElementById("infoEmail");
-
-  const infoPhone =
-    document.getElementById("infoPhone");
-
-  const avatar =
-    document.getElementById("avatar");
-
-  const cartCount =
-    document.getElementById("cartCount");
-
-  const logoutBtn =
-    document.getElementById("logoutBtn");
+    const cartCount = document.getElementById("cartCount");
+    const logoutBtn = document.getElementById("logoutBtn");
 
 
-  /*
-    ==========================================
-    CART COUNT
-    ==========================================
-  */
+    // -----------------------------
+    // CART COUNT
+    // -----------------------------
 
-  function updateCartCount() {
+    function updateCartCount() {
 
-    try {
+      try {
 
-      const saved =
-        localStorage.getItem("ebShopCart");
+        const cart =
+          JSON.parse(localStorage.getItem("ebShopCart")) || [];
 
-      const cart =
-        saved ? JSON.parse(saved) : [];
-
-      if (!Array.isArray(cart)) {
-        cartCount.textContent = "0";
-        return;
-      }
-
-      const count =
-        cart.reduce(
+        const count = cart.reduce(
           (total, item) =>
-            total +
-            (Number(item.quantity) || 1),
+            total + Number(item.quantity || 1),
           0
         );
 
-      cartCount.textContent =
-        String(count);
+        cartCount.textContent = count;
 
-    } catch (error) {
+      } catch (error) {
 
-      console.error(
-        "Cart count error:",
-        error
-      );
+        cartCount.textContent = "0";
 
-      cartCount.textContent = "0";
-    }
-  }
-
-
-  /*
-    ==========================================
-    SHOW ADMIN BUTTONS
-    ==========================================
-  */
-
-  function showAdminAccess() {
-
-    adminTopButton.style.display =
-      "inline-block";
-
-    adminSideButton.style.display =
-      "block";
-  }
-
-
-  /*
-    ==========================================
-    HIDE ADMIN BUTTONS
-    ==========================================
-  */
-
-  function hideAdminAccess() {
-
-    adminTopButton.style.display =
-      "none";
-
-    adminSideButton.style.display =
-      "none";
-  }
-
-
-  /*
-    ==========================================
-    LOAD SUPABASE USER
-    ==========================================
-  */
-
-  async function loadAccount() {
-
-    const {
-      data,
-      error
-    } = await supabase.auth.getUser();
-
-
-    if (error) {
-
-      console.error(
-        "Supabase Auth error:",
-        error
-      );
-
-      window.location.href =
-        "login.html";
-
-      return;
-    }
-
-
-    const user =
-      data?.user;
-
-
-    if (!user) {
-
-      window.location.href =
-        "login.html";
-
-      return;
-    }
-
-
-    /*
-      User email
-    */
-
-    const email =
-      (user.email || "").trim();
-
-
-    /*
-      User metadata
-
-      These allow the signup page to save
-      the customer's name and phone.
-    */
-
-    const metadata =
-      user.user_metadata || {};
-
-
-    const name =
-      metadata.full_name ||
-      metadata.name ||
-      email.split("@")[0] ||
-      "Customer";
-
-
-    const phone =
-      metadata.phone ||
-      localStorage.getItem(
-        "ebShopCustomerPhone"
-      ) ||
-      "Not added yet";
-
-
-    /*
-      Display information
-    */
-
-    welcomeName.textContent =
-      name;
-
-    profileName.textContent =
-      name;
-
-    profileEmail.textContent =
-      email;
-
-    infoName.textContent =
-      name;
-
-    infoEmail.textContent =
-      email;
-
-    infoPhone.textContent =
-      phone;
-
-
-    /*
-      Avatar
-    */
-
-    const firstLetter =
-      name
-        .trim()
-        .charAt(0)
-        .toUpperCase() || "E";
-
-    avatar.textContent =
-      firstLetter;
-
-
-    /*
-      ======================================
-      ADMIN CHECK
-      ======================================
-
-      Admin access is based on the authenticated
-      Supabase account email, NOT localStorage.
-    */
-
-    if (
-      email.toLowerCase() ===
-      ADMIN_EMAIL.toLowerCase()
-    ) {
-
-      showAdminAccess();
-
-    } else {
-
-      hideAdminAccess();
+      }
 
     }
-  }
+
+    updateCartCount();
 
 
-  /*
-    ==========================================
-    LOGOUT
-    ==========================================
-  */
+    // -----------------------------
+    // LOAD ACCOUNT
+    // -----------------------------
 
-  logoutBtn.addEventListener(
-    "click",
-    async () => {
+    async function loadAccount() {
 
-      logoutBtn.disabled = true;
+      try {
 
-      logoutBtn.textContent =
-        "Logging out...";
-
-      const {
-        error
-      } = await supabase.auth.signOut();
+        const {
+          data: {
+            user
+          },
+          error
+        } = await supabase.auth.getUser();
 
 
-      if (error) {
+        if (error) {
+          throw error;
+        }
+
+
+        // User not logged in
+        if (!user) {
+
+          window.location.href = "login.html";
+          return;
+
+        }
+
+
+        const metadata = user.user_metadata || {};
+
+        const name =
+          metadata.full_name ||
+          metadata.name ||
+          metadata.display_name ||
+          "Customer";
+
+        const email =
+          user.email ||
+          "No email";
+
+
+        const phone =
+          metadata.phone ||
+          metadata.phone_number ||
+          "Not added";
+
+
+        // -----------------------------
+        // SHOW USER INFORMATION
+        // -----------------------------
+
+        userName.textContent = name;
+
+        userEmail.textContent = email;
+
+        userPhone.textContent = phone;
+
+        sideName.textContent = name;
+
+        sideEmail.textContent = email;
+
+
+        // Avatar first letter
+        avatar.textContent =
+          name.trim().charAt(0).toUpperCase() || "U";
+
+
+        // -----------------------------
+        // ADMIN CHECK
+        // -----------------------------
+
+        const isAdmin =
+          email.trim().toLowerCase() ===
+          ADMIN_EMAIL.trim().toLowerCase();
+
+
+        if (isAdmin) {
+
+          adminTopBtn.style.display = "inline-block";
+
+          adminSideBtn.style.display = "block";
+
+          adminCard.style.display = "block";
+
+        }
+
+
+        loading.style.display = "none";
+
+        accountContent.style.display = "block";
+
+
+      } catch (error) {
 
         console.error(
-          "Logout error:",
+          "Account loading error:",
           error
         );
 
-        logoutBtn.disabled = false;
+        loading.innerHTML = `
+          <p style="color:#c00;">
+            Could not load your account.
+          </p>
+          <p style="margin-top:8px;font-size:13px;">
+            ${error.message || "Authentication error"}
+          </p>
+        `;
 
-        logoutBtn.textContent =
-          "🚪 Logout";
-
-        return;
       }
 
-
-      localStorage.removeItem(
-        "ebShopLoggedIn"
-      );
-
-      localStorage.removeItem(
-        "ebShopCustomerName"
-      );
-
-      localStorage.removeItem(
-        "ebShopCustomerEmail"
-      );
-
-      localStorage.removeItem(
-        "ebShopCustomerPhone"
-      );
-
-
-      window.location.href =
-        "login.html";
     }
-  );
 
 
-  /*
-    ==========================================
-    START
-    ==========================================
-  */
+    loadAccount();
 
-  hideAdminAccess();
 
-  updateCartCount();
+    // -----------------------------
+    // LOGOUT
+    // -----------------------------
 
-  await loadAccount();
+    logoutBtn.addEventListener(
+      "click",
+      async () => {
 
-</script>
+        logoutBtn.disabled = true;
+
+        logoutBtn.textContent =
+          "Logging out...";
+
+        const {
+          error
+        } = await supabase.auth.signOut();
+
+
+        if (error) {
+
+          console.error(
+            "Logout error:",
+            error
+          );
+
+          alert(
+            "Could not log out. Please try again."
+          );
+
+          logoutBtn.disabled = false;
+
+          logoutBtn.textContent =
+            "🚪 Logout";
+
+          return;
+
+        }
+
+
+        // Remove old local demo data
+        localStorage.removeItem(
+          "ebShopLoggedIn"
+        );
+
+        localStorage.removeItem(
+          "ebShopCustomerName"
+        );
+
+        localStorage.removeItem(
+          "ebShopCustomerEmail"
+        );
+
+        localStorage.removeItem(
+          "ebShopCustomerPhone"
+        );
+
+
+        window.location.href =
+          "login.html";
+
+      }
+    );
+
+
+    // -----------------------------
+    // AUTH STATE LISTENER
+    // -----------------------------
+
+    supabase.auth.onAuthStateChange(
+      (event, session) => {
+
+        if (
+          event === "SIGNED_OUT" ||
+          !session
+        ) {
+
+          if (
+            window.location.pathname
+              .toLowerCase()
+              .includes("account")
+          ) {
+
+            window.location.href =
+              "login.html";
+
+          }
+
+        }
+
+      }
+    );
+
+  </script>
 
 </body>
 </html>
-```
