@@ -9,6 +9,12 @@ export default async function handler(req, res) {
     });
   }
 
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return res.status(500).json({
+      error: "STRIPE_SECRET_KEY is not configured"
+    });
+  }
+
   try {
     const {
       lineItems,
@@ -22,30 +28,37 @@ export default async function handler(req, res) {
       });
     }
 
-    if (!process.env.STRIPE_SECRET_KEY) {
-      return res.status(500).json({
-        error: "STRIPE_SECRET_KEY is not configured"
-      });
-    }
-
     const baseUrl =
-      process.env.FRONTEND_URL || "https://ebshop.vercel.app";
+      process.env.FRONTEND_URL ||
+      "https://ebshop.vercel.app";
 
     const session = await stripe.checkout.sessions.create({
+
       mode: "payment",
+
+      /*
+       * Disable Stripe Managed Payments
+       * for this checkout session.
+       */
+      managed_payments: {
+        enabled: false
+      },
 
       line_items: lineItems,
 
-      customer_email: customerEmail || undefined,
+      customer_email:
+        customerEmail || undefined,
 
-      billing_address_collection: "required",
+      billing_address_collection:
+        "required",
 
       phone_number_collection: {
         enabled: true
       },
 
       metadata: {
-        customerPhone: customerPhone || ""
+        customerPhone:
+          customerPhone || ""
       },
 
       success_url:
@@ -61,10 +74,16 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error("Stripe checkout error:", error);
+
+    console.error(
+      "Stripe checkout error:",
+      error
+    );
 
     return res.status(500).json({
-      error: error?.message || "Unable to create checkout session"
+      error:
+        error?.message ||
+        "Unable to create checkout session"
     });
   }
 }
