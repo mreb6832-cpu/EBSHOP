@@ -1,9 +1,9 @@
 {
-  "name": "ebshop",
+  "name": "eb-shop",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "stripe": "^22.0.0"
+    "stripe": "^18.5.0"
   }
 }
