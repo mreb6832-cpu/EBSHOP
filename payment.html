@@ -1,778 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Checkout | E&B SHOP</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --orange: #ff5a00;
-      --orange-dark: #e94d00;
-      --text: #222;
-      --muted: #777;
-      --border: #eeeeee;
-      --bg: #f7f7f7;
-      --white: #fff;
-      --green: #16a34a;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    header {
-      background: #fff;
-      border-bottom: 1px solid #eee;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
-      min-height: 64px;
-      padding: 0 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .logo {
-      text-decoration: none;
-      font-size: 23px;
-      font-weight: 900;
-      color: var(--orange);
-      letter-spacing: -1px;
-    }
-
-    .checkout-title {
-      font-size: 14px;
-      color: #555;
-      font-weight: 700;
-    }
-
-    .secure-mini {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    .page {
-      max-width: 1100px;
-      margin: 25px auto;
-      padding: 0 18px 50px;
-    }
-
-    .top-strip {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 13px;
-    }
-
-    .top-strip strong {
-      color: var(--orange);
-    }
-
-    .delivery {
-      color: #444;
-    }
-
-    .checkout-grid {
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 15px;
-      align-items: start;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #ededed;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .card-header {
-      padding: 15px 16px;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-header h2 {
-      font-size: 16px;
-    }
-
-    .small-label {
-      font-size: 11px;
-      color: #999;
-    }
-
-    .card-body {
-      padding: 16px;
-    }
-
-    .customer-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .info-box {
-      border: 1px solid #eee;
-      border-radius: 6px;
-      padding: 11px;
-      background: #fff;
-    }
-
-    .info-box span {
-      display: block;
-      font-size: 10px;
-      color: #999;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-    }
-
-    .info-box strong {
-      font-size: 13px;
-      word-break: break-word;
-    }
-
-    .method-list {
-      display: grid;
-      gap: 9px;
-    }
-
-    .method {
-      border: 1px solid #ddd;
-      border-radius: 7px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      cursor: pointer;
-      transition: .2s ease;
-      background: #fff;
-    }
-
-    .method:hover {
-      border-color: var(--orange);
-      background: #fffaf7;
-    }
-
-    .method.active {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 1px var(--orange);
-      background: #fff8f3;
-    }
-
-    .radio {
-      width: 17px;
-      height: 17px;
-      border: 1.5px solid #bbb;
-      border-radius: 50%;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .method.active .radio {
-      border-color: var(--orange);
-    }
-
-    .method.active .radio::after {
-      content: "";
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--orange);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .method-icon {
-      width: 40px;
-      height: 31px;
-      border-radius: 5px;
-      background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: 900;
-    }
-
-    .klarna-icon {
-      background: #ffedf5;
-      color: #e6007e;
-      font-size: 15px;
-    }
-
-    .method-info {
-      flex: 1;
-    }
-
-    .method-info strong {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 3px;
-    }
-
-    .method-info small {
-      color: #999;
-      font-size: 11px;
-    }
-
-    .recommended {
-      font-size: 9px;
-      color: #fff;
-      background: var(--orange);
-      padding: 3px 5px;
-      border-radius: 3px;
-      font-weight: 700;
-    }
-
-    .mini-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 13px;
-    }
-
-    .badge {
-      font-size: 10px;
-      background: #f7f7f7;
-      border: 1px solid #eee;
-      border-radius: 4px;
-      padding: 5px 7px;
-      color: #666;
-    }
-
-    .items {
-      display: grid;
-      gap: 10px;
-    }
-
-    .item {
-      display: flex;
-      gap: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .item-image {
-      width: 62px;
-      height: 62px;
-      border-radius: 5px;
-      background: #f5f5f5;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .item-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .item-name {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .item-meta {
-      font-size: 11px;
-      color: #999;
-    }
-
-    .item-price {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--orange);
-      white-space: nowrap;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 0;
-      font-size: 13px;
-    }
-
-    .summary-row span:first-child {
-      color: #666;
-    }
-
-    .summary-row.total {
-      border-top: 1px solid #eee;
-      margin-top: 7px;
-      padding-top: 13px;
-    }
-
-    .summary-row.total span:first-child {
-      color: #222;
-      font-weight: 800;
-      font-size: 15px;
-    }
-
-    .summary-row.total strong {
-      color: var(--orange);
-      font-size: 21px;
-    }
-
-    .free {
-      color: var(--green) !important;
-      font-weight: 700;
-    }
-
-    .pay-btn {
-      width: 100%;
-      border: none;
-      background: var(--orange);
-      color: white;
-      font-size: 15px;
-      font-weight: 800;
-      padding: 14px;
-      border-radius: 7px;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: .2s;
-    }
-
-    .pay-btn:hover {
-      background: var(--orange-dark);
-      transform: translateY(-1px);
-    }
-
-    .pay-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .secure-note {
-      text-align: center;
-      color: #888;
-      font-size: 10px;
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    .secure-note strong {
-      color: var(--green);
-    }
-
-    .loading {
-      text-align: center;
-      padding: 30px 10px;
-      color: #999;
-      font-size: 13px;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 30px 10px;
-      color: #888;
-      font-size: 13px;
-    }
-
-    .error {
-      background: #fff1f1;
-      border: 1px solid #ffd4d4;
-      color: #c62828;
-      padding: 11px;
-      border-radius: 6px;
-      font-size: 12px;
-      margin-top: 10px;
-      display: none;
-      word-break: break-word;
-      white-space: pre-wrap;
-    }
-
-    @media (max-width: 800px) {
-      .checkout-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .summary-card {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .header-inner {
-        min-height: 58px;
-      }
-
-      .logo {
-        font-size: 20px;
-      }
-
-      .checkout-title {
-        display: none;
-      }
-
-      .secure-mini {
-        font-size: 10px;
-      }
-
-      .page {
-        margin-top: 12px;
-        padding: 0 10px 35px;
-      }
-
-      .top-strip {
-        padding: 10px;
-        font-size: 11px;
-      }
-
-      .customer-box {
-        grid-template-columns: 1fr;
-      }
-
-      .card-header,
-      .card-body {
-        padding: 13px;
-      }
-
-      .item-image {
-        width: 55px;
-        height: 55px;
-      }
-
-      .summary-row.total strong {
-        font-size: 19px;
-      }
-
-      .method {
-        padding: 10px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-  <div class="header-inner">
-
-    <a href="index.html" class="logo">
-      E&B SHOP
-    </a>
-
-    <div class="checkout-title">
-      Checkout
-    </div>
-
-    <div class="secure-mini">
-      🔒 Secure checkout
-    </div>
-
-  </div>
-</header>
-
-<main class="page">
-
-  <div class="top-strip">
-    <div>
-      🛍️ <strong>Almost there!</strong>
-      Complete your order securely.
-    </div>
-
-    <div class="delivery">
-      🚚 Free delivery
-    </div>
-  </div>
-
-  <div class="checkout-grid">
-
-    <!-- LEFT -->
-    <div>
-
-      <!-- CUSTOMER -->
-      <section class="card">
-
-        <div class="card-header">
-          <h2>👤 Customer information</h2>
-          <span class="small-label">Checkout</span>
-        </div>
-
-        <div class="card-body">
-
-          <div class="customer-box">
-
-            <div class="info-box">
-              <span>Email</span>
-              <strong id="customerEmail">
-                Loading...
-              </strong>
-            </div>
-
-            <div class="info-box">
-              <span>Phone</span>
-              <strong id="customerPhone">
-                Not provided
-              </strong>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <br>
-
-      <!-- PAYMENT METHODS -->
-      <section class="card">
-
-        <div class="card-header">
-          <h2>💳 Payment method</h2>
-
-          <span class="small-label">
-            Secure
-          </span>
-        </div>
-
-        <div class="card-body">
-
-          <div class="method-list">
-
-            <!-- CARD -->
-            <div
-              class="method active"
-              data-method="card"
-            >
-
-              <div class="radio"></div>
-
-              <div class="method-icon">
-                💳
-              </div>
-
-              <div class="method-info">
-                <strong>Card</strong>
-
-                <small>
-                  Visa, Mastercard and more
-                </small>
-              </div>
-
-              <span class="recommended">
-                FAST
-              </span>
-
-            </div>
-
-            <!-- KLARNA -->
-            <div
-              class="method"
-              data-method="klarna"
-            >
-
-              <div class="radio"></div>
-
-              <div class="method-icon klarna-icon">
-                K
-              </div>
-
-              <div class="method-info">
-                <strong>Klarna</strong>
-
-                <small>
-                  Pay with Klarna when available
-                </small>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="mini-badges">
-
-            <span class="badge">
-              🔒 SSL secured
-            </span>
-
-            <span class="badge">
-              ✓ Safe payment
-            </span>
-
-            <span class="badge">
-              🇸🇪 SEK
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
-
-    <!-- ORDER SUMMARY -->
-    <aside class="summary-card">
-
-      <section class="card">
-
-        <div class="card-header">
-
-          <h2>🛒 Your order</h2>
-
-          <span
-            class="small-label"
-            id="itemCount"
-          >
-            0 items
-          </span>
-
-        </div>
-
-        <div class="card-body">
-
-          <div
-            id="orderItems"
-            class="items"
-          >
-            <div class="loading">
-              Loading your order...
-            </div>
-          </div>
-
-          <br>
-
-          <div class="summary-row">
-
-            <span>
-              Subtotal
-            </span>
-
-            <strong id="subtotal">
-              0 SEK
-            </strong>
-
-          </div>
-
-          <div class="summary-row">
-
-            <span>
-              Delivery
-            </span>
-
-            <strong class="free">
-              FREE
-            </strong>
-
-          </div>
-
-          <div class="summary-row total">
-
-            <span>
-              Total
-            </span>
-
-            <strong id="total">
-              0 SEK
-            </strong>
-
-          </div>
-
-          <button
-            id="payBtn"
-            class="pay-btn"
-          >
-            Continue to Payment
-          </button>
-
-          <div
-            id="errorBox"
-            class="error"
-          ></div>
-
-          <div class="secure-note">
-
-            🔒 Your payment is processed securely.<br>
-
-            <strong>
-              E&B SHOP
-            </strong>
-            never stores your card details.
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </aside>
-
-  </div>
-
-</main>
-
+```html
 <script type="module">
 
   import { supabase } from "./supabaseClient.js";
 
   const cartKey = "ebShopCart";
 
-  const customerEmailEl =
-    document.getElementById("customerEmail");
-
-  const customerPhoneEl =
-    document.getElementById("customerPhone");
-
-  const orderItemsEl =
-    document.getElementById("orderItems");
-
-  const subtotalEl =
-    document.getElementById("subtotal");
-
-  const totalEl =
-    document.getElementById("total");
-
-  const itemCountEl =
-    document.getElementById("itemCount");
-
-  const payBtn =
-    document.getElementById("payBtn");
-
-  const errorBox =
-    document.getElementById("errorBox");
+  const customerEmailEl = document.getElementById("customerEmail");
+  const customerPhoneEl = document.getElementById("customerPhone");
+  const orderItemsEl = document.getElementById("orderItems");
+  const subtotalEl = document.getElementById("subtotal");
+  const totalEl = document.getElementById("total");
+  const itemCountEl = document.getElementById("itemCount");
+  const payBtn = document.getElementById("payBtn");
+  const errorBox = document.getElementById("errorBox");
 
   let selectedMethod = "card";
+  let checkoutCart = [];
 
 
   /* =========================
@@ -789,13 +32,7 @@
 
       method.classList.add("active");
 
-      selectedMethod =
-        method.dataset.method;
-
-      console.log(
-        "Selected payment:",
-        selectedMethod
-      );
+      selectedMethod = method.dataset.method;
 
     });
 
@@ -824,11 +61,14 @@
 
     try {
 
-      return JSON.parse(
-        localStorage.getItem(cartKey)
-      ) || [];
+      const cart =
+        JSON.parse(localStorage.getItem(cartKey));
 
-    } catch {
+      return Array.isArray(cart) ? cart : [];
+
+    } catch (error) {
+
+      console.error("Cart error:", error);
 
       return [];
 
@@ -863,9 +103,7 @@
 
     const phone =
       user.user_metadata?.phone ||
-      localStorage.getItem(
-        "ebShopCustomerPhone"
-      ) ||
+      localStorage.getItem("ebShopCustomerPhone") ||
       "Not provided";
 
     customerPhoneEl.textContent = phone;
@@ -900,12 +138,17 @@
 
     }
 
-    const ids =
-      cart
-        .map(item => item.id)
-        .filter(Boolean);
+    const ids = cart
+      .map(item => item.id)
+      .filter(Boolean);
 
     if (!ids.length) {
+
+      orderItemsEl.innerHTML = `
+        <div class="empty">
+          Your cart contains invalid products.
+        </div>
+      `;
 
       payBtn.disabled = true;
 
@@ -918,14 +161,12 @@
       error
     } = await supabase
       .from("products")
-      .select(
-        "id,name,price,stock,image"
-      )
+      .select("id,name,price,stock,image")
       .in("id", ids);
 
     if (error) {
 
-      console.error(error);
+      console.error("Products error:", error);
 
       orderItemsEl.innerHTML = `
         <div class="empty">
@@ -948,12 +189,11 @@
 
     for (const cartItem of cart) {
 
-      const product =
-        products.find(
-          p =>
-            String(p.id) ===
-            String(cartItem.id)
-        );
+      const product = products.find(
+        p =>
+          String(p.id) ===
+          String(cartItem.id)
+      );
 
       if (!product) continue;
 
@@ -968,8 +208,14 @@
       quantity =
         Math.min(quantity, stock);
 
+      if (quantity <= 0) continue;
+
       const price =
         Number(product.price || 0);
+
+      if (!Number.isFinite(price) || price < 0) {
+        continue;
+      }
 
       const lineTotal =
         price * quantity;
@@ -979,9 +225,9 @@
 
       validCart.push({
         id: product.id,
-        quantity,
+        quantity: quantity,
         name: product.name,
-        price,
+        price: price,
         image: product.image || ""
       });
 
@@ -1036,6 +282,8 @@
 
     }
 
+    checkoutCart = validCart;
+
     localStorage.setItem(
       cartKey,
       JSON.stringify(validCart)
@@ -1064,6 +312,10 @@
 
       payBtn.disabled = true;
 
+    } else {
+
+      payBtn.disabled = false;
+
     }
 
   }
@@ -1086,6 +338,56 @@
 
 
   /* =========================
+     CREATE STRIPE LINE ITEMS
+  ========================= */
+
+  function createStripeLineItems(cart) {
+
+    return cart.map(item => {
+
+      const price =
+        Number(item.price);
+
+      const quantity =
+        Number(item.quantity);
+
+      if (
+        !item.name ||
+        !Number.isFinite(price) ||
+        price < 0 ||
+        !Number.isInteger(quantity) ||
+        quantity < 1
+      ) {
+        throw new Error(
+          "Invalid product information."
+        );
+      }
+
+      return {
+
+        price_data: {
+
+          currency: "sek",
+
+          product_data: {
+            name: String(item.name)
+          },
+
+          unit_amount:
+            Math.round(price * 100)
+
+        },
+
+        quantity: quantity
+
+      };
+
+    });
+
+  }
+
+
+  /* =========================
      START CHECKOUT
   ========================= */
 
@@ -1094,14 +396,13 @@
     errorBox.style.display = "none";
     errorBox.textContent = "";
 
-    const cart = getCart();
-
-    if (!cart.length) {
+    if (!checkoutCart.length) {
 
       errorBox.textContent =
         "Your cart is empty.";
 
-      errorBox.style.display = "block";
+      errorBox.style.display =
+        "block";
 
       return;
 
@@ -1130,6 +431,19 @@
 
       const user = data.user;
 
+      /*
+       * Convert our cart products into
+       * Stripe Checkout line items.
+       */
+
+      const lineItems =
+        createStripeLineItems(checkoutCart);
+
+      console.log(
+        "Stripe line items:",
+        lineItems
+      );
+
       const response = await fetch(
         "/api/create-checkout-session",
         {
@@ -1142,13 +456,17 @@
 
           body: JSON.stringify({
 
-            items: cart,
+            lineItems: lineItems,
 
             customerEmail:
               user.email || "",
 
             customerPhone:
-              user.user_metadata?.phone || "",
+              user.user_metadata?.phone ||
+              localStorage.getItem(
+                "ebShopCustomerPhone"
+              ) ||
+              "",
 
             paymentMethod:
               selectedMethod
@@ -1157,17 +475,10 @@
         }
       );
 
-
-      /*
-        Read the response as TEXT first.
-        This lets us see the real server error
-        even if Vercel returns HTML/text.
-      */
-
       const responseText =
         await response.text();
 
-      let result = null;
+      let result;
 
       try {
 
@@ -1182,7 +493,6 @@
 
       }
 
-
       if (!response.ok) {
 
         throw new Error(
@@ -1192,7 +502,6 @@
 
       }
 
-
       if (!result?.url) {
 
         throw new Error(
@@ -1201,6 +510,9 @@
 
       }
 
+      /*
+       * Send customer to Stripe Checkout.
+       */
 
       window.location.href =
         result.url;
@@ -1238,6 +550,4 @@
   await loadOrder();
 
 </script>
-
-</body>
-</html>
+```
