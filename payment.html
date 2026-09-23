@@ -225,12 +225,6 @@
       font-weight: 900;
     }
 
-    .swish-icon {
-      background: #f1f8ff;
-      color: #1687e8;
-      font-size: 13px;
-    }
-
     .klarna-icon {
       background: #ffedf5;
       color: #e6007e;
@@ -256,16 +250,6 @@
       font-size: 9px;
       color: #fff;
       background: var(--orange);
-      padding: 3px 5px;
-      border-radius: 3px;
-      font-weight: 700;
-    }
-
-    .swish-badge {
-      font-size: 9px;
-      color: #1687e8;
-      background: #eef7ff;
-      border: 1px solid #d7ecff;
       padding: 3px 5px;
       border-radius: 3px;
       font-weight: 700;
@@ -433,6 +417,8 @@
       font-size: 12px;
       margin-top: 10px;
       display: none;
+      word-break: break-word;
+      white-space: pre-wrap;
     }
 
     @media (max-width: 800px) {
@@ -517,11 +503,9 @@
   </div>
 </header>
 
-
 <main class="page">
 
   <div class="top-strip">
-
     <div>
       🛍️ <strong>Almost there!</strong>
       Complete your order securely.
@@ -530,9 +514,7 @@
     <div class="delivery">
       🚚 Free delivery
     </div>
-
   </div>
-
 
   <div class="checkout-grid">
 
@@ -571,23 +553,18 @@
 
       </section>
 
-
       <br>
-
 
       <!-- PAYMENT METHODS -->
       <section class="card">
 
         <div class="card-header">
-
           <h2>💳 Payment method</h2>
 
           <span class="small-label">
             Secure
           </span>
-
         </div>
-
 
         <div class="card-body">
 
@@ -606,15 +583,11 @@
               </div>
 
               <div class="method-info">
-
-                <strong>
-                  Card
-                </strong>
+                <strong>Card</strong>
 
                 <small>
                   Visa, Mastercard and more
                 </small>
-
               </div>
 
               <span class="recommended">
@@ -622,38 +595,6 @@
               </span>
 
             </div>
-
-
-            <!-- SWISH -->
-            <div
-              class="method"
-              data-method="swish"
-            >
-
-              <div class="radio"></div>
-
-              <div class="method-icon swish-icon">
-                SW
-              </div>
-
-              <div class="method-info">
-
-                <strong>
-                  Swish
-                </strong>
-
-                <small>
-                  Pay quickly with Swish
-                </small>
-
-              </div>
-
-              <span class="swish-badge">
-                SWEDEN
-              </span>
-
-            </div>
-
 
             <!-- KLARNA -->
             <div
@@ -668,21 +609,16 @@
               </div>
 
               <div class="method-info">
-
-                <strong>
-                  Klarna
-                </strong>
+                <strong>Klarna</strong>
 
                 <small>
                   Pay with Klarna when available
                 </small>
-
               </div>
 
             </div>
 
           </div>
-
 
           <div class="mini-badges">
 
@@ -706,7 +642,6 @@
 
     </div>
 
-
     <!-- ORDER SUMMARY -->
     <aside class="summary-card">
 
@@ -725,23 +660,18 @@
 
         </div>
 
-
         <div class="card-body">
 
           <div
             id="orderItems"
             class="items"
           >
-
             <div class="loading">
               Loading your order...
             </div>
-
           </div>
 
-
           <br>
-
 
           <div class="summary-row">
 
@@ -755,7 +685,6 @@
 
           </div>
 
-
           <div class="summary-row">
 
             <span>
@@ -767,7 +696,6 @@
             </strong>
 
           </div>
-
 
           <div class="summary-row total">
 
@@ -781,7 +709,6 @@
 
           </div>
 
-
           <button
             id="payBtn"
             class="pay-btn"
@@ -789,12 +716,10 @@
             Continue to Payment
           </button>
 
-
           <div
             id="errorBox"
             class="error"
           ></div>
-
 
           <div class="secure-note">
 
@@ -817,105 +742,64 @@
 
 </main>
 
-
 <script type="module">
 
-  import { supabase }
-    from "./supabaseClient.js";
-
-
-  /* =========================
-     SETTINGS
-  ========================= */
+  import { supabase } from "./supabaseClient.js";
 
   const cartKey = "ebShopCart";
 
-
   const customerEmailEl =
-    document.getElementById(
-      "customerEmail"
-    );
+    document.getElementById("customerEmail");
 
   const customerPhoneEl =
-    document.getElementById(
-      "customerPhone"
-    );
+    document.getElementById("customerPhone");
 
   const orderItemsEl =
-    document.getElementById(
-      "orderItems"
-    );
+    document.getElementById("orderItems");
 
   const subtotalEl =
-    document.getElementById(
-      "subtotal"
-    );
+    document.getElementById("subtotal");
 
   const totalEl =
-    document.getElementById(
-      "total"
-    );
+    document.getElementById("total");
 
   const itemCountEl =
-    document.getElementById(
-      "itemCount"
-    );
+    document.getElementById("itemCount");
 
   const payBtn =
-    document.getElementById(
-      "payBtn"
-    );
+    document.getElementById("payBtn");
 
   const errorBox =
-    document.getElementById(
-      "errorBox"
-    );
-
+    document.getElementById("errorBox");
 
   let selectedMethod = "card";
 
 
   /* =========================
-     SELECT PAYMENT METHOD
+     PAYMENT METHOD
   ========================= */
 
-  document
-    .querySelectorAll(".method")
-    .forEach(method => {
+  document.querySelectorAll(".method").forEach(method => {
 
-      method.addEventListener(
-        "click",
-        () => {
+    method.addEventListener("click", () => {
 
-          document
-            .querySelectorAll(".method")
-            .forEach(item => {
+      document.querySelectorAll(".method").forEach(item => {
+        item.classList.remove("active");
+      });
 
-              item.classList.remove(
-                "active"
-              );
+      method.classList.add("active");
 
-            });
+      selectedMethod =
+        method.dataset.method;
 
-
-          method.classList.add(
-            "active"
-          );
-
-
-          selectedMethod =
-            method.dataset.method;
-
-
-          console.log(
-            "Selected payment:",
-            selectedMethod
-          );
-
-        }
+      console.log(
+        "Selected payment:",
+        selectedMethod
       );
 
     });
+
+  });
 
 
   /* =========================
@@ -924,13 +808,10 @@
 
   function formatSEK(value) {
 
-    return new Intl.NumberFormat(
-      "sv-SE",
-      {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }
-    ).format(value) + " SEK";
+    return new Intl.NumberFormat("sv-SE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(value) + " SEK";
 
   }
 
@@ -944,9 +825,7 @@
     try {
 
       return JSON.parse(
-        localStorage.getItem(
-          cartKey
-        )
+        localStorage.getItem(cartKey)
       ) || [];
 
     } catch {
@@ -969,28 +848,18 @@
       error
     } = await supabase.auth.getUser();
 
+    if (error || !data?.user) {
 
-    if (
-      error ||
-      !data?.user
-    ) {
-
-      window.location.href =
-        "login.html";
+      window.location.href = "login.html";
 
       return null;
 
     }
 
-
-    const user =
-      data.user;
-
+    const user = data.user;
 
     customerEmailEl.textContent =
-      user.email ||
-      "Not provided";
-
+      user.email || "Not provided";
 
     const phone =
       user.user_metadata?.phone ||
@@ -999,10 +868,7 @@
       ) ||
       "Not provided";
 
-
-    customerPhoneEl.textContent =
-      phone;
-
+    customerPhoneEl.textContent = phone;
 
     return user;
 
@@ -1015,9 +881,7 @@
 
   async function loadOrder() {
 
-    let cart =
-      getCart();
-
+    const cart = getCart();
 
     if (!cart.length) {
 
@@ -1027,38 +891,27 @@
         </div>
       `;
 
-      subtotalEl.textContent =
-        "0 SEK";
-
-      totalEl.textContent =
-        "0 SEK";
-
-      itemCountEl.textContent =
-        "0 items";
-
-      payBtn.disabled =
-        true;
+      subtotalEl.textContent = "0 SEK";
+      totalEl.textContent = "0 SEK";
+      itemCountEl.textContent = "0 items";
+      payBtn.disabled = true;
 
       return;
 
     }
-
 
     const ids =
       cart
         .map(item => item.id)
         .filter(Boolean);
 
-
     if (!ids.length) {
 
-      payBtn.disabled =
-        true;
+      payBtn.disabled = true;
 
       return;
 
     }
-
 
     const {
       data: products,
@@ -1070,7 +923,6 @@
       )
       .in("id", ids);
 
-
     if (error) {
 
       console.error(error);
@@ -1081,28 +933,20 @@
         </div>
       `;
 
-      payBtn.disabled =
-        true;
+      payBtn.disabled = true;
 
       return;
 
     }
 
-
-    let validCart = [];
+    const validCart = [];
 
     let subtotal = 0;
-
     let totalQuantity = 0;
 
+    orderItemsEl.innerHTML = "";
 
-    orderItemsEl.innerHTML =
-      "";
-
-
-    for (
-      const cartItem of cart
-    ) {
+    for (const cartItem of cart) {
 
       const product =
         products.find(
@@ -1111,116 +955,70 @@
             String(cartItem.id)
         );
 
-
-      if (!product) {
-        continue;
-      }
-
+      if (!product) continue;
 
       const stock =
-        Number(
-          product.stock || 0
-        );
+        Number(product.stock || 0);
 
-
-      if (stock <= 0) {
-        continue;
-      }
-
+      if (stock <= 0) continue;
 
       let quantity =
-        Number(
-          cartItem.quantity || 1
-        );
-
+        Number(cartItem.quantity || 1);
 
       quantity =
-        Math.min(
-          quantity,
-          stock
-        );
-
+        Math.min(quantity, stock);
 
       const price =
-        Number(
-          product.price || 0
-        );
-
+        Number(product.price || 0);
 
       const lineTotal =
         price * quantity;
 
-
-      subtotal +=
-        lineTotal;
-
-
-      totalQuantity +=
-        quantity;
-
+      subtotal += lineTotal;
+      totalQuantity += quantity;
 
       validCart.push({
-
         id: product.id,
-
         quantity,
-
         name: product.name,
-
         price,
-
-        image:
-          product.image || ""
-
+        image: product.image || ""
       });
 
-
       const item =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
-
-      item.className =
-        "item";
-
+      item.className = "item";
 
       item.innerHTML = `
-
         ${
           product.image
-
-          ? `
-            <img
-              class="item-image"
-              src="${product.image}"
-              alt="${escapeHtml(
-                product.name
-              )}"
-            >
-          `
-
-          : `
-            <div
-              class="item-image"
-              style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                font-size:22px;
-              "
-            >
-              📦
-            </div>
-          `
+            ? `
+              <img
+                class="item-image"
+                src="${escapeHtml(product.image)}"
+                alt="${escapeHtml(product.name)}"
+              >
+            `
+            : `
+              <div
+                class="item-image"
+                style="
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  font-size:22px;
+                "
+              >
+                📦
+              </div>
+            `
         }
 
         <div class="item-info">
 
           <div class="item-name">
-            ${escapeHtml(
-              product.name
-            )}
+            ${escapeHtml(product.name)}
           </div>
 
           <div class="item-meta">
@@ -1230,40 +1028,24 @@
         </div>
 
         <div class="item-price">
-          ${formatSEK(
-            lineTotal
-          )}
+          ${formatSEK(lineTotal)}
         </div>
-
       `;
 
-
-      orderItemsEl.appendChild(
-        item
-      );
+      orderItemsEl.appendChild(item);
 
     }
 
-
     localStorage.setItem(
       cartKey,
-      JSON.stringify(
-        validCart
-      )
+      JSON.stringify(validCart)
     );
 
-
     subtotalEl.textContent =
-      formatSEK(
-        subtotal
-      );
-
+      formatSEK(subtotal);
 
     totalEl.textContent =
-      formatSEK(
-        subtotal
-      );
-
+      formatSEK(subtotal);
 
     itemCountEl.textContent =
       `${totalQuantity} ${
@@ -1271,7 +1053,6 @@
           ? "item"
           : "items"
       }`;
-
 
     if (!validCart.length) {
 
@@ -1281,8 +1062,7 @@
         </div>
       `;
 
-      payBtn.disabled =
-        true;
+      payBtn.disabled = true;
 
     }
 
@@ -1296,218 +1076,157 @@
   function escapeHtml(value) {
 
     return String(value)
-
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-
-      .replace(
-        /</g,
-        "&lt;"
-      )
-
-      .replace(
-        />/g,
-        "&gt;"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-
-      .replace(
-        /'/g,
-        "&#039;"
-      );
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
 
   }
 
 
   /* =========================
-     START STRIPE CHECKOUT
+     START CHECKOUT
   ========================= */
 
-  payBtn.addEventListener(
-    "click",
-    async () => {
+  payBtn.addEventListener("click", async () => {
 
-      errorBox.style.display =
-        "none";
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    const cart = getCart();
+
+    if (!cart.length) {
 
       errorBox.textContent =
-        "";
+        "Your cart is empty.";
 
+      errorBox.style.display = "block";
 
-      const cart =
-        getCart();
+      return;
 
+    }
 
-      if (!cart.length) {
+    payBtn.disabled = true;
 
-        errorBox.textContent =
-          "Your cart is empty.";
+    payBtn.textContent =
+      "Opening secure checkout...";
 
-        errorBox.style.display =
-          "block";
+    try {
+
+      const {
+        data,
+        error
+      } = await supabase.auth.getUser();
+
+      if (error || !data?.user) {
+
+        window.location.href =
+          "login.html";
 
         return;
 
       }
 
+      const user = data.user;
 
-      payBtn.disabled =
-        true;
+      const response = await fetch(
+        "/api/create-checkout-session",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
+            items: cart,
+
+            customerEmail:
+              user.email || "",
+
+            customerPhone:
+              user.user_metadata?.phone || "",
+
+            paymentMethod:
+              selectedMethod
+
+          })
+        }
+      );
 
 
-      payBtn.textContent =
-        "Opening secure checkout...";
+      /*
+        Read the response as TEXT first.
+        This lets us see the real server error
+        even if Vercel returns HTML/text.
+      */
 
+      const responseText =
+        await response.text();
+
+      let result = null;
 
       try {
 
-        const {
-          data,
-          error
-        } =
-          await supabase.auth.getUser();
+        result =
+          JSON.parse(responseText);
 
+      } catch {
 
-        if (
-          error ||
-          !data?.user
-        ) {
-
-          window.location.href =
-            "login.html";
-
-          return;
-
-        }
-
-
-        const user =
-          data.user;
-
-
-        /*
-          IMPORTANT:
-
-          selectedMethod can be:
-          "card"
-          "swish"
-          "klarna"
-        */
-
-
-        const response =
-          await fetch(
-            "/api/create-checkout-session",
-            {
-
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body:
-                JSON.stringify({
-
-                  items: cart,
-
-                  customerEmail:
-                    user.email || "",
-
-                  customerPhone:
-                    user.user_metadata
-                      ?.phone || "",
-
-                  paymentMethod:
-                    selectedMethod
-
-                })
-
-            }
-          );
-
-
-        const contentType =
-          response.headers
-            .get(
-              "content-type"
-            ) || "";
-
-
-        if (
-          !contentType.includes(
-            "application/json"
-          )
-        ) {
-
-          throw new Error(
-            "The checkout server returned an invalid response."
-          );
-
-        }
-
-
-        const result =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            result.error ||
-            "Unable to create checkout session."
-          );
-
-        }
-
-
-        if (!result.url) {
-
-          throw new Error(
-            "Stripe checkout URL was not returned."
-          );
-
-        }
-
-
-        window.location.href =
-          result.url;
-
-
-      } catch (error) {
-
-        console.error(
-          error
+        throw new Error(
+          `Checkout server error (${response.status}): ${responseText.slice(0, 500)}`
         );
-
-
-        errorBox.textContent =
-          error.message ||
-          "Something went wrong. Please try again.";
-
-
-        errorBox.style.display =
-          "block";
-
-
-        payBtn.disabled =
-          false;
-
-
-        payBtn.textContent =
-          "Continue to Payment";
 
       }
 
+
+      if (!response.ok) {
+
+        throw new Error(
+          result?.error ||
+          `Checkout server returned ${response.status}.`
+        );
+
+      }
+
+
+      if (!result?.url) {
+
+        throw new Error(
+          "Stripe checkout URL was not returned."
+        );
+
+      }
+
+
+      window.location.href =
+        result.url;
+
+    } catch (error) {
+
+      console.error(
+        "Checkout error:",
+        error
+      );
+
+      errorBox.textContent =
+        error.message ||
+        "Something went wrong. Please try again.";
+
+      errorBox.style.display =
+        "block";
+
+      payBtn.disabled = false;
+
+      payBtn.textContent =
+        "Continue to Payment";
+
     }
-  );
+
+  });
 
 
   /* =========================
