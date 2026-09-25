@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>E&B SHOP - Affiliate</title>
+
+  <link rel="icon" href="logo.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #111;
+    }
+
+    header {
+      background: #080808;
+      color: white;
+      padding: 18px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #d4af37;
+    }
+
+    .hero {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 55px 20px;
+    }
+
+    .hero h1 {
+      color: #d4af37;
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #ddd;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 35px auto;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    #search,
+    #category {
+      padding: 13px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      font-size: 15px;
+      outline: none;
+    }
+
+    #search {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    #category {
+      min-width: 180px;
+    }
+
+    .status {
+      text-align: center;
+      margin: 25px 0;
+      color: #666;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform .2s ease, box-shadow .2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 9px 25px rgba(0,0,0,0.13);
+    }
+
+    .image-box {
+      width: 100%;
+      height: 220px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 17px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .category {
+      color: #a17d00;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .price {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .deal {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      background: #d4af37;
+      color: #080808;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .deal:hover {
+      background: #b8941f;
+    }
+
+    .empty {
+      text-align: center;
+      background: white;
+      border-radius: 12px;
+      padding: 45px 20px;
+      color: #666;
+    }
+
+    footer {
+      margin-top: 60px;
+      background: #080808;
+      color: #aaa;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #d4af37;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 40px 18px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .image-box {
+        height: 170px;
+      }
+
+      .content {
+        padding: 12px;
+      }
+
+      .name {
+        font-size: 15px;
+      }
+
+      .description {
+        font-size: 13px;
+      }
+
+      .price {
+        font-size: 16px;
+      }
+
+      .deal {
+        font-size: 13px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">E&B SHOP</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="affiliate.html">Deals</a>
+    <a href="cart.html">Cart</a>
+    <a href="account.html">Account</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Affiliate Deals</h1>
+  <p>
+    Discover products and special offers from our selected partners.
+    Click "View Deal" to see the offer on the partner's website.
+  </p>
+</section>
+
+<main class="container">
+
+  <div class="toolbar">
+    <input
+      type="search"
+      id="search"
+      placeholder="Search affiliate products..."
+    >
+
+    <select id="category">
+      <option value="all">All Categories</option>
+    </select>
+  </div>
+
+  <div id="status" class="status">
+    Loading deals...
+  </div>
+
+  <div id="products" class="products"></div>
+
+</main>
+
+<footer>
+  <p>
+    © 2026 <strong>E&B SHOP</strong>. All rights reserved.
+  </p>
+</footer>
+
+<script type="module">
+
+  import { supabase } from "./supabaseClient.js";
+
+  const productsContainer =
+    document.getElementById("products");
+
+  const status =
+    document.getElementById("status");
+
+  const search =
+    document.getElementById("search");
+
+  const category =
+    document.getElementById("category");
+
+  let products = [];
+
+  async function loadProducts() {
+
+    status.textContent = "Loading deals...";
+
+    const { data, error } = await supabase
+      .from("affiliate_products")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+    if (error) {
+      console.error(error);
+
+      status.textContent =
+        "Unable to load affiliate products.";
+
+      return;
+    }
+
+    products = data || [];
+
+    createCategories();
+
+    renderProducts();
+  }
+
+  function createCategories() {
+
+    const categories = [
+      ...new Set(
+        products
+          .map(product => product.category)
+          .filter(Boolean)
+      )
+    ];
+
+    category.innerHTML =
+      `<option value="all">All Categories</option>`;
+
+    categories.forEach(cat => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = cat;
+      option.textContent = cat;
+
+      category.appendChild(option);
+    });
+  }
+
+  function renderProducts() {
+
+    const searchText =
+      search.value
+        .trim()
+        .toLowerCase();
+
+    const selectedCategory =
+      category.value;
+
+    const filtered =
+      products.filter(product => {
+
+        const name =
+          (product.name || "")
+            .toLowerCase();
+
+        const description =
+          (product.description || "")
+            .toLowerCase();
+
+        const productCategory =
+          product.category || "";
+
+        const matchesSearch =
+          name.includes(searchText) ||
+          description.includes(searchText);
+
+        const matchesCategory =
+          selectedCategory === "all" ||
+          productCategory === selectedCategory;
+
+        return matchesSearch &&
+               matchesCategory;
+      });
+
+    productsContainer.innerHTML = "";
+
+    if (filtered.length === 0) {
+
+      status.style.display = "none";
+
+      productsContainer.innerHTML = `
+        <div class="empty">
+          <h2>No affiliate deals found</h2>
+          <p>
+            There are currently no affiliate products
+            matching your search.
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+    status.style.display = "none";
+
+    filtered.forEach(product => {
+
+      const card =
+        document.createElement("article");
+
+      card.className = "card";
+
+      const image =
+        product.image_url ||
+        "";
+
+      const name =
+        escapeHTML(product.name || "Product");
+
+      const description =
+        escapeHTML(
+          product.description || ""
+        );
+
+      const cat =
+        escapeHTML(
+          product.category || "Deal"
+        );
+
+      const affiliateUrl =
+        product.affiliate_url || "#";
+
+      const price =
+        product.price !== null &&
+        product.price !== undefined &&
+        product.price !== ""
+          ? `${Number(product.price).toFixed(2)} SEK`
+          : "";
+
+      card.innerHTML = `
+
+        <div class="image-box">
+          ${
+            image
+              ? `<img
+                  src="${escapeAttribute(image)}"
+                  alt="${name}"
+                  loading="lazy"
+                >`
+              : `<span>No image</span>`
+          }
+        </div>
+
+        <div class="content">
+
+          <div class="category">
+            ${cat}
+          </div>
+
+          <div class="name">
+            ${name}
+          </div>
+
+          <div class="description">
+            ${description}
+          </div>
+
+          ${
+            price
+              ? `<div class="price">${price}</div>`
+              : ""
+          }
+
+          <a
+            class="deal"
+            href="${escapeAttribute(affiliateUrl)}"
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+          >
+            View Deal
+          </a>
+
+        </div>
+      `;
+
+      productsContainer.appendChild(card);
+    });
+  }
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function escapeAttribute(value) {
+    return escapeHTML(value);
+  }
+
+  search.addEventListener(
+    "input",
+    renderProducts
+  );
+
+  category.addEventListener(
+    "change",
+    renderProducts
+  );
+
+  loadProducts();
+
+</script>
+
+</body>
+</html>
+```
