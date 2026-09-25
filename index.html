@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#d4af37">
+  <meta name="theme-color" content="#2563eb">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -30,17 +30,37 @@
 
   <style>
     :root {
-      --bg: #ffffff;
+      --bg: #f8fafc;
       --surface: #ffffff;
-      --surface-2: #f7f8fa;
-      --border: #e8e9ed;
-      --text: #111318;
-      --muted: #6b7280;
-      --accent: #111318;
-      --accent-soft: #f1f3f5;
-      --success: #16834b;
-      --shadow: 0 12px 35px rgba(17,19,24,.08);
+      --surface-2: #eef4ff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --success: #16a34a;
+      --shadow: 0 14px 40px rgba(15,23,42,.09);
       --radius: 16px;
+    }
+
+
+    .eb-announcement {
+      min-height: 32px;
+      padding: 7px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: #0b1220;
+      color: #dbeafe;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .eb-announcement span:first-child { color: #60a5fa; }
+    @media (max-width: 760px) {
+      .eb-announcement { font-size: 10px; gap: 8px; }
+      .eb-announcement span:last-child { display: none; }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,9 +83,9 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255,255,255,.94);
+      background: rgba(11,18,32,.96);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255,255,255,.10);
     }
 
     .nav {
@@ -91,7 +111,7 @@
       left: 15px;
       top: 50%;
       transform: translateY(-50%);
-      color: #8b9099;
+      color: #64748b;
       pointer-events: none;
       font-size: 20px;
     }
@@ -103,16 +123,16 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       outline: none;
-      background: #f7f8fa;
+      background: #f1f5f9;
       color: var(--text);
       transition: .2s;
     }
 
-    .search-box input::placeholder { color: #9aa0aa; }
+    .search-box input::placeholder { color: #94a3b8; }
     .search-box input:focus {
-      background: #fff;
-      border-color: #b9bdc5;
-      box-shadow: 0 0 0 3px rgba(17,19,24,.05);
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
     }
 
     .nav-links {
@@ -126,15 +146,15 @@
 
     .nav-links > a {
       padding: 9px 11px;
-      color: #555b66;
+      color: #cbd5e1;
       font-size: 14px;
       border-radius: 9px;
       transition: .2s;
     }
 
     .nav-links > a:hover {
-      color: #111318;
-      background: #f2f3f5;
+      color: #ffffff;
+      background: rgba(255,255,255,.10);
     }
 
     .login-btn { border: 1px solid var(--border); }
@@ -144,13 +164,13 @@
       font-weight: 700;
     }
 
-    .register-btn:hover, .admin-btn:hover { background: #2a2d33 !important; }
+    .register-btn:hover, .admin-btn:hover { background: #1d4ed8 !important; }
     .admin-btn { display: none; }
 
     .cart-btn {
       border: 1px solid var(--border);
-      background: #fff;
-      color: #111318 !important;
+      background: #ffffff;
+      color: #0f172a !important;
       font-weight: 700;
     }
 
@@ -163,7 +183,7 @@
       margin-left: 4px;
       padding: 0 5px;
       border-radius: 99px;
-      background: #111318;
+      background: #2563eb;
       color: #fff;
       font-size: 11px;
       font-weight: 800;
@@ -187,26 +207,31 @@
 
     .logout-btn {
       border: 1px solid var(--border);
-      background: #fff;
-      color: #666b75;
+      background: #ffffff;
+      color: #64748b;
       padding: 8px 11px;
       border-radius: 9px;
       transition: .2s;
     }
 
-    .logout-btn:hover { color: #111318; border-color: #bfc3ca; }
+    .logout-btn:hover { color: #111318; border-color: #94a3b8; }
 
     /* CLEAN HERO — no large image */
     .hero {
       width: min(1280px, 94%);
-      min-height: 430px;
+      position: relative;
+      overflow: hidden;
+      min-height: 460px;
       margin: auto;
-      padding: 88px 0 70px;
+      padding: 90px 0 75px;
       display: flex;
       align-items: center;
     }
 
-    .hero-content { max-width: 820px; }
+    .hero-content { max-width: 820px; position: relative; z-index: 2; }
+
+    .hero::before { content: ""; position: absolute; width: 520px; height: 520px; right: -180px; top: -120px; background: radial-gradient(circle, rgba(37,99,235,.18), transparent 68%); pointer-events: none; }
+    .hero::after { content: ""; position: absolute; width: 320px; height: 320px; left: -180px; bottom: -170px; background: radial-gradient(circle, rgba(14,165,233,.12), transparent 68%); pointer-events: none; }
 
     .eyebrow {
       display: inline-flex;
@@ -215,8 +240,8 @@
       padding: 7px 12px;
       border: 1px solid var(--border);
       border-radius: 99px;
-      background: #f7f8fa;
-      color: #555b66;
+      background: #f1f5f9;
+      color: #cbd5e1;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 1px;
@@ -258,18 +283,18 @@
       transition: .2s;
     }
 
-    .primary-btn { background: #111318; color: #fff; }
+    .primary-btn { background: #2563eb; color: #fff; }
     .primary-btn:hover { background: #2b2e35; transform: translateY(-2px); }
 
     .secondary-btn {
       border: 1px solid var(--border);
       color: #111318;
-      background: #fff;
+      background: #ffffff;
     }
 
     .secondary-btn:hover {
-      border-color: #bfc3ca;
-      background: #f7f8fa;
+      border-color: #94a3b8;
+      background: #f1f5f9;
       transform: translateY(-2px);
     }
 
@@ -324,7 +349,7 @@
       gap: 9px;
       border: 1px solid var(--border);
       border-radius: 15px;
-      background: #fff;
+      background: #ffffff;
       color: #444a54;
       cursor: pointer;
       transition: .22s;
@@ -361,7 +386,7 @@
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 17px;
-      background: #fff;
+      background: #ffffff;
       transition: .22s;
     }
 
@@ -396,7 +421,7 @@
       border: 1px solid rgba(0,0,0,.07);
       border-radius: 99px;
       background: rgba(255,255,255,.9);
-      color: #555b66;
+      color: #cbd5e1;
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
@@ -410,7 +435,7 @@
       display: grid;
       place-items: center;
       font-size: 48px;
-      color: #9aa0aa;
+      color: #94a3b8;
     }
 
     .product-content { padding: 17px; }
@@ -448,7 +473,7 @@
     .view-btn { background: #f1f2f4; color: #111318; }
     .view-btn:hover { background: #e7e8eb; }
 
-    .add-btn { background: #111318; color: #fff; }
+    .add-btn { background: #2563eb; color: #fff; }
     .add-btn:hover { background: #2b2e35; }
     .add-btn:disabled { opacity: .45; cursor: not-allowed; }
 
@@ -487,7 +512,7 @@
       text-align: center;
       border: 1px solid var(--border);
       border-radius: 22px;
-      background: #f7f8fa;
+      background: #f1f5f9;
     }
 
     .newsletter h2 { font-size: 30px; }
@@ -508,7 +533,7 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       outline: none;
-      background: #fff;
+      background: #ffffff;
       color: #111318;
     }
 
@@ -519,7 +544,7 @@
       padding: 0 20px;
       border: none;
       border-radius: 10px;
-      background: #111318;
+      background: #2563eb;
       color: #fff;
       font-weight: 800;
     }
@@ -589,6 +614,12 @@
 </head>
 
 <body>
+
+  <div class="eb-announcement">
+    <span>⚡ E&B SHOP</span>
+    <span>Modern shopping • Secure checkout • Sweden</span>
+  </div>
+
 
 <header>
   <nav class="nav">
