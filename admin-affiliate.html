@@ -1,0 +1,1041 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>E&B SHOP - Affiliate Admin</title>
+  <link rel="icon" href="logo.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    header {
+      background: #080808;
+      color: white;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .back {
+      color: white;
+      text-decoration: none;
+    }
+
+    .back:hover {
+      color: #d4af37;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: 35px auto;
+    }
+
+    .loading,
+    .denied {
+      text-align: center;
+      background: white;
+      border-radius: 14px;
+      padding: 50px 20px;
+      margin-top: 40px;
+    }
+
+    .denied h2 {
+      color: #b00020;
+      margin-bottom: 10px;
+    }
+
+    .admin-content {
+      display: none;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .panel {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.07);
+      margin-bottom: 30px;
+    }
+
+    .panel h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #d4af37;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .save {
+      background: #d4af37;
+      color: #080808;
+    }
+
+    .save:hover {
+      background: #b8941f;
+    }
+
+    .cancel {
+      background: #ddd;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,.07);
+    }
+
+    .card-image {
+      height: 190px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin-bottom: 8px;
+    }
+
+    .category {
+      color: #9a7700;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-weight: 700;
+      margin: 10px 0;
+    }
+
+    .description {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .card-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .edit {
+      background: #111;
+      color: white;
+      flex: 1;
+    }
+
+    .delete {
+      background: #e5e5e5;
+      color: #111;
+      flex: 1;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px;
+      background: white;
+      border-radius: 12px;
+      color: #666;
+    }
+
+    @media (max-width: 700px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">E&B SHOP</div>
+
+  <a class="back" href="admin.html">
+    ← Back to Admin
+  </a>
+</header>
+
+<div id="loading" class="loading">
+  Checking admin access...
+</div>
+
+<div id="denied" class="denied" style="display:none;">
+  <h2>Access Denied</h2>
+  <p>You do not have permission to access this page.</p>
+</div>
+
+<main id="adminContent" class="container admin-content">
+
+  <h1>Affiliate Products</h1>
+
+  <p class="subtitle">
+    Manage affiliate products displayed on E&B SHOP.
+  </p>
+
+  <section class="panel">
+
+    <h2 id="formTitle">
+      Add Affiliate Product
+    </h2>
+
+    <form id="productForm">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="name">Product Name</label>
+
+          <input
+            id="name"
+            type="text"
+            required
+            placeholder="Product name"
+          >
+        </div>
+
+        <div class="field">
+          <label for="category">Category</label>
+
+          <input
+            id="category"
+            type="text"
+            placeholder="Electronics, Fashion..."
+          >
+        </div>
+
+        <div class="field">
+          <label for="price">Price (SEK)</label>
+
+          <input
+            id="price"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+          >
+        </div>
+
+        <div class="field">
+          <label for="image">Image URL</label>
+
+          <input
+            id="image"
+            type="url"
+            placeholder="https://..."
+          >
+        </div>
+
+        <div class="field full">
+          <label for="affiliateUrl">
+            Affiliate Link
+          </label>
+
+          <input
+            id="affiliateUrl"
+            type="url"
+            required
+            placeholder="https://..."
+          >
+        </div>
+
+        <div class="field full">
+          <label for="description">
+            Description
+          </label>
+
+          <textarea
+            id="description"
+            placeholder="Short product description..."
+          ></textarea>
+        </div>
+
+      </div>
+
+      <div class="buttons">
+
+        <button
+          type="submit"
+          class="save"
+          id="saveButton"
+        >
+          Add Product
+        </button>
+
+        <button
+          type="button"
+          class="cancel"
+          id="cancelButton"
+          style="display:none;"
+        >
+          Cancel Edit
+        </button>
+
+      </div>
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+    </form>
+
+  </section>
+
+  <section>
+
+    <h2 style="margin-bottom:20px;">
+      Current Affiliate Products
+    </h2>
+
+    <div
+      id="products"
+      class="products"
+    ></div>
+
+  </section>
+
+</main>
+
+<script type="module">
+
+  import { supabase } from "./supabaseClient.js";
+
+
+  /*
+   * E&B SHOP ADMIN
+   *
+   * Same Supabase account as the normal admin page.
+   *
+   * Password is NOT stored in this file.
+   * The user must already be logged in through
+   * Supabase Auth.
+   */
+
+  const ADMIN_EMAIL =
+    "mucyoemmy539@gmail.com";
+
+
+  const loading =
+    document.getElementById("loading");
+
+  const denied =
+    document.getElementById("denied");
+
+  const adminContent =
+    document.getElementById("adminContent");
+
+  const form =
+    document.getElementById("productForm");
+
+  const formTitle =
+    document.getElementById("formTitle");
+
+  const saveButton =
+    document.getElementById("saveButton");
+
+  const cancelButton =
+    document.getElementById("cancelButton");
+
+  const message =
+    document.getElementById("message");
+
+  const productsContainer =
+    document.getElementById("products");
+
+  const nameInput =
+    document.getElementById("name");
+
+  const categoryInput =
+    document.getElementById("category");
+
+  const priceInput =
+    document.getElementById("price");
+
+  const imageInput =
+    document.getElementById("image");
+
+  const affiliateUrlInput =
+    document.getElementById("affiliateUrl");
+
+  const descriptionInput =
+    document.getElementById("description");
+
+
+  let editingId = null;
+
+
+  /* =========================
+     CHECK ADMIN LOGIN
+     ========================= */
+
+  async function checkAdmin() {
+
+    const {
+      data: { session },
+      error
+    } = await supabase.auth.getSession();
+
+
+    if (error) {
+
+      console.error(error);
+
+      window.location.href =
+        "login.html";
+
+      return false;
+    }
+
+
+    if (!session || !session.user) {
+
+      window.location.href =
+        "login.html?redirect=admin-affiliate.html";
+
+      return false;
+    }
+
+
+    const userEmail =
+      (session.user.email || "")
+        .trim()
+        .toLowerCase();
+
+
+    if (
+      userEmail !==
+      ADMIN_EMAIL.toLowerCase()
+    ) {
+
+      loading.style.display =
+        "none";
+
+      denied.style.display =
+        "block";
+
+      return false;
+    }
+
+
+    loading.style.display =
+      "none";
+
+    adminContent.style.display =
+      "block";
+
+    return true;
+  }
+
+
+  /* =========================
+     LOAD PRODUCTS
+     ========================= */
+
+  async function loadProducts() {
+
+    productsContainer.innerHTML =
+      "<p>Loading...</p>";
+
+
+    const {
+      data,
+      error
+    } = await supabase
+      .from("affiliate_products")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      productsContainer.innerHTML =
+        "<p>Unable to load products.</p>";
+
+      return;
+    }
+
+
+    renderProducts(data || []);
+  }
+
+
+  /* =========================
+     DISPLAY PRODUCTS
+     ========================= */
+
+  function renderProducts(products) {
+
+    productsContainer.innerHTML = "";
+
+
+    if (products.length === 0) {
+
+      productsContainer.innerHTML = `
+        <div class="empty">
+          <h3>No affiliate products yet</h3>
+
+          <p>
+            Add your first affiliate product above.
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    products.forEach(product => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "card";
+
+
+      const image =
+        product.image_url || "";
+
+
+      const price =
+        product.price !== null &&
+        product.price !== undefined
+          ? `${Number(product.price).toFixed(2)} SEK`
+          : "";
+
+
+      card.innerHTML = `
+
+        <div class="card-image">
+
+          ${
+            image
+              ? `
+                <img
+                  src="${escapeHTML(image)}"
+                  alt="${escapeHTML(product.name || "")}"
+                >
+              `
+              : `
+                <span>No image</span>
+              `
+          }
+
+        </div>
+
+
+        <div class="card-content">
+
+          <div class="category">
+            ${escapeHTML(product.category || "Deal")}
+          </div>
+
+          <h3>
+            ${escapeHTML(product.name || "")}
+          </h3>
+
+
+          ${
+            price
+              ? `
+                <div class="price">
+                  ${price}
+                </div>
+              `
+              : ""
+          }
+
+
+          <div class="description">
+            ${escapeHTML(product.description || "")}
+          </div>
+
+
+          <div class="card-buttons">
+
+            <button
+              class="edit"
+              data-id="${product.id}"
+            >
+              Edit
+            </button>
+
+
+            <button
+              class="delete"
+              data-id="${product.id}"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+
+      productsContainer.appendChild(card);
+    });
+
+
+    document
+      .querySelectorAll(".edit")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => editProduct(
+            button.dataset.id
+          )
+        );
+
+      });
+
+
+    document
+      .querySelectorAll(".delete")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => deleteProduct(
+            button.dataset.id
+          )
+        );
+
+      });
+  }
+
+
+  /* =========================
+     EDIT PRODUCT
+     ========================= */
+
+  async function editProduct(id) {
+
+    const {
+      data,
+      error
+    } = await supabase
+      .from("affiliate_products")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+
+    if (error) {
+
+      console.error(error);
+
+      showMessage(
+        "Unable to load product.",
+        true
+      );
+
+      return;
+    }
+
+
+    editingId = id;
+
+
+    nameInput.value =
+      data.name || "";
+
+    categoryInput.value =
+      data.category || "";
+
+    priceInput.value =
+      data.price ?? "";
+
+    imageInput.value =
+      data.image_url || "";
+
+    affiliateUrlInput.value =
+      data.affiliate_url || "";
+
+    descriptionInput.value =
+      data.description || "";
+
+
+    formTitle.textContent =
+      "Edit Affiliate Product";
+
+    saveButton.textContent =
+      "Update Product";
+
+    cancelButton.style.display =
+      "inline-block";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  /* =========================
+     DELETE PRODUCT
+     ========================= */
+
+  async function deleteProduct(id) {
+
+    const confirmed =
+      confirm(
+        "Are you sure you want to delete this affiliate product?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    const {
+      error
+    } = await supabase
+      .from("affiliate_products")
+      .delete()
+      .eq("id", id);
+
+
+    if (error) {
+
+      console.error(error);
+
+      showMessage(
+        "Unable to delete product.",
+        true
+      );
+
+      return;
+    }
+
+
+    showMessage(
+      "Product deleted successfully."
+    );
+
+
+    await loadProducts();
+  }
+
+
+  /* =========================
+     ADD / UPDATE PRODUCT
+     ========================= */
+
+  form.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const product = {
+
+        name:
+          nameInput.value.trim(),
+
+        category:
+          categoryInput.value.trim(),
+
+        price:
+          priceInput.value
+            ? Number(priceInput.value)
+            : null,
+
+        image_url:
+          imageInput.value.trim(),
+
+        affiliate_url:
+          affiliateUrlInput.value.trim(),
+
+        description:
+          descriptionInput.value.trim()
+      };
+
+
+      saveButton.disabled =
+        true;
+
+
+      if (editingId) {
+
+        const {
+          error
+        } = await supabase
+          .from("affiliate_products")
+          .update(product)
+          .eq("id", editingId);
+
+
+        if (error) {
+
+          console.error(error);
+
+          showMessage(
+            "Unable to update product.",
+            true
+          );
+
+        } else {
+
+          showMessage(
+            "Product updated successfully."
+          );
+
+          resetForm();
+
+          await loadProducts();
+        }
+
+      } else {
+
+        const {
+          error
+        } = await supabase
+          .from("affiliate_products")
+          .insert([product]);
+
+
+        if (error) {
+
+          console.error(error);
+
+          showMessage(
+            "Unable to add product.",
+            true
+          );
+
+        } else {
+
+          showMessage(
+            "Product added successfully."
+          );
+
+          resetForm();
+
+          await loadProducts();
+        }
+      }
+
+
+      saveButton.disabled =
+        false;
+    }
+  );
+
+
+  /* =========================
+     CANCEL EDIT
+     ========================= */
+
+  cancelButton.addEventListener(
+    "click",
+    resetForm
+  );
+
+
+  function resetForm() {
+
+    editingId = null;
+
+    form.reset();
+
+    formTitle.textContent =
+      "Add Affiliate Product";
+
+    saveButton.textContent =
+      "Add Product";
+
+    cancelButton.style.display =
+      "none";
+  }
+
+
+  /* =========================
+     MESSAGE
+     ========================= */
+
+  function showMessage(
+    text,
+    error = false
+  ) {
+
+    message.textContent =
+      text;
+
+    message.style.color =
+      error
+        ? "#c00"
+        : "#16803c";
+
+
+    setTimeout(() => {
+
+      message.textContent =
+        "";
+
+    }, 4000);
+  }
+
+
+  /* =========================
+     SECURITY ESCAPE
+     ========================= */
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /* =========================
+     START
+     ========================= */
+
+  const isAdmin =
+    await checkAdmin();
+
+
+  if (isAdmin) {
+    await loadProducts();
+  }
+
+</script>
+
+</body>
+</html>
+```
