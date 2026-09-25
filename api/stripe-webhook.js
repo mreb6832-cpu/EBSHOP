@@ -1,303 +1,319 @@
 import Stripe from "stripe";
+import { createClient } from "@supabase/supabase-js";
 
-export const config = {
-  api: {
-    bodyParser: false
-  }
-};
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-function getRawBody(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-    req.on("data", (chunk) => {
-      chunks.push(
-        Buffer.isBuffer(chunk)
-          ? chunk
-          : Buffer.from(chunk)
-      );
-    });
-
-    req.on("end", () => {
-      resolve(Buffer.concat(chunks));
-    });
-
-    req.on("error", reject);
-  });
-}
-
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
-  }
-
+export async function POST(request) {
   try {
-    const stripeSecret =
-      process.env.STRIPE_SECRET_KEY;
-
-    const webhookSecret =
-      process.env.STRIPE_WEBHOOK_SECRET;
-
-    const supabaseUrl =
-      process.env.SUPABASE_URL;
-
-    const supabaseServiceKey =
-      process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-    if (!stripeSecret) {
-      return res.status(500).json({
-        error: "STRIPE_SECRET_KEY is not configured"
-      });
+    // Check environment variables
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return Response.json(
+        { error: "STRIPE_SECRET_KEY is not configured" },
+        { status: 500 }
+      );
     }
 
-    if (!webhookSecret) {
-      return res.status(500).json({
-        error:
-          "STRIPE_WEBHOOK_SECRET is not configured"
-      });
+    if (!process.env.STRIPE_WEBHOOK_SECRET) {
+      return Response.json(
+        { error: "STRIPE_WEBHOOK_SECRET is not configured" },
+        { status: 500 }
+      );
     }
 
-    if (!supabaseUrl) {
-      return res.status(500).json({
-        error: "SUPABASE_URL is not configured"
-      });
+    if (!process.env.SUPABASE_URL) {
+      return Response.json(
+        { error: "SUPABASE_URL is not configured" },
+        { status: 500 }
+      );
     }
 
-    if (!supabaseServiceKey) {
-      return res.status(500).json({
-        error:
-          "SUPABASE_SERVICE_ROLE_KEY is not configured"
-      });
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      return Response.json(
+        { error: "SUPABASE_SERVICE_ROLE_KEY is not configured" },
+        { status: 500 }
+      );
     }
 
-    const stripe =
-      new Stripe(stripeSecret);
+    // Stripe requires the ORIGINAL raw request body
+    const rawBody = await request.text();
 
-    const rawBody =
-      await getRawBody(req);
-
-    const signature =
-      req.headers["stripe-signature"];
+    const signature = request.headers.get("stripe-signature");
 
     if (!signature) {
-      return res.status(400).json({
-        error: "Missing Stripe signature"
-      });
+      return Response.json(
+        { error: "Missing Stripe signature" },
+        { status: 400 }
+      );
     }
 
+    // Verify Stripe webhook
     let event;
 
     try {
       event = stripe.webhooks.constructEvent(
         rawBody,
         signature,
-        webhookSecret
+        process.env.STRIPE_WEBHOOK_SECRET
       );
     } catch (error) {
-      console.error(
-        "Stripe webhook signature error:",
-        error.message
-      );
+      console.error("Stripe signature verification failed:", error);
 
-      return res.status(400).json({
-        error: "Invalid Stripe webhook signature"
+      return Response.json(
+        { error: "Invalid Stripe webhook signature" },
+        { status: 400 }
+      );
+    }
+
+    console.log("Stripe event received:", event.type);
+
+    // We only need this event for creating orders
+    if (event.type !== "checkout.session.completed") {
+      return Response.json({
+        received: true,
+        ignored: true,
+        event_type: event.type
       });
     }
 
-    /*
-      We only create the order after
-      Stripe confirms the checkout payment.
-    */
-    if (
-      event.type ===
-      "checkout.session.completed"
-    ) {
-      const session = event.data.object;
+    const session = event.data.object;
 
-      /*
-        Prevent duplicate orders.
-      */
-      const existingResponse =
-        await fetch(
-          `${supabaseUrl}/rest/v1/orders?stripe_session_id=eq.${encodeURIComponent(session.id)}&select=id`,
-          {
-            method: "GET",
-            headers: {
-              apikey: supabaseServiceKey,
-              Authorization:
-                `Bearer ${supabaseServiceKey}`
-            }
-          }
-        );
+    // Prevent duplicate orders
+    const { data: existingOrder, error: existingOrderError } =
+      await supabase
+        .from("orders")
+        .select("id")
+        .eq("stripe_session_id", session.id)
+        .maybeSingle();
 
-      if (!existingResponse.ok) {
-        const errorText =
-          await existingResponse.text();
+    if (existingOrderError) {
+      console.error("Duplicate-check error:", existingOrderError);
 
-        console.error(
-          "Supabase lookup error:",
-          errorText
-        );
-
-        return res.status(500).json({
-          error: "Could not check existing order"
-        });
-      }
-
-      const existingOrders =
-        await existingResponse.json();
-
-      if (
-        Array.isArray(existingOrders) &&
-        existingOrders.length > 0
-      ) {
-        return res.status(200).json({
-          received: true,
-          message: "Order already exists"
-        });
-      }
-
-      /*
-        Get products purchased from Stripe.
-      */
-      const lineItems =
-        await stripe.checkout.sessions.listLineItems(
-          session.id,
-          {
-            limit: 100
-          }
-        );
-
-      const items =
-        lineItems.data.map((item) => ({
-          name:
-            item.description ||
-            "E&B SHOP Product",
-
-          quantity:
-            item.quantity || 1,
-
-          price:
-            item.price &&
-            typeof item.price.unit_amount === "number"
-              ? item.price.unit_amount / 100
-              : 0
-        }));
-
-      const customerEmail =
-        session.customer_details?.email ||
-        session.customer_email ||
-        "";
-
-      const customerPhone =
-        session.customer_details?.phone ||
-        session.metadata?.customerPhone ||
-        "";
-
-      const paymentMethod =
-        session.metadata?.paymentMethod ||
-        "card";
-
-      const amount =
-        typeof session.amount_total === "number"
-          ? session.amount_total / 100
-          : 0;
-
-      const paymentStatus =
-        session.payment_status ||
-        "pending";
-
-      const order = {
-        stripe_session_id:
-          session.id,
-
-        customer_email:
-          customerEmail,
-
-        customer_phone:
-          customerPhone,
-
-        amount,
-
-        currency:
-          String(
-            session.currency || "sek"
-          ).toUpperCase(),
-
-        payment_method:
-          paymentMethod,
-
-        payment_status:
-          paymentStatus,
-
-        items
-      };
-
-      /*
-        Insert order into Supabase.
-      */
-      const insertResponse =
-        await fetch(
-          `${supabaseUrl}/rest/v1/orders`,
-          {
-            method: "POST",
-
-            headers: {
-              apikey:
-                supabaseServiceKey,
-
-              Authorization:
-                `Bearer ${supabaseServiceKey}`,
-
-              "Content-Type":
-                "application/json",
-
-              Prefer:
-                "return=minimal"
-            },
-
-            body:
-              JSON.stringify(order)
-          }
-        );
-
-      if (!insertResponse.ok) {
-        const errorText =
-          await insertResponse.text();
-
-        console.error(
-          "Supabase order insert error:",
-          errorText
-        );
-
-        return res.status(500).json({
-          error:
-            "Could not save order"
-        });
-      }
-
-      console.log(
-        "E&B SHOP order created:",
-        session.id
+      return Response.json(
+        { error: existingOrderError.message },
+        { status: 500 }
       );
     }
 
-    return res.status(200).json({
-      received: true
+    if (existingOrder) {
+      console.log("Order already exists:", existingOrder.id);
+
+      return Response.json({
+        received: true,
+        already_exists: true,
+        order_id: existingOrder.id
+      });
+    }
+
+    // Customer information
+    const customerDetails = session.customer_details || {};
+    const address = customerDetails.address || {};
+
+    const customerEmail =
+      session.customer_email ||
+      customerDetails.email ||
+      null;
+
+    const customerPhone =
+      session.metadata?.customerPhone ||
+      customerDetails.phone ||
+      null;
+
+    const totalAmount =
+      Number(session.amount_total || 0) / 100;
+
+    const currency =
+      String(session.currency || "sek").toUpperCase();
+
+    // Create order
+    const orderInsert = {
+      user_id: null,
+
+      customer_name:
+        customerDetails.name || null,
+
+      customer_email: customerEmail,
+
+      customer_phone: customerPhone,
+
+      shipping_address:
+        address.line1 || null,
+
+      shipping_city:
+        address.city || null,
+
+      shipping_postal_code:
+        address.postal_code || null,
+
+      shipping_country:
+        address.country || null,
+
+      total_amount:
+        totalAmount,
+
+      currency:
+        currency,
+
+      payment_status:
+        "paid",
+
+      fulfillment_status:
+        "pending",
+
+      stripe_session_id:
+        session.id,
+
+      stripe_payment_intent_id:
+        typeof session.payment_intent === "string"
+          ? session.payment_intent
+          : null,
+
+      dsers_status:
+        "pending"
+    };
+
+    const {
+      data: order,
+      error: orderError
+    } = await supabase
+      .from("orders")
+      .insert(orderInsert)
+      .select("id")
+      .single();
+
+    if (orderError) {
+      console.error("Order insert error:", orderError);
+
+      return Response.json(
+        { error: orderError.message },
+        { status: 500 }
+      );
+    }
+
+    console.log("Order created:", order.id);
+
+    // Get Stripe line items
+    const lineItems =
+      await stripe.checkout.sessions.listLineItems(
+        session.id,
+        {
+          limit: 100,
+          expand: ["data.price.product"]
+        }
+      );
+
+    const orderItems = [];
+
+    for (const lineItem of lineItems.data) {
+      const price = lineItem.price;
+
+      const product =
+        price?.product;
+
+      let productId = null;
+
+      let productName =
+        lineItem.description || "Product";
+
+      // Product metadata contains our Supabase product ID
+      if (
+        product &&
+        typeof product !== "string"
+      ) {
+        productId =
+          product.metadata?.product_id || null;
+
+        if (product.name) {
+          productName =
+            product.name;
+        }
+      }
+
+      const quantity =
+        Number(lineItem.quantity || 1);
+
+      const unitPrice =
+        Number(price?.unit_amount || 0) / 100;
+
+      orderItems.push({
+        order_id:
+          order.id,
+
+        product_id:
+          productId,
+
+        product_name:
+          productName,
+
+        sku:
+          null,
+
+        supplier_product_id:
+          null,
+
+        quantity:
+          quantity,
+
+        unit_price:
+          unitPrice
+      });
+    }
+
+    // Save order items
+    if (orderItems.length > 0) {
+      const {
+        error: itemsError
+      } = await supabase
+        .from("order_items")
+        .insert(orderItems);
+
+      if (itemsError) {
+        console.error(
+          "Order items insert error:",
+          itemsError
+        );
+
+        return Response.json(
+          {
+            error:
+              itemsError.message,
+            order_id:
+              order.id
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    console.log(
+      "Order items saved:",
+      orderItems.length
+    );
+
+    return Response.json({
+      received: true,
+      success: true,
+      order_id: order.id,
+      items: orderItems.length
     });
 
   } catch (error) {
     console.error(
-      "Stripe Webhook Error:",
+      "Stripe webhook error:",
       error
     );
 
-    return res.status(500).json({
-      error:
-        error?.message ||
-        "Webhook processing failed"
-    });
+    return Response.json(
+      {
+        error:
+          error?.message ||
+          "Webhook processing failed"
+      },
+      { status: 500 }
+    );
   }
 }
