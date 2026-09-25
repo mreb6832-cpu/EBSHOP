@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1181,6 +1180,7 @@
 
   /* =========================
      STRIPE LINE ITEMS
+     STEP 2A
   ========================= */
 
   function createStripeLineItems(cart) {
@@ -1202,6 +1202,7 @@
         Number(item.quantity);
 
       if (
+        !item.id ||
         !item.name ||
         !Number.isFinite(price) ||
         price < 0 ||
@@ -1224,7 +1225,19 @@
           product_data: {
 
             name:
-              String(item.name)
+              String(item.name),
+
+            /*
+             * Product ID from Supabase.
+             * This will help us connect
+             * the order to DSers later.
+             */
+            metadata: {
+
+              product_id:
+                String(item.id)
+
+            }
 
           },
 
@@ -1304,7 +1317,6 @@
          * Convert cart products
          * into Stripe line items.
          */
-
         const lineItems =
           createStripeLineItems(
             checkoutCart
@@ -1360,7 +1372,6 @@
          * Read as text first so
          * server errors are visible.
          */
-
         const responseText =
           await response.text();
 
@@ -1407,7 +1418,6 @@
         /*
          * Redirect to Stripe.
          */
-
         window.location.href =
           result.url;
 
@@ -1467,4 +1477,3 @@
 
 </body>
 </html>
-```
